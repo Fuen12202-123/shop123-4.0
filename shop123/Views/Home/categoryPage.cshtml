@@ -1,0 +1,56 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<shop123.Models.spu>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<style>
+    .pagination {       
+        justify-content:center;
+    }
+
+</style>
+
+@{
+    ViewBag.Title = "商品頁";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+
+<div class="row d-flex">
+    <div class=" col-4 col-sm-4 col-md-2 ">
+        <ul>
+            @Html.Action("_categoryB", "Home")
+        </ul>
+    </div>
+    <div class="row cos-8  col-sm-8 col-md-10 d-flex ">
+        @{
+            foreach (var item in Model)
+            {
+
+                <div class="card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3" style="border:0px">
+                    <div class="card pb-3">
+                        <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"> <img src="@item.spuImg1" class="card-img-top" alt="..."></a>
+                        <div class="pl-3">
+                            <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"><p class="card-title">@item.spuName</p></a>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between" style="height: 45px; background-color: white;border-top:0px">
+                            <p class="card-text">@item.spuPrice</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between" style="height:45px;background-color:white;border-top:0px">
+                            <button class="btn shadow-none" style="outline:0;"><i class="far fa-heart"></i></button>
+                            <button class="btn shadow-none" style="outline:0;"><i class="fas fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+
+    </div>
+
+</div>
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("categoryPage", new { page, catalogAId = ViewBag.catalogAId, catalogBId = ViewBag.catalogBId }))
+</div>

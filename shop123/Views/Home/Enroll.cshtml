@@ -1,0 +1,181 @@
+﻿@model shop123.Models.member
+
+@{
+    ViewBag.Title = "Enroll";
+}
+
+<h2>Enroll</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="/path/to/bootstrap-show-password.js"></script>
+    <section class="">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-12 col-xl-11">
+                    <div class="card text-black" style="border-radius: 25px; background-color: #EDEDE9;">
+                        <div class="card-body p-md-5">
+                            <div class="row justify-content-center">
+                                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">註冊</p>
+
+                                    <form class="mx-1 mx-md-4">
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <!-- <i class="fas fa-user fa-lg me-3 fa-fw"></i> -->
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="name">姓名</label>
+                                                @*<input type="text" id="name" class="form-control" name="memerName" required />*@
+                                                @Html.EditorFor(model => model.memberName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.memberName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <!-- <i class="fas fa-user fa-lg me-3 fa-fw"></i> -->
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="phone">電話</label>
+                                                @*<input type="text" id="phone" class="form-control" name="memberPhone" required />*@
+                                                @Html.EditorFor(model => model.memberPhone, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.memberPhone, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="Email">Email</label>
+                                                @*<input type="email" id="Email" class="form-control" name="memberEmail" required />*@
+                                                @Html.EditorFor(model => model.memberEmail, new { htmlAttributes = new { @class = "form-control", type = "email" } })
+                                                @Html.ValidationMessageFor(model => model.memberEmail, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="account">帳號</label>
+                                                @*<input type="account" id="account" class="form-control" name="memberAccount" required />*@
+                                                @Html.EditorFor(model => model.memberAccount, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.memberAccount, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <!-- <i class="fas fa-lock fa-lg me-3 fa-fw"></i> -->
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="pwd">密碼</label><span id="lablepwd"></span>
+                                                <div class="input-group">
+                                                    @*<input type="password" id="pwd" class="form-control" name="memberPassword" />*@
+                                                    @Html.EditorFor(model => model.memberPassword, new { htmlAttributes = new { @class = "form-control", @id = "pwd", type = "password", @placeholder = "請輸入9~12個英數字" } })
+                                                    @Html.ValidationMessageFor(model => model.memberPassword, "", new { @class = "text-danger" })
+                                                    <div class="divEye input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-eye" id="eye"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <!-- <i class="fas fa-key fa-lg me-3 fa-fw"></i> -->
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label test02" for="chkpwd">請再次確認密碼</label>
+                                                <input type="password" id="chkpwd" class="form-control " />
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <!-- <i class="fas fa-key fa-lg me-3 fa-fw"></i> -->
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="chkid">請選擇登入身分:</label>
+                                                <div class="me-2">
+                                                    @*<input type="radio" id="sell" value="0" name="memberAccess" checked>我是賣家
+                                                        <input type="radio" id="customer" value="1" name="memberAccess">我是買家*@
+                                                    @Html.RadioButton("memberAccess", 0, true) 我是賣家
+                                                    @Html.RadioButton("memberAccess", 1) 我是買家
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check d-flex justify-content-center mb-5">
+                                            <div>
+                                                <input class="form-check-input me-2" type="checkbox" id="chk" required />
+                                            </div>
+                                            <label class="form-check-label agreeRule" for="rule">
+                                                I agree all statements in <a href="#!">Terms of service</a>
+                                            </label>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                            <button type="submit" id="btn" class="btn btn-primary btn-lg">註冊</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+    <script>
+    const btn = $('#btn');
+    var suc = @Html.Raw(Json.Encode(ViewBag.suc));
+    btn.on('click', function () {
+        alert(suc);
+    })
+    const eye = $("#eye");
+    const pwd = $("#pwd");
+    eye.click(function () {
+
+        if (pwd.attr('type') === "password") {
+            pwd.attr('type', 'text');
+            eye.removeClass('fas fa-eye');
+            eye.addClass('fas fa-eye-slash')
+        }
+        else {
+            pwd.attr('type', 'password');
+            eye.removeClass('fas fa-eye-slash');
+            eye.addClass('fas fa-eye')
+        }
+    });
+    $('#chkpwd').on('blur', function () {
+        var pass = $("#pwd").val();
+        var chkpwd = $('#chkpwd').val();
+
+        if (pass != chkpwd) {
+            document.getElementById('chkpwd').value = "";
+            document.getElementById('lablepwd').innerHTML = "<font color='red'> 密碼不一致</font>";
+        }
+        else {
+            document.getElementById('lablepwd').innerHTML = "";
+        }
+    });
+
+    </script>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

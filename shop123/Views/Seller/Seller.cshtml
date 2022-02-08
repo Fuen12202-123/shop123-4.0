@@ -1,0 +1,120 @@
+﻿@model IEnumerable<shop123.Models.orders>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>賣家中心</title>
+    <link href="~/Content/seller.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="header-nav">
+            <div class="nav-left">
+                <a href="#"><img src="~/Images/logo.png" width="180" height="100" alt=""></a>
+                <h2>賣家中心</h2>
+            </div>
+            <div class="nav-right">
+                <span>xxx 您好，</span><a href="#">登出</a>
+            </div>
+        </div>
+        <div class="main row">
+            <div class="list col-lg-2 col-md-3 col-sm-4 col-12">
+                <button class="order-manage">訂單管理</button>
+                <button class="product-manage">商品管理</button>
+            </div>
+            <div class="content col-lg-10 col-md-9 col-sm-8 col-12" id="tabs">
+                <div class="a-ul">
+                    <ul class="show-list">
+                        <li><a href="#" class="all">全部</a></li>
+                        <li><a href="#" class="notpay">未付款</a></li>
+                        <li><a href="#" class="back">已完成</a></li>
+                        <li><a href="#" class="go">退款/退貨</a></li>
+                    </ul>
+                    <ul class="show-product">
+                        <li><a href="#">所有商品存貨</a></li>
+                        <li><a href="#">已售完商品</a></li>
+                    </ul>
+                    <table class="table allList">
+                        <tr>
+                            <td>訂單編號</td>
+                            <td>會員編號</td>
+                            <td>送貨編號</td>
+                            <td>訂單狀態</td>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.memberId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.deliveryId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.orderState)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                    <table class="table no-pay">
+                        <tr>
+                            <td>訂單編號</td>
+                            <td>會員編號</td>
+                            <td>送貨編號</td>
+                            <td>訂單狀態</td>
+                            <td>測試</td>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            if (Convert.ToBoolean(item.orderState) == false)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.memberId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.deliveryId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderState)
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/seller.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+</body>
+</html>

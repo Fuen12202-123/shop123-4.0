@@ -1,0 +1,130 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #EDEDE9;
+    /* width: 1200px; */
+    height: 800px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.header-nav {
+    background-color: #D5BDAF;
+    height: 100px;
+    display: flex;
+    position: relative;
+}
+
+.nav-left {
+    display: flex;
+}
+
+.nav-right {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+
+.nav-right > a:hover {
+    text-decoration: none;
+}
+
+h2 {
+    margin: auto 0;
+    padding-top: 15px;
+    padding-left: 10px;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.list {
+    /* width: 300px; */
+    height: 730px;
+    border-right: 1px #E3D5CA solid;
+    padding-top: 35px;
+}
+
+.order-manage, .product-manage {
+    display: block;
+    width: 100px;
+    height: 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #D6CCC2;
+    margin: 0 auto;
+}
+
+    .order-manage:hover, .product-manage:hover {
+        background-color: #F5EBE0;
+    }
+
+.product-manage {
+    margin-top: 35px;
+}
+
+.main {
+    display: flex;
+}
+
+.show-list {
+    display: flex;
+    margin: 20px 0 auto;
+    display: none;
+}
+
+.show-product {
+    display: flex;
+    margin: 20px 0 auto;
+    display: none;
+}
+
+li {
+    list-style: none;
+    padding: 0 10px;
+}
+
+li:not(:first-child) {
+    border-left: 1px solid #ccc;
+}
+
+li > a {
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #D5BDAF;
+    background-color: #EDEDE9;
+    display: inline-block;
+    padding-top: 10px;
+    height: 40px;
+    border-bottom: 2px solid transparent;
+}
+
+li > a:hover {
+    text-decoration: none;
+    color: black;
+    background-color: #D6CCC2;
+    border-radius: 5px;
+}
+
+li > a:visited {
+    border-bottom: 2px solid #D5BDAF;
+}
+
+.allList{
+    display: none;
+}
+
+.no-pay{
+    display: none;
+}
+
+.table {
+    box-shadow: 3px 3px 3px white;
+}

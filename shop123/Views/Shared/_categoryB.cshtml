@@ -1,0 +1,8 @@
+﻿@model IEnumerable<shop123.Models.catalogB>
+
+@{
+    foreach (var item in Model)
+    {
+        <li class="list-unstyled mb-2"><a class="text-dark text-decoration-none" href="@Html.Raw(@Url.Action("categoryPage", "Home", new {catalogAId=@item.catalogAId,catalogBId=@item.id,page=1}))">@item.catalogBName</a></li>
+    }
+}

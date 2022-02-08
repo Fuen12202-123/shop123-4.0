@@ -1,0 +1,265 @@
+﻿@model shop123.ViewModel.CDetailViewModel
+@{
+    ViewBag.Title = "Detail";
+}
+
+<link href="~/Content/Style.css" rel="stylesheet" />
+
+
+<body>
+    <div class="container_48" id="wrap">
+        <div id="content" class="container_48">
+            <div id="exhibit" class="container_48">
+                @*<div id="sidenav" class="grid_9 alpha">
+                        <ul class="sale">
+                            <li>
+                                <h3>上衣類</h3>
+                                <ul class="sale_category">
+                                    <li><a href="">聯名印花長T</a></li>
+                                    <li><a href="">聯名印花短T</a></li>
+                                    <li><a href="">厚棉系列</a></li>
+                                    <li><a href="">Fleece系列</a></li>
+                                    <li><a href="">長袖上衣</a></li>
+                                    <li><a href="">條紋系列</a></li>
+                                    <li><a href="">polo系列</a></li>
+                                    <li><a href="">立領/高領</a></li>
+                                    <li><a href="">針織衫/毛衣</a></li>
+                                    <li><a href="">厚磅系列</a></li>
+                                    <li><a href="">短袖上衣</a></li>
+                                    <li><a href="">快乾系列</a></li>
+                                    <li><a href="">輕涼系列</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h3>襯衫類</h3>
+                                <ul class="sale_category">
+                                    <li><a href="">商務襯衫</a></li>
+                                    <li><a href="">法蘭絨襯衫</a></li>
+                                    <li><a href="">休閒襯衫</a></li>
+                                    <li><a href="">Fleece系列</a></li>
+                                    <li><a href="">牛津襯衫</a></li>
+                                    <li><a href="">格紋襯衫</a></li>
+                                    <li><a href="">棉麻襯衫</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h3>下身類</h3>
+                                <ul class="sale_category">
+                                    <li><a href="">保暖褲</a></li>
+                                    <li><a href="">卡其/休閒長褲</a></li>
+                                    <li><a href="">牛仔褲</a></li>
+                                    <li><a href="">短/七分褲</a></li>
+                                    <li><a href="">九分/束口褲</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>*@
+                <div class="grid_38 alpha omega">
+                    <div class="product_info grid_39">
+                        <div class="product_image">
+                            <img id="productImg" style="max-width: 300px; cursor: pointer;"
+                                 onload="$.product.ChangeImgPadding();" src="@Model.Spu.spuImg1" alt="@Model.Spu.spuName"
+                                 title="Model.Spu.spuName">
+                        </div>
+                        <div class="clearfloat">
+                            <div class="product_title">
+                                <div id="product_name_area">
+                                    <span class="title1">
+                                        <span id="name">@Model.Spu.spuName</span>
+                                        <span id="icolor" color="02"></span>
+                                        <span id="isize"></span>
+                                    </span>
+                                    <br>
+                                </div>
+                                <div id="product_price_area" style="display:block">
+                                    <span id="currencyIdentifier">NT$</span>
+                                    <span id="spuPrice" class="price">@Model.Spu.spuPrice</span>
+                                </div>
+                            </div>
+                            <div class="color">
+                                <div class="clear"></div>
+                                @foreach (var item in Model.Sku)
+                                {
+                                    <a onclick="ChangeImage(this);return false;" return false;" href="">
+                                        <img src="@item.skuImg" alt="@item.skuColor" title="復古黃"
+                                             onmouseover="$.product.GetProductImg('0', '01')"
+                                             onmouseout="$('div.color img[select=true]').trigger('mouseover');$.product.GetCurrentSize();"
+                                             style=" padding: 3px;">
+                                    </a>
+
+                                }
+
+                               
+                            </div>
+                            <div class="size">
+                                <span id="sizelist" class="picksize" cuurentsn>
+                                    <a id="" href="" class="" style="width:25px;" onclick="PickSize($(this));return false;">S</a>
+                                    <a id="" href="" class="" style="width:25px;" onclick="PickSize($(this));return false;">M</a>
+                                    <a id="" href="" class="" style="width:25px;" onclick="PickSize($(this));return false;">L</a>
+                                </span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="addcart">
+                                <span>
+                                    <label class="v-middle">數量</label>
+                                    &nbsp;&nbsp;
+                                    <a class="minus" href="javascript:void(0)"></a>
+                                    <input id="buyCount" type="text" maxlength="2" value="1" />
+                                    <a class="plus" href="javascript:void(0)"></a>
+                                </span>
+                                <a id="addShopcar" href="#" onclick="return false;" class="btn_addcart">加入購物車</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <!-- product page -->
+                    <div class="page-product-content">
+                        <div class="page-product-content-left">
+                            <div class="page-product-content-block">
+                                <div class="block-title">
+                                    商品規格
+                                </div>
+                                <div class="block-content">
+                                    <div class="block-content-li dflex">
+                                        <label for="" class="block-label">分類</label>
+                                        <div>
+                                            分類說明
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="block-content">
+                                    <div class="block-content-li dflex">
+                                        <label for="" class="block-label">品牌</label>
+                                        <div>
+                                            Lativ
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="block-content">
+                                    <div class="block-content-li dflex">
+                                        <label for="" class="block-label">材質</label>
+                                        <div>
+                                            棉質
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="page-product-content-block">
+                                <div class="block-title">
+                                    商品詳情
+                                </div>
+                                <div class="prod-disc">
+                                    <span>
+                                        @Model.Spu.spuInfo
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="seller-info" style="height:150px;">
+                            <div class="seller-title-text" style="background-color: #D5BDAF;">
+                                <h3>賣家資訊</h3>
+                            </div>
+                            <div class="seller-disc" style="vertical-align:bottom">
+                                <img src="/images/seller.jpg" alt="賣家商標" width="80">
+                                <a href="">賣家帳號:132456</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of product page -->
+                    <!-- comments & seller info-->
+                    <div id="comment-list">
+                        <table>
+                            <tbody>
+                                <tr class="comment-item">
+                                    <td class="comment-left">
+                                        <a href="">
+                                            <img width="120" height="120" src="/images/5449401_500.jpg" alt="">
+                                        </a>
+                                    </td>
+                                    <td class="comment-right">
+                                        <div class="comment-main">
+                                            <p class="comment-header">訂單後四碼:1234</p>
+                                            @*<p class="comment-body">@Model.Comments[0].comment1</p>*@
+                                            <p class="comment-footer">羽絨外套-男&nbsp;&nbsp;復古黃-L</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="comment-item">
+                                    <td class="comment-left">
+                                        <a href="">
+                                            <img width="120" height="120" src="/images/5449402_500.jpg" alt="">
+                                        </a>
+                                    </td>
+                                    <td class="comment-right">
+                                        <div class="comment-main">
+                                            <p class="comment-header">訂單後四碼:5678</p>
+                                            <p class="comment-body"></p>
+                                            <p class="comment-footer">羽絨外套-男&nbsp;&nbsp;藍色-M</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- end of comments -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".minus").click(function () {
+            var t = $("#buyCount");
+            if (parseInt(t.val()) == 1) {
+                return false;
+            };
+            t.val(Math.abs(parseInt(t.val())) - 1);
+        });
+        $(".plus").click(function () {
+            var t = $("#buyCount");
+            if (parseInt(t.val()) == 99) {
+                return false;
+            };
+            t.val(Math.abs(parseInt(t.val())) + 1);
+        });
+
+        var cb_prop = $('.color a');
+        cb_prop.click(function () {
+            if ($(this).children("img").hasClass('selectedBorder')) {
+                $(this).children("img").removeClass('selectedBorder');
+            } else {
+                var lis = $(this).siblings().children();
+                if (lis.hasClass('selectedBorder')) {
+                    lis.removeClass('selectedBorder');
+                    $(this).children("img").addClass('selectedBorder');
+                } else {
+                    $(this).children("img").addClass('selectedBorder');
+                }
+            }
+        });
+
+        function PickSize(t) {
+            if (t.hasClass('selectedBorder')) {
+                t.removeClass('selectedBorder')
+            }
+            else {
+                if (t.siblings().hasClass('selectedBorder')) {
+                    t.siblings().removeClass('selectedBorder');
+                    t.addClass('selectedBorder');
+                }
+                else {
+                    t.addClass('selectedBorder');
+                }
+            }
+        }
+
+        function ChangeImage(t) {
+
+            let s = $(t).children("img").attr("src");
+            s = s.replace("_48.jpg", "_500.jpg");
+            $("#productImg").attr("src", s)
+        }
+    </script>
+</body>

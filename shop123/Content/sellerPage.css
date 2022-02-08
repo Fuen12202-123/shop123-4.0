@@ -1,0 +1,48 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #EDEDE9;
+    /* width: 1200px; */
+    height: 800px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.nav-info {
+    background-color: #D5BDAF;
+    height: 100px;
+    display: flex;
+    position: relative;
+}
+
+.nav-left {
+    display: flex;
+}
+
+.nav-right {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+
+    .nav-right > a:hover {
+        text-decoration: none;
+    }
+
+.nav-fight-sellerPage {
+    margin-bottom: 40px;
+}
+
+h2 {
+    margin: auto 0;
+    padding-top: 15px;
+    padding-left: 10px;
+    font-family: 'Noto Sans TC', sans-serif;
+}
