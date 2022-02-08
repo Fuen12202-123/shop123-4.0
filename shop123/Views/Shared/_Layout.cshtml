@@ -19,15 +19,26 @@
         <div class="row mt-5">
             <div class="col-12 col-sm-8">@Html.ActionLink(" ", "Index", "Home", null, new { style = "background: url('" + Url.Content("~/Images/logo.png") + "') no-repeat center right; display:block; height:122px; width:238px;" })</div>
             <div class="col-12 col-sm-4 d-flex justify-content-end align-items-end mb-5">
-                <input class="form-control shadow-none" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn shadow-none" style="outline:0;" type="submit"><i class="fas fa-search"></i></button>
+
+                @using (Html.BeginForm("Allspu", "Home", FormMethod.Get))
+                {
+                    @Html.TextBox("SearchString", "", new {id="Search" , required = "required", placeholder = "Search" ,@style="outline:0;" })                    
+                    <button style="border:0;background-color:transparent;outline:0" type="submit"><i class="fas fa-search"></i></button>
+                }
+
+
+
+
+
             </div>
         </div>
         <div>
-            <ul class="row list-unstyled justify-content-end mb-5 pr-5 mr-4">
+            <ul class="row list-unstyled justify-content-end mb-5 ">
                 @Html.ActionLink("登入", "sign", "Home", new { @class = "text-dark px-4 text-decoration-none " })
-                @Html.ActionLink("會員中心", "Member", "Home", new { @class = "text-dark px-4 text-decoration-none" })
-                @Html.ActionLink("購物車", "ShopCart", "Home", new { @class = "text-dark px-4 text-decoration-none" })
+                @*<li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Member", "Home")"><i class="fas fa-user"></i></a></li>*@
+                @Html.ActionLink("賣家中心", "Member", "Home", new { @class = "text-dark px-4 text-decoration-none" })
+                @*@Html.ActionLink("購物車", "ShopCart", "Home", new { @class = "text-dark px-4 text-decoration-none" })*@
+                <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShopCart", "Home")"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
         </div>
         <div class="row mb-4 mt-5" style="font-size:20px">

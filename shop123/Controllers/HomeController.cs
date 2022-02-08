@@ -19,10 +19,19 @@ namespace shop123.Controllers
 
         int pageSize = 12;
 
-        public ActionResult Allspu(int page = 1)
+        public ActionResult Allspu(string searchstring,int page = 1)
         {//所有產品分頁的頁面
-            int currentPage = page < 1 ? 1 : page;
-            var spu = db.spu.OrderByDescending(m => m.id).ToList();
+            var spu = db.spu.ToList();
+
+            if (!String.IsNullOrEmpty(searchstring))
+            {
+                spu = spu.Where(s =>s.spuName.Contains(searchstring)).ToList();
+            }
+            else
+            {
+                spu = db.spu.OrderByDescending(m => m.spuEditTime).ToList();
+            }
+            int currentPage = page < 1 ? 1 : page;            
             var result = spu.ToPagedList(currentPage, pageSize);
             return View(result);
         }
