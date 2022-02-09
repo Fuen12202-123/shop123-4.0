@@ -80,21 +80,11 @@ namespace shop123.Controllers
 
         public ActionResult Detail(int? id)
         {
+            CDetailViewModel detail = null;
             if (id.HasValue)
             {
-                shop123Entities db = new shop123Entities();
-                spu Spu = db.spu.FirstOrDefault(p => p.id == id);
-                var Sku = db.sku.Where(p => p.spuId == id).ToList();
-
-                CDetailViewModel CDetail = new CDetailViewModel();
-                CDetail.Sku = Sku;
-                CDetail.Spu = Spu;
-                CDetail.Comments = db.comment.ToList();
-                //CDetail.Comments.Add(cmt);
-
-
-
-                return View(CDetail);
+                detail = (new CDetailFactory()).queryById((int)id);
+                return View(detail);
             }
             return RedirectToAction("Index");
 

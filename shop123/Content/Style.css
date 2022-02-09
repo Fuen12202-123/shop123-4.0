@@ -259,14 +259,15 @@ a {
 }
 
 .addcart .btn_addcart {
-    background: url(/images/btn_addshoppingcart.gif) no-repeat 28% 50%;
+    background-color: #8B4513;
     width: 185px;
     line-height: 30px;
     text-align: center;
+    border-radius: 3px;
 }
 
 .page-product-content {
-    min-height: 40rem;
+    min-height: 30rem;
     display: flex;
 }
 
@@ -336,12 +337,13 @@ a {
 
 #comment-list .comment-item .comment-left {
     padding: 20px 60px 20px 0;
-    width: 230px;
+    width: 250px;
     text-align: right;
 }
 
 #comment-list .comment-item .comment-right {
     padding: 20px 110px 20px 0;
+    width: 550px;
 }
 
     #comment-list .comment-item .comment-right .comment-main, #comment-list .comment-item .comment-right .comment-response-main {
@@ -358,6 +360,12 @@ a {
 
 #comment-list {
     width: 800px;
-    background-color: #EDEDE9;
     float: left;
+}
+
+.comment-title {
+    background: rgba(0,0,0,.02);
+    color: rgba(0,0,0,.87);
+    font-size: 1.125rem;
+    padding: .875rem;
 }

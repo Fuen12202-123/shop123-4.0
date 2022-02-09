@@ -89,13 +89,13 @@
 
                                 }
 
-                               
+
                             </div>
                             <div class="size">
                                 <span id="sizelist" class="picksize" cuurentsn>
-                                    <a id="" href="" class="" style="width:25px;" onclick="PickSize($(this));return false;">S</a>
-                                    <a id="" href="" class="" style="width:25px;" onclick="PickSize($(this));return false;">M</a>
-                                    <a id="" href="" class="" style="width:25px;" onclick="PickSize($(this));return false;">L</a>
+                                    <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">S</a>
+                                    <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">M</a>
+                                    <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">L</a>
                                 </span>
                             </div>
                             <div class="clear"></div>
@@ -116,37 +116,37 @@
                     <!-- product page -->
                     <div class="page-product-content">
                         <div class="page-product-content-left">
-                            <div class="page-product-content-block">
-                                <div class="block-title">
-                                    商品規格
-                                </div>
-                                <div class="block-content">
-                                    <div class="block-content-li dflex">
-                                        <label for="" class="block-label">分類</label>
-                                        <div>
-                                            分類說明
-                                        </div>
+                            @*<div class="page-product-content-block">
+                                    <div class="block-title">
+                                        商品規格
                                     </div>
+                                    <div class="block-content">
+                                        <div class="block-content-li dflex">
+                                            <label for="" class="block-label">分類</label>
+                                            <div>
+                                                分類說明
+                                            </div>
+                                        </div>
 
-                                </div>
-                                <div class="block-content">
-                                    <div class="block-content-li dflex">
-                                        <label for="" class="block-label">品牌</label>
-                                        <div>
-                                            Lativ
-                                        </div>
                                     </div>
+                                    <div class="block-content">
+                                        <div class="block-content-li dflex">
+                                            <label for="" class="block-label">品牌</label>
+                                            <div>
+                                                Lativ
+                                            </div>
+                                        </div>
 
-                                </div>
-                                <div class="block-content">
-                                    <div class="block-content-li dflex">
-                                        <label for="" class="block-label">材質</label>
-                                        <div>
-                                            棉質
+                                    </div>
+                                    <div class="block-content">
+                                        <div class="block-content-li dflex">
+                                            <label for="" class="block-label">材質</label>
+                                            <div>
+                                                棉質
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </div>*@
                             <div class="page-product-content-block">
                                 <div class="block-title">
                                     商品詳情
@@ -162,50 +162,46 @@
                             <div class="seller-title-text" style="background-color: #D5BDAF;">
                                 <h3>賣家資訊</h3>
                             </div>
-                            <div class="seller-disc" style="vertical-align:bottom">
-                                <img src="/images/seller.jpg" alt="賣家商標" width="80">
-                                <a href="">賣家帳號:132456</a>
+                            <div class="seller-disc">
+                                <img src="@Model.Member.memberImg" alt="賣家商標" width="80">
+                                <a href="" style="vertical-align:bottom;">賣家帳號:@Model.Member.memberAccount</a>
                             </div>
                         </div>
                     </div>
                     <!-- end of product page -->
                     <!-- comments & seller info-->
                     <div id="comment-list">
+                        <div class="comment-title">
+                            商品評論
+                        </div>
                         <table>
                             <tbody>
-                                <tr class="comment-item">
-                                    <td class="comment-left">
-                                        <a href="">
-                                            <img width="120" height="120" src="/images/5449401_500.jpg" alt="">
-                                        </a>
-                                    </td>
-                                    <td class="comment-right">
-                                        <div class="comment-main">
-                                            <p class="comment-header">訂單後四碼:1234</p>
-                                            @*<p class="comment-body">@Model.Comments[0].comment1</p>*@
-                                            <p class="comment-footer">羽絨外套-男&nbsp;&nbsp;復古黃-L</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="comment-item">
-                                    <td class="comment-left">
-                                        <a href="">
-                                            <img width="120" height="120" src="/images/5449402_500.jpg" alt="">
-                                        </a>
-                                    </td>
-                                    <td class="comment-right">
-                                        <div class="comment-main">
-                                            <p class="comment-header">訂單後四碼:5678</p>
-                                            <p class="comment-body"></p>
-                                            <p class="comment-footer">羽絨外套-男&nbsp;&nbsp;藍色-M</p>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @foreach (var t in Model.Dcomment)
+                                {
+                                    <tr class="comment-item">
+                                        <td class="comment-left">
+                                            <a href="">
+                                                <img width="120" height="120" src="@t.CVM_skuImg" alt="">
+                                            </a>
+                                        </td>
+                                        <td class="comment-right">
+                                            <div class="comment-main">
+                                                <p class="comment-header">訂單編號:@t.CVM_orderdetailId</p>
+                                                <p class="comment-body">@t.CVM_comment</p>
+                                                <p class="comment-footer">@t.CVM_skuColor - @t.CVM_skuSize</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+
+
                             </tbody>
                         </table>
                     </div>
                     <!-- end of comments -->
                 </div>
+                <div class="clear"></div>
             </div>
         </div>
     </div>

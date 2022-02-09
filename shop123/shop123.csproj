@@ -178,6 +178,7 @@
     <Compile Include="Models\catalogB.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CDetailFactory.cs" />
     <Compile Include="Models\comment.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
