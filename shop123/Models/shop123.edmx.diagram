@@ -14,9 +14,9 @@
         <EntityTypeShape EntityType="shop123Model.sku" Width="1.5" PointX="2.625" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="shop123Model.spu" Width="1.5" PointX="6.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="shop123Model.favorite" Width="1.5" PointX="6.5" PointY="5.125" />
-        <EntityTypeShape EntityType="shop123Model.orders" Width="1.5" PointX="2.625" PointY="0.75" />
-        <EntityTypeShape EntityType="shop123Model.ordersDetail" Width="1.5" PointX="4.75" PointY="6" />
         <EntityTypeShape EntityType="shop123Model.member" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="shop123Model.ordersDetail" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="shop123Model.orders" Width="1.5" PointX="9.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

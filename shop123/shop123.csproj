@@ -120,6 +120,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\seller.css" />
     <Content Include="Content\sellerPage.css" />
+    <Content Include="Content\shopcartstyle.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Style.css" />
     <Content Include="Global.asax" />
@@ -267,6 +268,9 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Buyer\ShoppingCar.cshtml" />
+    <Content Include="Views\Buyer\OrderList.cshtml" />
+    <Content Include="Views\Buyer\OrderDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -276,7 +280,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Buyer\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

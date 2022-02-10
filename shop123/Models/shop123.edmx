@@ -77,29 +77,34 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="memberId" Type="int" Nullable="false" />
-          <Property Name="deliveryId" Type="int" Nullable="false" />
-          <Property Name="orderCreateTime" Type="datetime" Nullable="false" />
+          <Property Name="memberId" Type="int" />
+          <Property Name="deliveryId" Type="int" />
+          <Property Name="orderCreateTime" Type="datetime" />
           <Property Name="orderPaymentTime" Type="datetime" />
-          <Property Name="receiverName" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="receiverAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="receiverEmail" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="receiverPhone" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="receiverName" Type="nvarchar" MaxLength="255" />
+          <Property Name="receiverAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="receiverEmail" Type="nvarchar" MaxLength="255" />
+          <Property Name="receiverPhone" Type="nvarchar" MaxLength="255" />
           <Property Name="orderState" Type="nvarchar" MaxLength="255" />
-          <Property Name="totalPrice" Type="int" Nullable="false" />
+          <Property Name="totalPrice" Type="int" />
           <Property Name="refundId" Type="int" />
+          <Property Name="orderguid" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="ordersDetail">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="orderId" Type="int" />
-          <Property Name="skuId" Type="int" Nullable="false" />
-          <Property Name="orderDetailsize" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="orderDetailcolor" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="orderDetailnum" Type="int" Nullable="false" />
-          <Property Name="orderDetailprice" Type="int" Nullable="false" />
+          <Property Name="orderguid" Type="nvarchar" MaxLength="255" />
+          <Property Name="skuId" Type="int" />
+          <Property Name="spuImg1" Type="nvarchar(max)" />
+          <Property Name="orderDetailspuname" Type="nvarchar" MaxLength="255" />
+          <Property Name="orderDetailsize" Type="nvarchar" MaxLength="255" />
+          <Property Name="orderDetailcolor" Type="nvarchar" MaxLength="255" />
+          <Property Name="orderDetailprice" Type="int" />
+          <Property Name="orderDetailnum" Type="int" />
+          <Property Name="orderDetailtotalprice" Type="int" />
+          <Property Name="orderDetailIsApproved" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="refund">
           <Key>
@@ -253,9 +258,9 @@
           <EntitySet Name="sku" EntityType="Self.sku" />
           <EntitySet Name="spu" EntityType="Self.spu" />
           <EntitySet Name="favorite" EntityType="shop123Model.favorite" />
-          <EntitySet Name="orders" EntityType="shop123Model.orders" />
-          <EntitySet Name="ordersDetail" EntityType="shop123Model.ordersDetail" />
           <EntitySet Name="member" EntityType="shop123Model.member" />
+          <EntitySet Name="ordersDetail" EntityType="shop123Model.ordersDetail" />
+          <EntitySet Name="orders" EntityType="shop123Model.orders" />
         </EntityContainer>
         <EntityType Name="favorite">
           <Key>
@@ -264,35 +269,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="spuId" Type="Int32" Nullable="false" />
           <Property Name="memberId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="orders">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="memberId" Type="Int32" Nullable="false" />
-          <Property Name="deliveryId" Type="Int32" Nullable="false" />
-          <Property Name="orderCreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="orderPaymentTime" Type="DateTime" Precision="3" />
-          <Property Name="receiverName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="receiverAddress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="receiverEmail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="receiverPhone" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="orderState" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="totalPrice" Type="Int32" Nullable="false" />
-          <Property Name="refundId" Type="Int32" />
-        </EntityType>
-        <EntityType Name="ordersDetail">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="orderId" Type="Int32" />
-          <Property Name="skuId" Type="Int32" Nullable="false" />
-          <Property Name="orderDetailsize" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="orderDetailcolor" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="orderDetailnum" Type="Int32" Nullable="false" />
-          <Property Name="orderDetailprice" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="member">
           <Key>
@@ -308,6 +284,40 @@
           <Property Name="memberBanned" Type="Boolean" />
           <Property Name="memberAccess" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="memberCreateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ordersDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderguid" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="skuId" Type="Int32" />
+          <Property Name="spuImg1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="orderDetailspuname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="orderDetailsize" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="orderDetailcolor" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="orderDetailprice" Type="Int32" />
+          <Property Name="orderDetailnum" Type="Int32" />
+          <Property Name="orderDetailtotalprice" Type="Int32" />
+          <Property Name="orderDetailIsApproved" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="memberId" Type="Int32" />
+          <Property Name="deliveryId" Type="Int32" />
+          <Property Name="orderCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="orderPaymentTime" Type="DateTime" Precision="3" />
+          <Property Name="receiverName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="receiverAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="receiverEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="receiverPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="orderState" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="totalPrice" Type="Int32" />
+          <Property Name="refundId" Type="Int32" />
+          <Property Name="orderguid" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -416,37 +426,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="orders">
-            <EntityTypeMapping TypeName="shop123Model.orders">
-              <MappingFragment StoreEntitySet="orders">
-                <ScalarProperty Name="refundId" ColumnName="refundId" />
-                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
-                <ScalarProperty Name="orderState" ColumnName="orderState" />
-                <ScalarProperty Name="receiverPhone" ColumnName="receiverPhone" />
-                <ScalarProperty Name="receiverEmail" ColumnName="receiverEmail" />
-                <ScalarProperty Name="receiverAddress" ColumnName="receiverAddress" />
-                <ScalarProperty Name="receiverName" ColumnName="receiverName" />
-                <ScalarProperty Name="orderPaymentTime" ColumnName="orderPaymentTime" />
-                <ScalarProperty Name="orderCreateTime" ColumnName="orderCreateTime" />
-                <ScalarProperty Name="deliveryId" ColumnName="deliveryId" />
-                <ScalarProperty Name="memberId" ColumnName="memberId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ordersDetail">
-            <EntityTypeMapping TypeName="shop123Model.ordersDetail">
-              <MappingFragment StoreEntitySet="ordersDetail">
-                <ScalarProperty Name="orderDetailprice" ColumnName="orderDetailprice" />
-                <ScalarProperty Name="orderDetailnum" ColumnName="orderDetailnum" />
-                <ScalarProperty Name="orderDetailcolor" ColumnName="orderDetailcolor" />
-                <ScalarProperty Name="orderDetailsize" ColumnName="orderDetailsize" />
-                <ScalarProperty Name="skuId" ColumnName="skuId" />
-                <ScalarProperty Name="orderId" ColumnName="orderId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="member">
             <EntityTypeMapping TypeName="shop123Model.member">
               <MappingFragment StoreEntitySet="member">
@@ -459,6 +438,42 @@
                 <ScalarProperty Name="memberName" ColumnName="memberName" />
                 <ScalarProperty Name="memberPassword" ColumnName="memberPassword" />
                 <ScalarProperty Name="memberAccount" ColumnName="memberAccount" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ordersDetail">
+            <EntityTypeMapping TypeName="shop123Model.ordersDetail">
+              <MappingFragment StoreEntitySet="ordersDetail">
+                <ScalarProperty Name="orderDetailIsApproved" ColumnName="orderDetailIsApproved" />
+                <ScalarProperty Name="orderDetailtotalprice" ColumnName="orderDetailtotalprice" />
+                <ScalarProperty Name="orderDetailnum" ColumnName="orderDetailnum" />
+                <ScalarProperty Name="orderDetailprice" ColumnName="orderDetailprice" />
+                <ScalarProperty Name="orderDetailcolor" ColumnName="orderDetailcolor" />
+                <ScalarProperty Name="orderDetailsize" ColumnName="orderDetailsize" />
+                <ScalarProperty Name="orderDetailspuname" ColumnName="orderDetailspuname" />
+                <ScalarProperty Name="spuImg1" ColumnName="spuImg1" />
+                <ScalarProperty Name="skuId" ColumnName="skuId" />
+                <ScalarProperty Name="orderguid" ColumnName="orderguid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="shop123Model.orders">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="orderguid" ColumnName="orderguid" />
+                <ScalarProperty Name="refundId" ColumnName="refundId" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+                <ScalarProperty Name="orderState" ColumnName="orderState" />
+                <ScalarProperty Name="receiverPhone" ColumnName="receiverPhone" />
+                <ScalarProperty Name="receiverEmail" ColumnName="receiverEmail" />
+                <ScalarProperty Name="receiverAddress" ColumnName="receiverAddress" />
+                <ScalarProperty Name="receiverName" ColumnName="receiverName" />
+                <ScalarProperty Name="orderPaymentTime" ColumnName="orderPaymentTime" />
+                <ScalarProperty Name="orderCreateTime" ColumnName="orderCreateTime" />
+                <ScalarProperty Name="deliveryId" ColumnName="deliveryId" />
+                <ScalarProperty Name="memberId" ColumnName="memberId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
