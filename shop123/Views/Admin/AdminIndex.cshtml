@@ -4,5 +4,9 @@
 }
 
 <h2>後台管理介面</h2>
-
+<p>
+    @if (User.Identity.IsAuthenticated) {
+<p>welcome user @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</p>
+    }
+</p>
 
