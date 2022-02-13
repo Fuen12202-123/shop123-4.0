@@ -11,18 +11,19 @@ namespace shop123.Models
         public CDetailViewModel queryById(int id)
         {
             shop123Entities db = new shop123Entities();
+            CDetailViewModel CDetail = new CDetailViewModel();
+
+            //Spu & Sku
             spu Spu = db.spu.FirstOrDefault(p => p.id == id);
             var Sku = db.sku.Where(p => p.spuId == id).ToList();
-            //Spu & Sku
-
-            CDetailViewModel CDetail = new CDetailViewModel();
             CDetail.Spu = Spu;
             CDetail.Sku = Sku;
 
+            //Member
             int memberid = CDetail.Spu.memberId;
             CDetail.Member = db.member.FirstOrDefault(p => p.id == memberid);
-            //Member
-
+            
+            //comments
             IEnumerable<CommentViewModel> qComment = from c in db.comment
                                                      join s in db.sku on c.skuId equals s.id
                                                      where s.spuId == id
@@ -40,6 +41,8 @@ namespace shop123.Models
                                                      };
             IEnumerable<CommentViewModel> ccoment = qComment.ToList();
             CDetail.Dcomment = ccoment;
+            
+
             return CDetail;
         }
     }

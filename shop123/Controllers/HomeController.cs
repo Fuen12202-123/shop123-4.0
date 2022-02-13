@@ -94,7 +94,6 @@ namespace shop123.Controllers
                 return View(detail);
             }
             return RedirectToAction("Index");
-
         }
         public ActionResult sign()
         {

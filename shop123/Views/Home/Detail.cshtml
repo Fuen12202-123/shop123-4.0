@@ -78,16 +78,22 @@
                             </div>
                             <div class="color">
                                 <div class="clear"></div>
-                                @foreach (var item in Model.Sku)
-                                {
-                                    <a onclick="ChangeImage(this);return false;" return false;" href="">
-                                        <img src="@item.skuImg" alt="@item.skuColor" title="復古黃"
-                                             onmouseover="$.product.GetProductImg('0', '01')"
-                                             onmouseout="$('div.color img[select=true]').trigger('mouseover');$.product.GetCurrentSize();"
-                                             style=" padding: 3px;">
-                                    </a>
+                                @{ List<string> ImageFilter = new List<string>();
+                                    //用來判斷skuImage是否重複
+                                    foreach (var item in Model.Sku)
+                                    {
+                                        if (!ImageFilter.Contains(item.skuColor))
+                                        {
+                                         <a onclick="ChangeImage(this);return false;" return false;" href="">
+                                                                    <img src="@item.skuImg" alt="@item.skuColor" title="@item.skuColor" style=" padding: 3px;">
+                                         </a>
+                                            ImageFilter.Add(item.skuColor);
+                                        }
+
+                                    }
 
                                 }
+
 
 
                             </div>
@@ -116,37 +122,7 @@
                     <!-- product page -->
                     <div class="page-product-content">
                         <div class="page-product-content-left">
-                            @*<div class="page-product-content-block">
-                                    <div class="block-title">
-                                        商品規格
-                                    </div>
-                                    <div class="block-content">
-                                        <div class="block-content-li dflex">
-                                            <label for="" class="block-label">分類</label>
-                                            <div>
-                                                分類說明
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="block-content">
-                                        <div class="block-content-li dflex">
-                                            <label for="" class="block-label">品牌</label>
-                                            <div>
-                                                Lativ
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="block-content">
-                                        <div class="block-content-li dflex">
-                                            <label for="" class="block-label">材質</label>
-                                            <div>
-                                                棉質
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>*@
+                           
                             <div class="page-product-content-block">
                                 <div class="block-title">
                                     商品詳情
