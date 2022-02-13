@@ -37,6 +37,7 @@
                 @Html.ActionLink("登入", "sign", "Home", new { @class = "text-dark px-4 text-decoration-none " })
                 @*<li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Member", "Home")"><i class="fas fa-user"></i></a></li>*@
                 @Html.ActionLink("賣家中心", "AdminIndex", "Admin", new { @class = "text-dark px-4 text-decoration-none" })
+                @Url.Action("AdminIndex", "Admin")
                 @*@Html.ActionLink("購物車", "ShopCart", "Home", new { @class = "text-dark px-4 text-decoration-none" })*@
                 <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShopCart", "Home")"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
