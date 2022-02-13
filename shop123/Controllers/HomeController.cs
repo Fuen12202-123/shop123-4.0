@@ -121,7 +121,8 @@ namespace shop123.Controllers
         //New Version
         //Post:sign 
         public ActionResult sign(member member, string returnUrl)
-        {   shop123Entities s = new shop123Entities();
+        {   
+            shop123Entities s = new shop123Entities();
             var m = s.member.Where(p => p.memberEmail == member.memberEmail && p.memberPassword == member.memberPassword.ToString()).FirstOrDefault();
             var memberAccount = m.memberAccount;
             if (m != null)
@@ -133,13 +134,13 @@ namespace shop123.Controllers
                 FormsAuthentication.SetAuthCookie(m.memberAccount, false);
                 Session["Welcom"] = member.memberName + "歡迎光臨";
                 //傳回原網頁有錯誤找不到
-                //TODO登入傳到原位址
-                //if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                //{return RedirectToAction(returnUrl);}
-                //else
-                //{return RedirectToAction("Index", "Home");}
-                return RedirectToAction("Index");
-             }
+                //登入傳到原位址
+                if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                { return Redirect(returnUrl); }
+                else
+                { return RedirectToAction("Index", "Home"); }
+                //return RedirectToAction("Index");
+            }
             else
             {
                 //TempData["Error"] = "您輸入的帳號不存在或者密碼錯誤!";
@@ -207,8 +208,8 @@ namespace shop123.Controllers
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1,
                 memberAccount,//會員帳號
                 DateTime.Now,//票證發放計時開始
-                DateTime.Now.AddMinutes(30),//票證有效期間
-                false,//是否將 Cookie 設定成 Session Cookie，如果是則會在瀏覽器關閉後移除
+                DateTime.Now.AddMinutes(20),//票證有效期間
+                false,//是否將 Cookie 設定成 Session Cookie
                 UserData);//會員資料
                 //加密驗證票
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);
