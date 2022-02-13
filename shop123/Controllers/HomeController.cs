@@ -1,5 +1,6 @@
 ﻿
 
+using Newtonsoft.Json;
 using PagedList;
 using shop123.Models;
 using shop123.ViewModel;
@@ -16,6 +17,11 @@ namespace shop123.Controllers
     public class HomeController : Controller
     {//首頁、分類頁、商品頁、使用者註冊登入、賣家首頁
         shop123Entities db = new shop123Entities();
+        //驗證寫法:寫在方法或動作上面
+        //[Authorize(Roles = "管理員")]
+        //[Authorize(Roles = "一般會員")]
+
+
 
         int pageSize = 12;
 
@@ -78,6 +84,7 @@ namespace shop123.Controllers
 
         }
 
+        [Authorize(Roles ="一般會員")]
         public ActionResult Detail(int? id)
         {
             CDetailViewModel detail = null;
@@ -94,22 +101,53 @@ namespace shop123.Controllers
 
             return View();
         }
+
+        //Old version
+        //public ActionResult sign(string memberEmail, int memberPassword)
+        //{
+        //    shop123Entities s = new shop123Entities();
+        //    var m = s.member.Where(p => p.memberEmail == memberEmail && p.memberPassword == memberPassword.ToString()).FirstOrDefault();
+        //    if (m == null)
+        //    {
+        //        //TempData["Error"] = "您輸入的帳號不存在或者密碼錯誤!";
+        //        ViewBag.error = "帳號或密碼不正確";
+        //        return View();
+        //    }
+        //    Session["Welcom"] = m.memberName + "歡迎光臨";
+        //    FormsAuthentication.RedirectFromLoginPage(memberEmail, true);
+        //    return RedirectToAction("List");
+        //}
+
         [HttpPost]
-        public ActionResult sign(string memberEmail, int memberPassword)
-        {
-            shop123Entities s = new shop123Entities();
-            var m = s.member.Where(p => p.memberEmail == memberEmail && p.memberPassword == memberPassword.ToString()).FirstOrDefault();
-            if (m == null)
+        //New Version
+        //Post:sign 
+        public ActionResult sign(member member, string returnUrl)
+        {   shop123Entities s = new shop123Entities();
+            var m = s.member.Where(p => p.memberEmail == member.memberEmail && p.memberPassword == member.memberPassword.ToString()).FirstOrDefault();
+            var memberAccount = m.memberAccount;
+            if (m != null)
+            {
+                MemberInformation mi = new MemberInformation();
+                string userData = JsonConvert.SerializeObject(mi);
+                //存票證
+                SetAuthenTicket(userData, memberAccount);
+                FormsAuthentication.SetAuthCookie(m.memberAccount, false);
+                Session["Welcom"] = member.memberName + "歡迎光臨";
+                //傳回原網頁有錯誤找不到
+                //TODO登入傳到原位址
+                //if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                //{return RedirectToAction(returnUrl);}
+                //else
+                //{return RedirectToAction("Index", "Home");}
+                return RedirectToAction("Index");
+             }
+            else
             {
                 //TempData["Error"] = "您輸入的帳號不存在或者密碼錯誤!";
                 ViewBag.error = "帳號或密碼不正確";
-                return View();
+                return RedirectToAction("Enroll");
             }
-            Session["Welcom"] = m.memberName + "歡迎光臨";
-            FormsAuthentication.RedirectFromLoginPage(memberEmail, true);
-            return RedirectToAction("List");
         }
-
 
 
 
@@ -158,6 +196,33 @@ namespace shop123.Controllers
 
 
         }
+
+
+
+        //方法區塊
+
+        //發行Cookie的驗證票
+        void SetAuthenTicket(string UserData, string memberAccount)
+        {
+            //宣告一個驗證票
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1,
+                memberAccount,//會員帳號
+                DateTime.Now,//票證發放計時開始
+                DateTime.Now.AddMinutes(30),//票證有效期間
+                false,//是否將 Cookie 設定成 Session Cookie，如果是則會在瀏覽器關閉後移除
+                UserData);//會員資料
+                //加密驗證票
+            string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+            // 建立Cookie
+            HttpCookie authenticationcookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+            authenticationcookie.Expires = DateTime.Now.AddHours(3);
+
+            //將Cookie寫入回應
+            Response.Cookies.Add(authenticationcookie);
+        }
+
+
+
     }
 
 }

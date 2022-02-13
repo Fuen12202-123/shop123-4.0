@@ -7,6 +7,8 @@ using shop123.Models;
 
 namespace shop123.Controllers
 {
+    //要有管理員權限
+    [Authorize(Roles = "管理員")]
     public class AdminController : Controller
     {
         // GET: Admin
