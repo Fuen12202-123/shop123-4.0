@@ -25,11 +25,6 @@
                     @Html.TextBox("SearchString", "", new {id="Search" , required = "required", placeholder = "Search" ,@style="outline:0;" })                    
                     <button style="border:0;background-color:transparent;outline:0" type="submit"><i class="fas fa-search"></i></button>
                 }
-
-
-
-
-
             </div>
         </div>
         <div>
@@ -55,6 +50,9 @@
 
                 @*@Html.ActionLink("購物車", "ShopCart", "Home", new { @class = "text-dark px-4 text-decoration-none" })*@
                 <!--<li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShopCart", "Home")"><i class="fas fa-shopping-cart"></i></a></li>-->
+                @Html.ActionLink("賣家中心", "OrderList", "Buyer", new { @class = "text-dark px-4 text-decoration-none" })
+                @*@Html.ActionLink("購物車", "ShopCart", "Home", new { @class = "text-dark px-4 text-decoration-none" })*@
+                <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Buyer")"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
         </div>
         <div class="row mb-4 mt-5" style="font-size:20px">
@@ -85,7 +83,7 @@
             var $page = $('html,body')
             var distance = $('html').scrollTop() + $('body').scrollTop()
             // 總時間
-            var time = 200
+            var time = 150
             // 間隔時間
             var intervalTime = 1
             var itemDistance = distance / (time / intervalTime)

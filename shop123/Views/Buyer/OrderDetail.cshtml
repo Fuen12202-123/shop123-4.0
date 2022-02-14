@@ -1,0 +1,112 @@
+﻿@model IEnumerable<shop123.Models.ordersDetail>
+
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<table class="table ">
+    <thead>
+        <tr><th>訂單編號</th><th>產品名稱</th><th>圖片</th><th>價格</th><th>數量</th><th>小計</th></tr>
+    </thead>
+    <tbody>
+        @{int OrdersTotal = 0; }
+        @foreach (var item in Model)
+        {
+            //int detailCount = item.Detail.Count();
+            //int count = 0;
+            int TotalPrice = 0;
+            @*@Html.Raw($"<tr><td rowspan='{detailCount}'>{item.orderguid}</td>"+
+                $"<td rowspan='{detailCount}'>{item.MemberName}</td>" +
+                     $"<td rowspan='{detailCount}'>{item.CreateTime:yyyy/MM/dd}</td>")
+                )*@
+
+            int itemSub = item.orderDetailprice.Value * item.orderDetailnum.Value;
+            TotalPrice += itemSub;
+            @Html.Raw(
+            $"<td>{item.orderguid}</td>" +
+            $"<td>{item.orderDetailspuname}</td>" +
+            $"<td><img src ='{Url.Content(item.spuImg1)}' width='100'/></td >" +
+            $"<td>{item.orderDetailprice:c0}</td><td>{item.orderDetailnum}</td><td>{itemSub:c0}</td></tr>")
+            //count += 1;
+
+             OrdersTotal += TotalPrice;
+        }
+        <tr><td colspan="5" align="right"><span>總計：</span></td><td><span>@($"{OrdersTotal:c0}")</span></td></tr>
+    </tbody>
+</table>
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.orderguid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.skuId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.spuImg1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetailspuname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetailsize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetailcolor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetailprice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetailnum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetailtotalprice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderDetailIsApproved)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderguid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.skuId)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.spuImg1)" style="width:100px;height:100px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderDetailspuname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderDetailsize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderDetailcolor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderDetailprice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderDetailnum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderDetailtotalprice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderDetailIsApproved)
+                </td>
+
+            </tr>
+        }
+
+    </table>*@
