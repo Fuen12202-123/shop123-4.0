@@ -1,0 +1,166 @@
+﻿@model shop123.Models.SpuModel
+
+@{
+    ViewBag.Title = "SellerAddItem";
+}
+
+<h2>SellerAddItem</h2>
+<meta name="viewport" content="width=device-width" />
+<title>drop</title>
+@*@using (Html.BeginForm("SellerAddItem", "Seller", FormMethod.Post, new { @name = "dropzoneform", id = "dropzoneform", @enctype = "multipart/form-data" })) {*@
+<link href="~/Scripts/dropzone/dropzone.min.css" rel="stylesheet" />
+<script src="~/Scripts/dropzone/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<style>
+    .frame {
+        background-color: #EDEDE9;
+    }
+
+    img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    textarea {
+        resize: none;
+        /* height: 500px; */
+    }
+</style>
+<script>
+    Dropzone.options.dropzoneform = {
+        addRemoveLinks: true,
+        autoProcessQueue: false,
+        maxFiles: 5,
+        success: function () {
+          /*  alert("123");*/
+           let t= this.files[0].name;
+            alert(t);
+        },
+        init: function () {
+            var zone = this;
+            //this.on('maxfilesexceeded', function (file) {
+            //    this.removeFile(file);
+            //    alert('最多5張');
+            //});
+            this.on('addedfile', function () {
+                var img = this.files[0].name;
+                $('.testzone').append('<input type="text" name="spuImg1" value="' + img+'"/>');
+            }),
+            $('#btn').on('click', function () {
+
+                zone.processQueue();
+
+            });
+        }
+    }
+  @*$('#save').on('click', function () {-->
+        var t = @Viewbag.test;
+        alert(t);
+    })*@
+</script>
+<div>
+    <div id="mydrop">
+        <form action="upload" class="dropzone" name="dropzoneform" id="dropzoneform" style="background-color:antiquewhite"></form>
+    </div>
+    <button type="submit" id="btn">upload</button>
+</div>
+
+<form action="~/Seller/SellerAddItem" method="post">
+    <div class="frame container testzone">
+
+        <div class="container">
+            <div class="d-flex flex-row align-items-center mb-4">
+
+                <div class="form-outline flex-fill mb-0 mt-5">
+                    <label class="form-label" for="spuName">商品名稱</label>
+                    @*<input type="text" name="spuName" id="spuName" class="form-control" />*@
+                    @Html.EditorFor(model => model.spuName, new { htmlAttributes = new { @class = "form-control", @name = "spuName", @id = "spuName" } })
+                    @Html.ValidationMessageFor(model => model.spuName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="d-flex flex-row align-items-center mb-4">
+
+                <div class="form-outline flex-fill mb-0">
+
+                    <label class="form-label" for="catalogAId">商品分類</label>
+                    <select class="form-control itemselect" name="catalogAId">
+                        <option name="catalogAId" value="1">WOMAN</option>
+                        <option name="catalogAId" value="2">MEN</option>
+                        <option name="catalogAId" value="3">KIDS</option>
+                        <option name="catalogAId" value="4">BABYS</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="d-flex flex-row align-items-center mb-4">
+                <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
+                <div class="form-outline flex-fill mb-0">
+
+                    <label class="form-label" for="catalogBId">商品分類2</label>
+                    <select class="form-control itemselect" name="catalogBId">
+                        <option name="catalogBId" value="1">長袖</option>
+                        <option name="catalogBId" value="2">短袖</option>
+                        <option name="catalogBId" value="3">背心/小可愛</option>
+                        <option name="catalogBId" value="4">襯衫</option>
+                        <option name="catalogBId" value="5">洋裝</option>
+                        <option name="catalogBId" value="6">外套</option>
+                        <option name="catalogBId" value="7">長褲</option>
+                        <option name="catalogBId" value="8">短褲</option>
+                        <option name="catalogBId" value="9">裙子</option>
+                        <option name="catalogBId" value="10">內褲</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="d-flex flex-row align-items-center mb-4">
+                <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
+                <div class="form-outline flex-fill mb-0">
+                    <label class="form-label" for="spuPrice">商品價格</label>
+                    <input type="text" name="spuPrice" id="price" class="form-control" />
+
+                </div>
+            </div>
+
+            <div class="d-flex flex-row align-items-center mb-4">
+                <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
+                <div class="form-outline flex-fill mb-0">
+                    <label class="form-label" for="spuInfo">商品敘述</label>
+                    <textarea name="spuInfo" id="spuInfo" class="form-control"></textarea>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="container">
+            <div class="d-flex flex-row align-items-center mb-4">
+                <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
+                <div class="form-outline flex-fill mb-0">
+                    <label class="form-label" for="spuShow">上架狀態</label>
+                    <input type="text" name="spuShow" id="spuShow" class="form-control" placeholder="可填入上架 / 未上架 / 補貨中...等管理資訊" />
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container d-flex justify-content-between">
+            <input class="btn btn-secondary" type="button" value="回首頁">
+            <input class="btn btn-secondary" type="submit" id="save" value="存檔">
+            @*@Html.ActionLink("存檔", "upload", "Seller", new { @class = "btn btn-secondary", @id = "save" })*@
+        </div>
+    </div>
+</form>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
