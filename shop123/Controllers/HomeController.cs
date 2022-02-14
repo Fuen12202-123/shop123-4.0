@@ -84,7 +84,7 @@ namespace shop123.Controllers
 
         }
 
-        //[Authorize(Roles ="一般會員")]
+        [Authorize(Roles = "一般會員")]
         public ActionResult Detail(int? id)
         {
             CDetailViewModel detail = null;
@@ -133,13 +133,17 @@ namespace shop123.Controllers
                 SetAuthenTicket(userData, memberAccount);
                 FormsAuthentication.SetAuthCookie(m.memberAccount, false);
                 Session["Welcom"] = member.memberName + "歡迎光臨";
-                //傳回原網頁有錯誤找不到
-                //登入傳到原位址
-                if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                { return Redirect(returnUrl); }
+                if (m.memberAccess == "管理員") { return RedirectToAction("AdminIndex", "Admin"); }
                 else
-                { return RedirectToAction("Index", "Home"); }
-                //return RedirectToAction("Index");
+                {
+                    //傳回原網頁有錯誤找不到
+                    //登入傳到原位址
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    { return Redirect(returnUrl); }
+                    else
+                    { return RedirectToAction("Index", "Home"); }
+                    //return RedirectToAction("Index");
+                }
             }
             else
             {

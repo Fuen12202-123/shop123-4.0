@@ -34,10 +34,8 @@
         </div>
         <div>
             <ul class="row list-unstyled justify-content-end mb-5 ">
-                @Html.ActionLink("會員中心", "MemberCenter", "Member", new { @class = "text-dark px-4 text-decoration-none " })
-                @*<li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Member", "Home")"><i class="fas fa-user"></i></a></li>*@
-                @Html.ActionLink("登出", "Logout", "Member", new { @class = "text-dark px-4 text-decoration-none" })
-                @*@Html.ActionLink("購物車", "ShopCart", "Home", new { @class = "text-dark px-4 text-decoration-none" })*@
+                <li>Welcome @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")<a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Member")">登出</a></li>
+                <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>
                 <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShopCart", "Home")"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
         </div>
