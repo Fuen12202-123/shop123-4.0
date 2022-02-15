@@ -251,7 +251,6 @@
     <Content Include="Views\Seller\Seller.cshtml" />
     <Content Include="Views\Home\sign.cshtml" />
     <Content Include="Views\Home\Enroll.cshtml" />
-    <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Admin\Member.cshtml" />
     <Content Include="Views\Admin\MemberCreate.cshtml" />
     <Content Include="Views\Admin\MemberEdit.cshtml" />
@@ -271,6 +270,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_LayoutMember.cshtml" />
+    <Content Include="Views\Admin\AdminIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
