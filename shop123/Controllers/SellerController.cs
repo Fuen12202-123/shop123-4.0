@@ -36,94 +36,72 @@ namespace shop123.Controllers
             return View(products.ToList());
         }
 
-
-        public ActionResult upload()  //圖片上傳至Images資料夾，但與資料庫的名稱不同，待處理
-        {         
-            bool isSavedSuccessfully = true;
-            string fname = "";         
-            try
-            {
-                foreach (string filename in Request.Files)
-                {                  
-                    HttpPostedFileBase file = Request.Files[filename];
-                    fname = file.FileName;
-                    if (file != null && file.ContentLength > 0)
-                    {                       
-                        var path = Path.Combine(Server.MapPath("~/Images"));
-                        string pathstring = Path.Combine(path.ToString());
-                        string filename1 = Guid.NewGuid() + Path.GetExtension(file.FileName);
-                        bool isexist = Directory.Exists(pathstring);
-                        if (!isexist)
-                        {
-                            Directory.CreateDirectory(pathstring);
-                        }
-                        string uploadpath = string.Format("{0}\\{1}", pathstring, filename1);
-                       
-                        file.SaveAs(uploadpath);                    
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                isSavedSuccessfully = false;
-
-            }
-            if (isSavedSuccessfully)
-            {
-
-                return new JsonResult()
-                {
-                    Data = new
-                    {
-                        Message = fname
-                    },
-                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
-                };              
-            }
-            else
-            {
-                return new JsonResult()
-                {
-                    Data = new
-                    {
-                        Message = "Error"
-                    },
-                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
-                };
-            }
-
-        }
-
-        public ActionResult SellerAddItem() //賣家商品資訊上傳
+        public ActionResult SellerAddItem()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult SellerAddItem(SpuModel sm)
+        public ActionResult SellerAddItem(SpuModel sm) //賣家商品上傳(不含圖片)，圖片需透過upload抓取資料
         {
-            shop123Entities sh = new shop123Entities();
-            spu spu = new spu()
+            shop123Entities sh = new shop123Entities();        
+            if (sm.spuImg1 != null)  //判斷是否至少有一張圖片
             {
-                spuName = sm.spuName,
-                memberId = sm.memberId,
-                spuInfo = sm.spuInfo,
-                spuPrice = sm.spuPrice,
-                catalogAId = sm.catalogAId,
-                catalogBId = sm.catalogBId,
-                spuImg1 = sm.spuImg1,
-                spuImg2 = sm.spuImg2,
-                spuImg3 = sm.spuImg3,
-                spuImg4 = sm.spuImg4,
-                spuImg5 = sm.spuImg5,
-                spuShow = sm.spuShow,
-            };
-            spu.spuCreatedTime = DateTime.Now;
-            spu.spuEditTime = DateTime.Now;
-            sh.spu.Add(spu);
-            sh.SaveChanges();
-            return RedirectToAction("List");
-    
+                spu spu = new spu()
+                {
+                    spuName = sm.spuName,
+                    memberId = sm.memberId,
+                    spuInfo = sm.spuInfo,
+                    spuPrice = sm.spuPrice,
+                    catalogAId = sm.catalogAId,
+                    catalogBId = sm.catalogBId,
+                    spuImg1 = sm.spuImg1,
+                    spuImg2 = sm.spuImg2,
+                    spuImg3 = sm.spuImg3,
+                    spuImg4 = sm.spuImg4,
+                    spuImg5 = sm.spuImg5,
+                    spuShow = sm.spuShow,
+
+                };
+                spu.spuCreatedTime = DateTime.Now;
+                spu.spuEditTime = DateTime.Now;
+                sh.spu.Add(spu);
+                sh.SaveChanges();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return View();
+            }
         }
+        public ActionResult upload()  //圖片上傳，目前會抓取圖片本身檔名，尚未附加亂數
+        {
+            string fname = "";
+            foreach (string filename in Request.Files)
+            {
+
+                HttpPostedFileBase file = Request.Files[filename];
+                if (file != null && file.ContentLength > 0)
+                {
+                    fname = file.FileName;
+                    file.SaveAs(Server.MapPath("~/Images/" + fname));
+                }
+                else
+                {
+                    return View();
+                }
+
+            }
+
+            return new JsonResult()  
+            {
+                Data = new
+                {
+                    Message = fname
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
 
     }
 
