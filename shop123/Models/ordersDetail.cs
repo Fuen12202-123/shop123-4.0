@@ -20,6 +20,8 @@ public partial class ordersDetail
 
     public int id { get; set; }
 
+    public string memberId { get; set; }
+
     public string orderguid { get; set; }
 
     public Nullable<int> skuId { get; set; }

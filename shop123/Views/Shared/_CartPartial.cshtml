@@ -1,0 +1,41 @@
+﻿@model IEnumerable<shop123.Models.ordersDetail>
+
+
+<a onclick="MiniCart()" id="CartDropDown" class="dropdown-toggle " data-toggle="dropdown">
+
+    <span class="caret"><i id="Cart" class="fas fa-shopping-cart"></i></span>
+</a>
+<ul id="minicart" class="dropdown-menu" role="menu" aria-labelledby="CartDropDown">    
+    <li class="divider"></li>
+    <li><a class="btn btn-default text-center" href="#">結帳</a></li>
+</ul>
+
+
+
+
+
+
+
+<script>
+    $(function () {
+        MiniCart();
+    })
+
+
+    function MiniCart() {
+        var Mini = $("#minicart")
+        Mini.empty();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("AjaxMiniCar", "Member")',
+                success: function (data) {
+                    $(data).each(function (index, item) {
+                         $("#minicart").append
+                             (`<li><a><img src="${item.spuImg1}" style="width:30px" /> ${item.orderDetailspuname} <span>  &emsp;${item.orderDetailprice}  &emsp; X${item.orderDetailnum}</span></a></li>`)
+                    })
+
+                },
+                error: function (err) { confirm("載入錯誤") }
+                })
+        }
+</script>

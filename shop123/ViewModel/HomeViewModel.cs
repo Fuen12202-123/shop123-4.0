@@ -13,6 +13,6 @@ namespace shop123.ViewModel
         public IEnumerable<spu> spu { get; set; }  
         public IPagedList<shop123.Models.spu> spuList { get; set; }
 
-
+        public IEnumerable<ordersDetail> ordersDetail { get; set; }
     }
 }

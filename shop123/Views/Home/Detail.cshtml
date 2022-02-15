@@ -82,7 +82,7 @@
                             </div>
                             <div class="color">
                                 <div class="clear"></div>
-                                @{ List<string> ImageFilter = new List<string>();
+                                @*@{List<string> ImageFilter = new List<string>();
                                     //用來判斷skuImage是否重複
                                     foreach (var item in Model.Sku)
                                     {
@@ -91,11 +91,11 @@
                                          <a onclick="ChangeImage(this);return false;" return false;" href="">
                                                                     <img src="@item.skuImg" alt="@item.skuColor" title="@item.skuColor" style=" padding: 3px;">
                                          </a>
-                                            ImageFilter.Add(item.skuColor);
+                                                ImageFilter.Add(item.skuColor);
+                                            }
+
                                         }
-
-                                    }
-
+                                    }*@
 
                                 @foreach (var item in Model.Sku)
                                 {
@@ -105,14 +105,16 @@
                                                  onmouseout="$('div.color img[select=true]').trigger('mouseover');$.product.GetCurrentSize();"
                                                  style=" padding: 3px;">
                                         </a>*@
-                                    <a href="@Url.Action("AddCar","Buyer")?skuid=@item.id">
+                                    @*<a href="@Url.Action("AddCar","Member")?skuid=@item.id">
+                                        <img id="sku" src="@item.skuImg" alt="@item.id" title="@item.skuColor"
+                                             style=" padding: 3px;">
+                                    </a>*@
+                                <a onclick="AddToCart('@item.id')"href="javascript:void(0)">
                                         <img id="sku" src="@item.skuImg" alt="@item.id" title="@item.skuColor"
                                              style=" padding: 3px;">
                                     </a>
                                 }
-                                <script>
-
-                                </script>
+                               
 
 
                             </div>
@@ -138,7 +140,7 @@
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <!-- product page -->
+                    <!-- product page 
                     <div class="page-product-content">
                         <div class="page-product-content-left">
                            
@@ -201,6 +203,22 @@
         </div>
     </div>
     <script>
+        //加入購物車AJAX方法
+        $(document).ready(function () {
+            console.log("ready!");
+        })
+        //加入編號為skuid的商品進購物車
+        function AddToCart(skuid) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddCar", "Member")',
+                data: { skuid: skuid }
+            })
+                //.done(function (msg) {
+                //    $('li#Cart').html(msg);
+                //});
+        }
+        
         var SKU = 0;
         $(".minus").click(function () {
             var t = $("#buyCount");
