@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<shop123.Models.ordersDetail>
 
+
 @{
     ViewBag.Title = "ShoppingCar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,7 +14,7 @@
 @*<link href="~/Content/shopcartstyle.css" rel="stylesheet" />*@
 
 <table class="table ">
-    <thead><tr><th>@Html.CheckBoxFor</th><th>商品</th><th></th><th>單價</th><th>數量</th><th>總計</th><th>操作</th></tr> </thead>
+    <thead><tr><th>@*<input type="checkbox" id="CheckAll" name="CheckAll" />*@</th><th>商品</th><th></th><th>單價</th><th>數量</th><th>總計</th><th>操作</th></tr> </thead>
 
     <tbody>
         @{ int TotalPrice = 0;}
@@ -22,7 +23,8 @@
             int itemSubtotal = item.orderDetailprice.Value * item.orderDetailnum.Value;
             TotalPrice += itemSubtotal;
             <tr>
-                <td class=""><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></td>
+                <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="@item.skuId" /></td>
+                <td class=""><a href="@Url.Action("Detail","Home")?id=@item.id")">content</a><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></td>
                 <td>
                     @item.orderDetailspuname-
                     @item.orderDetailcolor-
@@ -54,168 +56,115 @@
             </tr>
 
 
-        }
+        
+            }
     </tbody>
 </table>
+<div class="button-block">
+    <button class="btn btn-primary" id="button" onclick="show()">Click</button>
+</div>
 @*<div class="d-flex justify-content-end"><h5>總金額： @($"{TotalPrice:c0}")   | @Html.ActionLink("確認購買", "AddOrder", "Orders", null, new { @class = "btn btn-info" })</h5></div>*@
 
-    @*function DeleteCar(Id) {
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("DeleteCar", "Member")',
-                data: { Id: Id }
-                })
+@*function DeleteCar(Id) {
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("DeleteCar", "Member")',
+        data: { Id: Id }
+        })
 
-                }*@
+        }*@
 
-                <form action="@Url.Action("ShoppingCar")" method="post">
-                    <div class="form-horizontal">
-                        <h4>填寫訂單收件人資料</h4>
-                        <hr />
+<form action="@Url.Action("ShoppingCar")" method="post">
+    <div class="form-horizontal">
+        <h4>填寫訂單收件人資料</h4>
+        <hr />
 
-                        <div class="form-group">
-                            <span class="control-label col-md-2">收件人姓名</span>
-                            <div class="col-md-10">
-                                <input type="text" id="receiverName" name="receiverName" required="required" class="form-control" />
-                            </div>
-                        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">收件人姓名</span>
+            <div class="col-md-10">
+                <input type="text" id="receiverName" name="receiverName" required="required" class="form-control" />
+            </div>
+        </div>
 
-                        <div class="form-group">
-                            <span class="control-label col-md-2">收件人信箱</span>
-                            <div class="col-md-10">
-                                <input type="email" id="receiverEmail" name="receiverEmail" required="required" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <span class="control-label col-md-2">電話</span>
-                            <div class="col-md-10">
-                                <input type="text" id="receiverPhone" name="receiverPhone" required="required" class="form-control" />
-                            </div>
-                        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">收件人信箱</span>
+            <div class="col-md-10">
+                <input type="email" id="receiverEmail" name="receiverEmail" required="required" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">電話</span>
+            <div class="col-md-10">
+                <input type="text" id="receiverPhone" name="receiverPhone" required="required" class="form-control" />
+            </div>
+        </div>
 
-                        <div class="form-group">
-                            <span class="control-label col-md-2">收件人地址</span>
-                            <div class="col-md-10">
-                                <input type="text" id="receiverAddress" name="receiverAddress" required="required" class="form-control" />
-                            </div>
-                        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">收件人地址</span>
+            <div class="col-md-10">
+                <input type="text" id="receiverAddress" name="receiverAddress" required="required" class="form-control" />
+            </div>
+        </div>
 
-                        <div class="form-group">
-                            <span class="control-label col-md-2">總金額</span>
-                            <div class="col-md-10">
-                                <input type="text" id="totalprice" name="totalprice" class="" value="@TotalPrice" )" />
-                            </div>
-                        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">總金額</span>
+            <div class="col-md-10">
+                <input type="text" id="totalprice" name="totalprice" class="" value="@TotalPrice" )" />
+            </div>
+        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="確認訂購" class="btn btn-info" />
-                                @*<p>總金額：@($"{TotalPrice:c0}")</p>*@
-                            </div>
-                        </div>
-                    </div>
-                </form>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="確認訂購" class="btn btn-info" />
+                <p>總金額：@($"{TotalPrice:c0}")</p>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
 
 
-                @*<script>
-                        $(document).ready(function () {
-                    /*        $('.count').prop('disabled', true);*/
-                            $(document).on('click', '.plus', function () {
-                                $('.count').val(parseInt($('.count').val()) + 1);
-                            });
-                            $(document).on('click', '.minus', function () {
-                                $('.count').val(parseInt($('.count').val()) - 1);
-                                if ($('.count').val() == 0) {
-                                    $('.count').val(1);
-                                }
-                            });
+                    $(document).ready(function () {
+
+/*                        $('.count').prop('disabled', true);*/
+                        $(document).on('click', '.plus', function () {
+                            $('.count').val(parseInt($('.count').val()) + 1);
                         });
-                    </script>*@
+                        $(document).on('click', '.minus', function () {
+                            $('.count').val(parseInt($('.count').val()) - 1);
+                            if ($('.count').val() == 0) {
+                                $('.count').val(1);
+                            }
+                        });
 
-                @*
-                    <style>
-                        .table th, .table td {
-                            text-align: center;
-                            vertical-align: middle;
+
+
+                        $("#CheckAll").click(function () {
+                            if ($("#CheckAll").prop("checked")) {
+                                $("input[name='checkboxs']").prop("checked", true);
+                            } else {
+                                $("input[name='checkboxs']").prop("checked", false);
+                            }
+                        })
+
+
+
+
+
+                    })
+
+
+
+                        function skuchecked(skuid) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("skuchecked", "Member")',
+                                data: { skuid: skuid }
+                            })
                         }
-                    </style>
 
-                    <table class="table">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.orderId)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.skuId)
-                            </th>
-                            <th>
-                                商品
-                    @Html.DisplayNameFor(model => model.spu)
-                            </th>
+</script>
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.orderDetailsize)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.orderDetailcolor)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.orderDetailprice)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.orderDetailnum)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.orderDetailtotalprice)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.orderDetailIsApproved)
-                            </th>
-                            <th></th>
-                        </tr>
 
-                        @foreach (var item in Model)
-                        {
 
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.orderId)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.skuId)
-                                </td>
-                                <td>
-                                    <img src="@Html.DisplayFor(modelItem => item.spuImg1)" style="width:100px;height:100px" />
-                                    @Html.DisplayFor(modelItem => item.orderDetailspuname)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.orderDetailsize)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.orderDetailcolor)
-                                </td>
-                                <td id="price">
-                                    @Html.DisplayFor(modelItem => item.orderDetailprice)
-                                </td>
-                                <td id="num">
-                                    @Html.DisplayFor(modelItem => item.orderDetailnum)
-                                </td>
-                                <td id="totalprice">
-                                    @Html.DisplayFor(modelItem => item.orderDetailtotalprice)
-                                    <span id="totalprice" type="text" maxlength="2" value="1">
-                                    </span>
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.orderDetailIsApproved)
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("DeleteCar")?Id=@item.id"
-                                       class="btn btn-danger"
-                                       onclick="return confirm('確定放棄購買 @item.orderDetailspuname 嗎？' )">刪除購物車</a>
-                                </td>
-                            </tr>
-                        }
-                    </table>
-
-                *@

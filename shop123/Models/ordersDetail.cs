@@ -42,6 +42,8 @@ public partial class ordersDetail
 
     public string orderDetailIsApproved { get; set; }
 
+    public Nullable<bool> @checked { get; set; }
+
 }
 
 }

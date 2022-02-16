@@ -26,9 +26,34 @@ namespace shop123.Controllers
             //取得登入會員的帳號並指定給memberId
             string memberId = User.Identity.Name;
             //找出未成為訂單明細的資料，即購物車內容
-            var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
+            //var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
+
+            var ODSKU = db.ordersDetail.Join(db.sku,
+                  k => k.skuId,
+                  u => u.id,
+                  (k, u) => new
+                  {
+                      id = k.id,
+                      memberId = k.memberId,
+                      orderguid = k.orderguid,
+                      skuId = k.skuId,
+                      spuImg1 = k.spuImg1,
+                      orderDetailspunamek = k.orderDetailspuname,
+                      orderDetailsize=k.orderDetailsize,
+                      orderDetailcolor=k.orderDetailcolor,
+                      orderDetailprice=k.orderDetailprice,
+                      orderDetailnum=k.orderDetailnum,
+                      orderDetailtotalprice=k.orderDetailtotalprice,
+                      orderDetailIsApproved=k.orderDetailIsApproved,
+                      @checked=k.@checked,
+                      spuid = u.spuId,
+                  }).Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
+
+
+
+
             //View使用orderDetails模型
-            return View(orderDetails);
+            return View(ODSKU);
         }   
         public ActionResult AjaxMiniCar()
         {
@@ -65,18 +90,40 @@ namespace shop123.Controllers
             order.totalPrice = totalprice;
             db.orders.Add(order);
             //找出目前會員在訂單明細中是購物車狀態的產品
-            var ordersDetail = db.ordersDetail.Where(m => m.orderDetailIsApproved == "否").ToList();
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" ).ToList();
 
-            //將購物車狀態產品的fIsApproved設為"是"，表示確認訂購產品
+            //將購物車狀態產品的IsApproved設為"是"，表示確認訂購產品
             foreach (var item in ordersDetail)
             {
-                item.orderguid = guid;
-                item.orderDetailIsApproved = "是";
+                if (item.@checked == true)
+                {
+                    item.orderguid = guid;
+                    item.orderDetailIsApproved = "是";
+                }
+                
             }
             //更新資料庫，異動tOrder和tOrderDetail
             //完成訂單主檔和訂單明細的更新
             db.SaveChanges();
             return RedirectToAction("OrderDetails");
+        }
+        public ActionResult skuchecked(int skuid)
+        {
+            string memberId = User.Identity.Name;
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
+            foreach (var item in ordersDetail)
+            {
+                if(item.@checked == true)
+                {
+                    item.@checked = false;
+                }
+                else
+                {
+                    item.@checked =true;
+                } 
+            }
+            db.SaveChanges();
+            return RedirectToAction("ShoppingCar");
         }
         public ActionResult AddCar(int skuid)
         {
@@ -118,6 +165,7 @@ namespace shop123.Controllers
                 orderDetail.orderDetailprice = spusku.price;
                 orderDetail.orderDetailnum = 1;
                 orderDetail.orderDetailIsApproved = "否";
+                orderDetail.@checked= false;
                 db.ordersDetail.Add(orderDetail);
             }
             else
@@ -161,6 +209,7 @@ namespace shop123.Controllers
             var qOD = from o in db.orders
                       join og in qODG on o.orderguid equals og.orderguid
                       where o.memberId == memberId
+                      orderby o.orderCreateTime descending
                       select new { orderguid = og.orderguid, memberId = o.memberId, CreateTime = o.orderCreateTime, Count = og.Count };
 
             List<OrderViewModel> lsOd = new List<OrderViewModel>();
