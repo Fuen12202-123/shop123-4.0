@@ -50,11 +50,11 @@ public partial class shop123Entities : DbContext
 
     public virtual DbSet<sku> sku { get; set; }
 
-    public virtual DbSet<spu> spu { get; set; }
-
     public virtual DbSet<orders> orders { get; set; }
 
     public virtual DbSet<ordersDetail> ordersDetail { get; set; }
+
+    public virtual DbSet<spu> spu { get; set; }
 
 }
 

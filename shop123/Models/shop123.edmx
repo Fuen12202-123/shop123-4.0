@@ -176,9 +176,9 @@
           <EntitySet Name="member" EntityType="shop123Model.member" />
           <EntitySet Name="refund" EntityType="shop123Model.refund" />
           <EntitySet Name="sku" EntityType="shop123Model.sku" />
-          <EntitySet Name="spu" EntityType="shop123Model.spu" />
           <EntitySet Name="orders" EntityType="shop123Model.orders" />
           <EntitySet Name="ordersDetail" EntityType="shop123Model.ordersDetail" />
+          <EntitySet Name="spu" EntityType="shop123Model.spu" />
         </EntityContainer>
         <EntityType Name="carousel">
           <Key>
@@ -267,26 +267,6 @@
           <Property Name="skuImg" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="skuStock" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="spu">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="spuName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="memberId" Type="Int32" Nullable="false" />
-          <Property Name="spuInfo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="spuPrice" Type="Int32" Nullable="false" />
-          <Property Name="catalogAId" Type="Int32" Nullable="false" />
-          <Property Name="catalogBId" Type="Int32" Nullable="false" />
-          <Property Name="spuImg1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="spuImg2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="spuImg3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="spuImg4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="spuImg5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="spuShow" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="spuCreatedTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="spuEditTime" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="orders">
           <Key>
             <PropertyRef Name="id" />
@@ -322,6 +302,26 @@
           <Property Name="orderDetailnum" Type="Int32" />
           <Property Name="orderDetailtotalprice" Type="Int32" />
           <Property Name="orderDetailIsApproved" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="spu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="spuName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="memberId" Type="Int32" Nullable="false" />
+          <Property Name="spuInfo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="spuPrice" Type="Int32" Nullable="false" />
+          <Property Name="catalogAId" Type="Int32" Nullable="false" />
+          <Property Name="catalogBId" Type="Int32" Nullable="false" />
+          <Property Name="spuImg1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="spuImg2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="spuImg3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="spuImg4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="spuImg5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="spuShow" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="spuCreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="spuEditTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -425,27 +425,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="spu">
-            <EntityTypeMapping TypeName="shop123Model.spu">
-              <MappingFragment StoreEntitySet="spu">
-                <ScalarProperty Name="spuEditTime" ColumnName="spuEditTime" />
-                <ScalarProperty Name="spuCreatedTime" ColumnName="spuCreatedTime" />
-                <ScalarProperty Name="spuShow" ColumnName="spuShow" />
-                <ScalarProperty Name="spuImg5" ColumnName="spuImg5" />
-                <ScalarProperty Name="spuImg4" ColumnName="spuImg4" />
-                <ScalarProperty Name="spuImg3" ColumnName="spuImg3" />
-                <ScalarProperty Name="spuImg2" ColumnName="spuImg2" />
-                <ScalarProperty Name="spuImg1" ColumnName="spuImg1" />
-                <ScalarProperty Name="catalogBId" ColumnName="catalogBId" />
-                <ScalarProperty Name="catalogAId" ColumnName="catalogAId" />
-                <ScalarProperty Name="spuPrice" ColumnName="spuPrice" />
-                <ScalarProperty Name="spuInfo" ColumnName="spuInfo" />
-                <ScalarProperty Name="memberId" ColumnName="memberId" />
-                <ScalarProperty Name="spuName" ColumnName="spuName" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="orders">
             <EntityTypeMapping TypeName="shop123Model.orders">
               <MappingFragment StoreEntitySet="orders">
@@ -480,6 +459,27 @@
                 <ScalarProperty Name="skuId" ColumnName="skuId" />
                 <ScalarProperty Name="orderguid" ColumnName="orderguid" />
                 <ScalarProperty Name="memberId" ColumnName="memberId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="spu">
+            <EntityTypeMapping TypeName="shop123Model.spu">
+              <MappingFragment StoreEntitySet="spu">
+                <ScalarProperty Name="spuEditTime" ColumnName="spuEditTime" />
+                <ScalarProperty Name="spuCreatedTime" ColumnName="spuCreatedTime" />
+                <ScalarProperty Name="spuShow" ColumnName="spuShow" />
+                <ScalarProperty Name="spuImg5" ColumnName="spuImg5" />
+                <ScalarProperty Name="spuImg4" ColumnName="spuImg4" />
+                <ScalarProperty Name="spuImg3" ColumnName="spuImg3" />
+                <ScalarProperty Name="spuImg2" ColumnName="spuImg2" />
+                <ScalarProperty Name="spuImg1" ColumnName="spuImg1" />
+                <ScalarProperty Name="catalogBId" ColumnName="catalogBId" />
+                <ScalarProperty Name="catalogAId" ColumnName="catalogAId" />
+                <ScalarProperty Name="spuPrice" ColumnName="spuPrice" />
+                <ScalarProperty Name="spuInfo" ColumnName="spuInfo" />
+                <ScalarProperty Name="memberId" ColumnName="memberId" />
+                <ScalarProperty Name="spuName" ColumnName="spuName" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

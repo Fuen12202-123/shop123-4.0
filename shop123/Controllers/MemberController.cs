@@ -20,8 +20,6 @@ namespace shop123.Controllers
         {
             return View();
         }
-
-        
       
         public ActionResult ShoppingCar()
         {
