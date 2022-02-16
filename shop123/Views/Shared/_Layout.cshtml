@@ -34,7 +34,7 @@
             <ul class="row list-unstyled justify-content-end mb-5 ">
                 @if (User.Identity.IsAuthenticated)
                 {
-                <li>Welcome @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")<a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
+                <li> <a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")">@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</a><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
                     <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>
                     @*<li id="Cart"><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")"><i class="fas fa-shopping-cart"></i></a></li>*@
                     <li id="Cart">@Html.Partial("_CartPartial")</li>
@@ -59,7 +59,7 @@
             <hr />
             <footer>
                 <p>&copy; @DateTime.Now.Year - 衣貳衫</p>
-                <p id="to_top">↑</p>
+                <p style="" id="to_top">↑</p>
             </footer>
         </div>
     </div>
