@@ -10,11 +10,9 @@ namespace shop123.ViewModel
     public class HomeViewModel
     {
         public IEnumerable<carousel> carousels { get; set; }
-        public IEnumerable<spu> spu { get; set; }
-        public IEnumerable<catalogB> categoryB { get; set; }
-        public IEnumerable<catalogA> categoryA { get; set; }
+        public IEnumerable<spu> spu { get; set; }  
         public IPagedList<shop123.Models.spu> spuList { get; set; }
 
-
+        public IEnumerable<ordersDetail> ordersDetail { get; set; }
     }
 }

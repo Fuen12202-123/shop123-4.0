@@ -121,6 +121,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\seller.css" />
     <Content Include="Content\sellerPage.css" />
+    <Content Include="Content\shopcartstyle.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Style.css" />
     <Content Include="Global.asax" />
@@ -174,7 +175,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\BuyerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
@@ -184,6 +184,7 @@
     <Compile Include="Models\carousel.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\catalogA.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
@@ -239,6 +240,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\CDetailViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\sellerPage.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +285,13 @@
     <Content Include="Views\Shared\_LayoutMember.cshtml" />
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Member\MemberCenter.cshtml" />
+    <Content Include="Views\Buyer\ShoppingCar.cshtml" />
+    <Content Include="Views\Buyer\OrderList.cshtml" />
+    <Content Include="Views\Buyer\OrderDetail.cshtml" />
+    <Content Include="Views\Member\ShoppingCar.cshtml" />
+    <Content Include="Views\Member\OrderList.cshtml" />
+    <Content Include="Views\Member\OrderDetails.cshtml" />
+    <Content Include="Views\Shared\_CartPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
