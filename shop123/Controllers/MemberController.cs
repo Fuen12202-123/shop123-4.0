@@ -193,17 +193,18 @@ namespace shop123.Controllers
             //找出目前會員的所有訂單主檔記錄並依照fDate進行遞增排序
             //將查詢結果指定給orders
             var orders = db.orders.Where(m => m.memberId == memberId)
-                .OrderByDescending(m => m.orderCreateTime).ToList();            
-
+                .OrderByDescending(m => m.orderCreateTime).ToList();
+            return View(orders);
+        }
         public ActionResult MemberCenter()
         {
-           
-        
 
+
+            return View();
 
         
             //目前會員的訂單主檔OrderList.cshtml檢視使用orders模型
-            return View(orders);
+            
         }
 
         public ActionResult OrderDetail(string orderguid)
