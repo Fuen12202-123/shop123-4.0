@@ -82,7 +82,7 @@
                             </div>
                             <div class="color">
                                 <div class="clear"></div>
-                                @*@{List<string> ImageFilter = new List<string>();
+                                @{List<string> ImageFilter = new List<string>();
                                     //用來判斷skuImage是否重複
                                     foreach (var item in Model.Sku)
                                     {
@@ -95,35 +95,44 @@
                                             }
 
                                         }
-                                    }*@
+                                    }
 
-                                @foreach (var item in Model.Sku)
+                                @*@foreach (var item in Model.Sku)
                                 {
-                                    @*<a onclick="ChangeImage(this);return false;skuid = @item.id;" return false;" href="">
+                                    <a onclick="ChangeImage(this);return false;skuid = @item.id;" return false;" href="">
                                             <img src="@item.skuImg" alt="@item.skuColor" title="復古黃"
                                                  onmouseover="$.product.GetProductImg('0', '01')"
                                                  onmouseout="$('div.color img[select=true]').trigger('mouseover');$.product.GetCurrentSize();"
                                                  style=" padding: 3px;">
-                                        </a>*@
-                                    @*<a href="@Url.Action("AddCar","Member")?skuid=@item.id">
+                                        </a>
+                                    <a href="@Url.Action("AddCar","Member")?skuid=@item.id">
                                         <img id="sku" src="@item.skuImg" alt="@item.id" title="@item.skuColor"
                                              style=" padding: 3px;">
-                                    </a>*@
+                                    </a>
                                 <a onclick="AddToCart('@item.id')"href="javascript:void(0)">
                                         <img id="sku" src="@item.skuImg" alt="@item.id" title="@item.skuColor"
                                              style=" padding: 3px;">
                                     </a>
-                                }
+                                }*@
                                
 
 
                             </div>
                             <div class="size">
-                                <span id="sizelist" class="picksize" cuurentsn>
+                                @*<span id="sizelist" class="picksize" cuurentsn>
                                     <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">S</a>
                                     <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">M</a>
                                     <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">L</a>
-                                </span>
+                                </span>*@
+
+                                <select id="colorAndsize">
+                                    <option value="0">請選擇顏色和尺寸</option>
+                                    @{foreach (var item in Model.Sku)
+                                        {
+                                            <option value="@item.id">@item.skuColor - @item.skuSize</option>
+                                        }
+                                    }
+                                </select>
                             </div>
                             <div class="clear"></div>
                             <div class="addcart">
@@ -134,7 +143,7 @@
                                     <input id="buyCount" type="text" maxlength="2" value="1" />
                                     <a class="plus" href="javascript:void(0)"></a>
                                 </span>
-                                <a id="addShopcar" href="@Url.Action("AddCar","Buyer")?skuid=SKU" onclick="return false;" class="btn_addcart">加入購物車</a>
+                                <a id="addShopcar" href="javascript:void(0)" onclick="AddToCart()" class="btn_addcart">加入購物車</a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -208,11 +217,20 @@
             console.log("ready!");
         })
         //加入編號為skuid的商品進購物車
-        function AddToCart(skuid) {
+        function AddToCart() {
+            let skuid = $("#colorAndsize").val();
+            let Quantity = $("#buyCount").val();
+            if (skuid == 0) {
+                alert("請先選擇顏色與尺寸");
+                return;
+            }
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("AddCar", "Member")',
-                data: { skuid: skuid }
+                data: {
+                    skuid: skuid,
+                    quantity: Quantity
+                }
             })
                 //.done(function (msg) {
                 //    $('li#Cart').html(msg);

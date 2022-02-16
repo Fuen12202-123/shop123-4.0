@@ -125,7 +125,8 @@ namespace shop123.Controllers
             db.SaveChanges();
             return RedirectToAction("ShoppingCar");
         }
-        public ActionResult AddCar(int skuid)
+        
+        public ActionResult AddCar(int skuid,int quantity)
         {
             //取得會員帳號並指定給memberId
             string memberId = User.Identity.Name;
@@ -163,7 +164,7 @@ namespace shop123.Controllers
                 orderDetail.orderDetailcolor = spusku.color;
                 orderDetail.orderDetailsize = spusku.size;
                 orderDetail.orderDetailprice = spusku.price;
-                orderDetail.orderDetailnum = 1;
+                orderDetail.orderDetailnum = quantity;
                 orderDetail.orderDetailIsApproved = "否";
                 orderDetail.@checked= false;
                 db.ordersDetail.Add(orderDetail);
@@ -171,7 +172,7 @@ namespace shop123.Controllers
             else
             {
                 //若產品為購物車狀態，即將該產品數量加1
-                currentCar.orderDetailnum += 1;
+                currentCar.orderDetailnum += quantity;
             }
             db.SaveChanges();
 
