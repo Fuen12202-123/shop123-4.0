@@ -20,7 +20,7 @@ public partial class orders
 
     public int id { get; set; }
 
-    public Nullable<int> memberId { get; set; }
+    public string memberId { get; set; }
 
     public Nullable<int> deliveryId { get; set; }
 
@@ -43,6 +43,8 @@ public partial class orders
     public Nullable<int> refundId { get; set; }
 
     public string orderguid { get; set; }
+
+    public string sellerId { get; set; }
 
 }
 

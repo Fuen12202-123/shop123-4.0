@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title 衣貳衫</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-              integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-              crossorigin="anonymous" referrerpolicy="no-referrer" />
+          integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+ 
 </head>
 <body>
     <div class="container">
@@ -25,36 +27,25 @@
                     @Html.TextBox("SearchString", "", new {id="Search" , required = "required", placeholder = "Search" ,@style="outline:0;" })                    
                     <button style="border:0;background-color:transparent;outline:0" type="submit"><i class="fas fa-search"></i></button>
                 }
-
-
-
-
-
             </div>
         </div>
         <div>
+           
             <ul class="row list-unstyled justify-content-end mb-5 ">
                 @if (User.Identity.IsAuthenticated)
                 {
                 <li>Welcome @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")<a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
                     <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>
-                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShopCart", "Home")"><i class="fas fa-shopping-cart"></i></a></li>
+                    @*<li id="Cart"><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")"><i class="fas fa-shopping-cart"></i></a></li>*@
+                    <li id="Cart">@Html.Partial("_CartPartial")</li>
                 }
                 else
                 {
                     <li>Welcome Guest<a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("sign", "Home")">登入</a></li>
                     <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>
-                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShopCart", "Home")"><i class="fas fa-shopping-cart"></i></a></li>
+                    <li ><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")"><i class="fas fa-shopping-cart"></i></a></li>
                 }
-                @*@Html.ActionLink("登入", "sign", "Home", new { @class = "text-dark px-4 text-decoration-none " })*@
-                <!--<li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("sign", "Home")">登入</a></li>-->
-                @*<li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Member", "Home")"><i class="fas fa-user"></i></a></li>*@
 
-                <!--<li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>-->
-                @*@Html.ActionLink("賣家中心", "AdminIndex", "Admin", new { @class = "text-dark px-4 text-decoration-none" })*@
-
-                @*@Html.ActionLink("購物車", "ShopCart", "Home", new { @class = "text-dark px-4 text-decoration-none" })*@
-                <!--<li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShopCart", "Home")"><i class="fas fa-shopping-cart"></i></a></li>-->
             </ul>
         </div>
         <div class="row mb-4 mt-5" style="font-size:20px">
@@ -85,7 +76,7 @@
             var $page = $('html,body')
             var distance = $('html').scrollTop() + $('body').scrollTop()
             // 總時間
-            var time = 200
+            var time = 150
             // 間隔時間
             var intervalTime = 1
             var itemDistance = distance / (time / intervalTime)

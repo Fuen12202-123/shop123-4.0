@@ -84,7 +84,7 @@ namespace shop123.Controllers
 
         }
 
-        [Authorize(Roles = "一般會員")]
+       
         public ActionResult Detail(int? id)
         {
             CDetailViewModel detail = null;
