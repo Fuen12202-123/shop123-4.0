@@ -41,7 +41,7 @@ namespace shop123.MyRoleProvider
         public override string[] GetRolesForUser(string username)
         {
             shop123Entities db = new shop123Entities();
-            string data = db.member.Where(m => m.memberName == username).FirstOrDefault().memberAccess;
+            string data = db.member.Where(m => m.memberAccount == username).FirstOrDefault().memberAccess;
             string[] result = { data };
             return result;
         }

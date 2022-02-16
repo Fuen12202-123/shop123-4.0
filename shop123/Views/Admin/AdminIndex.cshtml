@@ -63,7 +63,7 @@
     <div class="container">
         <ul class="d-flex list-unstyled justify-content-end">
             <li>@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</li>
-            <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Member")">登出</a></li>
+            <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
         </ul>
 
         <div class="row justify-content-center">

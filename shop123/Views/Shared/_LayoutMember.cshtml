@@ -34,7 +34,7 @@
         </div>
         <div>
             <ul class="row list-unstyled justify-content-end mb-5 ">
-                <li>Welcome @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")<a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Member")">登出</a></li>
+                <li>Welcome @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")<a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
                 <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>
                 <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShopCart", "Home")"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>

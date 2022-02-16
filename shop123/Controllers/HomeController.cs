@@ -196,9 +196,14 @@ namespace shop123.Controllers
                     ModelState.AddModelError("memberEmail", "此信箱已被註冊過");
                 return View();
             }
+        }
 
 
 
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
 
