@@ -46,16 +46,7 @@ namespace shop123.Controllers
         }   
 
 
-        public ActionResult _CartPartial()
-        {
-            //取得登入會員的帳號並指定給memberId
-            string memberId = User.Identity.Name;
-            //找出未成為訂單明細的資料，即購物車內容        
-            List<ordersDetail> od;
-            od= db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
-
-            return PartialView("_CartPartial", od);
-        }
+      
         [HttpPost]
         public ActionResult ShoppingCar(string receiverName, string receiverEmail, string receiverPhone, string receiverAddress, int totalprice)
         {
@@ -100,7 +91,7 @@ namespace shop123.Controllers
 
             //表示該產品是購物車狀態
             var currentCar = db.ordersDetail
-                .Where(m => m.skuId == skuid && m.orderDetailIsApproved == "否")
+                .Where(m => m.skuId == skuid && m.orderDetailIsApproved == "否" && m.memberId== memberId)
                 .FirstOrDefault();
             //
 

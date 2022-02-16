@@ -37,7 +37,7 @@
                     <li>Welcome @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")<a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Member")">登出</a></li>
                     <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>
                     @*<li id="Cart"><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")"><i class="fas fa-shopping-cart"></i></a></li>*@
-                    <li id="Cart">@Html.Action("_CartPartial","Member")</li>
+                    <li id="Cart">@Html.Partial("_CartPartial")</li>
                 }
                 else
                 {

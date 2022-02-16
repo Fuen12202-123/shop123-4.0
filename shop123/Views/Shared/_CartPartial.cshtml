@@ -1,27 +1,34 @@
-﻿@model IEnumerable<shop123.Models.ordersDetail>
+﻿
 
-
-<a onclick="MiniCart()" id="CartDropDown" class="dropdown-toggle " data-toggle="dropdown">
+@*<a onclick="MiniCart()" id="CartDropDown" class="dropdown-toggle " data-toggle="dropdown">
 
     <span class="caret"><i id="Cart" class="fas fa-shopping-cart"></i></span>
 </a>
-<ul id="minicart" class="dropdown-menu" role="menu" aria-labelledby="CartDropDown">    
+<ul id="minicart" class="dropdown-menu" role="menu" aria-labelledby="CartDropDown">
     <li class="divider"></li>
     <li><a class="btn btn-default text-center" href="#">結帳</a></li>
-</ul>
+</ul>*@
 
 
 
+<div class="dropdown">
+    <a  onclick="MiniCart()" class=" dropdown-toggle text-dark  text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i id="Cart" class="fas fa-shopping-cart"></i>
+    </a>
 
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="width:400px">       
+        <a class="dropdown-item text-left " href="#">最近加入的商品</a>
+        <ul id="minicart" class="list-group list-group-flush "></ul>
+        <a class="dropdown-item text-right" href="@Url.Action("ShoppingCar","Member")">前往購物車</a>
+    </div>
+</div>
 
 
 
 <script>
     $(function () {
-        MiniCart();
+
     })
-
-
     function MiniCart() {
         var Mini = $("#minicart")
         Mini.empty();
@@ -31,9 +38,8 @@
                 success: function (data) {
                     $(data).each(function (index, item) {
                          $("#minicart").append
-                             (`<li><a><img src="${item.spuImg1}" style="width:30px" /> ${item.orderDetailspuname} <span>  &emsp;${item.orderDetailprice}  &emsp; X${item.orderDetailnum}</span></a></li>`)
+                             (`<li class=" list-group-item" id="item"><a><img src="${item.spuImg1}" style="width:30px" /> ${item.orderDetailspuname} &emsp;<span>${item.orderDetailcolor}${item.orderDetailsize}  $${item.orderDetailprice}  &emsp;</span> <span  class=" badge badge-primary badge-pill">${item.orderDetailnum}</span></a></li>`)
                     })
-
                 },
                 error: function (err) { confirm("載入錯誤") }
                 })
