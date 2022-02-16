@@ -24,7 +24,7 @@
             TotalPrice += itemSubtotal;
             <tr>
                 <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="@item.skuId" /></td>
-                <td class=""><a href="@Url.Action("Detail","Home")?id=@item.id")">content</a><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></td>
+                <td class=""><a href="@Url.Action("Detail","Home")?id=@item.id")"></a><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></td>
                 <td>
                     @item.orderDetailspuname-
                     @item.orderDetailcolor-
@@ -60,9 +60,7 @@
             }
     </tbody>
 </table>
-<div class="button-block">
-    <button class="btn btn-primary" id="button" onclick="show()">Click</button>
-</div>
+
 @*<div class="d-flex justify-content-end"><h5>總金額： @($"{TotalPrice:c0}")   | @Html.ActionLink("確認購買", "AddOrder", "Orders", null, new { @class = "btn btn-info" })</h5></div>*@
 
 @*function DeleteCar(Id) {

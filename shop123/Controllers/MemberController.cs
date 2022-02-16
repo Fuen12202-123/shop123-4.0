@@ -26,7 +26,7 @@ namespace shop123.Controllers
             //取得登入會員的帳號並指定給memberId
             string memberId = User.Identity.Name;
             //找出未成為訂單明細的資料，即購物車內容
-            //var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
+            var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
 
             var ODSKU = db.ordersDetail.Join(db.sku,
                   k => k.skuId,
@@ -53,7 +53,7 @@ namespace shop123.Controllers
 
 
             //View使用orderDetails模型
-            return View(ODSKU);
+            return View(orderDetails);
         }   
         public ActionResult AjaxMiniCar()
         {
