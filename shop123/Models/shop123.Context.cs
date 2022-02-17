@@ -56,7 +56,8 @@ public partial class shop123Entities : DbContext
 
     public virtual DbSet<ordersDetail> ordersDetail { get; set; }
 
-}
+   
+    }
 
 }
 
