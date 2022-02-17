@@ -14,36 +14,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
- 
+
 </head>
 <body>
     <div class="container">
-        <div class="row mt-5">
+        <div class="row mt-4">
             <div class="col-12 col-sm-8">@Html.ActionLink(" ", "Index", "Home", null, new { style = "background: url('" + Url.Content("~/Images/logo.png") + "') no-repeat center right; display:block; height:122px; width:238px;" })</div>
             <div class="col-12 col-sm-4 d-flex justify-content-end align-items-end mb-5">
 
                 @using (Html.BeginForm("Allspu", "Home", FormMethod.Get))
                 {
-                    @Html.TextBox("SearchString", "", new {id="Search" , required = "required", placeholder = "Search" ,@style="outline:0;" })                    
+                    @Html.TextBox("SearchString", "", new { id = "Search", required = "required", placeholder = "Search", @style = "outline:0;" })
                     <button style="border:0;background-color:transparent;outline:0" type="submit"><i class="fas fa-search"></i></button>
                 }
             </div>
         </div>
         <div>
-           
+
             <ul class="row list-unstyled justify-content-end mb-5 ">
                 @if (User.Identity.IsAuthenticated)
                 {
-                <li> <a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("OrderDetails", "Member")">@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</a><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
-                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>
-                    @*<li id="Cart"><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")"><i class="fas fa-shopping-cart"></i></a></li>*@
+
+            <li> <a class=" text-dark px-4 text-decoration-none" ; href="@Url.Action("MemberCenter", "Member")">@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</a></li>
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>               
                     <li id="Cart">@Html.Partial("_CartPartial")</li>
                 }
                 else
                 {
-                    <li>Welcome Guest<a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("sign", "Home")">登入</a></li>
-                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>
-                    <li ><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")"><i class="fas fa-shopping-cart"></i></a></li>
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("sign", "Home")">登入</a></li>                 
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")"><i class="fas fa-shopping-cart"></i></a></li>
                 }
 
             </ul>
@@ -63,7 +62,7 @@
             </footer>
         </div>
     </div>
-  
+
 
     @RenderSection("scripts", required: false)
     <script>

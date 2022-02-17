@@ -22,14 +22,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="row mt-5">
+        <div class="row mt-4">
             <div class="col-12 col-sm-8">@Html.ActionLink(" ", "Index", "Home", null, new { style = "background: url('" + Url.Content("~/Images/logo.png") + "') no-repeat center right; display:block; height:122px; width:238px;" })</div>
             <div class="col-12 col-sm-4 d-flex justify-content-end align-items-end mb-5">
 
                 @using (Html.BeginForm("Allspu", "Home", FormMethod.Get))
                 {
                     @Html.TextBox("SearchString", "", new { id = "Search", required = "required", placeholder = "Search", @style = "outline:0;" })
-                    <button style="border:0;background-color:transparent;outline:0" type="submit"><i class="fas fa-search"></i></button>
+                    <button style="border:0;background-color:transparent;outline:0;" type="submit"><i style="color:black"class="fas fa-search"></i></button>
                 }
 
 
@@ -40,9 +40,21 @@
         </div>
         <div>
             <ul class="row list-unstyled justify-content-end mb-5 ">
-                <li>Welcome @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")<a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
-                <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Index", "Home")">賣家中心</a></li>
-                <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShopCart", "Home")"><i class="fas fa-shopping-cart"></i></a></li>
+                @if (User.Identity.IsAuthenticated)
+                {
+
+                    <li> <a class=" text-dark px-4 text-decoration-none" ; href="@Url.Action("MemberCenter", "Member")">@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</a></li>
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
+
+                    <li id="Cart">@Html.Partial("_CartPartial")</li>
+                }
+                else
+                {
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("sign", "Home")">登入</a></li>
+
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")"><i class="fas fa-shopping-cart"></i></a></li>
+                }
+
             </ul>
         </div>
         <div class="row mb-4 mt-5" style="font-size:20px">

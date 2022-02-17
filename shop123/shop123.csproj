@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\MemberCenter.css" />
+    <Content Include="Content\minicart.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\seller.css" />
     <Content Include="Content\sellerPage.css" />
