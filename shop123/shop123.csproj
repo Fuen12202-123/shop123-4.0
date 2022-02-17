@@ -1,4 +1,6 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.5.3\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.5.3\build\Microsoft.TypeScript.MSBuild.props')" />
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.5.3\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.5.3\build\Microsoft.TypeScript.MSBuild.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -70,6 +72,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -268,12 +271,6 @@
     <Content Include="Views\Seller\Seller.cshtml" />
     <Content Include="Views\Home\sign.cshtml" />
     <Content Include="Views\Home\Enroll.cshtml" />
-    <Content Include="Views\Admin\Member.cshtml" />
-    <Content Include="Views\Admin\MemberCreate.cshtml" />
-    <Content Include="Views\Admin\MemberEdit.cshtml" />
-    <Content Include="Views\Admin\Spu.cshtml" />
-    <Content Include="Views\Admin\SpuCreate.cshtml" />
-    <Content Include="Views\Admin\SpuEdit.cshtml" />
     <Content Include="Views\Seller\sellerPage.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
@@ -292,6 +289,12 @@
     <Content Include="Views\Member\ShoppingCar.cshtml" />
     <Content Include="Views\Member\OrderDetails.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
+    <Content Include="Views\Admin\Member.cshtml" />
+    <Content Include="Views\Admin\MemberCreate.cshtml" />
+    <Content Include="Views\Admin\MemberEdit.cshtml" />
+    <Content Include="Views\Admin\Spu.cshtml" />
+    <Content Include="Views\Admin\SpuCreate.cshtml" />
+    <Content Include="Views\Admin\SpuEdit.cshtml" />
     <Content Include="Views\Member\checkout.cshtml" />
     <Content Include="Views\Shared\ordersDetailPartial.cshtml" />
     <Content Include="Views\Member\MemberCenter2.cshtml" />
