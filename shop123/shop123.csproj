@@ -288,9 +288,10 @@
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Member\MemberCenter.cshtml" />
     <Content Include="Views\Member\ShoppingCar.cshtml" />
-    <Content Include="Views\Member\OrderList.cshtml" />
     <Content Include="Views\Member\OrderDetails.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
+    <Content Include="Views\Member\checkout.cshtml" />
+    <Content Include="Views\Shared\orderDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
