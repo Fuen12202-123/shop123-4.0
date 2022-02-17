@@ -10,14 +10,16 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".editSelfFiles").click(function () {
         $(".selfFiles").show(1000);
-        $("#tabs").hide(1000);
+        $("#tabs1").hide(1000);
+        $("#tabs2").hide(1000);
         $(".favItems").hide(1000);
         $(".upload").hide(1000);
     })
 })
 $(document).ready(function () {
     $(".editOrder").click(function () {
-        $("#tabs").show(1000);
+        $("#tabs1").show(1000);
+        $("#tabs2").hide(1000);
         $(".selfFiles").hide(1000);
         $(".favItems").hide(1000);
         $(".upload").hide(1000);
@@ -27,7 +29,17 @@ $(document).ready(function () {
     $(".editFavItems").click(function () {
         $(".favItems").show(1000);
         $(".selfFiles").hide(1000);
-        $("#tabs").hide(1000);
+        $("#tabs1").hide(1000);
+        $("#tabs2").hide(1000);
+        $(".upload").hide(1000);
+    })
+})
+$(document).ready(function () {
+    $(".buyer-editOrder").click(function () {
+        $(".favItems").hide(1000);
+        $(".selfFiles").hide(1000);
+        $("#tabs1").hide(1000);
+        $("#tabs2").show(1000);
         $(".upload").hide(1000);
     })
 })
@@ -36,15 +48,8 @@ $(document).ready(function () {
         $(".upload").show(1000);
         $(".selfFiles").hide(1000);
         $(".favItems").hide(1000);
-        $("#tabs").hide(1000);
-    })
-})
-$(document).ready(function () {
-    $(".buyer-editOrder").click(function () {
-        $(".upload").hide(1000);
-        $(".selfFiles").hide(1000);
-        $(".favItems").hide(1000);
-        $("#tabs").hide(1000);
+        $("#tabs1").hide(1000);
+        $("#tabs2").hide(1000);
     })
 })
 
@@ -56,7 +61,8 @@ $(document).ready(function () {
         $(".buyer-editOrder").show(1000);
         $(".editOrder").hide(1000);
         $(".addProduct").hide(1000);
-        $("#tabs").hide(1000);
+        $("#tabs1").hide(1000);
+        $("#tabs2").hide(1000);
     })
 })
 
@@ -66,8 +72,8 @@ $(document).ready(function () {
         $(".editSelfFiles").hide(1000);
         $(".editOrder").show(1000);
         $(".addProduct").show(1000);
-        $(".productManage").show(1000);
-        $("#tabs").hide(1000);
+        $("#tabs1").hide(1000);
+        $("#tabs2").hide(1000);
         $(".buyer-editOrder").hide(1000);
     })
 })

@@ -51,8 +51,7 @@
                         <li><a href="#tabs-12" data-toggle="tab">退貨/退款</a></li>
                     </ul>
                 </li>
-                @*<li class="editFavItems"><a href="javascript:;"><i class="fas fa-heart"></i>收藏商品</a></li>*@
-                <li class="productManage"><a href="javascript:;"><i class="fas fa-plus"></i>商品管理</a></li>
+                <li class="editFavItems"><a href="javascript:;"><i class="fas fa-heart"></i>收藏商品</a></li>
                 <li class="addProduct"><a href="javascript:;"><i class="fas fa-plus"></i>新增商品</a></li>
             </ul>
         </nav>
@@ -81,18 +80,23 @@
                     <input type="text" class="form-control" name="memberPhone" id="memberPhone">
                 </div>
                 <!-- 使用者圖像上傳 -->
-                <div class="memberFile">
-                    使用者頭像:
-                    <input type="file" name="img" accept="image/jpg/jpeg/png">
-                    <!-- 上傳圖片顯示 -->
-                    <img id="imgShow" src="預設圖片路徑" class="img-show" width="100" height="100" alt="上傳圖片"
-                         title="上傳圖片">
+                <!-- 上傳圖片顯示 -->
+                <div class="memberImg form-group">
+                    <label>使用者照片:</label>
+                </div>
+                <button class="button">上傳</button>
+                <div class="drag-area">
+                    <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <header>拖曳或點擊</header>
+                    <button>上傳</button>
+                    <input type="file" hidden>
+                    <!--隱藏input-->
                 </div>
                 <input type="submit" id="confirmSave" value="儲存修改">
             </form>
         </div>
         <!-- 訂單頁籤 -->
-        <div id="tabs">
+        <div id="tabs1">
             <ul class="nav nav-justified row justify-content-center">
                 <li><a href="#tabs-1" data-toggle="tab" class="tabTitle">待付款</a></li>
                 <li><a href="#tabs-2" data-toggle="tab" class="tabTitle">待出貨</a></li>
@@ -121,11 +125,40 @@
                     <p>退貨/退款訂單</p>
                 </div>
             </div>
-            <!--買家-->
-
-
-
         </div>
+
+        <!--買家-->
+        <div id="tabs2">
+            <ul class="nav nav-justified row justify-content-center">
+                <li><a href="#tabs-7" data-toggle="tab" class="tabTitle">待付款</a></li>
+                <li><a href="#tabs-8" data-toggle="tab" class="tabTitle">待出貨</a></li>
+                <li><a href="#tabs-9" data-toggle="tab" class="tabTitle">代收貨</a></li>
+                <li><a href="#tabs-10" data-toggle="tab" class="tabTitle">訂單完成</a></li>
+                <li><a href="#tabs-11" data-toggle="tab" class="tabTitle">不成立訂單</a></li>
+                <li><a href="#tabs-12" data-toggle="tab" class="tabTitle">退貨/退款</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane" id="tabs-7">
+                    <p>(買家)待付款訂單</p>
+                </div>
+                <div class="tab-pane" id="tabs-8">
+                    <p>(買家)待出貨訂單</p>
+                </div>
+                <div class="tab-pane" id="tabs-9">
+                    <p>(買家)待收貨訂單</p>
+                </div>
+                <div class="tab-pane" id="tabs-10">
+                    <p>(買家)已完成訂單</p>
+                </div>
+                <div class="tab-pane" id="tabs-11">
+                    <p>(買家)未成立訂單</p>
+                </div>
+                <div class="tab-pane" id="tabs-12">
+                    <p>(買家)退貨/退款訂單</p>
+                </div>
+            </div>
+        </div>
+
         <div class="favItems">test</div>
 
         <!--上架區域-->
@@ -133,7 +166,7 @@
             <div>
                 <div id="mydrop" class="drop">
                     <form action="upload" class="dropzone" name="dropzoneform" id="dropzoneform"
-                          style="background-color: #F5EBE0">
+                          style="background-color:#EDEDE9">
                         <div class="dz-message" data-dz-message><span>請點擊或將圖片拖曳至此區塊</span></div>
                     </form>
                 </div>
@@ -229,8 +262,8 @@
             </form>
         </div>
 
-        
 
 
     </div>
 </div>
+<!-- Footer -->
