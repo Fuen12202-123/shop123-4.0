@@ -280,23 +280,82 @@ namespace shop123.Controllers
         }
         public ActionResult MemberCenter()
         {
-
-
             return View();
+        }
+        [HttpPost]
+        public ActionResult MemberCenter(SpuModel sm) //使用者商品上傳
+        {
+            shop123Entities sh = new shop123Entities();
+            string userAccount = User.Identity.Name;
+            var userId = (from m in sh.member where m.memberAccount == userAccount select m.id).First();
+            if (sm.spuImg1 != null)
+            {
+                spu spu = new spu()
+                {
+                    spuName = sm.spuName,
+                    //memberId = sm.memberId,
+                    memberId=userId,
+                    spuInfo = sm.spuInfo,
+                    spuPrice = sm.spuPrice,
+                    catalogAId = sm.catalogAId,
+                    catalogBId = sm.catalogBId,
+                    spuImg1 = sm.spuImg1,
+                    spuImg2 = sm.spuImg2,
+                    spuImg3 = sm.spuImg3,
+                    spuImg4 = sm.spuImg4,
+                    spuImg5 = sm.spuImg5,
+                    spuShow = sm.spuShow,
+
+                };
+                spu.spuCreatedTime = DateTime.Now;
+                spu.spuEditTime = DateTime.Now;
+                sh.spu.Add(spu);
+                sh.SaveChanges();
+                return RedirectToAction("SellerItemEdit");
+            }
+            else
+            {
+                return View();
+            }
+
+            //return View();
 
 
             //目前會員的訂單主檔OrderList.cshtml檢視使用orders模型
 
         }
-            public ActionResult MemberCenter2()
+        public ActionResult upload()   //照片上傳至Images資料夾
         {
 
 
-            return View();
+
+            string fname = "";
+
+            foreach (string filename in Request.Files)
+            {
+
+                HttpPostedFileBase file = Request.Files[filename];
+                if (file != null && file.ContentLength > 0)
+                {
+                    fname = file.FileName;
+                    file.SaveAs(Server.MapPath("~/Images/" + fname));
+                }
+                else
+                {
+                    return View();
+                }
+
+            }
 
 
-            //目前會員的訂單主檔OrderList.cshtml檢視使用orders模型
-
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    Message = fname
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         public ActionResult OrderDetail(string orderguid)

@@ -1,4 +1,4 @@
-﻿
+﻿@model shop123.Models.SpuModel
 @{
     ViewBag.Title = "MemberCenter";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,7 +9,45 @@
 <script src="~/Scripts/MemberCenter.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 
+<script>
+    var count = 0;
+    Dropzone.options.dropzoneform = {
+        addRemoveLinks: true,
+        autoProcessQueue: false,
+        maxFiles: 5,
+        maxFilesize: 5,//MB
+        dictDefaultMessage:'請點擊或將圖片拖曳至此區塊',
+        init: function () {
+            var zone = this;
+            this.on('maxfilesexceeded', function (file) {
+                this.removeFile(file);
 
+            });
+            this.on('removedfile', function () {
+                count--;
+
+            })
+            this.on('addedfile', function () {
+                count++;
+            }),
+                $('#save').on('click', function () {
+                    if (count != 0) {
+                        let y = 0;
+                        zone.processQueue();
+                        for (let i = 0; i < count; i++) {
+                            y++;
+                            var img = zone.files[i].name;
+                            $('.testzone').append('<input class="uploadImag" type="text" name="spuImg' + y + '"' + 'value="' + img + '"/>');
+                        }
+                    }
+                    else {
+                        alert('請至少上傳一張圖片');
+
+                    }
+            });
+        }
+    }
+</script>
 <div class="container-all">
     <!-- 中左邊可收縮視窗 -->
     <div class="container-left">
@@ -177,7 +215,7 @@
                 </div>
             </div>
 
-            <form action="~/Seller/SellerAddItem" method="post">
+            <form action="~/Member/MemberCenter" method="post">
                 <div class="frame container testzone">
 
                     <div class="container">
