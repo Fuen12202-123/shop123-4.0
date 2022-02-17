@@ -40,28 +40,6 @@ namespace shop123.Models
     }
 
 
-    public virtual DbSet<carousel> carousel { get; set; }
 
-    public virtual DbSet<catalogA> catalogA { get; set; }
-
-    public virtual DbSet<catalogB> catalogB { get; set; }
-
-    public virtual DbSet<comment> comment { get; set; }
-
-    public virtual DbSet<delivery> delivery { get; set; }
-
-    public virtual DbSet<favorite> favorite { get; set; }
-
-    public virtual DbSet<member> member { get; set; }
-
-    public virtual DbSet<refund> refund { get; set; }
-
-    public virtual DbSet<sku> sku { get; set; }
-
-    public virtual DbSet<orders> orders { get; set; }
-
-    public virtual DbSet<spu> spu { get; set; }
-
-    public virtual DbSet<ordersDetail> ordersDetail { get; set; }
 
 }
