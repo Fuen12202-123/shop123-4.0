@@ -185,7 +185,7 @@ namespace shop123.Controllers
         public ActionResult EditCount(int ProductID, int ProductCount)
         {
             string memberId = User.Identity.Name;
-            ordersDetail od = db.ordersDetail.AsEnumerable().FirstOrDefault(c => c.skuId == ProductID && c.memberId==memberId);
+            ordersDetail od = db.ordersDetail.AsEnumerable().FirstOrDefault(c => c.skuId == ProductID && c.memberId==memberId && c.orderguid==null);
             od.orderDetailnum = ProductCount;
             db.SaveChanges();
             return RedirectToAction("ShoppingCar");
@@ -278,10 +278,41 @@ namespace shop123.Controllers
                 .OrderByDescending(m => m.orderCreateTime).ToList();
             return View(orders);
         }
-        public ActionResult MemberCenter()
+
+
+        public ActionResult MemberCenter2()
         {
             return View();
         }
+
+          public ActionResult MemberCenter3()
+        {
+            return View();
+        }
+
+
+
+        public ActionResult MemberCenter()
+        {
+            string memberId = User.Identity.Name;
+            var member = from m in db.member.Where(m => m.memberAccount == memberId) select m;
+
+            MemberCenter mc = new MemberCenter
+            {
+                id = member.First().id,
+                memberName = member.First().memberName,
+                memberPassword = member.First().memberPassword,
+                memberEmail = member.First().memberEmail,
+                memberPhone = member.First().memberPhone
+            };
+
+
+            return View(mc);          
+
+            //目前會員的訂單主檔OrderList.cshtml檢視使用orders模型
+        }
+
+
         [HttpPost]
         public ActionResult MemberCenter(SpuModel sm) //使用者商品上傳
         {
