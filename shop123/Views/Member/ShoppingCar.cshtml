@@ -20,43 +20,51 @@
         @{ int TotalPrice = 0;}
         @foreach (var item in Model)
         {
-            int itemSubtotal = item.orderDetailprice.Value * item.orderDetailnum.Value;
-            TotalPrice += itemSubtotal;
-            <tr>
-
+            int itemSubtotal = 0;
+            
+        <tr>
+            @if (@item.@checked == true)
+            {
+                <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" checked /></td>
+                itemSubtotal = item.orderDetailprice.Value * item.orderDetailnum.Value;
+                TotalPrice += itemSubtotal;
+            }
+            else
+            {
                 <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" /></td>
-                <td><a href="@Url.Action("Detail","Home")?id=@item.spuId" )"><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></a></td>
-                <td>
-                    <a class="text-dark  text-decoration-none" href="@Url.Action("Detail","Home")?id=@item.spuId" )">
-                        @item.orderDetailspuname-
-                        @item.orderDetailcolor-
-                        @item.orderDetailsize
-                    </a>
-                </td>
+            }
 
-                <td>@($"{item.orderDetailprice:c0}")</td>
+            <td><a href="@Url.Action("Detail","Home")?id=@item.spuId" )"><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></a></td>
+            <td>
+                <a class="text-dark  text-decoration-none" href="@Url.Action("Detail","Home")?id=@item.spuId" )">
+                    @item.orderDetailspuname-
+                    @item.orderDetailcolor-
+                    @item.orderDetailsize
+                </a>
+            </td>
 
-                <td>
-                    @using (Html.BeginForm("EditCount", "Member", FormMethod.Post))
-                    {
-                    <div class="qty">
-                        @*<input onclick="minus()" type="submit" value="-" class="minus " - />*@
+            <td>@($"{item.orderDetailprice:c0}")</td>
+
+            <td>
+                @using (Html.BeginForm("EditCount", "Member", FormMethod.Post))
+                {
+                      
                         @Html.Hidden("ProductID", item.skuId)
-                        @Html.TextBox("ProductCount", item.orderDetailnum, new { @class = "form -control count", style = "width:35px", name = "qty" })
-                        <input type="submit" value="變更" class="btn btn-outline-secondary" />
-                        @*<input onclick="plus()" type="submit" value="更改" class="plus " + />*@
-                    </div>
-                    }
+                        @Html.TextBox("ProductCount", item.orderDetailnum, new { @class = "form -control", style = "width:35px"})
+                        <input type="submit" value="變更"/>
+                    
+                   
+                }
 
-                </td>
+            </td>
 
-                <td>@($"{ itemSubtotal:c0}")</td>
-                @*<td>@Html.ActionLink("刪除", "DeleteCar", "Member", new { Id = item.skuId }, new { @class = "btn btn-danger" })</td>*@
-                <td>
-                    <a href="@Url.Action("DeleteCar")?Id=@item.id"
-                       class="btn btn-danger"     *@>刪除</a>
-                </td>
-            </tr>
+            <td>@($"{ itemSubtotal:c0}")</td>
+            @*<td>@Html.ActionLink("刪除", "DeleteCar", "Member", new { Id = item.skuId }, new { @class = "btn btn-danger" })</td>*@
+            <td>
+                <a href="@Url.Action("DeleteCar")?Id=@item.id"
+                   class="btn " *@><i class="fa-solid fa-trash-can"></i></a>
+            </td>
+        </tr>
 
 
 
@@ -67,7 +75,9 @@
     
 </table>
 
-<div class="d-flex justify-content-end mr-4"><h5>總金額： @($"{TotalPrice:c0}")   | @Html.ActionLink("確認購買", "checkout", "Member", null, new { @class = "btn btn-info" })</h5></div>
+@*<div class="d-flex justify-content-end mr-4"><h5>總金額： @($"{TotalPrice:c0}")   | @Html.ActionLink(" ", "checkout", "Member", null, new { @class = "btn btn-info" })<i class="fa-solid fa-check"></i></h5></div>*@
+<div class="d-flex justify-content-end mr-2"><h5>總金額： @($"{TotalPrice:c0}")   | <a href="@Url.Action("checkout")" class="btn"><i class="fa-solid fa-circle-check" style="font-size:2rem"></i></a>
+</h5></div>
 
 @*function DeleteCar(Id) {
     $.ajax({
@@ -83,16 +93,18 @@
     $(document).ready(function () {
     })
 
-    //function minus(skuId) {
+    //function minus() {
     //    $('.count').val(parseInt($('.count').val()) - 1);
     //    if ($('.count').val() == 0) {
     //        $('.count').val(1);
     //    }
     //}
 
-    //function plus(skuId) {
-    //    $('.count').val(parseInt($('.count').val()) + 1);
+    //function plus() {
+    //    $('.count').val(parseInt($('.count').val()) +1);
     //}
+
+
 
     function skuchecked(skuid) {
         $.ajax({
