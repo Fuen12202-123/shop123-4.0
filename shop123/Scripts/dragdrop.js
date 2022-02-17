@@ -1,43 +1,42 @@
-﻿const dropArea = document.querySelector(".drag-area"),
-    dragText = dropArea.querySelector("header"),
-    button = dropArea.querySelector("button"),
-    input = dropArea.querySelector("input");
-const btn = document.querySelector(".button")
+﻿const DdropArea1 = document.querySelector(".Ddrag-area");
+const dragbtn = document.querySelector(".dragbtn");
+const button = document.querySelector(".button");
+const Dinput = document.querySelector(".dropinput");
 
 let file;
 
 button.onclick = () => {
-    input.click();
+    Dinput.click();
     return false;
 }
 
-btn.onclick = () => {
-    input.click();
+dragbtn.onclick = () => {
+    Dinput.click();
     return false;
 }
 
-input.addEventListener("change", function () {
+Dinput.addEventListener("change", function () {
     file = this.files[0];
     showFile();
-    dropArea.classList.add("active");
+    DdropArea1.classList.add("active");
 })
 
 
 
-dropArea.addEventListener("dragover", (event) => {   // dragover:拖曳進dropArea觸發
+DdropArea1.addEventListener("dragover", (event) => {   // dragover:拖曳進dropArea觸發
     event.preventDefault();
     //console.log("File is over DragArea");
-    dropArea.classList.add("active");        // 觸發時，新增class名為active
-    dragText.textContent = "放下即可";
+    DdropArea1.classList.add("active");        // 觸發時，新增class名為active
+    
 });
 
-dropArea.addEventListener("dragleave", () => {   // dragleave: 拖曳離開dropArea觸發
+DdropArea1.addEventListener("dragleave", () => {   // dragleave: 拖曳離開dropArea觸發
     //console.log("File is outside from DragArea");
-    dropArea.classList.remove("active");      // 觸發時，移除class名為active
-    dragText.textContent = "拖曳或點擊";
+    DdropArea1.classList.remove("active");      // 觸發時，移除class名為active
+    
 });
 
-dropArea.addEventListener("drop", (event) => {  // drop: 拖曳放置時觸發
+DdropArea1.addEventListener("drop", (event) => {  // drop: 拖曳放置時觸發
     event.preventDefault();
     //console.log("File is dropped on DropArea");
     file = event.dataTransfer.files[0];    // dataTransfer.file: 保存托放操作的資料  拖動中表示文件列表，若操作中不包含文件，則列表為空
@@ -55,12 +54,12 @@ function showFile() {
             let fileURL = fileReader.result;
             //console.log(fileURL);
             let imgTag = `<img src="${fileURL}" alt="">`;
-            dropArea.innerHTML = imgTag;
+            DdropArea1.innerHTML = imgTag;
         }
         fileReader.readAsDataURL(file);
     } else {
         alert("This is not an Image file!!!");
-        dropArea.classList.remove("active");
-        dragText.textContent = "Drag & Drop to Upload File";
+        DdropArea1.classList.remove("active");
+        
     }
 }

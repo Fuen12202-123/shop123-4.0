@@ -4,51 +4,7 @@
     ViewBag.Title = "MemberCenter";
     Layout = "~/Views/Shared/_LayoutMember.cshtml";
 }
-<link href="~/Content/MemberCenter.css" rel="stylesheet" />
-<script src="~/Scripts/dragdrop.js"></script>
-<script src="~/Scripts/sellerUpload.js"></script>
-<script src="~/Scripts/MemberCenter.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 
-<script>
-    var count = 0;
-    Dropzone.options.dropzoneform = {
-        addRemoveLinks: true,
-        autoProcessQueue: false,
-        maxFiles: 5,
-        maxFilesize: 5,//MB
-        dictDefaultMessage:'請點擊或將圖片拖曳至此區塊',
-        init: function () {
-            var zone = this;
-            this.on('maxfilesexceeded', function (file) {
-                this.removeFile(file);
-
-            });
-            this.on('removedfile', function () {
-                count--;
-
-            })
-            this.on('addedfile', function () {
-                count++;
-            }),
-                $('#save').on('click', function () {
-                    if (count != 0) {
-                        let y = 0;
-                        zone.processQueue();
-                        for (let i = 0; i < count; i++) {
-                            y++;
-                            var img = zone.files[i].name;
-                            $('.testzone').append('<input class="uploadImag" type="text" name="spuImg' + y + '"' + 'value="' + img + '"/>');
-                        }
-                    }
-                    else {
-                        alert('請至少上傳一張圖片');
-
-                    }
-            });
-        }
-    }
-</script>
 <div class="container-all">
     <!-- 中左邊可收縮視窗 -->
     <div class="container-left">
@@ -131,11 +87,11 @@
                     <label>使用者照片:</label>
                 </div>
                 <button class="button">上傳</button>
-                <div class="drag-area">
+                <div class="Ddrag-area">
                     <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
                     <header>拖曳或點擊</header>
-                    <button>上傳</button>
-                    <input type="file" hidden>
+                    <button class="dragbtn">上傳</button>
+                    <input type="file" class="dropinput" hidden>
                     <!--隱藏input-->
                 </div>
                 <input type="submit" id="confirmSave" value="儲存修改">
