@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Windows.Forms;
 
 namespace shop123.Controllers
 {
@@ -125,25 +126,36 @@ namespace shop123.Controllers
             shop123Entities s = new shop123Entities();
             var m = s.member.Where(p => p.memberEmail == member.memberEmail && p.memberPassword == member.memberPassword.ToString()).FirstOrDefault();
             var memberAccount = m.memberAccount;
+            var memberBanned=m.memberBanned;
             if (m != null)
             {
-                MemberInformation mi = new MemberInformation();
-                string userData = JsonConvert.SerializeObject(mi);
-                //存票證
-                SetAuthenTicket(userData, memberAccount);
-                FormsAuthentication.SetAuthCookie(m.memberAccount, false);
-                Session["Welcom"] = member.memberName + "歡迎光臨";
-                if (m.memberAccess == "管理員") { return RedirectToAction("AdminIndex", "Admin"); }
+                if (memberBanned != true)
+                {
+                    MemberInformation mi = new MemberInformation();
+                    string userData = JsonConvert.SerializeObject(mi);
+                    //存票證
+                    SetAuthenTicket(userData, memberAccount);
+                    FormsAuthentication.SetAuthCookie(m.memberAccount, false);
+                    Session["Welcom"] = member.memberName + "歡迎光臨";
+                    if (m.memberAccess == "管理員") { return RedirectToAction("AdminIndex", "Admin"); }
+                    else
+                    {
+                        //傳回原網頁有錯誤找不到
+                        //登入傳到原位址
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        { return Redirect(returnUrl); }
+                        else
+                        { return RedirectToAction("Index", "Home"); }
+                        //return RedirectToAction("Index");
+                    }
+                }
+                //被禁用會員
                 else
                 {
-                    //傳回原網頁有錯誤找不到
-                    //登入傳到原位址
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    { return Redirect(returnUrl); }
-                    else
-                    { return RedirectToAction("Index", "Home"); }
-                    //return RedirectToAction("Index");
+                    TempData["message"] = "此帳號已被禁用，請洽管理員";
+                    return View();
                 }
+                
             }
             else
             {

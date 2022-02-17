@@ -70,6 +70,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -266,12 +267,6 @@
     <Content Include="Views\Seller\Seller.cshtml" />
     <Content Include="Views\Home\sign.cshtml" />
     <Content Include="Views\Home\Enroll.cshtml" />
-    <Content Include="Views\Admin\Member.cshtml" />
-    <Content Include="Views\Admin\MemberCreate.cshtml" />
-    <Content Include="Views\Admin\MemberEdit.cshtml" />
-    <Content Include="Views\Admin\Spu.cshtml" />
-    <Content Include="Views\Admin\SpuCreate.cshtml" />
-    <Content Include="Views\Admin\SpuEdit.cshtml" />
     <Content Include="Views\Seller\sellerPage.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
@@ -291,6 +286,12 @@
     <Content Include="Views\Member\OrderList.cshtml" />
     <Content Include="Views\Member\OrderDetails.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
+    <Content Include="Views\Admin\Member.cshtml" />
+    <Content Include="Views\Admin\MemberCreate.cshtml" />
+    <Content Include="Views\Admin\MemberEdit.cshtml" />
+    <Content Include="Views\Admin\Spu.cshtml" />
+    <Content Include="Views\Admin\SpuCreate.cshtml" />
+    <Content Include="Views\Admin\SpuEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
