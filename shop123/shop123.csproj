@@ -1,8 +1,6 @@
-
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.5.3\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.5.3\build\Microsoft.TypeScript.MSBuild.props')" />
   <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
-  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.5.3\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.5.3\build\Microsoft.TypeScript.MSBuild.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -129,8 +127,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\Style.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\closeeye.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\minus_plus.gif" />
+    <Content Include="Images\openeye.png" />
     <Content Include="Models\shop123.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>shop123.Context.cs</LastGenOutput>
@@ -159,6 +159,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\eyepassword.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.js" />
@@ -235,6 +236,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>shop123.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\shopcart.cs" />
     <Compile Include="Models\sku.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
@@ -243,9 +245,12 @@
     </Compile>
     <Compile Include="Models\SpuModel.cs" />
     <Compile Include="MyRoleProvider\SiteRole.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\CDetailViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\MemberCenter.cs" />
+    <Compile Include="ViewModel\MemberViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\sellerPage.cs" />
     <Compile Include="ViewModel\ShopCartViewModel.cs" />
@@ -298,6 +303,7 @@
     <Content Include="Views\Member\checkout.cshtml" />
     <Content Include="Views\Shared\ordersDetailPartial.cshtml" />
     <Content Include="Views\Member\MemberCenter2.cshtml" />
+    <Content Include="Views\Member\MemberCenter3.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

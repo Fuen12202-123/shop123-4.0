@@ -4,7 +4,7 @@
     ViewBag.Title = "Enroll";
 }
 
-<h2>Enroll</h2>
+
 
 
 @using (Html.BeginForm())
@@ -139,7 +139,7 @@
     const btn = $('#btn');
     var suc = @Html.Raw(Json.Encode(ViewBag.suc));
     btn.on('click', function () {
-        alert(suc);
+/*        alert(suc);*/
     })
     const eye = $("#eye");
     const pwd = $("#pwd");
