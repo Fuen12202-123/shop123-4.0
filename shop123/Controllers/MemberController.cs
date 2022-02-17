@@ -265,7 +265,7 @@ namespace shop123.Controllers
                     })
                 });
             }
-            return PartialView("orderDetails",lsOd);
+            return PartialView("ordersDetailPartial", lsOd);
 
         }
         public ActionResult OrderList()
@@ -279,6 +279,16 @@ namespace shop123.Controllers
             return View(orders);
         }
         public ActionResult MemberCenter()
+        {
+
+
+            return View();
+
+
+            //目前會員的訂單主檔OrderList.cshtml檢視使用orders模型
+
+        }
+            public ActionResult MemberCenter2()
         {
 
 
