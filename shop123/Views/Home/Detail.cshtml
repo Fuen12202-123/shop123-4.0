@@ -4,7 +4,9 @@
 }
 
 <link href="~/Content/Style.css" rel="stylesheet" />
-
+<head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
 
 <body>
     <div class="container_48" id="wrap">
@@ -149,7 +151,7 @@
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <!-- product page 
+                    <!-- product page -->
                     <div class="page-product-content">
                         <div class="page-product-content-left">
                            
@@ -220,8 +222,11 @@
         function AddToCart() {
             let skuid = $("#colorAndsize").val();
             let Quantity = $("#buyCount").val();
+            let prodName = $("#name").text();
+            let Colorsize = $("#colorAndsize option:selected").text();
+
             if (skuid == 0) {
-                alert("請先選擇顏色與尺寸");
+                swal("請先選擇顏色與尺寸");
                 return;
             }
             $.ajax({
@@ -230,6 +235,9 @@
                 data: {
                     skuid: skuid,
                     quantity: Quantity
+                },
+                success: function () {
+                    swal(prodName + " " + Colorsize+" 已加入購物車");
                 }
             })
                 //.done(function (msg) {
