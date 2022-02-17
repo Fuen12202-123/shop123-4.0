@@ -11,8 +11,9 @@ namespace shop123.Models
 {
     using System;
     using System.Collections.Generic;
-    
-public partial class ordersDetail
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class ordersDetail
 {
 
     public int id { get; set; }
@@ -32,7 +33,8 @@ public partial class ordersDetail
     public string orderDetailcolor { get; set; }
 
     public Nullable<int> orderDetailprice { get; set; }
-
+     [Required(ErrorMessage ="請輸入數字")] 
+     
     public Nullable<int> orderDetailnum { get; set; }
 
     public Nullable<int> orderDetailtotalprice { get; set; }

@@ -50,10 +50,8 @@
                 {
                       
                         @Html.Hidden("ProductID", item.skuId)
-                        @Html.TextBox("ProductCount", item.orderDetailnum, new { @class = "form -control", style = "width:35px"})
-                        <input type="submit" value="變更"/>
-                    
-                   
+                        @Html.TextBox("ProductCount", item.orderDetailnum, new { @type = "number", @class = "form -control", style = "width:40px", required = "required" })
+                        <input type="submit" value="變更" />   
                 }
 
             </td>
