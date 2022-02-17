@@ -108,6 +108,7 @@
           <Property Name="orderDetailtotalprice" Type="int" />
           <Property Name="orderDetailIsApproved" Type="nvarchar" MaxLength="50" />
           <Property Name="checked" Type="bit" />
+          <Property Name="spuId" Type="int" />
         </EntityType>
         <EntityType Name="refund">
           <Key>
@@ -324,6 +325,7 @@
           <Property Name="orderDetailtotalprice" Type="Int32" />
           <Property Name="orderDetailIsApproved" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="checked" Type="Boolean" />
+          <Property Name="spuId" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -471,6 +473,7 @@
           <EntitySetMapping Name="ordersDetail">
             <EntityTypeMapping TypeName="shop123Model.ordersDetail">
               <MappingFragment StoreEntitySet="ordersDetail">
+                <ScalarProperty Name="spuId" ColumnName="spuId" />
                 <ScalarProperty Name="checked" ColumnName="checked" />
                 <ScalarProperty Name="orderDetailIsApproved" ColumnName="orderDetailIsApproved" />
                 <ScalarProperty Name="orderDetailtotalprice" ColumnName="orderDetailtotalprice" />

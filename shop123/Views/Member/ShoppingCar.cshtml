@@ -16,19 +16,22 @@
 <table class="table ">
     <thead><tr><th>@*<input type="checkbox" id="CheckAll" name="CheckAll" />*@</th><th>商品</th><th></th><th>單價</th><th>數量</th><th>總計</th><th>操作</th></tr> </thead>
 
-    <tbody>
+    <tbody>        
         @{ int TotalPrice = 0;}
         @foreach (var item in Model)
         {
             int itemSubtotal = item.orderDetailprice.Value * item.orderDetailnum.Value;
             TotalPrice += itemSubtotal;
             <tr>
-                <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="@item.skuId" /></td>
-                <td class=""><a href="@Url.Action("Detail","Home")?id=@item.id")"></a><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></td>
+
+                <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" /></td>
+                <td><a href="@Url.Action("Detail","Home")?id=@item.spuId" )"><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></a></td>
                 <td>
-                    @item.orderDetailspuname-
-                    @item.orderDetailcolor-
-                    @item.orderDetailsize
+                    <a class="text-dark  text-decoration-none" href="@Url.Action("Detail","Home")?id=@item.spuId" )">
+                        @item.orderDetailspuname-
+                        @item.orderDetailcolor-
+                        @item.orderDetailsize
+                    </a>
                 </td>
 
                 <td>@($"{item.orderDetailprice:c0}")</td>
@@ -37,10 +40,10 @@
                     @using (Html.BeginForm("EditCount", "Member", FormMethod.Post))
                     {
                         <div class="qty">
-                            <input type="submit" value="-" class="minus " - />
+                            @*<input onclick="minus()" type="submit" value="-" class="minus " - />*@
                             @Html.Hidden("ProductID", item.skuId)
-                            @Html.TextBox("ProductCount", item.orderDetailnum, new { @class = "form -control count", style = "width:50px", name = "qty" })
-                            <input type="submit" value="+" class="plus " + />
+                            @Html.TextBox("ProductCount", item.orderDetailnum, new { @class = "form -control count", style = "width:35px", name = "qty" })
+                            <input onclick="plus()" type="submit" value="更改" class="plus " + />
                         </div>
                     }
 
@@ -56,8 +59,8 @@
             </tr>
 
 
-        
-            }
+
+        }
     </tbody>
 </table>
 
@@ -104,63 +107,44 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             <span class="control-label col-md-2">總金額</span>
             <div class="col-md-10">
                 <input type="text" id="totalprice" name="totalprice" class="" value="@TotalPrice" )" />
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="確認訂購" class="btn btn-info" />
-                <p>總金額：@($"{TotalPrice:c0}")</p>
+                @*<p>總金額：@($"{TotalPrice:c0}")</p>*@
             </div>
         </div>
     </div>
 </form>
 
 <script>
+    $(document).ready(function () {
+    })
+  
+    //function minus(skuId) {
+    //    $('.count').val(parseInt($('.count').val()) - 1);
+    //    if ($('.count').val() == 0) {
+    //        $('.count').val(1);
+    //    }
+    //}
 
+    //function plus(skuId) {
+    //    $('.count').val(parseInt($('.count').val()) + 1);
+    //}
 
-                    $(document).ready(function () {
-
-/*                        $('.count').prop('disabled', true);*/
-                        $(document).on('click', '.plus', function () {
-                            $('.count').val(parseInt($('.count').val()) + 1);
-                        });
-                        $(document).on('click', '.minus', function () {
-                            $('.count').val(parseInt($('.count').val()) - 1);
-                            if ($('.count').val() == 0) {
-                                $('.count').val(1);
-                            }
-                        });
-
-
-
-                        $("#CheckAll").click(function () {
-                            if ($("#CheckAll").prop("checked")) {
-                                $("input[name='checkboxs']").prop("checked", true);
-                            } else {
-                                $("input[name='checkboxs']").prop("checked", false);
-                            }
-                        })
-
-
-
-
-
-                    })
-
-
-
-                        function skuchecked(skuid) {
-                            $.ajax({
-                                type: 'POST',
-                                url: '@Url.Action("skuchecked", "Member")',
-                                data: { skuid: skuid }
-                            })
-                        }
+    function skuchecked(skuid) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("skuchecked", "Member")',
+            data: { skuid: skuid }
+        })
+    }
 
 </script>
 

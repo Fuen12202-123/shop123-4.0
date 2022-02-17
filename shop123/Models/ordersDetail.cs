@@ -44,6 +44,8 @@ public partial class ordersDetail
 
     public Nullable<bool> @checked { get; set; }
 
+    public Nullable<int> spuId { get; set; }
+
 }
 
 }
