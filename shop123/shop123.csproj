@@ -237,6 +237,7 @@
     <Compile Include="Models\spu.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SpuModel.cs" />
     <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\CDetailViewModel.cs" />
