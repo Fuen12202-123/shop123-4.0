@@ -20,7 +20,7 @@ namespace shop123.Controllers
         {
             return View();
         }
-      
+
         public ActionResult ShoppingCar()
         {
             //取得登入會員的帳號並指定給memberId
@@ -30,7 +30,20 @@ namespace shop123.Controllers
 
             //View使用orderDetails模型
             return View(orderDetails);
-        }   
+        }
+        public ActionResult checkout()
+        {
+            //取得登入會員的帳號並指定給memberId
+            string memberId = User.Identity.Name;
+            //找出未成為訂單明細的資料，即購物車內容
+            var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true).ToList();
+
+            //View使用orderDetails模型
+            return View(orderDetails);
+        }
+
+
+
         public ActionResult AjaxMiniCar()
         {
             //取得登入會員的帳號並指定給memberId
@@ -38,13 +51,14 @@ namespace shop123.Controllers
             //找出未成為訂單明細的資料，即購物車內容
             var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
             //View使用orderDetails模型
-            return Json(orderDetails,JsonRequestBehavior.AllowGet);
-        }   
+            return Json(orderDetails, JsonRequestBehavior.AllowGet);
+        }
 
 
-      
+
         [HttpPost]
-        public ActionResult ShoppingCar(string receiverName, string receiverEmail, string receiverPhone, string receiverAddress, int totalprice)
+        //public ActionResult ShoppingCar(string receiverName, string receiverEmail, string receiverPhone, string receiverAddress, int totalprice)
+        public ActionResult ShoppingCar(string receiverName, string receiverEmail, string receiverPhone, string receiverAddress)
         {
             //找出會員帳號並指定給memberId
             string memberId = User.Identity.Name;
@@ -63,10 +77,10 @@ namespace shop123.Controllers
             order.receiverPhone = receiverPhone;
             order.orderCreateTime = DateTime.Now;
             order.orderState = "未付款";
-            order.totalPrice = totalprice;
+            //order.totalPrice = totalprice;
             db.orders.Add(order);
             //找出目前會員在訂單明細中是購物車狀態的產品
-            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" ).ToList();
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
 
             //將購物車狀態產品的IsApproved設為"是"，表示確認訂購產品
             foreach (var item in ordersDetail)
@@ -76,7 +90,7 @@ namespace shop123.Controllers
                     item.orderguid = guid;
                     item.orderDetailIsApproved = "是";
                 }
-                
+
             }
             //更新資料庫，異動tOrder和tOrderDetail
             //完成訂單主檔和訂單明細的更新
@@ -86,23 +100,23 @@ namespace shop123.Controllers
         public ActionResult skuchecked(int skuid)
         {
             string memberId = User.Identity.Name;
-            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.skuId==skuid).ToList();
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.skuId == skuid).ToList();
             foreach (var item in ordersDetail)
             {
-                if(item.@checked == true)
+                if (item.@checked == true)
                 {
                     item.@checked = false;
                 }
                 else
                 {
-                    item.@checked =true;
-                } 
+                    item.@checked = true;
+                }
             }
             db.SaveChanges();
             return RedirectToAction("ShoppingCar");
         }
-        
-        public ActionResult AddCar(int skuid,int quantity)
+
+        public ActionResult AddCar(int skuid, int quantity)
         {
             //取得會員帳號並指定給memberId
             string memberId = User.Identity.Name;
@@ -110,7 +124,7 @@ namespace shop123.Controllers
 
             //表示該產品是購物車狀態
             var currentCar = db.ordersDetail
-                .Where(m => m.skuId == skuid && m.orderDetailIsApproved == "否" && m.memberId== memberId)
+                .Where(m => m.skuId == skuid && m.orderDetailIsApproved == "否" && m.memberId == memberId)
                 .FirstOrDefault();
             //
 
@@ -122,8 +136,8 @@ namespace shop123.Controllers
                   k => k.spuId,
                   u => u.id,
                   (k, u) => new
-                  { 
-                      spuid=k.spuId,
+                  {
+                      spuid = k.spuId,
                       skuid = k.id,
                       spuname = u.spuName,
                       spuimg = u.spuImg1,
@@ -144,7 +158,7 @@ namespace shop123.Controllers
                 orderDetail.orderDetailprice = spusku.price;
                 orderDetail.orderDetailnum = quantity;
                 orderDetail.orderDetailIsApproved = "否";
-                orderDetail.@checked= false;
+                orderDetail.@checked = false;
                 db.ordersDetail.Add(orderDetail);
             }
             else
@@ -170,7 +184,8 @@ namespace shop123.Controllers
 
         public ActionResult EditCount(int ProductID, int ProductCount)
         {
-            ordersDetail od = db.ordersDetail.AsEnumerable().FirstOrDefault(c => c.skuId == ProductID);
+            string memberId = User.Identity.Name;
+            ordersDetail od = db.ordersDetail.AsEnumerable().FirstOrDefault(c => c.skuId == ProductID && c.memberId==memberId);
             od.orderDetailnum = ProductCount;
             db.SaveChanges();
             return RedirectToAction("ShoppingCar");
@@ -202,8 +217,8 @@ namespace shop123.Controllers
                     Detail = db.ordersDetail.Where(o => o.orderguid == oGd.orderguid).Select(o => new OrderDetailViewModel()
                     {
                         skuId = o.skuId,
-                        orderDetailcolor=o.orderDetailcolor,
-                        orderDetailsize=o.orderDetailsize,  
+                        orderDetailcolor = o.orderDetailcolor,
+                        orderDetailsize = o.orderDetailsize,
                         orderDetailnum = o.orderDetailnum,
                         orderDetailspuname = o.orderDetailspuname,
                         orderDetailprice = o.orderDetailprice,
@@ -212,6 +227,45 @@ namespace shop123.Controllers
                 });
             }
             return View(lsOd);
+
+        }
+        
+        public ActionResult OrderDetailsPartial()
+        {
+            //找出會員帳號並指定給MemberId
+            string memberId = User.Identity.Name;
+
+            var qODG = from od in db.ordersDetail
+                       group od by od.orderguid into OG
+                       select new { orderguid = OG.Key, Count = OG.Count() };
+
+            var qOD = from o in db.orders
+                      join og in qODG on o.orderguid equals og.orderguid
+                      where o.memberId == memberId
+                      orderby o.orderCreateTime descending
+                      select new { orderguid = og.orderguid, memberId = o.memberId, CreateTime = o.orderCreateTime, Count = og.Count };
+
+            List<OrderViewModel> lsOd = new List<OrderViewModel>();
+            foreach (var oGd in qOD)
+            {
+                lsOd.Add(new OrderViewModel()
+                {
+                    orderguid = oGd.orderguid,
+                    orderCreateTime = oGd.CreateTime,
+                    memberId = oGd.memberId,
+                    Detail = db.ordersDetail.Where(o => o.orderguid == oGd.orderguid).Select(o => new OrderDetailViewModel()
+                    {
+                        skuId = o.skuId,
+                        orderDetailcolor = o.orderDetailcolor,
+                        orderDetailsize = o.orderDetailsize,
+                        orderDetailnum = o.orderDetailnum,
+                        orderDetailspuname = o.orderDetailspuname,
+                        orderDetailprice = o.orderDetailprice,
+                        spuImg1 = o.spuImg1
+                    })
+                });
+            }
+            return PartialView("orderDetails",lsOd);
 
         }
         public ActionResult OrderList()
@@ -226,13 +280,82 @@ namespace shop123.Controllers
         }
         public ActionResult MemberCenter()
         {
-
-
             return View();
+        }
+        [HttpPost]
+        public ActionResult MemberCenter(SpuModel sm) //使用者商品上傳
+        {
+            shop123Entities sh = new shop123Entities();
+            string userAccount = User.Identity.Name;
+            var userId = (from m in sh.member where m.memberAccount == userAccount select m.id).First();
+            if (sm.spuImg1 != null)
+            {
+                spu spu = new spu()
+                {
+                    spuName = sm.spuName,
+                    //memberId = sm.memberId,
+                    memberId=userId,
+                    spuInfo = sm.spuInfo,
+                    spuPrice = sm.spuPrice,
+                    catalogAId = sm.catalogAId,
+                    catalogBId = sm.catalogBId,
+                    spuImg1 = sm.spuImg1,
+                    spuImg2 = sm.spuImg2,
+                    spuImg3 = sm.spuImg3,
+                    spuImg4 = sm.spuImg4,
+                    spuImg5 = sm.spuImg5,
+                    spuShow = sm.spuShow,
 
-        
+                };
+                spu.spuCreatedTime = DateTime.Now;
+                spu.spuEditTime = DateTime.Now;
+                sh.spu.Add(spu);
+                sh.SaveChanges();
+                return RedirectToAction("SellerItemEdit");
+            }
+            else
+            {
+                return View();
+            }
+
+            //return View();
+
+
             //目前會員的訂單主檔OrderList.cshtml檢視使用orders模型
-            
+
+        }
+        public ActionResult upload()   //照片上傳至Images資料夾
+        {
+
+
+
+            string fname = "";
+
+            foreach (string filename in Request.Files)
+            {
+
+                HttpPostedFileBase file = Request.Files[filename];
+                if (file != null && file.ContentLength > 0)
+                {
+                    fname = file.FileName;
+                    file.SaveAs(Server.MapPath("~/Images/" + fname));
+                }
+                else
+                {
+                    return View();
+                }
+
+            }
+
+
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    Message = fname
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         public ActionResult OrderDetail(string orderguid)
