@@ -1,4 +1,4 @@
-﻿
+﻿@model shop123.ViewModel.MemberCenter
 @{
     ViewBag.Title = "MemberCenter";
     Layout = "~/Views/Shared/_LayoutMember.cshtml";
@@ -65,19 +65,21 @@
                 <h3>個人檔案</h3>
                 <div class="memberName form-group">
                     <label for="memberName">使用者名稱:</label>
-                    <input type="text" class="form-control" name="memberName" id="memberName">
+                    <input type="text" class="form-control" name="memberName" id="memberName" value="@ViewData.Model.memberName">
+                    
                 </div>
                 <div class="memberPassword form-group">
                     <label for="memberPassword">使用者密碼:</label>
-                    <input type="password" class="form-control" name="memberPassword" id="memberPassword">
+                    <input type="password" class="form-control eyepassword" name="memberPassword" id="memberPassword" value="@ViewData.Model.memberPassword">
+                    <label><img src="~/Images/closeeye.png" alt="" id="eye" style="width:20px; height:20px;"></label>
                 </div>
                 <div class="memberEmail form-group">
                     <label for="memberEmail">使用者信箱:</label>
-                    <input type="email" class="form-control" name="memberEmail" id="memberEmail">
+                    <input type="email" class="form-control" name="memberEmail" id="memberEmail" value="@ViewData.Model.memberEmail">
                 </div>
                 <div class="memberPhone form-group">
                     <label for="memberPhone">使用者聯絡方式:</label>
-                    <input type="text" class="form-control" name="memberPhone" id="memberPhone">
+                    <input type="text" class="form-control" name="memberPhone" id="memberPhone" value="@ViewData.Model.memberPhone">
                 </div>
                 <!-- 使用者圖像上傳 -->
                 <!-- 上傳圖片顯示 -->

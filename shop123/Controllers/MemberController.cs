@@ -198,9 +198,20 @@ namespace shop123.Controllers
         }
         public ActionResult MemberCenter()
         {
+            string memberId = User.Identity.Name;
+            var member = from m in db.member.Where(m => m.memberAccount == memberId) select m;
+
+            MemberCenter mc = new MemberCenter
+            {
+                id = member.First().id,
+                memberName = member.First().memberName,
+                memberPassword = member.First().memberPassword,
+                memberEmail = member.First().memberEmail,
+                memberPhone = member.First().memberPhone
+            };
 
 
-            return View();
+            return View(mc);
 
         
             //目前會員的訂單主檔OrderList.cshtml檢視使用orders模型
