@@ -106,8 +106,42 @@
 .personInfo {
     margin: 0 auto;
 }
+.drag-area {
+    margin: 20px auto;
+    width: 200px;
+    height: 100px;
+    border-radius: 5px;
+    border: 2px dashed #fff;
+}
+
+.button {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #5256ad;
+    background: #fff;
+    outline: none;
+    padding: 5px 15px;
+}
+
+.drag-area button {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #5256ad;
+    background: #fff;
+    outline: none;
+    padding: 5px 15px;
+}
+
+.drag-area img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
 /* 頁籤 */
-#tabs {
+#tabs1, #tabs2 {
     display: none;
 }
 
@@ -132,7 +166,7 @@
     padding: 0;
 }
 
-.editSelfFiles, .editOrder, .editFavItems, .addProduct, .buyer-editOrder, .productManage {
+.editSelfFiles, .editOrder, .editFavItems, .addProduct, .buyer-editOrder {
     display: none;
 }
 
