@@ -218,6 +218,7 @@
     <Compile Include="Models\ordersDetail.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartialModels\memberPartial.cs" />
     <Compile Include="Models\refund.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
@@ -294,15 +295,12 @@
     <Content Include="Views\Member\ShoppingCar.cshtml" />
     <Content Include="Views\Member\OrderDetails.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
-    <Content Include="Views\Admin\Member.cshtml" />
-    <Content Include="Views\Admin\MemberCreate.cshtml" />
-    <Content Include="Views\Admin\MemberEdit.cshtml" />
-    <Content Include="Views\Admin\Spu.cshtml" />
-    <Content Include="Views\Admin\SpuCreate.cshtml" />
-    <Content Include="Views\Admin\SpuEdit.cshtml" />
     <Content Include="Views\Member\checkout.cshtml" />
     <Content Include="Views\Shared\ordersDetailPartial.cshtml" />
     <Content Include="Views\Member\MemberCenter2.cshtml" />
+    <Content Include="Views\Admin\Member.cshtml" />
+    <Content Include="Views\Admin\MemberCreate.cshtml" />
+    <Content Include="Views\Admin\MemberEdit.cshtml" />
     <Content Include="Views\Member\MemberCenter3.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

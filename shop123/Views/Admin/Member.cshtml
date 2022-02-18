@@ -1,0 +1,88 @@
+﻿@model IEnumerable<shop123.Models.member>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>會員清單</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("新增會員", "MemberCreate")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.memberAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberPassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberImg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberBanned)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberAccess)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberCreateTime)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberAccount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberImg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberBanned)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberAccess)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.memberCreateTime)
+            </td>
+            <td>
+                @Html.ActionLink("編輯會員", "MemberEdit", new { id=item.id }) |
+                @Html.ActionLink("刪除會員", "MemberDelete", new { id=item.id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
