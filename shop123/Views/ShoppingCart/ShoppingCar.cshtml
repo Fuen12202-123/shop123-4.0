@@ -107,7 +107,7 @@
     function skuchecked(skuid) {
         $.ajax({
             type: 'POST',
-            url: '@Url.Action("skuchecked", "Member")',
+            url: '@Url.Action("skuchecked", "ShoppingCart")',
             data: { skuid: skuid }
         })
     }

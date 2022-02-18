@@ -1,38 +1,31 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title 衣貳衫</title>
+
+    <!-- #region --引用CDN-- -->
+    @*font-awesome*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
           integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @*jQuery*@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    @*<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>*@
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    @*bootstrap*@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    @* popper *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 
-    <style>
-        .back-to-top {
-            position: fixed;
-            display: none;
-            background: #FF6F61;
-            color: #ffffff;
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            line-height: 1;
-            font-size: 16px;
-            border-radius: 4px;
-            right: 15px;
-            bottom: 15px;
-            transition: background 0.5s;
-            z-index: 11;
-        }
-    </style>
+    <!-- #endregion -->
+
+    <!-- #region --引用外掛CSS、JS-- -->
+    <link href="~/Content/ToTop.css" rel="stylesheet" />
+    <script src="~/Scripts/ToTop.js"></script>
+    <!-- #endregion -->
+
 </head>
 <body>
     <div class="container">
@@ -40,83 +33,53 @@
             <div class="col-12 col-sm-8">@Html.ActionLink(" ", "Index", "Home", null, new { style = "background: url('" + Url.Content("~/Images/logo.png") + "') no-repeat center right; display:block; height:122px; width:238px;" })</div>
             <div class="col-12 col-sm-4 d-flex justify-content-end align-items-end mb-5">
 
+                <!-- #region --搜尋欄-- -->
                 @using (Html.BeginForm("Allspu", "Home", FormMethod.Get))
                 {
                     @Html.TextBox("SearchString", "", new { id = "Search", required = "required", placeholder = "Search", @style = "outline:0;" })
                     <button style="border:0;background-color:transparent;outline:0" type="submit"><i class="fas fa-search"></i></button>
                 }
+                <!-- #endregion -->
+
             </div>
         </div>
-        <div>
 
+        <div>
             <ul class="row list-unstyled justify-content-end mb-5 ">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li><a class=" text-dark px-4 text-decoration-none" ; href="@Url.Action("MemberCenter", "Member")">@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</a></li>
-                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>               
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("MemberCenter", "Member")">@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</a></li>
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
                     <li id="Cart">@Html.Partial("_CartPartial")</li>
                 }
                 else
                 {
-                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("sign", "Home")">登入</a></li>                 
-                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "Member")"><i class="fas fa-shopping-cart"></i></a></li>
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("sign", "Home")">登入</a></li>
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("ShoppingCar", "ShoppingCart")"><i class="fas fa-shopping-cart"></i></a></li>
                 }
-
             </ul>
         </div>
-        <div class="row mb-4 mt-5" style="font-size:20px">
 
+        <div class="row mb-4 mt-5" style="font-size:20px">
             <div class="col-sm-2"></div>
             @Html.Action("_categoryA", "Home")
             <div class="col-sm-2"></div>
         </div>
+
         <div class="container body-content">
             @RenderBody()
             <hr />
+
+
+
             <footer>
                 <p>&copy; @DateTime.Now.Year - 衣貳衫</p>
-                <p style="" id="to_top">↑</p>
                 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
             </footer>
         </div>
     </div>
 
 
-    @RenderSection("scripts", required: false)
-    <script>
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > 100) {
-                $('.back-to-top').fadeIn('slow');
-            } else {
-                $('.back-to-top').fadeOut('slow');
-            }
-        });
-        $('.back-to-top').click(function () {
-            // 瞬間滾到頂部
-            //$('html,body').scrollTop(0)
-
-            // 平滑滾到頂部
-            // 總距離
-            var $page = $('html,body')
-            var distance = $('html').scrollTop() + $('body').scrollTop()
-            // 總時間
-            var time = 150
-            // 間隔時間
-            var intervalTime = 1
-            var itemDistance = distance / (time / intervalTime)
-            // 使用循環定時器不斷滾動
-            var intervalId = setInterval(function () {
-                distance -= itemDistance
-                // 到達頂部, 停止定時器
-                if (distance <= 0) {
-                    distance = 0 //修正
-                    clearInterval(intervalId)
-                }
-                $page.scrollTop(distance)
-            }, intervalTime)
-
-            return false;
-        });
-    </script>
+    @RenderSection("scripts", required: false)  
 </body>
 </html>

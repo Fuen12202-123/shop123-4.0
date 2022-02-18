@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
 
+
 namespace shop123
 {
     public class Global : HttpApplication
@@ -17,7 +18,7 @@ namespace shop123
             // 應用程式啟動時執行的程式碼
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
 }
