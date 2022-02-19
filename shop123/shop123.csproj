@@ -304,7 +304,6 @@
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Member\MemberCenter.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
-    <Content Include="Views\Shared\ordersDetailPartial.cshtml" />
     <Content Include="Views\Admin\Member.cshtml" />
     <Content Include="Views\Admin\MemberCreate.cshtml" />
     <Content Include="Views\Admin\MemberEdit.cshtml" />

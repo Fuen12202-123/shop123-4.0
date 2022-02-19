@@ -11,27 +11,14 @@
         vertical-align: middle;
     }
 </style>
-@*<link href="~/Content/shopcartstyle.css" rel="stylesheet" />*@
+
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <div id="div1">
     @Html.Action("ShoppingCarPartial", "ShoppingCart")
 </div>
-function DeleteCar(Id) {
-    $.ajax({
-        type: 'POST',
-        url: '@Url.Action("DeleteCar", "Member")',
-        data: { Id: Id }
-        success: function (data){
-        $('#div1').html(data);
-        }
-        })
-
-        }
 
 
-        <script>
-    $(document).ready(function () {
-    })
+<script>
 
     //function minus() {
     //    $('.count').val(parseInt($('.count').val()) - 1);
@@ -56,9 +43,11 @@ function DeleteCar(Id) {
 
     }
 
+     
+   
 
 
-        </script>
+</script>
 
 
 

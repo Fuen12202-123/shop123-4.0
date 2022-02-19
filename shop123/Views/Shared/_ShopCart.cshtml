@@ -3,7 +3,7 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
 <table class="table ">
-    <thead><tr><th>@*<input type="checkbox" id="CheckAll" name="CheckAll" />*@</th><th>商品</th><th></th><th>單價</th><th>數量</th><th>總計</th><th>操作</th></tr> </thead>
+    <thead><tr><th></th><th>商品</th><th></th><th>單價</th><th>數量</th><th>總計</th><th>操作</th></tr> </thead>
 
     <tbody>
         @{ int TotalPrice = 0;}
@@ -15,17 +15,6 @@
                 @if (@item.@checked == true)
                 {
                     <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" checked /></td>
-
-                    @*<td>
-                        @using (Ajax.BeginForm("skuchecked", "ShoppingCart",new AjaxOptions { UpdateTargetId = "div1" }))
-                        {
-                            @Html.Hidden("skuid", item.skuId)
-                            @Html.CheckBox("CkbStatus", item.@checked.Value ? true : false, new { onclick = "this.form.submit()" })
-                            <input type="submit" value="" />
-                        }
-                        </td>*@
-
-
                     itemSubtotal = item.orderDetailprice.Value * item.orderDetailnum.Value;
                     TotalPrice += itemSubtotal;
                 }
@@ -33,15 +22,7 @@
                 {
                     <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" /></td>
 
-                    @*<td>
-                        @using (Ajax.BeginForm("skuchecked", "ShoppingCart", new AjaxOptions { UpdateTargetId = "div1" }))
 
-                        {
-                            @Html.Hidden("skuid", item.skuId)
-                            @Html.CheckBox("CkbStatus", item.@checked.Value ? true : false, new { onclick = "this.form.submit()" })
-                            <input type="submit" value="" display="0" />
-                        }
-                    </td>*@
 
                 }
 
@@ -59,14 +40,13 @@
                 <td>
                     @*@using (Html.BeginForm("EditCount", "Member", FormMethod.Post))
                         {
-
                                 @Html.Hidden("ProductID", item.skuId)
                                 @Html.TextBox("ProductCount", item.orderDetailnum, new { @type = "number", @class = "form -control", style = "width:40px", required = "required" })
                                 <input type="submit" value="變更" />
                         }*@
+
                     @using (Ajax.BeginForm("EditCount", new AjaxOptions { UpdateTargetId = "div1" }))
                     {
-
                         @Html.Hidden("ProductID", item.skuId)
                         @Html.TextBox("ProductCount", item.orderDetailnum, new { @class = "form -control", style = "width:40px", required = "required" })
                         <input type="submit" value="變更" />
@@ -75,11 +55,11 @@
                 </td>
 
                 <td>@($"{ itemSubtotal:c0}")</td>
-                @*<td>@Html.ActionLink("刪除", "DeleteCar", "Member", new { Id = item.skuId }, new { @class = "btn btn-danger" })</td>*@
                 <td>
-                    @(Ajax.ActionLink("刪除", "DeleteCar", new { controller = "ShoppingCart", Id = @item.id },new AjaxOptions { UpdateTargetId = "div1" }))
+                    @(Ajax.ActionLink(" ", "DeleteCar", new { controller = "ShoppingCart", Id = @item.id },new AjaxOptions { UpdateTargetId = "div1"}, new { @class = "btn myActionLink" }))
                 </td>
             </tr>
+
 
 
 
@@ -90,10 +70,13 @@
 
 </table>
 
-@*<div class="d-flex justify-content-end mr-4"><h5>總金額： @($"{TotalPrice:c0}")   | @Html.ActionLink(" ", "checkout", "Member", null, new { @class = "btn btn-info" })<i class="fa-solid fa-check"></i></h5></div>*@
 <div class="d-flex justify-content-end mr-2">
     <h5>
         總金額： @($"{TotalPrice:c0}")   | <a href="@Url.Action("checkout")" class="btn"><i class="fa-solid fa-circle-check" style="font-size:2rem"></i></a>
     </h5>
 </div>
+
+<script>
+    $('.myActionLink').prepend('<i class="fa-solid fa-trash-can"></i>');
+</script>
 
