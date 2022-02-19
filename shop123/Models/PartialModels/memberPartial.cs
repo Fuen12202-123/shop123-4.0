@@ -12,6 +12,7 @@ namespace shop123.Models
     {
         public class ordersMetadata
         {
+            [Key]
             public int id { get; set; }
             [DisplayName("會員帳號")]
             public string memberId { get; set; }

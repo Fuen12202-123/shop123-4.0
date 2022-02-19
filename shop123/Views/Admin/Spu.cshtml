@@ -1,0 +1,265 @@
+﻿@model IEnumerable<shop123.Models.spu>
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>商品清單</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+        body{
+            padding:25px;
+        }
+        table {
+            overflow: scroll;
+            width: 100%;
+            table-layout: fixed;
+            min-width: 1440px;
+        }
+
+        td {
+            overflow: hidden;
+            /*max-width: 100px;*/
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        .w5 {
+            width: 5rem;
+        }
+
+        .w7 {
+            width: 7rem;
+        }
+
+        .w15 {
+            width: 15rem;
+        }
+
+        .edede9 {
+            background-color: #edede9;
+        }
+
+        .d6ccc2 {
+            background-color: #d6ccc2;
+        }
+
+        .f5ebe0 {
+            background-color: #f5ebe0;
+        }
+
+        .e3d5ca {
+            background-color: #e3d5ca;
+        }
+
+        .d5bdaf {
+            background-color: #d5bdaf;
+        }
+
+        .text-decoration-none {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("新增商品", "SpuCreate", "", new { @class = "btn btn-info" })
+    </p>
+    <div class="table-responsive-md">
+        <table class="table table-bordered table-hover table-sm">
+            <thead>
+                <tr class="f5ebe0">
+                    <th scope="col" class="text-nowrap">
+                        @Html.DisplayNameFor(model => model.spuName)
+                    </th>
+                    <th scope="col" class="text-nowrap  w5">
+                        @Html.DisplayNameFor(model => model.memberId)
+                    </th>
+                    <th scope="col" class="text-nowrap">
+                        @Html.DisplayNameFor(model => model.spuInfo)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.spuPrice)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.catalogAId)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.catalogBId)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.spuImg1)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.spuImg2)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.spuImg3)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.spuImg4)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.spuImg5)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.spuShow)
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        @Html.DisplayNameFor(model => model.spuCreatedTime)
+                    </th>
+                    <th scope="col" class="text-nowrap w7">
+                        @Html.DisplayNameFor(model => model.spuEditTime)
+                    </th>
+                    <th scope="col" class="text-nowrap w15">編輯或刪除資料</th>
+                </tr>
+            </thead>
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.memberId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuInfo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.catalogAId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.catalogBId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuImg1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuImg2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuImg3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuImg4)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuImg5)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuShow)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuCreatedTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.spuEditTime)
+                    </td>
+                    <td style="display:flex" class="justify-content-between">
+                        @Html.ActionLink("編輯商品", "SpuEdit", new { id = item.id }, new { @class = "btn btn-outline-info demo3" })
+
+                        @using (Html.BeginForm("SpuDelete", "Admin",FormMethod.Post,new { @class = "deleteBtn" }))
+                        {
+                            @Html.Hidden("id",item.id)
+                            <input type="submit" value="刪除商品" class="btn btn-outline-danger" />
+                            @*<input type="hidden" name="id" value="id" />
+                            <span>
+                                @Html.ActionLink("刪除商品", "SpuDelete", new { id = item.id }, new { @class = "btn btn-outline-danger deleteBtn" })
+                            </span>*@
+                        }
+
+                        @*@Html.ActionLink("刪除商品", "SpuDelete", new { id = item.id }, new { @class = "btn btn-outline-danger" })*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+    </div>
+    <script>
+
+        $(function () {
+
+            $(".deleteBtn").click(function (e) {
+                //whenever our button is clicked
+
+                e.preventDefault();
+                // stop the default behavior(navigation)
+                var _form = $(this).closest("form");
+                //get a reference to the container form
+                swal({
+                    title: "是否確定要刪除?",
+                    text: "一旦刪除，資料無法找回!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            _form.submit();
+                            swal("內容已被刪除!"
+                                , { icon: "success", }
+                            );
+                        } else {
+                            swal("檔案確認保留!");
+                        }
+                    });
+            });
+
+        })
+
+
+
+        //$(document).ready(function () {
+        //    $(".demo3").click(function () {
+        //        swal({
+        //            title: "是否確定要刪除?",
+        //            text: "一旦刪除，資料無法找回!",
+        //            icon: "warning",
+        //            buttons: true,
+        //            dangerMode: true,
+        //        })
+        //            .then((willDelete) => {
+        //                if (willDelete) {
+        //                    swal("內容已被刪除!"
+        //                       ,  { icon: "success",}
+        //                    );
+        //                } else {
+        //                    swal("檔案確認保留!");
+        //                }
+        //            });
+        //    });
+        //})
+
+    </script>
+
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>*@
+
+
+</body>
+</html>
