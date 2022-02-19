@@ -96,6 +96,17 @@ namespace shop123.Controllers
             }
             return RedirectToAction("Index");
         }
+        //商品詳細頁面
+
+        public ActionResult MemberShop(int mbId)
+        {
+            MemberShopViewModel MemberShop = new MemberShopViewModel();
+            MemberShop.MB = db.member.FirstOrDefault(m => m.id == mbId);
+            MemberShop.MBspu = db.spu.Where(s => s.memberId == mbId).ToList();
+           return View(MemberShop);     
+        }
+        //賣家商場
+
         public ActionResult sign()
         {
 

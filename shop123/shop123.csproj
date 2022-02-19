@@ -251,6 +251,7 @@
     <Compile Include="ViewModel\CDetailViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MemberCenter.cs" />
+    <Compile Include="ViewModel\MemberShopViewModel.cs" />
     <Compile Include="ViewModel\MemberViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\sellerPage.cs" />
@@ -305,6 +306,7 @@
     <Content Include="Views\Admin\Spu.cshtml" />
     <Content Include="Views\Admin\SpuCreate.cshtml" />
     <Content Include="Views\Admin\SpuEdit.cshtml" />
+    <Content Include="Views\Home\MemberShop.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
