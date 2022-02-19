@@ -74,6 +74,7 @@ namespace shop123.Controllers
             order.receiverPhone = receiverPhone;
             order.orderCreateTime = DateTime.Now;
             order.orderState = "未付款";
+            order.totalPrice=totalprice;
             //order.totalPrice = totalprice;
             db.orders.Add(order);
             //找出目前會員在訂單明細中是購物車狀態的產品
@@ -162,14 +163,6 @@ namespace shop123.Controllers
             return RedirectToAction("ShoppingCarPartial");
         }
 
-        public ActionResult EditCount(int ProductID, int ProductCount)
-        {
-            string memberId = User.Identity.Name;
-            ordersDetail od = db.ordersDetail.AsEnumerable().FirstOrDefault(c => c.skuId == ProductID && c.memberId == memberId && c.orderguid == null);
-            od.orderDetailnum = ProductCount;
-            db.SaveChanges();
-            return RedirectToAction("ShoppingCarPartial");
-        }
        
         public ActionResult skuchecked(int skuid)
         {
@@ -189,5 +182,30 @@ namespace shop123.Controllers
             db.SaveChanges();
             return RedirectToAction("ShoppingCarPartial");
         }
+
+            public ActionResult minus(int skuid)
+        {
+            string memberId = User.Identity.Name;
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.skuId == skuid).ToList();
+            foreach (var item in ordersDetail)
+            {
+                item.orderDetailnum -= 1;
+            }
+            db.SaveChanges();
+            return RedirectToAction("ShoppingCarPartial");
+        }
+
+            public ActionResult plus(int skuid)
+        {
+            string memberId = User.Identity.Name;
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.skuId == skuid).ToList();
+            foreach (var item in ordersDetail)
+            {
+                item.orderDetailnum += 1;
+            }
+            db.SaveChanges();
+            return RedirectToAction("ShoppingCarPartial");
+        }
+
     }
 }

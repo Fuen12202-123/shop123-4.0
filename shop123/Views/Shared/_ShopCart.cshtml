@@ -11,54 +11,50 @@
         {
             int itemSubtotal = 0;
 
-            <tr>
-                @if (@item.@checked == true)
+        <tr>
+            @if (@item.@checked == true)
+            {
+                <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" checked /></td>
+                itemSubtotal = item.orderDetailprice.Value * item.orderDetailnum.Value;
+                TotalPrice += itemSubtotal;
+            }
+            else
+            {
+                <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" /></td>
+            }
+
+            <td><a href="@Url.Action("Detail","Home")?id=@item.spuId" )"><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></a></td>
+            <td>
+                <a class="text-dark  text-decoration-none" href="@Url.Action("Detail","Home")?id=@item.spuId" )">
+                    @item.orderDetailspuname-
+                    @item.orderDetailcolor-
+                    @item.orderDetailsize
+                </a>
+            </td>
+
+            <td>@($"{item.orderDetailprice:c0}")</td>
+
+            <td>
+                @if (item.orderDetailnum == 0)
                 {
-                    <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" checked /></td>
-                    itemSubtotal = item.orderDetailprice.Value * item.orderDetailnum.Value;
-                    TotalPrice += itemSubtotal;
+                    <a class="btn">&emsp;</a>
+                    @item.orderDetailnum
+                    <a onclick=" plus(@item.skuId)" class="btn"><i class="fa-solid fa-plus"></i></a>
                 }
                 else
                 {
-                    <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" /></td>
-
-
-
+                    <a onclick=" minus(@item.skuId)" class="btn"><i class="fa-solid fa-minus"></i></a>
+                    @item.orderDetailnum
+                    <a onclick=" plus(@item.skuId)" class="btn"><i class="fa-solid fa-plus"></i></a>
                 }
 
-                <td><a href="@Url.Action("Detail","Home")?id=@item.spuId" )"><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></a></td>
-                <td>
-                    <a class="text-dark  text-decoration-none" href="@Url.Action("Detail","Home")?id=@item.spuId" )">
-                        @item.orderDetailspuname-
-                        @item.orderDetailcolor-
-                        @item.orderDetailsize
-                    </a>
-                </td>
+            </td>
 
-                <td>@($"{item.orderDetailprice:c0}")</td>
-
-                <td>
-                    @*@using (Html.BeginForm("EditCount", "Member", FormMethod.Post))
-                        {
-                                @Html.Hidden("ProductID", item.skuId)
-                                @Html.TextBox("ProductCount", item.orderDetailnum, new { @type = "number", @class = "form -control", style = "width:40px", required = "required" })
-                                <input type="submit" value="變更" />
-                        }*@
-
-                    @using (Ajax.BeginForm("EditCount", new AjaxOptions { UpdateTargetId = "div1" }))
-                    {
-                        @Html.Hidden("ProductID", item.skuId)
-                        @Html.TextBox("ProductCount", item.orderDetailnum, new { @class = "form -control", style = "width:40px", required = "required" })
-                        <input type="submit" value="變更" />
-                    }
-
-                </td>
-
-                <td>@($"{ itemSubtotal:c0}")</td>
-                <td>
-                    @(Ajax.ActionLink(" ", "DeleteCar", new { controller = "ShoppingCart", Id = @item.id },new AjaxOptions { UpdateTargetId = "div1"}, new { @class = "btn myActionLink" }))
-                </td>
-            </tr>
+            <td>@($"{ itemSubtotal:c0}")</td>
+            <td>
+                @(Ajax.ActionLink(" ", "DeleteCar", new { controller = "ShoppingCart", Id = @item.id },new AjaxOptions { UpdateTargetId = "div1"}, new { @class = "btn myActionLink" }))
+            </td>
+        </tr>
 
 
 
@@ -78,5 +74,42 @@
 
 <script>
     $('.myActionLink').prepend('<i class="fa-solid fa-trash-can"></i>');
+
+
+    function skuchecked(skuid) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("skuchecked", "ShoppingCart")',
+            data: { skuid: skuid },
+            success: function (data) {
+                $('#div1').html(data);
+            }
+        })
+
+    }
+
+    function minus(skuid) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("minus", "ShoppingCart")',
+            data: { skuid: skuid },
+            success: function (data) {
+                $('#div1').html(data);
+            }
+        })
+    }
+
+    function plus(skuid) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("plus", "ShoppingCart")',
+            data: { skuid: skuid },
+            success: function (data) {
+                $('#div1').html(data);
+            }
+        })
+    }
+
+
 </script>
 

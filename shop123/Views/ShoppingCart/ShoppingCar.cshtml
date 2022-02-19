@@ -1,4 +1,4 @@
-﻿@model IEnumerable<shop123.Models.ordersDetail>
+﻿
 
 
 @{
@@ -18,36 +18,6 @@
 </div>
 
 
-<script>
-
-    //function minus() {
-    //    $('.count').val(parseInt($('.count').val()) - 1);
-    //    if ($('.count').val() == 0) {
-    //        $('.count').val(1);
-    //    }
-    //}
-
-    //function plus() {
-    //    $('.count').val(parseInt($('.count').val()) +1);
-    //}
-
-    function skuchecked(skuid) {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("skuchecked", "ShoppingCart")',
-            data: { skuid: skuid },
-            success: function (data) {
-                $('#div1').html(data);
-            }
-        })
-
-    }
-
-     
-   
-
-
-</script>
 
 
 
