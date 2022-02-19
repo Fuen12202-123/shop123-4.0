@@ -1,0 +1,23 @@
+﻿
+
+
+@{
+    ViewBag.Title = "ShoppingCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<div id="div1">
+    @Html.Action("ShoppingCarPartial", "ShoppingCart")
+</div>
+
+
+
+
+

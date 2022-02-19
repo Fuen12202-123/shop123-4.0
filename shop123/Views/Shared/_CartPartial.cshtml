@@ -1,24 +1,21 @@
 ﻿<style>
     .dropdown-menu li:hover {
         visibility: visible;
-
     }
 
     .dropdown:hover .dropdown-menu {
         display: block;
-     
     }
-    
 </style>
 <div class="dropdown">
-    <a class="text-dark  text-decoration-none minicart px-4" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="text-dark  text-decoration-none minicart px-4"  role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i style="color:black" class="fas fa-shopping-cart"></i>
     </a>
 
     <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuLink" style="width:420px">
         <a class="dropdown-item text-left " href="#">最近加入的商品</a>
         <ul id="minicart" class="list-group list-group-flush"></ul>
-        <a class="dropdown-item  text-right pt-2" href="@Url.Action("ShoppingCar","Member")">前往購物車</a>
+        <a class="dropdown-item  text-right pt-2" href="@Url.Action("ShoppingCar","ShoppingCart")">前往購物車</a>
     </div>
 </div>
 
@@ -26,27 +23,26 @@
 
 <script>
     $(function () {
-        $(".minicart").mouseenter(function () {
-            MiniCart()
-        })
-    })
-    function MiniCart() {
+        $(".minicart").mouseenter(function () {             
         var Mini = $("#minicart")
         Mini.empty();
             $.ajax({
                 type: 'GET',
-                url: '@Url.Action("AjaxMiniCar", "Member")',
+                url: '@Url.Action("AjaxMiniCar", "ShoppingCart")',
                 success: function (data) {
                     $(data).each(function (index, item) {
-                         $("#minicart").append
-                             (`<li class=" list-group-item " id="item"><a href="@Url.Action("Detail","Home")?id=${item.spuId}" class="d-flex justify-content-between text-dark text-decoration-none"><span>
-<img src="${item.spuImg1}" style="width:30px" />
-${item.orderDetailspuname}</span>
-
-<span>${item.orderDetailcolor}${item.orderDetailsize} x ${item.orderDetailnum}</span></a></li>`)
+                        $("#minicart").append
+                            (`<li class=" list-group-item " id="item"><a href="@Url.Action("Detail","Home")?id=${item.spuId}" class="d-flex justify-content-between text-dark text-decoration-none"><span>
+                              <img src="${item.spuImg1}" style="width:30px" />
+                              ${item.orderDetailspuname}</span>
+                              <span>${item.orderDetailcolor}${item.orderDetailsize} x ${item.orderDetailnum}</span></a></li>`
+                            )
                     })
                 },
                 error: function (err) { confirm("載入錯誤") }
-                })
-        }
+            })    
+        })
+    })
+
+
 </script>

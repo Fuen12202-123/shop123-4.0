@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -78,6 +82,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -123,9 +130,9 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\seller.css" />
     <Content Include="Content\sellerPage.css" />
-    <Content Include="Content\shopcartstyle.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Style.css" />
+    <Content Include="Content\ToTop.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\closeeye.png" />
     <Content Include="Images\logo.png" />
@@ -164,6 +171,8 @@
     <Content Include="Scripts\jquery-3.0.0.min.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\MemberCenter.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -171,6 +180,7 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\seller.js" />
     <Content Include="Scripts\sellerUpload.js" />
+    <Content Include="Scripts\ToTop.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -183,7 +193,9 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +230,7 @@
     <Compile Include="Models\ordersDetail.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartialModels\orderPartial.cs" />
     <Compile Include="Models\PartialModels\memberPartial.cs" />
     <Compile Include="Models\PartialModels\spuPartial.cs" />
     <Compile Include="Models\refund.cs">
@@ -238,7 +251,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>shop123.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\shopcart.cs" />
     <Compile Include="Models\sku.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
@@ -251,7 +263,6 @@
     <Compile Include="ViewModel\CDetailViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MemberCenter.cs" />
-    <Compile Include="ViewModel\MemberShopViewModel.cs" />
     <Compile Include="ViewModel\MemberViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\sellerPage.cs" />
@@ -293,20 +304,23 @@
     <Content Include="Views\Shared\_LayoutMember.cshtml" />
     <Content Include="Views\Admin\AdminIndex.cshtml" />
     <Content Include="Views\Member\MemberCenter.cshtml" />
-    <Content Include="Views\Member\ShoppingCar.cshtml" />
-    <Content Include="Views\Member\OrderDetails.cshtml" />
     <Content Include="Views\Shared\_CartPartial.cshtml" />
-    <Content Include="Views\Member\checkout.cshtml" />
-    <Content Include="Views\Shared\ordersDetailPartial.cshtml" />
-    <Content Include="Views\Member\MemberCenter2.cshtml" />
     <Content Include="Views\Admin\Member.cshtml" />
     <Content Include="Views\Admin\MemberCreate.cshtml" />
     <Content Include="Views\Admin\MemberEdit.cshtml" />
+
+    <Content Include="Views\ShoppingCart\ShoppingCar.cshtml" />
+    <Content Include="Views\ShoppingCart\checkout.cshtml" />
+    <Content Include="Views\Order\OrderDetails.cshtml" />
+    <Content Include="Views\Order\OrderList.cshtml" />
+    <Content Include="Views\Order\OrderDetail.cshtml" />
+    <Content Include="Views\Shared\_ShopCart.cshtml" />
+
     <Content Include="Views\Member\MemberCenter3.cshtml" />
     <Content Include="Views\Admin\Spu.cshtml" />
     <Content Include="Views\Admin\SpuCreate.cshtml" />
     <Content Include="Views\Admin\SpuEdit.cshtml" />
-    <Content Include="Views\Home\MemberShop.cshtml" />
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

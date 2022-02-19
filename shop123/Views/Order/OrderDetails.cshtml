@@ -17,10 +17,11 @@
             int detailCount = item.Detail.Count();
             int count = 0;
             int TotalPrice = 0;
-            <tr><td>@item.sellerId</td></tr>
-            @*@Html.Raw($"<tr><td rowspan='{detailCount}'>{item.orderguid} </td>" +
-            $"<td rowspan='{detailCount}'>{item.memberId}</td>" +
-                 $"<td rowspan='{detailCount}'>{item.orderCreateTime:yyyy/MM/dd}</td>")*@
+            @*<tr><td>@item.orderguid</td>
+                <td>@item.orderCreateTime</td>
+        </tr>*@
+            @Html.Raw($"<tr><td rowspan='{detailCount}'>{item.sellerId} </td>" +
+                 $"<td rowspan='{detailCount}'>{item.orderCreateTime}</td>")
             foreach (var inItem in item.Detail)
             {
 

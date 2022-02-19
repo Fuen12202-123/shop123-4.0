@@ -99,26 +99,6 @@
                                         }
                                     }
 
-                                @*@foreach (var item in Model.Sku)
-                                {
-                                    <a onclick="ChangeImage(this);return false;skuid = @item.id;" return false;" href="">
-                                            <img src="@item.skuImg" alt="@item.skuColor" title="復古黃"
-                                                 onmouseover="$.product.GetProductImg('0', '01')"
-                                                 onmouseout="$('div.color img[select=true]').trigger('mouseover');$.product.GetCurrentSize();"
-                                                 style=" padding: 3px;">
-                                        </a>
-                                    <a href="@Url.Action("AddCar","Member")?skuid=@item.id">
-                                        <img id="sku" src="@item.skuImg" alt="@item.id" title="@item.skuColor"
-                                             style=" padding: 3px;">
-                                    </a>
-                                <a onclick="AddToCart('@item.id')"href="javascript:void(0)">
-                                        <img id="sku" src="@item.skuImg" alt="@item.id" title="@item.skuColor"
-                                             style=" padding: 3px;">
-                                    </a>
-                                }*@
-                               
-
-
                             </div>
                             <div class="size">
                                 @*<span id="sizelist" class="picksize" cuurentsn>
@@ -232,7 +212,7 @@
             }
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("AddCar", "Member")',
+                url: '@Url.Action("AddCar", "ShoppingCart")',
                 data: {
                     skuid: skuid,
                     quantity: Quantity

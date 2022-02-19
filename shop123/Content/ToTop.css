@@ -1,0 +1,17 @@
+﻿.back-to-top {
+    position: fixed;
+    display: none;
+    background: #000000;
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 1;
+    font-size: 16px;
+    border-radius: 4px;
+    right: 15px;
+    bottom: 15px;
+    transition: background 0.5s;
+    z-index: 11;
+}
+
