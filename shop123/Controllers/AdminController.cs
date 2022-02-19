@@ -37,7 +37,7 @@ namespace shop123.Controllers
         [HttpPost]
         public ActionResult MemberCreate(member nMember)
         {
-            //TODO:缺自動新增日期功能
+            nMember.memberCreateTime = DateTime.Now;
             db.member.Add(nMember);
             db.SaveChanges();
             return RedirectToAction("Member");
@@ -69,6 +69,7 @@ namespace shop123.Controllers
         }
         //會員刪除
         //TODO:刪除確認
+        [HttpPost]
         public ActionResult MemberDelete(int id)
         {
             var member = db.member.Where(m => m.id == id).FirstOrDefault();
@@ -93,7 +94,9 @@ namespace shop123.Controllers
         [HttpPost]
         public ActionResult SpuCreate(spu pSpu)
         {
-            //TODO:缺自動新增與修改日期功能
+            //TODO:缺修改日期功能
+            pSpu.spuCreatedTime = DateTime.Now;
+            pSpu.spuEditTime = DateTime.Now;
             db.spu.Add(pSpu);
             db.SaveChanges();
             return RedirectToAction("Spu");
@@ -106,7 +109,6 @@ namespace shop123.Controllers
         }
         //POST:商品修改
         //TODO:更改確認
-        //TODO:缺自動新增與修改日期功能
         [HttpPost]
         public ActionResult SpuEdit(spu pSpu)
         {
@@ -125,12 +127,14 @@ namespace shop123.Controllers
             spu.spuImg5 = pSpu.spuImg5;
             spu.spuShow = pSpu.spuShow;
             spu.spuCreatedTime = pSpu.spuCreatedTime;
-            spu.spuEditTime = pSpu.spuEditTime;
+            spu.spuEditTime=DateTime.Now;
             db.SaveChanges();
             return RedirectToAction("Spu");
         }
         //商品刪除
         //TODO:刪除確認
+       
+        [HttpPost]
         public ActionResult SpuDelete(int id)
         {
             var pSpu = db.spu.Where(p => p.id == id).FirstOrDefault();
