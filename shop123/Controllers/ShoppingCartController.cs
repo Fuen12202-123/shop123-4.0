@@ -22,6 +22,16 @@ namespace shop123.Controllers
             //View使用orderDetails模型
             return View(orderDetails);
         }
+        public ActionResult ShoppingCarPartial()
+        {
+            //取得登入會員的帳號並指定給memberId
+            string memberId = User.Identity.Name;
+            //找出未成為訂單明細的資料，即購物車內容
+            var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
+
+            //View使用orderDetails模型
+            return PartialView("_ShopCart",orderDetails);
+        }
         public ActionResult checkout()
         {
             //取得登入會員的帳號並指定給memberId
@@ -84,24 +94,7 @@ namespace shop123.Controllers
             db.SaveChanges();
             return RedirectToAction("OrderList", "Order");
         }
-        public ActionResult skuchecked(int skuid)
-        {
-            string memberId = User.Identity.Name;
-            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.skuId == skuid).ToList();
-            foreach (var item in ordersDetail)
-            {
-                if (item.@checked == true)
-                {
-                    item.@checked = false;
-                }
-                else
-                {
-                    item.@checked = true;
-                }
-            }
-            db.SaveChanges();
-            return RedirectToAction("ShoppingCar");
-        }
+      
 
         public ActionResult AddCar(int skuid, int quantity)
         {
@@ -166,7 +159,7 @@ namespace shop123.Controllers
             //刪除購物車狀態的產品
             db.ordersDetail.Remove(orderDetail);
             db.SaveChanges();
-            return RedirectToAction("ShoppingCar");
+            return RedirectToAction("ShoppingCarPartial");
         }
 
         public ActionResult EditCount(int ProductID, int ProductCount)
@@ -175,7 +168,26 @@ namespace shop123.Controllers
             ordersDetail od = db.ordersDetail.AsEnumerable().FirstOrDefault(c => c.skuId == ProductID && c.memberId == memberId && c.orderguid == null);
             od.orderDetailnum = ProductCount;
             db.SaveChanges();
-            return RedirectToAction("ShoppingCar");
+            return RedirectToAction("ShoppingCarPartial");
+        }
+       
+        public ActionResult skuchecked(int skuid)
+        {
+            string memberId = User.Identity.Name;
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.skuId == skuid).ToList();
+            foreach (var item in ordersDetail)
+            {
+                if (item.@checked == true)
+                {
+                    item.@checked = false;
+                }
+                else
+                {
+                    item.@checked = true;
+                }
+            }
+            db.SaveChanges();
+            return RedirectToAction("ShoppingCarPartial");
         }
     }
 }

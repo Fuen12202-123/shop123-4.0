@@ -27,7 +27,7 @@
     <!-- #endregion -->
 
 </head>
-<body>
+<body id="body-content">
     <div class="container">
         <div class="row mt-4">
             <div class="col-12 col-sm-8">@Html.ActionLink(" ", "Index", "Home", null, new { style = "background: url('" + Url.Content("~/Images/logo.png") + "') no-repeat center right; display:block; height:122px; width:238px;" })</div>
@@ -66,7 +66,7 @@
             <div class="col-sm-2"></div>
         </div>
 
-        <div class="container body-content">
+        <div  class="container body-content">
             @RenderBody()
             <hr />
 
