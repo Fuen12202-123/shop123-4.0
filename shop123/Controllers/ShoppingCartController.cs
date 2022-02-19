@@ -13,14 +13,8 @@ namespace shop123.Controllers
         shop123Entities db = new shop123Entities();
         // GET: ShoppingCart
         public ActionResult ShoppingCar()
-        {
-            //取得登入會員的帳號並指定給memberId
-            string memberId = User.Identity.Name;
-            //找出未成為訂單明細的資料，即購物車內容
-            var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
-
-            //View使用orderDetails模型
-            return View(orderDetails);
+        {            
+            return View();
         }
         public ActionResult ShoppingCarPartial()
         {
