@@ -219,6 +219,7 @@
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PartialModels\memberPartial.cs" />
+    <Compile Include="Models\PartialModels\spuPartial.cs" />
     <Compile Include="Models\refund.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
@@ -302,6 +303,9 @@
     <Content Include="Views\Admin\MemberCreate.cshtml" />
     <Content Include="Views\Admin\MemberEdit.cshtml" />
     <Content Include="Views\Member\MemberCenter3.cshtml" />
+    <Content Include="Views\Admin\Spu.cshtml" />
+    <Content Include="Views\Admin\SpuCreate.cshtml" />
+    <Content Include="Views\Admin\SpuEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
