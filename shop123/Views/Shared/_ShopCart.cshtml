@@ -1,0 +1,115 @@
+﻿@model IEnumerable<shop123.Models.ordersDetail>
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<table class="table ">
+    <thead><tr><th></th><th>商品</th><th></th><th>單價</th><th>數量</th><th>總計</th><th>操作</th></tr> </thead>
+
+    <tbody>
+        @{ int TotalPrice = 0;}
+        @foreach (var item in Model)
+        {
+            int itemSubtotal = 0;
+
+        <tr>
+            @if (@item.@checked == true)
+            {
+                <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" checked /></td>
+                itemSubtotal = item.orderDetailprice.Value * item.orderDetailnum.Value;
+                TotalPrice += itemSubtotal;
+            }
+            else
+            {
+                <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" /></td>
+            }
+
+            <td><a href="@Url.Action("Detail","Home")?id=@item.spuId" )"><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></a></td>
+            <td>
+                <a class="text-dark  text-decoration-none" href="@Url.Action("Detail","Home")?id=@item.spuId" )">
+                    @item.orderDetailspuname-
+                    @item.orderDetailcolor-
+                    @item.orderDetailsize
+                </a>
+            </td>
+
+            <td>@($"{item.orderDetailprice:c0}")</td>
+
+            <td>
+                @if (item.orderDetailnum == 0)
+                {
+                    <a class="btn">&emsp;</a>
+                    @item.orderDetailnum
+                    <a onclick=" plus(@item.skuId)" class="btn"><i class="fa-solid fa-plus"></i></a>
+                }
+                else
+                {
+                    <a onclick=" minus(@item.skuId)" class="btn"><i class="fa-solid fa-minus"></i></a>
+                    @item.orderDetailnum
+                    <a onclick=" plus(@item.skuId)" class="btn"><i class="fa-solid fa-plus"></i></a>
+                }
+
+            </td>
+
+            <td>@($"{ itemSubtotal:c0}")</td>
+            <td>
+                @(Ajax.ActionLink(" ", "DeleteCar", new { controller = "ShoppingCart", Id = @item.id },new AjaxOptions { UpdateTargetId = "div1"}, new { @class = "btn myActionLink" }))
+            </td>
+        </tr>
+
+
+
+
+        }
+
+    </tbody>
+
+
+</table>
+
+<div class="d-flex justify-content-end mr-2">
+    <h5>
+        總金額： @($"{TotalPrice:c0}")   | <a href="@Url.Action("checkout")" class="btn"><i class="fa-solid fa-circle-check" style="font-size:2rem"></i></a>
+    </h5>
+</div>
+
+<script>
+    $('.myActionLink').prepend('<i class="fa-solid fa-trash-can"></i>');
+
+
+    function skuchecked(skuid) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("skuchecked", "ShoppingCart")',
+            data: { skuid: skuid },
+            success: function (data) {
+                $('#div1').html(data);
+            }
+        })
+
+    }
+
+    function minus(skuid) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("minus", "ShoppingCart")',
+            data: { skuid: skuid },
+            success: function (data) {
+                $('#div1').html(data);
+            }
+        })
+    }
+
+    function plus(skuid) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("plus", "ShoppingCart")',
+            data: { skuid: skuid },
+            success: function (data) {
+                $('#div1').html(data);
+            }
+        })
+    }
+
+
+</script>
+
