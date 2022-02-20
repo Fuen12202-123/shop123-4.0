@@ -63,7 +63,7 @@ namespace shop123.Controllers
             member.memberImg = nMember.memberImg;
             member.memberBanned = nMember.memberBanned;
             member.memberAccess = nMember.memberAccess;
-            //member.memberCreateTime = nMember.memberCreateTime;
+            member.memberCreateTime = nMember.memberCreateTime;
             db.SaveChanges();
             return RedirectToAction("Member");
         }

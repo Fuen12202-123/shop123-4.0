@@ -13,14 +13,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-   <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
         * {
             margin: 0;
             padding: 0px;
         }
-       body {
-           padding: 25px;
-       }
+
+        body {
+            padding: 25px;
+        }
+
         table {
             overflow: scroll;
             width: 100%;
@@ -47,9 +50,11 @@
         .w7 {
             width: 7rem;
         }
-        .w8{
-            width:8rem;
+
+        .w8 {
+            width: 8rem;
         }
+
         .w15 {
             width: 15rem;
         }
@@ -150,7 +155,7 @@
                         @Html.DisplayFor(modelItem => item.memberCreateTime)
                     </td>
                     <td style="display:flex" class="justify-content-between">
-                            @Html.ActionLink("編輯會員", "MemberEdit", new { id = item.id }, new { @class = "btn btn-outline-info" })
+                        @Html.ActionLink("編輯會員","MemberEdit", new { id = item.id }, new { @class = "btn btn-outline-info" })
                             @using (Html.BeginForm("MemberDelete", "Admin", FormMethod.Post, new { @class = "deleteBtn" }))
                             {
                                 @Html.Hidden("id", item.id)
@@ -164,6 +169,8 @@
         </table>
     </div>
     <script>
+
+        /*$('.myActionLink').prepend("<i class='fa fa-plus'></i> ");*/
 
         $(function () {
 
@@ -179,7 +186,6 @@
                     text: "一旦刪除，資料無法找回!",
                     icon: "warning",
                     buttons: true,
-                    dangerMode: true,
                 })
                     .then((willDelete) => {
                         if (willDelete) {
