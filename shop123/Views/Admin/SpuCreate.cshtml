@@ -12,20 +12,20 @@
     <title>新增商品</title>
     <style>
         * {
-            margin: 20px;
-            padding: 0px;
-            width:100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 80%;
+            height: 100vh;
         }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
 </head>
 
-<body>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
+<body style="margin:0 auto;">
 
     @using (Html.BeginForm())
     {
@@ -35,103 +35,103 @@
             <h4>新增商品</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.spuName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.spuName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.spuName, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.memberId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.memberId, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.memberId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.spuInfo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.spuInfo, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.spuInfo, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.spuPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.spuPrice, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.spuPrice, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.catalogAId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.catalogAId, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.catalogAId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.catalogBId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.catalogBId, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.catalogBId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.spuImg1, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.spuImg1, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.spuImg1, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.spuImg2, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.spuImg2, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.spuImg2, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.spuImg3, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.spuImg3, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.spuImg3, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.spuImg4, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.spuImg4, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.spuImg4, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.spuImg5, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.spuImg5, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.spuImg5, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-row">
                 @Html.LabelFor(model => model.spuShow, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.spuShow, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.spuShow, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            @*<div class="form-group">
+            <div style="display:none;" class="form-group">
                     @Html.LabelFor(model => model.spuCreatedTime, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.spuCreatedTime, new { htmlAttributes = new { @class = "form-control" } })
@@ -139,13 +139,13 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div style="display:none;" class="form-group">
                     @Html.LabelFor(model => model.spuEditTime, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.spuEditTime, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.spuEditTime, "", new { @class = "text-danger" })
                     </div>
-                </div>*@
+                </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
