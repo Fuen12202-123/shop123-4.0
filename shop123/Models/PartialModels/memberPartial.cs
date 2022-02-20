@@ -16,6 +16,7 @@ namespace shop123.Models
             [Required(ErrorMessage ="必填欄位")]
             [DisplayName("會員帳號")]
             public string memberAccount { get; set; }
+            
             [Required(ErrorMessage = "必填欄位")]
             [DisplayName("會員密碼")]
             public string memberPassword { get; set; }

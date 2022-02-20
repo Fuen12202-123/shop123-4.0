@@ -152,7 +152,8 @@
                             </div>
                             <div class="seller-disc">
                                 <img src="@Model.Member.memberImg" alt="賣家商標" width="80">
-                                <a href="" style="vertical-align:bottom;">賣家帳號:@Model.Member.memberAccount</a>
+                                @*<a href="" style="vertical-align:bottom;">賣家帳號:@Model.Member.memberAccount</a>*@
+                                @Html.ActionLink(Model.Member.memberAccount, "MemberShop", "Home",new { mbId= Model.Member.id },new { @style = "vertical-align:bottom;" });
                             </div>
                         </div>
                     </div>
