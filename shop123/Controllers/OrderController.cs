@@ -13,31 +13,48 @@ namespace shop123.Controllers
     {
         shop123Entities db = new shop123Entities();
         // GET: Order
-        public ActionResult OrderDetails()
-        {
 
+
+        public ActionResult OrderDetails()       
+        {
             //找出會員帳號並指定給MemberId
             string memberId = User.Identity.Name;
 
-            var qODG = from od in db.ordersDetail
-                       group od by od.orderguid into OG
-                       select new { orderguid = OG.Key, Count = OG.Count() };
 
-            var qOD = from o in db.orders
-                      join og in qODG on o.orderguid equals og.orderguid
-                      where o.memberId == memberId
-                      orderby o.orderCreateTime descending
-                      select new { orderguid = og.orderguid, memberId = o.memberId, CreateTime = o.orderCreateTime, Count = og.Count };
+        
 
-            List<OrderViewModel> lsOd = new List<OrderViewModel>();
-            foreach (var oGd in qOD)
-            {
-                lsOd.Add(new OrderViewModel()
+            var GroupBy = db.ordersDetail
+               .GroupBy(m => m.orderguid)
+               .Select(c => new
+               {
+                   orderguid = c.Key,
+                   count = c.Count()
+               });
+
+            var OD=db.orders.Join(GroupBy,
+                o=> o.orderguid,
+                d=>d.orderguid,
+                (o, d) => new
                 {
-                    orderguid = oGd.orderguid,
-                    orderCreateTime = oGd.CreateTime,
-                    memberId = oGd.memberId,
-                    Detail = db.ordersDetail.Where(o => o.orderguid == oGd.orderguid).Select(o => new OrderDetailViewModel()
+                   orderguid=d.orderguid,
+                   memberId= o.memberId,
+                   CreateTime = o.orderCreateTime,
+                   count=d.count
+                })
+                .OrderByDescending(od=>od.CreateTime).Where(cs=>cs.memberId == memberId);
+
+          
+
+            List<OrderViewModel> vm = new List<OrderViewModel>();
+            foreach (var item in OD)
+            {
+                vm.Add(new OrderViewModel()
+                {
+                    orderguid = item.orderguid,
+                    orderCreateTime = item.CreateTime,
+                    memberId = item.memberId,
+                    
+                    Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                     {
                         skuId = o.skuId,
                         orderDetailcolor = o.orderDetailcolor,
@@ -49,34 +66,46 @@ namespace shop123.Controllers
                     })
                 });
             }
-            return View(lsOd);
-
+            return View(vm);
         }
-
-        public ActionResult OrderDetailsPartial()
+          public ActionResult OrderDetailsPartial(string state)       
         {
             //找出會員帳號並指定給MemberId
             string memberId = User.Identity.Name;
+        
 
-            var qODG = from od in db.ordersDetail
-                       group od by od.orderguid into OG
-                       select new { orderguid = OG.Key, Count = OG.Count() };
+            var GroupBy = db.ordersDetail
+               .GroupBy(m => m.orderguid)
+               .Select(c => new
+               {
+                   orderguid = c.Key,
+                   count = c.Count()
+               });
 
-            var qOD = from o in db.orders
-                      join og in qODG on o.orderguid equals og.orderguid
-                      where o.memberId == memberId
-                      orderby o.orderCreateTime descending
-                      select new { orderguid = og.orderguid, memberId = o.memberId, CreateTime = o.orderCreateTime, Count = og.Count };
-
-            List<OrderViewModel> lsOd = new List<OrderViewModel>();
-            foreach (var oGd in qOD)
-            {
-                lsOd.Add(new OrderViewModel()
+            var OD=db.orders.Join(GroupBy,
+                o=> o.orderguid,
+                d=>d.orderguid,
+                (o, d) => new
                 {
-                    orderguid = oGd.orderguid,
-                    orderCreateTime = oGd.CreateTime,
-                    memberId = oGd.memberId,
-                    Detail = db.ordersDetail.Where(o => o.orderguid == oGd.orderguid).Select(o => new OrderDetailViewModel()
+                   orderguid=d.orderguid,
+                   memberId= o.memberId,
+                   CreateTime = o.orderCreateTime,
+                   count=d.count,
+                   state=o.orderState
+                })
+                .OrderByDescending(od=>od.CreateTime).Where(cs=>cs.memberId == memberId && cs.state==state);
+
+            List<OrderViewModel> vm = new List<OrderViewModel>();
+            foreach (var item in OD)
+            {
+                vm.Add(new OrderViewModel()
+                {
+                    orderguid = item.orderguid,
+                    orderCreateTime = item.CreateTime,
+                    memberId = item.memberId,
+                    orderState=item.state,
+                    
+                    Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                     {
                         skuId = o.skuId,
                         orderDetailcolor = o.orderDetailcolor,
@@ -88,9 +117,10 @@ namespace shop123.Controllers
                     })
                 });
             }
-            return PartialView("ordersDetailPartial", lsOd);
-
+            return PartialView("OrderDetailsPartial", vm);
         }
+
+   
         public ActionResult OrderList()
         {
             //找出會員帳號並指定給MemberId

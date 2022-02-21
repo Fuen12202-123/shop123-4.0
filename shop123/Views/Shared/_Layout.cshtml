@@ -50,6 +50,7 @@
                 {
                     <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("MemberCenter", "Member")">@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</a></li>
                     <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("Logout", "Home")">登出</a></li>
+                    <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("OrderDetails", "Order")">訂單</a></li>
                     <li id="Cart">@Html.Partial("_CartPartial")</li>
                 }
                 else

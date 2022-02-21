@@ -32,7 +32,7 @@ namespace shop123.Controllers
 
             if (!String.IsNullOrEmpty(searchstring))
             {
-                spu = spu.Where(s =>s.spuName.Contains(searchstring)).ToList();
+                spu = spu.Where(s =>s.spuName.Contains(searchstring) && s.spuShow== "已上架").ToList();
             }
             else
             {
@@ -45,7 +45,7 @@ namespace shop123.Controllers
         public ActionResult Index()
         {
             var carousel = db.carousel.ToList();
-            var spu = db.spu.OrderByDescending(m => m.spuCreatedTime).ToList();
+            var spu = db.spu.OrderByDescending(m => m.spuCreatedTime).Where(s=>s.spuShow == "已上架").ToList();
 
             HomeViewModel vw = new HomeViewModel();
             vw.carousels = carousel;
@@ -75,9 +75,9 @@ namespace shop123.Controllers
 
             int currentPage = page < 1 ? 1 : page;
             if (catalogBId == 0)
-                spu = db.spu.Where(m => m.catalogAId == catalogAId).ToList();
+                spu = db.spu.Where(m => m.catalogAId == catalogAId && m.spuShow== "已上架").ToList();
             else
-                spu = db.spu.Where(m => m.catalogAId == catalogAId && m.catalogBId == catalogBId).ToList();
+                spu = db.spu.Where(m => m.catalogAId == catalogAId && m.catalogBId == catalogBId && m.spuShow == "已上架").ToList();
             var result = spu.ToPagedList(currentPage, pageSize);
             ViewBag.catalogAId = catalogAId;
             ViewBag.catalogBId = catalogBId;

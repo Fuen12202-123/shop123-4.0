@@ -6,35 +6,133 @@
 
 
 
-<table class="table ">
-    @*<thead>
-            <tr><th>訂單編號</th><th>訂購人</th><th>訂購日期</th><th>產品名稱</th><th>圖片</th><th>價格</th><th>數量</th><th>小計</th></tr>
-        </thead>*@
-    <tbody>
-        @{int OrdersTotal = 0;}
-        @foreach (var item in Model)
-        {
-            int detailCount = item.Detail.Count();
-            int count = 0;
-            int TotalPrice = 0;
-            @*<tr><td>@item.orderguid</td>
-                <td>@item.orderCreateTime</td>
-        </tr>*@
-            @Html.Raw($"<tr><td rowspan='{detailCount}'>{item.sellerId} </td>" +
-                 $"<td rowspan='{detailCount}'>{item.orderCreateTime}</td>")
-            foreach (var inItem in item.Detail)
-            {
 
-                int inItemSub = inItem.orderDetailprice.Value * inItem.orderDetailnum.Value;
-                TotalPrice += inItemSub;
-                @Html.Raw($"<td><img src ='{Url.Content(inItem.spuImg1)}' width='100'/></td >" +
-               $"<td>{inItem.orderDetailspuname}<br/>規格:{inItem.orderDetailcolor} {inItem.orderDetailsize}<br/>x{inItem.orderDetailnum}</td>" +
-                   $"<td>{inItemSub:c0}</td></tr>")
-                count += 1;
-            }
-            <tr><td colspan="2" align="right">總計：</td><td>@($"{TotalPrice:c0}")</td></tr>
-            OrdersTotal += TotalPrice;
-        }
-        @*<tr><td colspan="1" align="right"><h3>全訂單總計：</h3></td><td><h3>@($"{OrdersTotal:c0}")</h3></td></tr>*@
-    </tbody>
-</table>
+
+<div>
+    <ul class="nav nav-tabs dflex justify-content-center " role="tablist">
+        <li class="nav-item">
+            <a class="nav-link  active text-secondary" href="#All" role="tab" data-toggle="tab" aria-selected="true">全部</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-secondary" href="#NotPay" role="tab" data-toggle="tab" onclick="showorders('未付款')">未付款</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-secondary" href="#NotShipping" role="tab" data-toggle="tab" onclick="showorders('待出貨')">待出貨</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-secondary" href="#Shipping " role="tab" data-toggle="tab" onclick="showorders('待收貨')">待收貨</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-secondary" href="#Finish " role="tab" data-toggle="tab" onclick="showorders('完成')">完成</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-secondary" href="#Cancel " role="tab" data-toggle="tab" onclick="showorders('不成立')">不成立</a>
+        </li>
+
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <br />
+        <br />
+        <div role="tabpanel" class="tab-pane active" id="All">
+            <div class="p-2">
+                @{List<int> skuidlist = new List<int>();}
+                @foreach (var item in Model)
+                {
+                    int detailCount = item.Detail.Count();
+                    int TotalPrice = 0;
+
+                    <div class=" d-flex justify-content-between mb-2 mt-5">
+                        <div>
+                            店家名稱
+                            <button>聊聊</button>
+                            <button>查看賣場</button>
+                        </div>
+                        <div>
+                            <span>訂單編號 @item.orderguid</span>
+                            @*<span>是否評價</span>*@
+                        </div>
+
+                    </div>
+                    <hr />
+                    foreach (var inItem in item.Detail)
+                    {
+                        int inItemSub = inItem.orderDetailprice.Value * inItem.orderDetailnum.Value;
+                        TotalPrice += inItemSub;
+                        <div class="d-flex bd-highlight mb-3 border-bottom">
+                            <div class="p-2 bd-highlight"><img src='@inItem.spuImg1' width='100' /></div>
+                            <div class="p-2 bd-highlight">
+                                @inItem.orderDetailspuname
+                                <br />
+                                規格:@inItem.orderDetailcolor @inItem.orderDetailsize
+                                <br />
+                                x @inItem.orderDetailnum
+                            </div>
+                            <div class="ml-auto p-2 bd-highlight ">@($"{inItemSub:c0}")</div>
+                        </div>
+
+                    }
+                    <div class="">
+                        <div class="d-flex flex-row-reverse mb-4 ">訂單金額：@($"{TotalPrice:c0}")</div>
+                        <div class="d-flex justify-content-end mb-5">
+                            <div>
+                                <a class="btn">完成訂單</a>
+                                <button class="btn">聯絡賣家</button>
+                                <button class="btn">查看評價</button>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+
+
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="NotPay">
+
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="NotShipping">
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Shipping">
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Finish">
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Cancel">
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function showorders(state) {
+        $.ajax({
+                                    type: 'GET',
+            url: '@Url.Action("OrderDetailsPartial", "Order")',
+            data: { state: state },
+            success: function (data) {
+                                            switch (state) {
+                                                case '未付款':
+                            $('#NotPay').html(data);
+                                                    break;
+                                                case '待出貨':
+                            $('#NotShipping').html(data);
+                                                    break;
+                                                case '待收貨':
+                            $('#Shipping').html(data);
+                                                    break;
+                                                case '完成':
+                            $('#Finish').html(data);
+                                                    break;
+                                                case '不成立':
+                            $('#Cancel').html(data);
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                    })
+    }
+
+</script>

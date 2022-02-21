@@ -67,8 +67,9 @@ namespace shop123.Controllers
             order.receiverAddress = receiverAddress;
             order.receiverPhone = receiverPhone;
             order.orderCreateTime = DateTime.Now;
-            order.orderState = "未付款";
+            order.orderState = "待出貨";
             order.totalPrice=totalprice;
+            
             //order.totalPrice = totalprice;
             db.orders.Add(order);
             //找出目前會員在訂單明細中是購物車狀態的產品
@@ -87,7 +88,7 @@ namespace shop123.Controllers
             //更新資料庫，異動tOrder和tOrderDetail
             //完成訂單主檔和訂單明細的更新
             db.SaveChanges();
-            return RedirectToAction("OrderList", "Order");
+            return RedirectToAction("OrderDetails", "Order");
         }
       
 
@@ -140,6 +141,66 @@ namespace shop123.Controllers
             {
                 //若產品為購物車狀態，即將該產品數量加1
                 currentCar.orderDetailnum += quantity;
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("ShoppingCar");
+        }
+
+        public ActionResult BuyAgain(List<int>skuid)
+        {
+            //取得會員帳號並指定給memberId
+            string memberId = User.Identity.Name;
+            //找出會員放入訂單明細的產品，該產品的fIsApproved為"否"
+
+            //表示該產品是購物車狀態
+            foreach(var item in skuid)
+            {
+
+            
+
+            var currentCar = db.ordersDetail
+                .Where(m => m.skuId == item && m.orderDetailIsApproved == "否" && m.memberId == memberId)
+                .FirstOrDefault();
+            //
+
+            //若currentCar等於null，表示會員選購的產品不是購物車狀態
+            if (currentCar == null)
+            {
+                //找出目前選購的產品並指定給sku
+                var spusku = db.sku.Join(db.spu,
+                  k => k.spuId,
+                  u => u.id,
+                  (k, u) => new
+                  {
+                      spuid = k.spuId,
+                      skuid = k.id,
+                      spuname = u.spuName,
+                      spuimg = u.spuImg1,
+                      color = k.skuColor,
+                      size = k.skuSize,
+                      price = u.spuPrice,
+                  }).Where(cs => cs.skuid == item).FirstOrDefault();
+
+                //將產品放入訂單明細，因為產品的fIsApproved為"否"，表示為購物車狀態
+                ordersDetail orderDetail = new ordersDetail();
+                orderDetail.memberId = memberId;
+                orderDetail.skuId = item;
+                orderDetail.spuId = spusku.spuid;
+                orderDetail.spuImg1 = spusku.spuimg;
+                orderDetail.orderDetailspuname = spusku.spuname;
+                orderDetail.orderDetailcolor = spusku.color;
+                orderDetail.orderDetailsize = spusku.size;
+                orderDetail.orderDetailprice = spusku.price;
+                orderDetail.orderDetailIsApproved = "否";
+                orderDetail.@checked = false;
+                db.ordersDetail.Add(orderDetail);
+            }
+            else
+            {
+                //若產品為購物車狀態，即將該產品數量加1
+                currentCar.orderDetailnum += 1;
+            }
             }
             db.SaveChanges();
 
