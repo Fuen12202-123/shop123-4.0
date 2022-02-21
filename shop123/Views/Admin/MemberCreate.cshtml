@@ -27,11 +27,11 @@
 <body style="margin:0 auto;">
     
     
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
+    @using (Html.BeginForm("MemberCreate", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                   <div class="form-horizontal">
             <h4>新增會員</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -42,7 +42,8 @@
                     @Html.ValidationMessageFor(model => model.memberAccount, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
+
             <div class="form-group form-row">
                 @Html.LabelFor(model => model.memberPassword, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
@@ -50,7 +51,8 @@
                     @Html.ValidationMessageFor(model => model.memberPassword, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
+
             <div class="form-group form-row">
                 @Html.LabelFor(model => model.memberName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
@@ -58,7 +60,8 @@
                     @Html.ValidationMessageFor(model => model.memberName, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
+
             <div class="form-group form-row">
                 @Html.LabelFor(model => model.memberPhone, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
@@ -66,7 +69,8 @@
                     @Html.ValidationMessageFor(model => model.memberPhone, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
+
             <div class="form-group form-row">
                 @Html.LabelFor(model => model.memberEmail, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
@@ -74,14 +78,22 @@
                     @Html.ValidationMessageFor(model => model.memberEmail, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+    @*圖片區*@
             <div class="form-group form-row">
+                @Html.LabelFor(model => model.memberImg, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBox("upPhotoMember", "", new { type = "file", @class = "upPhotoMember" })
+                    @ViewBag.Message
+                </div>
+            </div>      
+            
+            @*<div class="form-group form-row">
                 @Html.LabelFor(model => model.memberImg, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
                     @Html.EditorFor(model => model.memberImg, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.memberImg, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>*@
     
             <div class="form-group form-row">
                 @Html.LabelFor(model => model.memberBanned, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -120,5 +132,7 @@
     <div>
         @Html.ActionLink("Back to List", "Member")
     </div>
+    <script>
+    </script>
 </body>
 </html>

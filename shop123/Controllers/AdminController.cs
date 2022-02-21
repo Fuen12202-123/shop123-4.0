@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -33,10 +34,22 @@ namespace shop123.Controllers
         {
             return View();
         }
-        //POST:會員新增
+        //POST:會員新增+圖片功能
         [HttpPost]
-        public ActionResult MemberCreate(member nMember)
+        public ActionResult MemberCreate(member nMember,HttpPostedFileBase upPhotoMember)
         {
+            var fileValid = true;
+            //檔案小於5mb
+            if (upPhotoMember.ContentLength <= 0 || upPhotoMember.ContentLength > 5242880) { fileValid = false; }
+            else if (!CheckIsImages(upPhotoMember.InputStream)) { fileValid = false; }
+            else if (fileValid == true)
+            {
+                string extension = Path.GetExtension(upPhotoMember.FileName);
+                string fileName = $"{Guid.NewGuid()}{extension}";
+                string savePath = Path.Combine(Server.MapPath("~/Images/members"), fileName);
+                upPhotoMember.SaveAs(savePath);
+                nMember.memberImg = savePath;
+            }
             nMember.memberCreateTime = DateTime.Now;
             db.member.Add(nMember);
             db.SaveChanges();
@@ -49,18 +62,28 @@ namespace shop123.Controllers
             return View(member);
         }
         //POST:會員修改
-        //TODO:修改確認
         [HttpPost]
-        public ActionResult MemberEdit(member nMember)
+        public ActionResult MemberEdit(member nMember, HttpPostedFileBase upPhotoMember)
         {
             int id = nMember.id;
             var member = db.member.Where(m => m.id == id).FirstOrDefault();
+            var fileValid = true;
+            //檔案小於5mb
+            if (upPhotoMember.ContentLength <= 0 || upPhotoMember.ContentLength > 5242880) { fileValid = false; }
+            else if (!CheckIsImages(upPhotoMember.InputStream)) { fileValid = false; }
+            else if (fileValid == true)
+            {
+                string extension = Path.GetExtension(upPhotoMember.FileName);
+                string fileName = $"{Guid.NewGuid()}{extension}";
+                string savePath = Path.Combine(Server.MapPath("~/Images/members"), fileName);
+                upPhotoMember.SaveAs(savePath);
+                member.memberImg = savePath;
+            }
             member.memberAccount = nMember.memberAccount;
             member.memberPassword = nMember.memberPassword;
             member.memberName = nMember.memberName;
             member.memberPhone = nMember.memberPhone;
             member.memberEmail = nMember.memberEmail;
-            member.memberImg = nMember.memberImg;
             member.memberBanned = nMember.memberBanned;
             member.memberAccess = nMember.memberAccess;
             member.memberCreateTime = nMember.memberCreateTime;
@@ -94,7 +117,6 @@ namespace shop123.Controllers
         [HttpPost]
         public ActionResult SpuCreate(spu pSpu)
         {
-            //TODO:缺修改日期功能
             pSpu.spuCreatedTime = DateTime.Now;
             pSpu.spuEditTime = DateTime.Now;
             db.spu.Add(pSpu);
@@ -171,5 +193,20 @@ namespace shop123.Controllers
         //    db.SaveChanges();
         //    return RedirectToAction("Member");
         //}
+
+        //檢查是否為圖片
+        [NonAction]
+        public bool CheckIsImages(Stream imageStream)
+        {
+            bool check;
+            try
+            {
+                System.Drawing.Image.FromStream(imageStream);
+                check = true;
+            }
+            catch { check = false; }
+            return check;
+        }
+
     }
 }
