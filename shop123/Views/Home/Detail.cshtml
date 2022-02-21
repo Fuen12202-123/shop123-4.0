@@ -153,7 +153,7 @@
                             <div class="seller-disc">
                                 <img src="@Model.Member.memberImg" alt="賣家商標" width="80">
                                 @*<a href="" style="vertical-align:bottom;">賣家帳號:@Model.Member.memberAccount</a>*@
-                                @Html.ActionLink(Model.Member.memberAccount, "MemberShop", "Home",new { mbId= Model.Member.id },new { @style = "vertical-align:bottom;" });
+                                @Html.ActionLink(Model.Member.memberAccount, "MemberShop", "Home",new { mbId= Model.Member.id },new { @style = "vertical-align:bottom;" })
                             </div>
                         </div>
                     </div>
@@ -165,26 +165,33 @@
                         </div>
                         <table>
                             <tbody>
-                                @foreach (var t in Model.Dcomment)
-                                {
-                                    <tr class="comment-item">
-                                        <td class="comment-left">
-                                            <a href="">
-                                                <img width="120" height="120" src="@t.CVM_skuImg" alt="">
-                                            </a>
-                                        </td>
-                                        <td class="comment-right">
-                                            <div class="comment-main">
-                                                <p class="comment-header">訂單編號:@t.CVM_orderdetailId</p>
-                                                <p class="comment-body">@t.CVM_comment</p>
-                                                <p class="comment-footer">@t.CVM_skuColor - @t.CVM_skuSize</p>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                @{
+                                    if (!Model.Dcomment.Any())
+                                    {
+                                        <tr><h5>該商品尚無評論</h5></tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var t in Model.Dcomment)
+                                        {
+                                            <tr class="comment-item">
+                                                <td class="comment-left">
+                                                    <a href="">
+                                                        <img width="120" height="120" src="@t.CVM_skuImg" alt="">
+                                                    </a>
+                                                </td>
+                                                <td class="comment-right">
+                                                    <div class="comment-main">
+                                                        <p class="comment-header">訂單編號:@t.CVM_orderdetailId</p>
+                                                        <p class="comment-body">@t.CVM_comment</p>
+                                                        <p class="comment-footer">@t.CVM_skuColor - @t.CVM_skuSize</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
+                                        }
+                                    }
                                 }
-
-
                             </tbody>
                         </table>
                     </div>
