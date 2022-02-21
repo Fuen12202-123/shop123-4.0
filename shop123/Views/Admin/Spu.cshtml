@@ -47,6 +47,12 @@
         .w7 {
             width: 7rem;
         }
+        .w10 {
+            width: 10rem;
+        }
+        .w13 {
+            width: 13rem;
+        }
 
         .w15 {
             width: 15rem;
@@ -121,13 +127,13 @@
                     <th scope="col" class="text-nowrap w5">
                         @Html.DisplayNameFor(model => model.spuShow)
                     </th>
-                    <th scope="col" class="text-nowrap w5">
+                    <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.spuCreatedTime)
                     </th>
                     <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.spuEditTime)
                     </th>
-                    <th scope="col" class="text-nowrap w15">編輯或刪除資料</th>
+                    <th scope="col" class="text-nowrap w13">編輯或刪除資料</th>
                 </tr>
             </thead>
 
@@ -215,7 +221,6 @@
                     text: "一旦刪除，資料無法找回!",
                     icon: "warning",
                     buttons: true,
-                    dangerMode: true,
                 })
                     .then((willDelete) => {
                         if (willDelete) {

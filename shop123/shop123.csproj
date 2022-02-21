@@ -329,6 +329,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\members\" />
     <Folder Include="obj\Debug\" />
   </ItemGroup>
   <ItemGroup>

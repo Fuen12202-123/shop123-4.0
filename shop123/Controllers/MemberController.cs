@@ -19,6 +19,7 @@ namespace shop123.Controllers
        
         public ActionResult MemberCenter()
         {
+            // 個人資料
             string memberId = User.Identity.Name;
             var member = from m in db.member.Where(m => m.memberAccount == memberId) select m;
 
@@ -35,6 +36,23 @@ namespace shop123.Controllers
             return View(mc);          
 
             //目前會員的訂單主檔OrderList.cshtml檢視使用orders模型
+        }
+
+        [HttpPost]
+        [ActionName("memberinfo")]
+        public ActionResult MemberCenter(MemberCenter x)  // 修改個人資料
+        {    
+            member m = db.member.FirstOrDefault(t => t.id == x.id);
+            if(m != null)
+            {
+                m.memberName = x.memberName;
+                m.memberPassword = x.memberPassword;
+                m.memberEmail = x.memberEmail;
+                m.memberPhone = x.memberPhone;
+                
+                db.SaveChanges();
+            }
+            return RedirectToAction("MemberCenter");
         }
 
 

@@ -13,10 +13,14 @@ namespace shop123.Models
         public class memberMetadata
         {
             public int id { get; set; }
+            [Required(ErrorMessage ="必填欄位")]
             [DisplayName("會員帳號")]
             public string memberAccount { get; set; }
+            
+            [Required(ErrorMessage = "必填欄位")]
             [DisplayName("會員密碼")]
             public string memberPassword { get; set; }
+            [Required(ErrorMessage = "必填欄位")]
             [DisplayName("會員名稱")]
             public string memberName { get; set; }
             [DisplayName("會員電話")]
@@ -25,6 +29,7 @@ namespace shop123.Models
             public string memberImg { get; set; }
             [DisplayName("會員禁用")]
             public Nullable<bool> memberBanned { get; set; }
+            [Required(ErrorMessage = "必填欄位")]
             [DisplayName("會員權限")]
             public string memberAccess { get; set; }
             [DisplayName("會員成立日期")]

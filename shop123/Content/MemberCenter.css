@@ -106,7 +106,7 @@
 .personInfo {
     margin: 0 auto;
 }
-.drag-area {
+.Ddrag-area {
     margin: 20px auto;
     width: 200px;
     height: 100px;
@@ -124,7 +124,7 @@
     padding: 5px 15px;
 }
 
-.drag-area button {
+.Ddrag-area button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -134,7 +134,7 @@
     padding: 5px 15px;
 }
 
-.drag-area img {
+.Ddrag-area img {
     height: 100%;
     width: 100%;
     object-fit: cover;
