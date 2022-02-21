@@ -1,0 +1,124 @@
+﻿@model shop123.ViewModel.orderCommentViewModel
+@{
+    ViewBag.Title = "ProdComment";
+}
+
+<h2>商品評論</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="@Model.SKU.skuImg" />
+    </div>
+    <div class="col-md-6">
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <input type="hidden" name="txtSkuId" value="@Model.SKU.id" />
+                <input type="hidden" name="txtorderDetailId" value="@Model.orderdetailID" />
+                <input type="hidden" name="txtmbID" value="@Model.mbID" />
+                <input id="Score" type="hidden" name="txtScore" value="0" />
+                <h5>評分</h5>
+                <div style="height:60px;">
+                    <div id="stars" class="">
+                        <img src="~/Images/empty.png" alt="">
+                        <img src="~/Images/empty.png" alt="">
+                        <img src="~/Images/empty.png" alt="">
+                        <img src="~/Images/empty.png" alt="">
+                        <img src="~/Images/empty.png" alt="">
+                    </div>
+                    <div id="comment" style="font-size:20px;"></div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.TextArea("txtComments", new { style = "width: 450px;", placeholder = "Enter Comments here" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="完成評論" class="btn btn-success" />
+                    </div>
+                </div>
+
+
+            </div>
+        }
+    </div>
+
+</div>
+
+<script>
+
+    //製作一個星星評分
+    var divStars = document.getElementById("stars");
+    var divComment = document.getElementById("comment");
+    var attitude = ["差", "較差", "一般", "好", "很好"];
+    var rank = [1, 2, 3, 4, 5];
+    var starNum = -1; //記錄當前第幾顆星星被點擊
+    var starArray = Array.from(divStars.children); //星星數組
+    var Score = $("#Score");
+
+
+    divStars.onmouseover = function (e) {
+        if (e.target.tagName === "IMG") { //事件源是圖片
+            //把滑鼠移動到的星星替換圖片
+            e.target.src = "../Images/shining.png";
+            //把滑鼠移動到的星星之前的星星替換圖片
+            var prev = e.target.previousElementSibling;
+            while (prev) {
+                prev.src = "../Images/shining.png";
+                prev = prev.previousElementSibling;
+            }
+            //把滑鼠移動到的星星之後的星星替換圖片
+            var next = e.target.nextElementSibling;
+            while (next) { //把滑鼠移動到的星星之後的星星替換圖片
+                next.src = "../Images/empty.png";
+                next = next.nextElementSibling;
+            }
+
+            var index = starArray.indexOf(e.target); //找到滑鼠移動到的星星的序號
+            divComment.innerHTML = attitude[index]; //顯示對應的評論
+        }
+    }
+
+    //滑鼠點擊
+    divStars.onclick = function (e) {
+        if (e.target.tagName === "IMG") {
+            // 記錄當前點擊的星星序號
+            starNum = starArray.indexOf(e.target);
+        }
+    }
+
+    //滑鼠移出
+    divStars.onmouseout = function (e) {
+        if (starNum !== -1) {
+            //滑鼠點擊事件發生，將評分固定在點擊的星星上
+            for (var i = 0; i < divStars.children.length; i++) {
+                if (i <= starNum) {
+                    divStars.children[i].src = "../Images/shining.png";
+
+                } else {
+                    divStars.children[i].src = "../Images/empty.png";
+                }
+            }
+            divComment.innerHTML = attitude[starNum]; //顯示對應的評論
+            Score.val(rank[starNum]);
+        } else {
+            for (var i = 0; i < divStars.children.length; i++) {
+                divStars.children[i].src = "../Images/empty.png";
+            }
+            divComment.innerHTML = ""; //不顯示評論
+        }
+    }
+</script>
+

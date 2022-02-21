@@ -67,4 +67,19 @@ namespace shop123.ViewModel
 
         public string orderDetailIsApproved { get; set; }
     }
+    public class orderCommentViewModel
+    {
+        public sku SKU { get; set; }
+        public int orderdetailID { get; set; }
+        public int mbID { get; set; }
+    }
+    public class orderCommentPostViewModel
+    {
+        public int txtmbID { get; set; }
+        public int txtorderDetailId { get; set; }
+        public string txtComments { get; set; }
+
+        public int txtScore { get; set; }
+        public int txtSkuId { get; set; }
+    }
 }

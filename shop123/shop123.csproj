@@ -320,6 +320,7 @@
     <Content Include="Views\Admin\SpuEdit.cshtml" />
     <Content Include="Views\Home\MemberShop.cshtml" />
     <Content Include="Views\Shared\OrderDetailsPartial.cshtml" />
+    <Content Include="Views\Order\ProdComment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

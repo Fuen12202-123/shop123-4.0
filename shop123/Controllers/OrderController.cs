@@ -140,5 +140,34 @@ namespace shop123.Controllers
             //目前訂單明細的OrderDetail.cshtml檢視使用orderDetails模型
             return View(orderDetails);
         }
+
+        //顧客寫評論
+        public ActionResult ProdComment(int skuID = 17, int mbID = 1, int orderdetailID = 123)
+        {
+            orderCommentViewModel oc = new orderCommentViewModel();
+            oc.SKU = db.sku.FirstOrDefault(t => t.id == skuID);
+            oc.orderdetailID = orderdetailID;
+            oc.mbID = mbID;
+            return View(oc);
+        }
+        //評論提交表單
+        [HttpPost]
+        public ActionResult ProdComment(orderCommentPostViewModel p)
+        {
+            if (p != null)
+            {
+                comment cmt = new comment()
+                {
+                    memberId = p.txtmbID,
+                    orderDetailId = p.txtorderDetailId,
+                    comment1 = p.txtComments,
+                    score = p.txtScore,
+                    skuId = p.txtSkuId
+                };
+                db.comment.Add(cmt);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
