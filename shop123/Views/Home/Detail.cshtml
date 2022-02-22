@@ -183,6 +183,12 @@
                                                 <td class="comment-right">
                                                     <div class="comment-main">
                                                         <p class="comment-header">訂單編號:@t.CVM_orderdetailId</p>
+                                                        <p>
+                                                            @for (int i = 0; i < t.CVM_Score; i++)
+                                                            {
+                                                                <img style="width:16px;" src="~/Images/shining.png" />
+                                                            }
+                                                        </p>
                                                         <p class="comment-body">@t.CVM_comment</p>
                                                         <p class="comment-footer">@t.CVM_skuColor - @t.CVM_skuSize</p>
                                                     </div>

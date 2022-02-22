@@ -107,6 +107,7 @@ namespace shop123.Controllers
                     
                     Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                     {
+                        id = o.id,
                         skuId = o.skuId,
                         orderDetailcolor = o.orderDetailcolor,
                         orderDetailsize = o.orderDetailsize,
@@ -142,12 +143,16 @@ namespace shop123.Controllers
         }
 
         //顧客寫評論
-        public ActionResult ProdComment(int skuID = 17, int mbID = 1, int orderdetailID = 123)
+        public ActionResult ProdComment(int skuID, string mbName, int orderdetailID)
         {
+
             orderCommentViewModel oc = new orderCommentViewModel();
             oc.SKU = db.sku.FirstOrDefault(t => t.id == skuID);
+            spu sp = db.spu.FirstOrDefault(p => p.id == oc.SKU.spuId);
             oc.orderdetailID = orderdetailID;
-            oc.mbID = mbID;
+            member mb = db.member.FirstOrDefault(m => m.memberAccount.Equals(mbName));
+            oc.mbID = mb.id;
+            oc.prodName = sp.spuName;
             return View(oc);
         }
         //評論提交表單

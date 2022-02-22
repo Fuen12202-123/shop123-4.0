@@ -26,5 +26,6 @@ namespace shop123.ViewModel
         public string CVM_skuSize { get; set; }
         public string CVM_skuImg { get; set; }
 
+        public int CVM_Score { get; set; }
     }
 }
