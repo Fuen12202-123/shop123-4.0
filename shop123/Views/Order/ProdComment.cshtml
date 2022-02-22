@@ -2,7 +2,9 @@
 @{
     ViewBag.Title = "ProdComment";
 }
-
+<head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
 <h2>商品評論</h2>
 
 <div class="row">
@@ -12,7 +14,7 @@
     <div class="col-md-6">
 
 
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("ProdComment", "Order", FormMethod.Post, new { onsubmit = "return check();" }))
         {
             @Html.AntiForgeryToken()
 
@@ -23,6 +25,9 @@
                 <input type="hidden" name="txtorderDetailId" value="@Model.orderdetailID" />
                 <input type="hidden" name="txtmbID" value="@Model.mbID" />
                 <input id="Score" type="hidden" name="txtScore" value="0" />
+
+                <h5>@Model.prodName</h5>
+                <br>
                 <h5>評分</h5>
                 <div style="height:60px;">
                     <div id="stars" class="">
@@ -34,13 +39,14 @@
                     </div>
                     <div id="comment" style="font-size:20px;"></div>
                 </div>
-
+                <br>
 
 
 
                 <div class="form-group">
+                    <h5>評論</h5>
                     <div class="col-md-10">
-                        @Html.TextArea("txtComments", new { style = "width: 450px;", placeholder = "Enter Comments here" })
+                        @Html.TextArea("txtComments", new { style = "width: 450px;height:100px;resize:none;", placeholder = "Enter Comments here" })
                     </div>
                 </div>
 
@@ -119,6 +125,15 @@
             }
             divComment.innerHTML = ""; //不顯示評論
         }
+    }
+
+    function check() {
+        if (starNum == -1) {
+            swal("請先選擇進行評分");
+            return false;
+        }
+        else
+            return true;
     }
 </script>
 
