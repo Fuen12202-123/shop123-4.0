@@ -84,9 +84,10 @@
     </style>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("新增商品", "SpuCreate", "", new { @class = "btn btn-info" })
-    </p>
+    @*<p>
+            @Html.ActionLink("新增商品", "SpuCreate", "", new { @class = "btn btn-info" })
+        </p>*@
+
     <div class="table-responsive-md">
         <table class="table table-bordered table-hover table-sm">
             <thead>
@@ -133,7 +134,7 @@
                     <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.spuEditTime)
                     </th>
-                    <th scope="col" class="text-nowrap w13">編輯或刪除資料</th>
+                    <th scope="col" class="text-nowrap w7">刪除資料</th>
                 </tr>
             </thead>
 
@@ -161,18 +162,38 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg1)
+                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
+                            <img src=@Url.Content($"~/Images/{item.spuImg1}")
+                                 class="card-img-top" alt=@item.spuImg1>
+                        </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg2)
+                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
+                            <img src=@Url.Content($"~/Images/{item.spuImg2}")
+                                 class="card-img-top" alt=@item.spuImg2>
+                        </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg3)
+                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
+                            <img src=@Url.Content($"~/Images/{item.spuImg3}")
+                                 class="card-img-top" alt=@item.spuImg3>
+                        </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg4)
+                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
+                            <img src=@Url.Content($"~/Images/{item.spuImg4}")
+                                 class="card-img-top" alt=@item.spuImg4>
+                        </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg5)
+                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
+                            <img src=@Url.Content($"~/Images/{item.spuImg5}")
+                                 class="card-img-top" alt=@item.spuImg5>
+                        </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuShow)
@@ -183,17 +204,17 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.spuEditTime)
                     </td>
-                    <td style="display:flex" class="justify-content-between">
-                        @Html.ActionLink("編輯商品", "SpuEdit", new { id = item.id }, new { @class = "btn btn-outline-info demo3" })
+                    <td>
+                        @*@Html.ActionLink("編輯商品", "SpuEdit", new { id = item.id }, new { @class = "btn btn-outline-info demo3" })*@
 
-                        @using (Html.BeginForm("SpuDelete", "Admin",FormMethod.Post,new { @class = "deleteBtn" }))
+                        @using (Html.BeginForm("SpuDelete", "Admin", FormMethod.Post, new { @class = "deleteBtn" }))
                         {
-                            @Html.Hidden("id",item.id)
+                            @Html.Hidden("id", item.id)
                             <input type="submit" value="刪除商品" class="btn btn-outline-danger" />
                             @*<input type="hidden" name="id" value="id" />
-                            <span>
-                                @Html.ActionLink("刪除商品", "SpuDelete", new { id = item.id }, new { @class = "btn btn-outline-danger deleteBtn" })
-                            </span>*@
+                                <span>
+                                    @Html.ActionLink("刪除商品", "SpuDelete", new { id = item.id }, new { @class = "btn btn-outline-danger deleteBtn" })
+                                </span>*@
                         }
 
                         @*@Html.ActionLink("刪除商品", "SpuDelete", new { id = item.id }, new { @class = "btn btn-outline-danger" })*@
@@ -238,32 +259,32 @@
 
 
 
-        //$(document).ready(function () {
-        //    $(".demo3").click(function () {
-        //        swal({
-        //            title: "是否確定要刪除?",
-        //            text: "一旦刪除，資料無法找回!",
-        //            icon: "warning",
-        //            buttons: true,
-        //            dangerMode: true,
-        //        })
-        //            .then((willDelete) => {
-        //                if (willDelete) {
-        //                    swal("內容已被刪除!"
-        //                       ,  { icon: "success",}
-        //                    );
-        //                } else {
-        //                    swal("檔案確認保留!");
-        //                }
-        //            });
-        //    });
-        //})
+            //$(document).ready(function () {
+            //    $(".demo3").click(function () {
+            //        swal({
+            //            title: "是否確定要刪除?",
+            //            text: "一旦刪除，資料無法找回!",
+            //            icon: "warning",
+            //            buttons: true,
+            //            dangerMode: true,
+            //        })
+            //            .then((willDelete) => {
+            //                if (willDelete) {
+            //                    swal("內容已被刪除!"
+            //                       ,  { icon: "success",}
+            //                    );
+            //                } else {
+            //                    swal("檔案確認保留!");
+            //                }
+            //            });
+            //    });
+            //})
 
     </script>
 
     @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>*@
 
 
 </body>
