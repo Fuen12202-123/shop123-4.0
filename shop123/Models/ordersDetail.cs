@@ -46,6 +46,8 @@ public partial class ordersDetail
 
     public Nullable<int> spuId { get; set; }
 
+    public string sellerId { get; set; }
+
 }
 
 }

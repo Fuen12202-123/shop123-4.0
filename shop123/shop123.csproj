@@ -265,6 +265,7 @@
     <Compile Include="ViewModel\MemberCenter.cs" />
     <Compile Include="ViewModel\MemberShopViewModel.cs" />
     <Compile Include="ViewModel\MemberViewModel.cs" />
+    <Compile Include="ViewModel\ShoppingCartViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\sellerPage.cs" />
   </ItemGroup>
@@ -321,6 +322,8 @@
     <Content Include="Views\Home\MemberShop.cshtml" />
     <Content Include="Views\Shared\OrderDetailsPartial.cshtml" />
     <Content Include="Views\Order\ProdComment.cshtml" />
+    <Content Include="Views\ShoppingCart\checkout2.cshtml" />
+    <Content Include="Views\Shared\_ShopCart 2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -98,16 +98,16 @@ namespace shop123.Controllers
         }
         //商品詳細頁面
 
-        public ActionResult MemberShop(int? mbId)
+        public ActionResult MemberShop(string mbId)
         {
-            if (mbId.HasValue)
-            {
+            //if (mbId.)
+            //{
                 MemberShopViewModel MemberShop = new MemberShopViewModel();
-                MemberShop.MB = db.member.FirstOrDefault(m => m.id == mbId);
+                MemberShop.MB = db.member.FirstOrDefault(m => m.memberAccount == mbId);
                 MemberShop.MBspu = db.spu.Where(s => s.memberId == mbId).ToList();
                 return View(MemberShop);
-            }
-            return RedirectToAction("Index");
+            //}
+            //return RedirectToAction("Index");
         }
         //賣家商場
 

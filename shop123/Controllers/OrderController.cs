@@ -15,13 +15,12 @@ namespace shop123.Controllers
         // GET: Order
 
 
-        public ActionResult OrderDetails()       
+
+        public ActionResult OrderDetails()
         {
             //找出會員帳號並指定給MemberId
             string memberId = User.Identity.Name;
 
-
-        
 
             var GroupBy = db.ordersDetail
                .GroupBy(m => m.orderguid)
@@ -31,19 +30,20 @@ namespace shop123.Controllers
                    count = c.Count()
                });
 
-            var OD=db.orders.Join(GroupBy,
-                o=> o.orderguid,
-                d=>d.orderguid,
+            var OD = db.orders.Join(GroupBy,
+                o => o.orderguid,
+                d => d.orderguid,
                 (o, d) => new
                 {
-                   orderguid=d.orderguid,
-                   memberId= o.memberId,
-                   CreateTime = o.orderCreateTime,
-                   count=d.count
-                })
-                .OrderByDescending(od=>od.CreateTime).Where(cs=>cs.memberId == memberId);
+                    orderguid = d.orderguid,
+                    memberId = o.memberId,
+                    CreateTime = o.orderCreateTime,
+                    sellerId = o.sellerId
 
-          
+                })
+                .OrderByDescending(od => od.CreateTime).Where(cs => cs.memberId == memberId);
+
+
 
             List<OrderViewModel> vm = new List<OrderViewModel>();
             foreach (var item in OD)
@@ -53,7 +53,8 @@ namespace shop123.Controllers
                     orderguid = item.orderguid,
                     orderCreateTime = item.CreateTime,
                     memberId = item.memberId,
-                    
+                    sellerId = item.sellerId,
+
                     Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                     {
                         skuId = o.skuId,
@@ -68,7 +69,7 @@ namespace shop123.Controllers
             }
             return View(vm);
         }
-          public ActionResult OrderDetailsPartial(string state)       
+        public ActionResult OrderDetailsPartial(string state)       
         {
             //找出會員帳號並指定給MemberId
             string memberId = User.Identity.Name;
@@ -91,7 +92,8 @@ namespace shop123.Controllers
                    memberId= o.memberId,
                    CreateTime = o.orderCreateTime,
                    count=d.count,
-                   state=o.orderState
+                   state=o.orderState,
+                   sellerId=o.sellerId
                 })
                 .OrderByDescending(od=>od.CreateTime).Where(cs=>cs.memberId == memberId && cs.state==state);
 
@@ -104,7 +106,9 @@ namespace shop123.Controllers
                     orderCreateTime = item.CreateTime,
                     memberId = item.memberId,
                     orderState=item.state,
-                    
+                    sellerId=item.sellerId,
+
+
                     Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                     {
                         skuId = o.skuId,

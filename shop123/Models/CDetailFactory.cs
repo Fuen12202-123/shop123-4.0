@@ -20,8 +20,8 @@ namespace shop123.Models
             CDetail.Sku = Sku;
 
             //Member
-            int memberid = CDetail.Spu.memberId;
-            CDetail.Member = db.member.FirstOrDefault(p => p.id == memberid);
+            string memberid = CDetail.Spu.memberId;
+            CDetail.Member = db.member.FirstOrDefault(p => p.memberAccount == memberid);
             
             //comments
             IEnumerable<CommentViewModel> qComment = from c in db.comment

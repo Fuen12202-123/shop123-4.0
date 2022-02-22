@@ -1,0 +1,105 @@
+﻿@model IEnumerable<shop123.ViewModel.ShoppingCartViewModel>
+@{
+    ViewBag.Title = "checkout2";
+}
+
+<h2>checkout2</h2>
+
+@{ int TotalPrice = 0;
+    string sellerId = "";
+    }
+<div class="p-2">
+    @{List<int> skuidlist = new List<int>();}
+    @foreach (var item in Model)
+    {
+        sellerId = "";
+        int detailCount = item.Detail.Count();
+
+        sellerId = item.sellerId;
+        <div class=" ">
+
+            <div>
+                <span>店家 @item.sellerId</span>
+            </div>
+
+        </div>
+        <hr />
+        foreach (var inItem in item.Detail)
+        {
+
+            int inItemSub = inItem.orderDetailprice.Value * inItem.orderDetailnum.Value;
+            TotalPrice += inItemSub;
+            <div class="d-flex bd-highlight mb-3 border-bottom">
+                <div class="p-2 bd-highlight"><img src='@inItem.spuImg1' width='100' /></div>
+                <div class="p-2 bd-highlight">
+                    @inItem.orderDetailspuname
+                    <br />
+                    規格:@inItem.orderDetailcolor @inItem.orderDetailsize
+                    <br />
+                    x @inItem.orderDetailnum
+                </div>
+                <div class="ml-auto p-2 bd-highlight ">@($"{inItemSub:c0}")</div>
+            </div>
+
+        }
+        <div class="">
+            @*<div class="d-flex flex-row-reverse mb-4 ">訂單金額：@($"{TotalPrice:c0}")</div>*@
+            <div class="row">
+                <div class="col-5">
+                    <span>留言：</span> <input class="" type="text" placeholder="管理室代收 / 電話聯絡時間..." value="" style="width:350px">
+                    <br />
+                    <br />
+                    <span>付款方式：</span>
+                    <span>貨到付款</span>
+
+
+                </div>
+                <div class="col-7">
+                    <form action="@Url.Action("checkout","ShoppingCart")" method="post">
+                        <div class="form-horizontal ">
+                            <br />
+                            <div class="form-group">
+                                <span class="control-label ">收件人姓名</span>
+                                <div class="">
+                                    <input type="text" id="receiverName" name="receiverName" required="required" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span class="control-label ">電話</span>
+                                <div class="">
+                                    <input type="text" id="receiverPhone" name="receiverPhone" required="required" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="control-label ">收件人地址</span>
+                                <div class="">
+                                    <input type="text" id="receiverAddress" name="receiverAddress" required="required" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                <input type="hidden" id="totalprice" name="totalprice" class="" value="@TotalPrice" )" />
+                            </div>
+
+                            <div class="form-group ">
+                                <input type="text" id="sellerId" name="sellerId" class="" value="@sellerId" )" />
+                            </div>
+
+                            <div class="form-group ">
+                                <div class=" d-flex flex-row-reverse ">
+                                    <input type="submit" value="下訂單" class="btn btn-dark " />
+                                    <input type="submit" value="@($"{TotalPrice:c0}")" class="btn" style="cursor:default" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

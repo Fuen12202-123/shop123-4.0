@@ -20,7 +20,7 @@ public partial class comment
 
     public int id { get; set; }
 
-    public int memberId { get; set; }
+    public string memberId { get; set; }
 
     public int orderDetailId { get; set; }
 

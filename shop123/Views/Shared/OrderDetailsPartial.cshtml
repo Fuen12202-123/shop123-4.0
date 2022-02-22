@@ -10,8 +10,7 @@
 
         <div class=" d-flex justify-content-between mb-2 mt-5">
             <div>
-                店家名稱
-                <button>聊聊</button>
+                <span>商店:@item.sellerId </span>
                 <button>查看賣場</button>
             </div>
             <div>
@@ -63,7 +62,7 @@
                     }
                     else if (@item.orderState == "完成")
                     {
-                        <a class="btn">再買一次</a>
+                        <a onclick="finish(@item.orderguid)" class="btn">再買一次</a>
                         <button class="btn">聯絡賣家</button>
                         <button class="btn">查看評價</button>
                     }
@@ -73,7 +72,6 @@
                         <button class="btn">聯絡賣家</button>
                         <button class="btn">查看評價</button>
                     }
-
                 </div>
             </div>
         </div>
@@ -83,3 +81,16 @@
 
 
 </div>
+
+<script>
+      function finish(orderguid) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("finish", "Order")',
+            data: { orderguid: orderguid },
+            success: function (data) {
+                $('#Finish').html(data);
+            }
+        })
+    }
+</script>

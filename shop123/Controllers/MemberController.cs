@@ -61,14 +61,14 @@ namespace shop123.Controllers
         {
             shop123Entities sh = new shop123Entities();
             string userAccount = User.Identity.Name;
-            var userId = (from m in sh.member where m.memberAccount == userAccount select m.id).First();
+            //var userId = (from m in sh.member where m.memberAccount == userAccount select m.id).First();
             if (sm.spuImg1 != null)
             {
                 spu spu = new spu()
                 {
                     spuName = sm.spuName,
                     //memberId = sm.memberId,
-                    memberId=userId,
+                    memberId= userAccount,
                     spuInfo = sm.spuInfo,
                     spuPrice = sm.spuPrice,
                     catalogAId = sm.catalogAId,

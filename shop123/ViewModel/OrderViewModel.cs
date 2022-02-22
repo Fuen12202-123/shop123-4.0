@@ -66,6 +66,12 @@ namespace shop123.ViewModel
         public Nullable<int> orderDetailtotalprice { get; set; }
 
         public string orderDetailIsApproved { get; set; }
+
+        public Nullable<bool> @checked { get; set; }
+
+        public Nullable<int> spuId { get; set; }
+
+        public string sellerId { get; set; }
     }
     public class orderCommentViewModel
     {
@@ -75,7 +81,7 @@ namespace shop123.ViewModel
     }
     public class orderCommentPostViewModel
     {
-        public int txtmbID { get; set; }
+        public string txtmbID { get; set; }
         public int txtorderDetailId { get; set; }
         public string txtComments { get; set; }
 

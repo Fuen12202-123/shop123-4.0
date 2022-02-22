@@ -1,4 +1,5 @@
 ﻿using shop123.Models;
+using shop123.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,16 +27,17 @@ namespace shop123.Controllers
             //View使用orderDetails模型
             return PartialView("_ShopCart",orderDetails);
         }
-        public ActionResult checkout()
+         public ActionResult ShoppingCarPartial2()
         {
             //取得登入會員的帳號並指定給memberId
             string memberId = User.Identity.Name;
             //找出未成為訂單明細的資料，即購物車內容
-            var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true).ToList();
+            var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
 
             //View使用orderDetails模型
-            return View(orderDetails);
+            return PartialView("_ShopCart2",orderDetails);
         }
+      
 
         public ActionResult AjaxMiniCar()
         {
@@ -47,10 +49,68 @@ namespace shop123.Controllers
             return Json(orderDetails, JsonRequestBehavior.AllowGet);
         }
 
+          public ActionResult checkout2()
+        {
+            //取得登入會員的帳號並指定給memberId
+            string memberId = User.Identity.Name;
+            //找出未成為訂單明細的資料，即購物車內容
+            var groupby = db.spu
+                .GroupBy(m => m.memberId)
+                .Select(c => new
+                {
+                    memberId = c.Key,
+                    count = c.Count()
+                });
 
+            var OD = db.ordersDetail.Join(groupby,
+               o => o.sellerId,
+               d => d.memberId,
+               (o, d) => new
+               {
+                   sellerId = d.memberId,                     
+                   memberId=o.memberId,
+                   orderDetailIsApproved=o.orderDetailIsApproved,
+                   @checked=o.@checked
+               })
+               .Where(cs => cs.memberId == memberId && cs.orderDetailIsApproved == "否" && cs.@checked == true);
+            //var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true).ToList();
+
+            List<ShoppingCartViewModel> vm=new List<ShoppingCartViewModel>();
+            foreach(var item in OD)
+            {
+                vm.Add(new ShoppingCartViewModel()
+                {
+                    sellerId = item.sellerId,
+                    Detail = db.ordersDetail.Where(m => m.sellerId == item.sellerId && m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true).Select(s => new ShoppingcartsViewModel()
+                    {                       
+                        skuId = s.skuId,
+                        orderDetailcolor = s.orderDetailcolor,
+                        orderDetailsize = s.orderDetailsize,
+                        orderDetailnum = s.orderDetailnum,
+                        orderDetailspuname = s.orderDetailspuname,
+                        orderDetailprice = s.orderDetailprice,
+                        spuImg1 = s.spuImg1,
+                        sellerId=item.sellerId,
+                    })
+                });
+            }
+            //View使用orderDetails模型
+            return View(vm);
+        }
+
+        public ActionResult checkout()
+        {
+            //取得登入會員的帳號並指定給memberId
+            string memberId = User.Identity.Name;
+            //找出未成為訂單明細的資料，即購物車內容
+            var orderDetails = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true).ToList();
+
+            //View使用orderDetails模型
+            return View(orderDetails);
+        }
 
         [HttpPost] 
-        public ActionResult checkout(string receiverName,  string receiverPhone, string receiverAddress, int totalprice)
+        public ActionResult checkout(string receiverName,  string receiverPhone, string receiverAddress, int totalprice,string sellerId )
         {
             //找出會員帳號並指定給memberId
             string memberId = User.Identity.Name;
@@ -69,17 +129,23 @@ namespace shop123.Controllers
             order.orderCreateTime = DateTime.Now;
             order.orderState = "待出貨";
             order.totalPrice=totalprice;
-            
+            order.sellerId = sellerId;
             //order.totalPrice = totalprice;
             db.orders.Add(order);
             //找出目前會員在訂單明細中是購物車狀態的產品
-            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否").ToList();
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" ).ToList();
 
             //將購物車狀態產品的IsApproved設為"是"，表示確認訂購產品
             foreach (var item in ordersDetail)
             {
-                if (item.@checked == true)
-                {
+                //if (item.@checked == true && item.sellerId == sellerId)
+                //{                    
+                //    item.orderguid = guid;
+                //    item.orderDetailIsApproved = "是";
+                //}
+
+                if (item.@checked == true )
+                {                    
                     item.orderguid = guid;
                     item.orderDetailIsApproved = "是";
                 }
@@ -120,6 +186,7 @@ namespace shop123.Controllers
                       color = k.skuColor,
                       size = k.skuSize,
                       price = u.spuPrice,
+                      sellerId=u.memberId,
                   }).Where(cs => cs.skuid == skuid).FirstOrDefault();
 
                 //將產品放入訂單明細，因為產品的fIsApproved為"否"，表示為購物車狀態
@@ -135,6 +202,7 @@ namespace shop123.Controllers
                 orderDetail.orderDetailnum = quantity;
                 orderDetail.orderDetailIsApproved = "否";
                 orderDetail.@checked = false;
+                orderDetail.sellerId = spusku.sellerId;
                 db.ordersDetail.Add(orderDetail);
             }
             else
@@ -147,65 +215,7 @@ namespace shop123.Controllers
             return RedirectToAction("ShoppingCar");
         }
 
-        public ActionResult BuyAgain(List<int>skuid)
-        {
-            //取得會員帳號並指定給memberId
-            string memberId = User.Identity.Name;
-            //找出會員放入訂單明細的產品，該產品的fIsApproved為"否"
-
-            //表示該產品是購物車狀態
-            foreach(var item in skuid)
-            {
-
-            
-
-            var currentCar = db.ordersDetail
-                .Where(m => m.skuId == item && m.orderDetailIsApproved == "否" && m.memberId == memberId)
-                .FirstOrDefault();
-            //
-
-            //若currentCar等於null，表示會員選購的產品不是購物車狀態
-            if (currentCar == null)
-            {
-                //找出目前選購的產品並指定給sku
-                var spusku = db.sku.Join(db.spu,
-                  k => k.spuId,
-                  u => u.id,
-                  (k, u) => new
-                  {
-                      spuid = k.spuId,
-                      skuid = k.id,
-                      spuname = u.spuName,
-                      spuimg = u.spuImg1,
-                      color = k.skuColor,
-                      size = k.skuSize,
-                      price = u.spuPrice,
-                  }).Where(cs => cs.skuid == item).FirstOrDefault();
-
-                //將產品放入訂單明細，因為產品的fIsApproved為"否"，表示為購物車狀態
-                ordersDetail orderDetail = new ordersDetail();
-                orderDetail.memberId = memberId;
-                orderDetail.skuId = item;
-                orderDetail.spuId = spusku.spuid;
-                orderDetail.spuImg1 = spusku.spuimg;
-                orderDetail.orderDetailspuname = spusku.spuname;
-                orderDetail.orderDetailcolor = spusku.color;
-                orderDetail.orderDetailsize = spusku.size;
-                orderDetail.orderDetailprice = spusku.price;
-                orderDetail.orderDetailIsApproved = "否";
-                orderDetail.@checked = false;
-                db.ordersDetail.Add(orderDetail);
-            }
-            else
-            {
-                //若產品為購物車狀態，即將該產品數量加1
-                currentCar.orderDetailnum += 1;
-            }
-            }
-            db.SaveChanges();
-
-            return RedirectToAction("ShoppingCar");
-        }
+       
 
         public ActionResult DeleteCar(int Id)
         {
@@ -213,7 +223,15 @@ namespace shop123.Controllers
             var orderDetail = db.ordersDetail.Where
                 (m => m.id == Id).FirstOrDefault();
             //刪除購物車狀態的產品
-            db.ordersDetail.Remove(orderDetail);
+            if(orderDetail != null)
+            {
+                db.ordersDetail.Remove(orderDetail);
+            }
+            else
+            {
+
+            }
+            
             db.SaveChanges();
             return RedirectToAction("ShoppingCarPartial");
         }

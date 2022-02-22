@@ -22,7 +22,7 @@ public partial class spu
 
     public string spuName { get; set; }
 
-    public int memberId { get; set; }
+    public string memberId { get; set; }
 
     public string spuInfo { get; set; }
 
