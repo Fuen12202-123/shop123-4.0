@@ -236,7 +236,7 @@ namespace shop123.Controllers
 
 
             IEnumerable<SkuViewModel> test = from m in sh.member
-                                             join s in sh.spu on m.id equals s.memberId
+                                             join s in sh.spu on m.memberAccount equals s.memberId
                                              where m.memberAccount == usertest
                                              join k in sh.sku on s.id equals k.spuId
                                              select new SkuViewModel
