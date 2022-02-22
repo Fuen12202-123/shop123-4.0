@@ -21,7 +21,7 @@ namespace shop123.Models
         [Required(ErrorMessage = "必填欄位")]
         public string memberEmail { get; set; }
         [Required(ErrorMessage = "必填欄位")]
-        public int memberAccess { get; set; }
+        public string memberAccess { get; set; }
 
         public DateTime memberCreateTime { get; set; }
 

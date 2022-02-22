@@ -207,12 +207,12 @@ namespace shop123.Controllers
 
             p.memberCreateTime = DateTime.Now;
             shop.member.Add(p);
-
+            shop.SaveChanges();
 
 
             try
             {
-                shop.SaveChanges();
+                
                 ViewBag.suc = "註冊成功，請重新登入";
                 return RedirectToAction("sign");
             }
