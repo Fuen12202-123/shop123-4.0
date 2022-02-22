@@ -153,9 +153,8 @@ namespace shop123.Controllers
             orderCommentViewModel oc = new orderCommentViewModel();
             oc.SKU = db.sku.FirstOrDefault(t => t.id == skuID);
             spu sp = db.spu.FirstOrDefault(p => p.id == oc.SKU.spuId);
-            oc.orderdetailID = orderdetailID;
-            member mb = db.member.FirstOrDefault(m => m.memberAccount.Equals(mbName));
-            oc.mbID = mb.id;
+            oc.orderdetailID = orderdetailID;     
+            oc.mbID = mbName;
             oc.prodName = sp.spuName;
             return View(oc);
         }
