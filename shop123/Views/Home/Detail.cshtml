@@ -90,22 +90,22 @@
                                     {
                                         if (!ImageFilter.Contains(item.skuColor))
                                         {
-                                         <a onclick="ChangeImage(this);return false;" return false;" href="">
-                                                                    <img src="@item.skuImg" alt="@item.skuColor" title="@item.skuColor" style=" padding: 3px;">
-                                         </a>
-                                                ImageFilter.Add(item.skuColor);
-                                            }
-
+                                            <a onclick="ChangeImage(this);return false;" return false;" href="">
+                                                <img src="@item.skuImg" alt="@item.skuColor" title="@item.skuColor" style=" padding: 3px;">
+                                            </a>
+                                            ImageFilter.Add(item.skuColor);
                                         }
+
                                     }
+                                }
 
                             </div>
                             <div class="size">
                                 @*<span id="sizelist" class="picksize" cuurentsn>
-                                    <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">S</a>
-                                    <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">M</a>
-                                    <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">L</a>
-                                </span>*@
+                <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">S</a>
+                <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">M</a>
+                <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">L</a>
+            </span>*@
 
                                 <select id="colorAndsize">
                                     <option value="0">請選擇顏色和尺寸</option>
@@ -113,20 +113,32 @@
                                         {
                                             <option value="@item.id">@item.skuColor - @item.skuSize</option>
                                         }
+
+
                                     }
                                 </select>
                             </div>
+                            
                             <div class="clear"></div>
-                            <div class="addcart">
-                                <span>
-                                    <label class="v-middle">數量</label>
-                                    &nbsp;&nbsp;
-                                    <a class="minus" href="javascript:void(0)"></a>
-                                    <input id="buyCount" type="text" maxlength="2" value="1" />
-                                    <a class="plus" href="javascript:void(0)"></a>
-                                </span>
-                                <a id="addShopcar" href="javascript:void(0)" onclick="AddToCart()" class="btn_addcart">加入購物車</a>
-                            </div>
+                            @if (ViewBag.memberId == Model.Spu.memberId)
+                            {
+
+                            }
+                            else
+                            {
+                                <div class="addcart">
+                                    <span>
+                                        <label class="v-middle">數量</label>
+                                        &nbsp;&nbsp;
+                                        <a class="minus" href="javascript:void(0)"></a>
+                                        <input id="buyCount" type="text" maxlength="2" value="1" />
+                                        <a class="plus" href="javascript:void(0)"></a>
+                                    </span>
+
+                                    <a id="addShopcar" href="javascript:void(0)" onclick="AddToCart()" class="btn_addcart">加入購物車</a>
+                                </div>
+                            }
+                           
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -134,7 +146,7 @@
                     <!-- product page -->
                     <div class="page-product-content">
                         <div class="page-product-content-left">
-                           
+
                             <div class="page-product-content-block">
                                 <div class="block-title">
                                     商品詳情
@@ -153,7 +165,7 @@
                             <div class="seller-disc">
                                 <img src="@Model.Member.memberImg" alt="賣家商標" width="80">
                                 @*<a href="" style="vertical-align:bottom;">賣家帳號:@Model.Member.memberAccount</a>*@
-                                @Html.ActionLink(Model.Member.memberAccount, "MemberShop", "Home",new { mbId= Model.Member.memberAccount },new { @style = "vertical-align:bottom;" })
+                                @Html.ActionLink(Model.Member.memberAccount, "MemberShop", "Home", new { mbId = Model.Member.memberAccount }, new { @style = "vertical-align:bottom;" })
                             </div>
                         </div>
                     </div>
@@ -238,7 +250,7 @@
                 //    $('li#Cart').html(msg);
                 //});
         }
-        
+
         var SKU = 0;
         $(".minus").click(function () {
             var t = $("#buyCount");
