@@ -85,10 +85,11 @@
     </style>
 </head>
 <body>
+    <div id="data"></div>
     @*<p>
         @Html.ActionLink("新增會員", "MemberCreate", "", new { @class = "btn btn-info" })
     </p>*@
-    <div class="table-responsive-md">
+    <div class="table-responsive-md" id="memberList">
         <table class="table table-bordered table-hover table-sm">
             <thead>
                 <tr class="f5ebe0">
@@ -156,10 +157,26 @@
                     </td>
                     <td>
                         @*@Html.EditorFor(modelItem => item.memberBanned)*@
-                        <select>
-                            <option value="True">已被禁用</option>
-                            <option value="False">正常使用中</option>
-                        </select>
+                        @*@using (Ajax.BeginForm("UpdateMemberBanned", "Admin", new AjaxOptions { UpdateTargetId = "memberList" }))
+        {
+                <select name="item" onchange="$(this.form).submit();">
+                <option value="True">已被禁用</option>
+                <option value="False">正常使用中</option>
+            </select>
+        }*@
+                        
+                        @if (@item.memberBanned == true)
+                        {
+                            <input type="checkbox" onclick="memberListUpload(@item.memberAccount)" name="ckeckbox" value="" id="memberBanned" checked/>
+                        }
+                        else
+                        {
+                            <input type="checkbox" onclick="memberListUpload(@item.memberAccount)" name="ckeckbox" value="" id="memberBanned" />
+                        }
+
+
+
+
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.memberAccess)
@@ -213,6 +230,21 @@
             });
 
         })
+
+
+        //ajax同步更新
+        function memberListUpload(memberAccount) {
+            $ajax({
+                type: 'post',
+                url: '@Url.Action("memberListUpload", "Admin")',
+                data:{
+                memberAccount: memberAccount
+            },
+                success: function (data) {
+                    $(data);
+                }
+            })
+        }
 
     </script>
 

@@ -90,6 +90,21 @@ namespace shop123.Controllers
             db.SaveChanges();
             return RedirectToAction("Member");
         }
+
+
+        //會員禁用即時更新
+        [HttpPost]
+        public ActionResult memberListUpload(string memberAccount)
+        {
+            var mAccount = db.member.Where(m=>m.memberAccount == memberAccount).FirstOrDefault();
+            if(mAccount.memberBanned == true)
+            {
+                mAccount.memberBanned = false;
+            }
+            else { mAccount.memberBanned = true; }
+            db.SaveChanges();
+            return View();
+        }
         //會員刪除
         //TODO:刪除確認
         [HttpPost]
