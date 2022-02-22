@@ -78,6 +78,7 @@ namespace shop123.ViewModel
         public sku SKU { get; set; }
         public int orderdetailID { get; set; }
         public int mbID { get; set; }
+        public string prodName { get; set; }
     }
     public class orderCommentPostViewModel
     {

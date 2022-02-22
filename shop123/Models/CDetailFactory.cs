@@ -37,7 +37,8 @@ namespace shop123.Models
                                                                                   ,
                                                          CVM_skuSize = s.skuSize
                                                                                   ,
-                                                         CVM_skuImg = s.skuImg
+                                                         CVM_skuImg = s.skuImg,
+                                                         CVM_Score = c.score
                                                      };
             IEnumerable<CommentViewModel> ccoment = qComment.ToList();
             CDetail.Dcomment = ccoment;

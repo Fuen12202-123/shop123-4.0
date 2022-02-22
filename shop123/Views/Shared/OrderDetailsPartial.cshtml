@@ -33,7 +33,15 @@
                     <br />
                     x @inItem.orderDetailnum
                 </div>
-                <div class="ml-auto p-2 bd-highlight ">@($"{inItemSub:c0}")</div>
+                <div class="ml-auto p-2 bd-highlight ">
+                    @($"{inItemSub:c0}")
+                    @if (item.orderState == "完成")
+                    {
+                        <div style="margin-top:50px;">
+                            @Html.ActionLink("我要評論", "ProdComment", "Order", new { skuID = inItem.skuId, mbName = @item.memberId, orderdetailID = inItem.id }, new { @class = "btn btn-outline-secondary" })
+                        </div>
+                    }
+                </div>
             </div>
 
         }

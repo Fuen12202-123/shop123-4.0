@@ -100,8 +100,8 @@
                                                 <div class="me-2">
                                                     @*<input type="radio" id="sell" value="0" name="memberAccess" checked>我是賣家
                                                         <input type="radio" id="customer" value="1" name="memberAccess">我是買家*@
-                                                    @Html.RadioButton("memberAccess", 0, true) 我是賣家
-                                                    @Html.RadioButton("memberAccess", 1) 我是買家
+                                                    @Html.RadioButton("memberAccess", "賣家", true) 我是賣家
+                                                    @Html.RadioButton("memberAccess", "買家") 我是買家
                                                 </div>
 
 

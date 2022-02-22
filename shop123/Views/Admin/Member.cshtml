@@ -85,9 +85,9 @@
     </style>
 </head>
 <body>
-    <p>
+    @*<p>
         @Html.ActionLink("新增會員", "MemberCreate", "", new { @class = "btn btn-info" })
-    </p>
+    </p>*@
     <div class="table-responsive-md">
         <table class="table table-bordered table-hover table-sm">
             <thead>
@@ -107,7 +107,7 @@
                     <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.memberEmail)
                     </th>
-                    <th scope="col" class="text-nowrap w5">
+                    <th scope="col" class="text-nowrap w8">
                         @Html.DisplayNameFor(model => model.memberImg)
                     </th>
                     <th scope="col" class="text-nowrap w5">
@@ -116,10 +116,10 @@
                     <th scope="col" class="text-nowrap w5">
                         @Html.DisplayNameFor(model => model.memberAccess)
                     </th>
-                    <th scope="col" class="text-nowrap w7">
+                    <th scope="col" class="text-nowrap w5">
                         @Html.DisplayNameFor(model => model.memberCreateTime)
                     </th>
-                    <th scope="col" class="text-nowrap w8">編輯或刪除資料</th>
+                    <th scope="col" class="text-nowrap w5">刪除資料</th>
                 </tr>
             </thead>
 
@@ -142,11 +142,24 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.memberEmail)
                     </td>
-                    <td>
+                    <td style="height:200px;">
                         @Html.DisplayFor(modelItem => item.memberImg)
+                        @*<img src="@item.memberImg" class="card-img-top" alt="...">*@
+                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
+                            @*<img src="@item.memberImg"
+                                 class="card-img-top" alt=@item.memberName>*@
+                            @*絕對路徑會抱錯*@
+                            <img src=@Url.Content($"~/Images/{item.memberImg}")
+                                 class="card-img-top" alt=@item.memberName>
+                        </div>
+    
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.memberBanned)
+                        @*@Html.EditorFor(modelItem => item.memberBanned)*@
+                        <select>
+                            <option value="True">已被禁用</option>
+                            <option value="False">正常使用中</option>
+                        </select>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.memberAccess)
@@ -154,8 +167,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.memberCreateTime)
                     </td>
-                    <td style="display:flex" class="justify-content-between">
-                        @Html.ActionLink("編輯會員","MemberEdit", new { id = item.id }, new { @class = "btn btn-outline-info" })
+                    <td @*style="display:flex" class="justify-content-between"*@>
+                        @*@Html.ActionLink("編輯會員","MemberEdit", new { id = item.id }, new { @class = "btn btn-outline-info" })*@
                             @using (Html.BeginForm("MemberDelete", "Admin", FormMethod.Post, new { @class = "deleteBtn" }))
                             {
                                 @Html.Hidden("id", item.id)
