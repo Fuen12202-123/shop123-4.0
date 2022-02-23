@@ -82,10 +82,13 @@
         .text-decoration-none {
             text-decoration: none;
         }
+
+/*按鈕css*/
+
+
     </style>
 </head>
 <body>
-    <div id="data"></div>
     @*<p>
         @Html.ActionLink("新增會員", "MemberCreate", "", new { @class = "btn btn-info" })
     </p>*@
@@ -157,26 +160,20 @@
                     </td>
                     <td>
                         @*@Html.EditorFor(modelItem => item.memberBanned)*@
-                        @*@using (Ajax.BeginForm("UpdateMemberBanned", "Admin", new AjaxOptions { UpdateTargetId = "memberList" }))
-        {
-                <select name="item" onchange="$(this.form).submit();">
-                <option value="True">已被禁用</option>
-                <option value="False">正常使用中</option>
-            </select>
-        }*@
-                        
-                        @if (@item.memberBanned == true)
+                        @using (Ajax.BeginForm("UpdateMemberBanned", "Admin", new AjaxOptions { UpdateTargetId = "#memberList" }))
                         {
-                            <input type="checkbox" onclick="memberListUpload(@item.memberAccount)" name="ckeckbox" value="" id="memberBanned" checked/>
+                            @Html.Hidden("id", item.id)
+                            if (item.memberBanned == true)
+                            {
+                            <input type="checkbox" class="" onchange="$(this.form).submit();" checked />
+
+                            }
+                            else
+                            {
+
+                            <input type="checkbox" onchange="$(this.form).submit();" />
+                            }
                         }
-                        else
-                        {
-                            <input type="checkbox" onclick="memberListUpload(@item.memberAccount)" name="ckeckbox" value="" id="memberBanned" />
-                        }
-
-
-
-
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.memberAccess)
@@ -232,19 +229,20 @@
         })
 
 
-        //ajax同步更新
-        function memberListUpload(memberAccount) {
+        @*//ajax同步更新
+        function memberListUpload(memberaccount) {
             $ajax({
                 type: 'post',
                 url: '@Url.Action("memberListUpload", "Admin")',
+                async: true,
                 data:{
-                memberAccount: memberAccount
+                memberaccount: memberaccount
             },
                 success: function (data) {
-                    $(data);
+                    $('#data').html(data);
                 }
             })
-        }
+        }*@
 
     </script>
 
