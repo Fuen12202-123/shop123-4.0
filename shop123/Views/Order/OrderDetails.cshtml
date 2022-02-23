@@ -45,11 +45,12 @@
 
                     <div class=" d-flex justify-content-between mb-2 mt-5">
                         <div>
-                            <span>商店:@item.sellerId </span>                            
-                            <button>查看賣場</button>
+                            <span>賣家:@item.sellerId </span>
+                            <a href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none" >查看賣場</a>
                         </div>
                         <div>
-                            <span>訂單編號 @item.orderguid</span>
+                            
+                            <span>訂單成立 @item.orderCreateTime</span>
                         </div>
 
                     </div>
@@ -59,7 +60,7 @@
                         int inItemSub = inItem.orderDetailprice.Value * inItem.orderDetailnum.Value;
                         TotalPrice += inItemSub;
                         <div class="d-flex bd-highlight mb-3 border-bottom">
-                            <div class="p-2 bd-highlight"><img src='@inItem.spuImg1' width='100' /></div>
+                            <div class="p-2 bd-highlight"><a href="@Url.Action("Detail", "Home")?id=@inItem.spuId" )"><img src="@Url.Content($"{inItem.spuImg1}")" style="width:100px;height:100px"></a></div>
                             <div class="p-2 bd-highlight">
                                 @inItem.orderDetailspuname
                                 <br />
@@ -71,11 +72,45 @@
                         </div>
 
                     }
-                    <div class="">
-                        <div class="d-flex flex-row-reverse mb-4 ">訂單金額：@($"{TotalPrice:c0}")</div>
+                    <div >
+                        <div class="d-flex justify-content-between">
+                            <div><span>訂單編號 @item.orderguid</span></div>
+
+                            <div class="d-flex flex-row-reverse mb-4 ">訂單金額：@($"{TotalPrice:c0}")</div>
+                        </div>
                         <div class="d-flex justify-content-end mb-5">
                             <div>
-                                <button class="btn">查看評價</button>
+                                @if (@item.orderState == "未付款")
+                                {
+                                    <a class="btn">付款</a>
+                                    <a class="btn">取消訂單</a>
+                                    <button class="btn">聯絡賣家</button>
+                                    <button class="btn">查看評價</button>
+                                }
+                                else if (@item.orderState == "待出貨")
+                                {
+                                    <a class="btn">取消訂單</a>
+                                    <button class="btn">聯絡賣家</button>
+                                    <button class="btn">查看評價</button>
+                                }
+                                else if (@item.orderState == "待收貨")
+                                {
+                                    <a class="btn">完成訂單</a>
+                                    <button class="btn">聯絡賣家</button>
+                                    <button class="btn">查看評價</button>
+                                }
+                                else if (@item.orderState == "完成")
+                                {
+                                    <a onclick="finish(@item.orderguid)" class="btn">再買一次</a>
+                                    <button class="btn">聯絡賣家</button>
+                                    <button class="btn">查看評價</button>
+                                }
+                                else if (@item.orderState == "不成立")
+                                {
+                                    <a class="btn">再買一次</a>
+                                    <button class="btn">聯絡賣家</button>
+                                    <button class="btn">查看評價</button>
+                                }
                             </div>
                         </div>
                     </div>

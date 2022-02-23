@@ -1,4 +1,5 @@
-﻿@model IEnumerable<shop123.Models.ordersDetail>
+﻿@model IEnumerable<shop123.ViewModel.ShoppingCartViewModel>
+
 <style>
     .table th, .table td {
         text-align: center;
@@ -10,72 +11,97 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
 <table class="table ">
-    <thead><tr><th></th><th>商品</th><th></th><th>單價</th><th>數量</th><th>總計</th><th>操作</th></tr> </thead>
+    <thead><tr><th></th><th>商品</th><th></th><th>規格</th><th>單價</th><th>數量</th><th>總計</th><th>操作</th></tr> </thead>
 
     <tbody>
-        @{ int TotalPrice = 0;}
-        @foreach (var item in Model)
-        {
-            int itemSubtotal = 0;
+        @{int index = 0;
+            List<string> seller = new List<string>();
+            int TotalPrice = 0;
 
-            <tr>
-                @if (@item.@checked == true)
+            foreach (var item in Model)
+            {
+                if (!seller.Contains(item.sellerId))
                 {
-                    //要使用的方法寫在checkbox上的onclick裡，帶入商品ID參數。
-                    <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" checked /></td>
 
-                    itemSubtotal = item.orderDetailprice.Value * item.orderDetailnum.Value;
-                    TotalPrice += itemSubtotal;
-                    }
-                else
+
+
+                    <tr>
+                        <td>
+                            <span>賣家:@item.sellerId </span>
+                            <a href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none">查看賣場</a>
+                        </td>
+                    </tr>
+
+                    foreach (var inItem in item.Detail)
                     {
-                    <td><input onclick="skuchecked(@item.skuId)" type="checkbox" name="checkboxs" value="" id="sku" /></td>
+                        int itemSubtotal = 0;
+
+                        <tr>
+                            @if (@inItem.@checked == true)
+                            {
+                                //要使用的方法寫在checkbox上的onclick裡，帶入商品ID參數。
+                                <td><input onclick="skuchecked(@inItem.skuId)" type="checkbox" name="checkboxs" value="" id="sku" checked /></td>
+
+                                itemSubtotal = inItem.orderDetailprice.Value * inItem.orderDetailnum.Value;
+                                TotalPrice += itemSubtotal;
+                            }
+                            else
+                            {
+                                <td><input onclick="skuchecked(@inItem.skuId)" type="checkbox" name="checkboxs" value="" id="sku" /></td>
+                            }
+
+                            <td><a href="@Url.Action("Detail", "Home")?id=@inItem.spuId" )"><img src="@Url.Content($"{inItem.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></a></td>
+                            <td>
+                                <a class="text-dark  text-decoration-none" href="@Url.Action("Detail", "Home")?id=@inItem.spuId" )">
+                                    @inItem.orderDetailspuname
+                                </a>
+
+                            </td>
+                            <td>
+
+                                @*@inItem.orderDetailcolor@inItem.orderDetailsize*@
+                                <select id="skuselect" data-id="@inItem.id" class="showsku" style="width:100px" onclick="showsku(@inItem.spuId)">
+                                    <option value="0">@inItem.orderDetailcolor@inItem.orderDetailsize</option>
+                                </select>
+                            </td>
+                            <td>@($"{inItem.orderDetailprice:c0}")</td>
+
+                            <td>
+                                @if (inItem.orderDetailnum == 0)
+                                {
+                                    <a class="btn">&emsp;</a>
+                                    @inItem.orderDetailnum
+                                    <a onclick=" plus(@inItem.skuId)" class="btn"><i class="fa-solid fa-plus"></i></a>
+                                }
+                                else
+                                {
+                                    //跟checkbox用的方法一樣
+                                    <a onclick=" minus(@inItem.skuId)" class="btn"><i class="fa-solid fa-minus"></i></a>
+                                    @inItem.orderDetailnum
+                                    <a onclick=" plus(@inItem.skuId)" class="btn"><i class="fa-solid fa-plus"></i></a>
+                                }
+
+                            </td>
+
+                            <td>@($"{ itemSubtotal:c0}")</td>
+                            <td>
+                                @*要有引用unobtrusive-ajax*@
+                                @*第一個屬性是要顯示的名稱，因為要使用fontawesome，所以用兩個空白*@
+                                @*第二個是Action，new{controller可以指定控制器，後面是帶入的參數}*@
+                                @*new AjaxOptions { UpdateTargetId = "div1"}代表ajax執行完更新指定的元素*@
+
+                                @(Ajax.ActionLink(" ", "DeleteCar", new { controller = "ShoppingCart", Id = @inItem.id }, new AjaxOptions { UpdateTargetId = "div1" }, new { @class = "btn myActionLink" }))
+                            </td>
+                        </tr>
+
+
+                        index += 1;
+                    }
+                    seller.Add(item.sellerId);
                 }
-
-                <td><a href="@Url.Action("Detail","Home")?id=@item.spuId" )"><img src="@Url.Content($"{item.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></a></td>
-                <td>
-                    <a class="text-dark  text-decoration-none" href="@Url.Action("Detail","Home")?id=@item.spuId" )">
-                        @item.orderDetailspuname-
-                        @item.orderDetailcolor-
-                        @item.orderDetailsize
-                    </a>
-                </td>
-
-                <td>@($"{item.orderDetailprice:c0}")</td>
-
-                <td>
-                    @if (item.orderDetailnum == 0)
-                    {
-                        <a class="btn">&emsp;</a>
-                        @item.orderDetailnum
-                        <a onclick=" plus(@item.skuId)" class="btn"><i class="fa-solid fa-plus"></i></a>
-                    }
-                    else
-                    {
-                        //跟checkbox用的方法一樣
-                        <a onclick=" minus(@item.skuId)" class="btn"><i class="fa-solid fa-minus"></i></a>
-                        @item.orderDetailnum
-                        <a onclick=" plus(@item.skuId)" class="btn"><i class="fa-solid fa-plus"></i></a>
-                    }
-
-                </td>
-
-                <td>@($"{ itemSubtotal:c0}")</td>
-                <td>
-                    @*要有引用unobtrusive-ajax*@
-                    @*第一個屬性是要顯示的名稱，因為要使用fontawesome，所以用兩個空白*@
-                    @*第二個是Action，new{controller可以指定控制器，後面是帶入的參數}*@
-                    @*new AjaxOptions { UpdateTargetId = "div1"}代表ajax執行完更新指定的元素*@    
-                    
-                    @(Ajax.ActionLink(" ", "DeleteCar", new { controller = "ShoppingCart", Id = @item.id },new AjaxOptions { UpdateTargetId = "div1"}, new { @class = "btn myActionLink" }))
-                </td>
-            </tr>
-
-
-
+            }
 
         }
-
     </tbody>
 
 
@@ -83,12 +109,26 @@
 
 <div class="d-flex justify-content-end mr-2">
     <h5>
-        總金額： @($"{TotalPrice:c0}")   | <a href="@Url.Action("checkout2")" class="btn"><i class="fa-solid fa-circle-check" style="font-size:2rem"></i></a>
+        總金額： @($"{TotalPrice:c0}")   | <a href="@Url.Action("checkout")" class="btn"><i class="fa-solid fa-circle-check" style="font-size:2rem"></i></a>
     </h5>
 </div>
 
 <script>
     $('.myActionLink').prepend('<i class="fa-solid fa-trash-can"></i>');
+
+    function showsku(spuid) {
+        $('#skuselect').empty();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Showsku", "ShoppingCart")',
+                data: {spuid:spuid},
+                success: function (data) {
+                    $(data).each(function (index, item) {
+                        $('#skuselect').append(`<option value="${item.id}">${item.skuColor}-${item.skuSize}</option>`);
+                    })
+                }
+            })
+    }
 
     function skuchecked(skuid) {
         $.ajax({
@@ -122,9 +162,7 @@
                 $('#div1').html(data);
             }
         })
-            .done(function () {
-                window.location.href = '../Home/Index'
-            });
+
     }
 
 </script>
