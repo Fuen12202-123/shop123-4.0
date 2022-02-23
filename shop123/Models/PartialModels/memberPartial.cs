@@ -24,10 +24,13 @@ namespace shop123.Models
             [DisplayName("會員名稱")]
             public string memberName { get; set; }
             [DisplayName("會員電話")]
-            public string memberPhone { get; set; }          
+            public string memberPhone { get; set; }    
+            [DisplayName("會員信箱")]
+            [Required(ErrorMessage ="會員信箱為必填欄位")]
+            public string memberEmail { get; set; }
             [DisplayName("會員圖片")]
             public string memberImg { get; set; }
-            [DisplayName("會員禁用")]
+            [DisplayName("是否禁用")]
             public Nullable<bool> memberBanned { get; set; }
             [Required(ErrorMessage = "必填欄位")]
             [DisplayName("會員權限")]

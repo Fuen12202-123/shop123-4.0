@@ -82,13 +82,17 @@
         .text-decoration-none {
             text-decoration: none;
         }
+
+/*按鈕css*/
+
+
     </style>
 </head>
 <body>
     @*<p>
         @Html.ActionLink("新增會員", "MemberCreate", "", new { @class = "btn btn-info" })
     </p>*@
-    <div class="table-responsive-md">
+    <div class="table-responsive-md" id="memberList">
         <table class="table table-bordered table-hover table-sm">
             <thead>
                 <tr class="f5ebe0">
@@ -156,10 +160,20 @@
                     </td>
                     <td>
                         @*@Html.EditorFor(modelItem => item.memberBanned)*@
-                        <select>
-                            <option value="True">已被禁用</option>
-                            <option value="False">正常使用中</option>
-                        </select>
+                        @using (Ajax.BeginForm("UpdateMemberBanned", "Admin", new AjaxOptions { UpdateTargetId = "#memberList" }))
+                        {
+                            @Html.Hidden("id", item.id)
+                            if (item.memberBanned == true)
+                            {
+                            <input type="checkbox" class="" onchange="$(this.form).submit();" checked />
+
+                            }
+                            else
+                            {
+
+                            <input type="checkbox" onchange="$(this.form).submit();" />
+                            }
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.memberAccess)
@@ -213,6 +227,22 @@
             });
 
         })
+
+
+        @*//ajax同步更新
+        function memberListUpload(memberaccount) {
+            $ajax({
+                type: 'post',
+                url: '@Url.Action("memberListUpload", "Admin")',
+                async: true,
+                data:{
+                memberaccount: memberaccount
+            },
+                success: function (data) {
+                    $('#data').html(data);
+                }
+            })
+        }*@
 
     </script>
 
