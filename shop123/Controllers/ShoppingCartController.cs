@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static shop123.ViewModel.ShoppingCartViewModel;
 
 namespace shop123.Controllers
 {
@@ -59,7 +60,7 @@ namespace shop123.Controllers
                 .Select(c => new
                 {
                     memberId = c.Key,
-                    count = c.Count()
+                   
                 });
 
             var OD = db.ordersDetail.Join(groupby,
@@ -90,7 +91,7 @@ namespace shop123.Controllers
                         orderDetailspuname = s.orderDetailspuname,
                         orderDetailprice = s.orderDetailprice,
                         spuImg1 = s.spuImg1,
-                        sellerId=item.sellerId,
+                       
                     })
                 });
             }
@@ -110,7 +111,8 @@ namespace shop123.Controllers
         }
 
         [HttpPost] 
-        public ActionResult checkout(string receiverName,  string receiverPhone, string receiverAddress, int totalprice,string sellerId )
+        //public ActionResult checkout(string receiverName,  string receiverPhone, string receiverAddress,List<string> sellerId )
+        public ActionResult checkout(string receiverName,  string receiverPhone, string receiverAddress, string sellerId)
         {
             //找出會員帳號並指定給memberId
             string memberId = User.Identity.Name;
@@ -120,6 +122,10 @@ namespace shop123.Controllers
             //形成一對多的關係，即一筆訂單資料會對應到多筆訂單明細
             string guid = Guid.NewGuid().ToString();
             //建立訂單主檔資料
+            //foreach(var sId in sellerId)
+            //{
+
+            
             orders order = new orders();
             order.orderguid = guid;
             order.memberId = memberId;
@@ -128,35 +134,39 @@ namespace shop123.Controllers
             order.receiverPhone = receiverPhone;
             order.orderCreateTime = DateTime.Now;
             order.orderState = "待出貨";
-            order.totalPrice=totalprice;
+                //order.totalPrice=totalprice;
+                //order.sellerId = sId.;
+                //order.totalPrice = totalprice;
             order.sellerId = sellerId;
-            //order.totalPrice = totalprice;
             db.orders.Add(order);
             //找出目前會員在訂單明細中是購物車狀態的產品
-            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" ).ToList();
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true && m.sellerId == sellerId).ToList();
 
             //將購物車狀態產品的IsApproved設為"是"，表示確認訂購產品
             foreach (var item in ordersDetail)
             {
-                //if (item.@checked == true && item.sellerId == sellerId)
+               
+
+                //if (item.@checked == true && item.sellerId == sId)
                 //{                    
                 //    item.orderguid = guid;
                 //    item.orderDetailIsApproved = "是";
                 //}
-
-                if (item.@checked == true )
-                {                    
+                                
                     item.orderguid = guid;
                     item.orderDetailIsApproved = "是";
-                }
+               
 
             }
-            //更新資料庫，異動tOrder和tOrderDetail
-            //完成訂單主檔和訂單明細的更新
-            db.SaveChanges();
+                //更新資料庫，異動tOrder和tOrderDetail
+                //完成訂單主檔和訂單明細的更新
+                db.SaveChanges();
+
+            //}
             return RedirectToAction("OrderDetails", "Order");
-        }
-      
+            //return checkout(receiverName, receiverPhone, receiverAddress, sellerId);
+        } 
+
 
         public ActionResult AddCar(int skuid, int quantity)
         {
