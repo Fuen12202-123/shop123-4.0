@@ -55,7 +55,7 @@
 }
 
 .product_info {
-    height: 100% !important;
+    /*height: 100% !important;*/
     margin: 20px 0 10px 0;
     color: #666;
     width: 620px;
@@ -368,4 +368,12 @@ a {
     color: rgba(0,0,0,.87);
     font-size: 1.125rem;
     padding: .875rem;
+}
+
+#colorAndsize{
+    margin-top:20px;
+}
+
+span #name{
+    font-size:1.5rem;
 }
