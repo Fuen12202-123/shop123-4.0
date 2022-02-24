@@ -36,6 +36,7 @@
     <link href="~/Content/MemberCenter.css" rel="stylesheet" />
     <script src="~/Scripts/dropzone/dropzone.min.js"></script>
     <link href="~/Scripts/dropzone/dropzone.min.css" rel="stylesheet" />
+    <link href="~/Content/ToTop.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container">
@@ -85,40 +86,14 @@
             <hr />
             <footer>
                 <p>&copy; @DateTime.Now.Year - 衣貳衫</p>
-                <p id="to_top">↑</p>
+                <a href="#" class="back-to-top pt-1" style="font-size:2rem"><i class="fa fa-chevron-up"></i></a>
             </footer>
         </div>
     </div>
 
 
-    @RenderSection("scripts", required: false)
-    <script>
-        $('#to_top').click(function () {
-            // 瞬間滾到頂部
-            //$('html,body').scrollTop(0)
-
-            // 平滑滾到頂部
-            // 總距離
-            var $page = $('html,body')
-            var distance = $('html').scrollTop() + $('body').scrollTop()
-            // 總時間
-            var time = 200
-            // 間隔時間
-            var intervalTime = 1
-            var itemDistance = distance / (time / intervalTime)
-            // 使用循環定時器不斷滾動
-            var intervalId = setInterval(function () {
-                distance -= itemDistance
-                // 到達頂部, 停止定時器
-                if (distance <= 0) {
-                    distance = 0 //修正
-                    clearInterval(intervalId)
-                }
-                $page.scrollTop(distance)
-            }, intervalTime)
-
-        })
-    </script>
+    @RenderSection("scripts", required: false)   
+    <script src="~/Scripts/ToTop.js"></script>
     <script src="~/Scripts/eyepassword.js"></script>
     <script src="~/Scripts/dragdrop.js"></script>
     <script src="~/Scripts/sellerUpload.js"></script>

@@ -91,12 +91,7 @@ namespace shop123.Controllers
             return Json(orderDetails, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Showsku(int spuid)
-        {
-            var sku = db.sku.Where(m=>m.spuId== spuid).ToList();
-
-            return Json(sku, JsonRequestBehavior.AllowGet);
-        }
+       
         
 
         public ActionResult _skuselect(int spuid,int odid)
@@ -152,6 +147,7 @@ namespace shop123.Controllers
                 vm.Add(new ShoppingCartViewModel()
                 {
                     sellerId = item.sellerId,
+                    
                     Detail = db.ordersDetail.Where(m => m.sellerId == item.sellerId && m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true).Select(s => new ShoppingcartsViewModel()
                     {
                         skuId = s.skuId,

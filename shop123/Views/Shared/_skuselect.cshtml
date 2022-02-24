@@ -16,16 +16,16 @@
         background-color: #fff;
     }
 
-    /*    .btnsize {
-        width: 80px;
-        height: 30px;
-        border-radius: 5px;
-        border: 1px solid #dbdbdb;
-        color: #dbdbdb;
-        background-color: #fff;
-    }*/
-
     .btnsize-click, .btncolor-click {
+        background-color: #fff;
+        opacity: 0.7;
+        color: #000000;
+        border: 1px solid #000000;
+        color: #000000;
+        border-radius: 5px;
+    }
+
+    .btncolor:hover, .btnsize:hover {
         background-color: #fff;
         opacity: 0.7;
         color: #000000;
@@ -44,7 +44,7 @@
 
     <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuLink" style="width:350px;margin:0">
         @{List<string> color = new List<string>();
-            List<string> size = new List<string>();
+          List<string> size = new List<string>();
 
             <div class="box mb-2">
                 <p class="ml-2">顏色:</p>

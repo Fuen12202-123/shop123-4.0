@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<shop123.ViewModel.ShoppingCartViewModel>
 @{
-    ViewBag.Title = "checkout";
+    ViewBag.Title = "結帳";
 }
 
 
@@ -20,16 +20,16 @@
     //用來判斷店家是否重複
     foreach (var item in Model)
     {
-        TotalPrice = 0;
 
+       
 
         int detailCount = item.Detail.Count();
         if (!seller.Contains(item.sellerId))
         {
             <div class=" ">
                 <div>
-                    <span>賣家:@item.sellerId </span>
-                    <a href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none">查看賣場</a>
+                    <a id="gotoshop" href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none"> <span>@item.sellerId </span><i class="fa-solid fa-shop"></i></a>
+
                 </div>
             </div>
             //sellerIds.Add(item.sellerId);
@@ -99,12 +99,12 @@
 
 
 
-                        <div class="col-6">
+                        @*<div class="col-6">
                             <span class="control-label ">留言</span>
                             <div class="">
-                                <input class="form-control" type="text" placeholder="管理室代收 / 電話聯絡時間..." value="" style="width:350px">
+                                <input class="form-control" type="text" id="ordermessage" name="ordermessage" placeholder="指定時段/管理室代收 / 電話聯絡時間..."  style="width:350px">
                             </div>
-                        </div>
+                        </div>*@
                         <div class="col-6">
                             <span class="control-label ">付款方式</span>
                             <div class="">
@@ -125,9 +125,9 @@
     }
     <div class="form-group mt-5">
         <div class=" d-flex flex-row-reverse ">
-
-            <input type="submit" value="下訂單" class="btn btn-dark " />
-            <input type="submit" value="@($"{TotalPrice:c0}") " class="btn  " />
+            <input style="font-family: FontAwesome; border: 0; background-color: transparent; font-size: 2rem; cursor: pointer;" value="&#xf058;" type="submit"/>
+            <input type="submit"  value="總金額@($"{TotalPrice:c0}") " style="border: 0; background-color: transparent; font-size: 2rem " />
+           
 
         </div>
     </div>
@@ -136,3 +136,8 @@
     @*}*@
     </form>
 </div>
+<script>
+
+    $('.myActionLink').prepend('<i class="fa-solid fa-circle-check" style="font-size:2rem"></i>');
+
+</script>

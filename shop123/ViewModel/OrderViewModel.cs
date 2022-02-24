@@ -37,6 +37,8 @@ namespace shop123.ViewModel
 
         public string sellerId { get; set; }
 
+        public string ordermessage { get; set; }
+
         public IEnumerable<OrderDetailViewModel> Detail { get; set; }
 
     }
