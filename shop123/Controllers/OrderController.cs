@@ -157,7 +157,7 @@ namespace shop123.Controllers
                 db.comment.Add(cmt);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("OrderDetails");
         }
     }
 }
