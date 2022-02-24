@@ -55,7 +55,7 @@
 }
 
 .product_info {
-    height: 100% !important;
+    /*height: 100% !important;*/
     margin: 20px 0 10px 0;
     color: #666;
     width: 620px;
