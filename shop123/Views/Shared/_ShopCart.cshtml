@@ -22,15 +22,18 @@
             {
                 if (!seller.Contains(item.sellerId))
                 {
-
-
-
+                    
                     <tr>
+                        <td></td>
                         <td>
                             <span>賣家:@item.sellerId </span>
                             <a href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none">查看賣場</a>
                         </td>
                     </tr>
+
+
+
+
 
                     foreach (var inItem in item.Detail)
                     {
@@ -60,9 +63,12 @@
                             <td>
 
                                 @*@inItem.orderDetailcolor@inItem.orderDetailsize*@
-                                <select id="skuselect" data-id="@inItem.id" class="showsku" style="width:100px" onclick="showsku(@inItem.spuId)">
+                                @Html.Action("_skuselect", "ShoppingCart", new { spuid = @inItem.spuId ,odid=inItem.id})@inItem.orderDetailcolor@inItem.orderDetailsize
+
+
+                                @*<select id="skuselect" data-id="@inItem.id" class="showsku" style="width:100px" onclick="showsku(@inItem.spuId)">
                                     <option value="0">@inItem.orderDetailcolor@inItem.orderDetailsize</option>
-                                </select>
+                                </select>*@
                             </td>
                             <td>@($"{inItem.orderDetailprice:c0}")</td>
 

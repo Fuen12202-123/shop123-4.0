@@ -62,6 +62,7 @@ namespace shop123.Controllers
                     sellerId = item.sellerId,
                     Detail = db.ordersDetail.Where(m => m.sellerId == item.sellerId && m.memberId == memberId && m.orderDetailIsApproved == "否" ).Select(s => new ShoppingcartsViewModel()
                     {
+                        id=s.id,
                         skuId = s.skuId,
                         @checked = s.@checked,                        
                         spuId = s.spuId,
@@ -78,7 +79,7 @@ namespace shop123.Controllers
             
             return PartialView("_ShopCart", vm);
         }
-      
+        
 
         public ActionResult AjaxMiniCar()
         {
@@ -96,8 +97,31 @@ namespace shop123.Controllers
 
             return Json(sku, JsonRequestBehavior.AllowGet);
         }
+        
 
-          public ActionResult checkout()
+        public ActionResult _skuselect(int spuid,int odid)
+        {
+            var sku = db.sku.Where(m => m.spuId == spuid).ToList();
+            ViewBag.odid = odid;
+            return PartialView( "_skuselect", sku);
+        }
+        [HttpPost]
+        public ActionResult _skuselect(int odid, string color, string size)
+        {
+            var od = db.ordersDetail.Where(o => o.id == odid).ToList();
+            var sku = db.sku.Where(s => s.skuColor == color && s.skuSize == size).Select(s => s.id).FirstOrDefault(); ;
+            foreach(var item in od)
+            {
+                item.skuId = sku;
+                item.orderDetailcolor = color;
+                item.orderDetailsize = size;
+            }
+            db.SaveChanges();
+            return RedirectToAction("ShoppingCarPartial");
+        }
+
+
+        public ActionResult checkout()
         {
             
             string memberId = User.Identity.Name;

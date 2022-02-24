@@ -1,0 +1,124 @@
+﻿@model IEnumerable<shop123.Models.sku>
+<style>
+    .confirm {
+        width: 120px;
+        height: 30px;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .btncolor, .btnsize {
+        width: 80px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #dbdbdb;
+        color: #dbdbdb;
+        background-color: #fff;
+    }
+
+    /*    .btnsize {
+        width: 80px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #dbdbdb;
+        color: #dbdbdb;
+        background-color: #fff;
+    }*/
+
+    .btnsize-click, .btncolor-click {
+        background-color: #fff;
+        opacity: 0.7;
+        color: #000000;
+        border: 1px solid #000000;
+        color: #000000;
+        border-radius: 5px;
+    }
+</style>
+
+
+<div class="dropdown">
+    <a class="text-dark  text-decoration-none minicart px-4 dropdown-toggle" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">
+
+        規格
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuLink" style="width:350px;margin:0">
+        @{List<string> color = new List<string>();
+            List<string> size = new List<string>();
+
+            <div class="box mb-2">
+                <p class="ml-2">顏色:</p>
+                @foreach (var item in Model)
+                {
+                    if (!color.Contains(item.skuColor))
+                    {
+                        <button id="@ViewBag.odid" class="btncolor mb-1" type="button" value="@item.skuColor">@item.skuColor</button>
+                        color.Add(item.skuColor);
+                    }
+
+                }
+            </div>
+            <div class="box mb-5">
+                <p class="ml-2">尺寸:</p>
+
+                @foreach (var item in Model)
+                {
+                    if (!size.Contains(item.skuSize))
+                    {
+                        <button class="btnsize mb-1" type="button" value="@item.skuSize">@item.skuSize</button>
+                        size.Add(item.skuSize);
+                    }
+
+                }
+            </div>
+        }
+        <div class="d-flex justify-content-end">
+            <button class="mr-4 confirm" onclick="changeskuid()">
+                確認
+            </button>
+        </div>
+
+        <ul id="minicart" class="list-group list-group-flush"></ul>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".btncolor").click(function () {
+            $(".btncolor").removeClass("btncolor-click");
+            $(this).addClass("btncolor-click");
+        })
+
+        $(".btnsize").click(function () {
+            $(".btnsize").removeClass("btnsize-click");
+            $(this).addClass("btnsize-click");
+        })
+
+    })
+
+
+    function changeskuid() {
+
+            let odid = $(".btncolor-click").attr("id");
+        let color = $(".btncolor-click").val();
+        let size = $(".btnsize-click").val();
+        if (color === undefined || size === undefined) {
+                swal("請先選擇顏色與尺寸");
+                return;
+        }
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("_skuselect", "ShoppingCart")',
+                data: {
+                odid: odid,
+                color: color,
+                size: size
+                },
+                success: function (data) {
+                $('#div1').html(data);
+                },
+            })
+    }
+</script>
