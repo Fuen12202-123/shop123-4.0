@@ -12,50 +12,7 @@
     <div class="container_48" id="wrap">
         <div id="content" class="container_48">
             <div id="exhibit" class="container_48">
-                @*<div id="sidenav" class="grid_9 alpha">
-                        <ul class="sale">
-                            <li>
-                                <h3>上衣類</h3>
-                                <ul class="sale_category">
-                                    <li><a href="">聯名印花長T</a></li>
-                                    <li><a href="">聯名印花短T</a></li>
-                                    <li><a href="">厚棉系列</a></li>
-                                    <li><a href="">Fleece系列</a></li>
-                                    <li><a href="">長袖上衣</a></li>
-                                    <li><a href="">條紋系列</a></li>
-                                    <li><a href="">polo系列</a></li>
-                                    <li><a href="">立領/高領</a></li>
-                                    <li><a href="">針織衫/毛衣</a></li>
-                                    <li><a href="">厚磅系列</a></li>
-                                    <li><a href="">短袖上衣</a></li>
-                                    <li><a href="">快乾系列</a></li>
-                                    <li><a href="">輕涼系列</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <h3>襯衫類</h3>
-                                <ul class="sale_category">
-                                    <li><a href="">商務襯衫</a></li>
-                                    <li><a href="">法蘭絨襯衫</a></li>
-                                    <li><a href="">休閒襯衫</a></li>
-                                    <li><a href="">Fleece系列</a></li>
-                                    <li><a href="">牛津襯衫</a></li>
-                                    <li><a href="">格紋襯衫</a></li>
-                                    <li><a href="">棉麻襯衫</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <h3>下身類</h3>
-                                <ul class="sale_category">
-                                    <li><a href="">保暖褲</a></li>
-                                    <li><a href="">卡其/休閒長褲</a></li>
-                                    <li><a href="">牛仔褲</a></li>
-                                    <li><a href="">短/七分褲</a></li>
-                                    <li><a href="">九分/束口褲</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>*@
+                
                 <div class="grid_38 alpha omega">
                     <div class="product_info grid_39">
                         <div class="product_image">
@@ -152,7 +109,7 @@
                                 <h3>賣家資訊</h3>
                             </div>
                             <div class="seller-disc">
-                                <img src="@Model.Member.memberImg" alt="賣家商標" width="80">
+                                <img src="@Model.Member.memberImg" alt="賣家商標" width="80" onerror="nofind();">
                                 @*<a href="" style="vertical-align:bottom;">賣家帳號:@Model.Member.memberAccount</a>*@
                                 @Html.ActionLink(Model.Member.memberAccount, "MemberShop", "Home", new { mbId = Model.Member.memberAccount }, new { @style = "vertical-align:bottom;" })
                             </div>
@@ -242,6 +199,7 @@
                 //});
         }
 
+        //商品數量加減
         var SKU = 0;
         $(".minus").click(function () {
             var t = $("#buyCount");
@@ -258,6 +216,7 @@
             t.val(Math.abs(parseInt(t.val())) + 1);
         });
 
+        //選擇顏色按鈕並加上class
         var cb_prop = $('.color a');
         cb_prop.click(function () {
             if ($(this).children("img").hasClass('selectedBorder')) {
@@ -274,6 +233,7 @@
             $("#icolor").text($(".selectedBorder").attr("title"));
         });
 
+        //選擇尺寸按鈕並加上class
         function PickSize(t) {
             if (t.hasClass('selectedBorder2')) {
                 t.removeClass('selectedBorder2')
@@ -290,6 +250,7 @@
             searchSkuid();
         }
 
+        //選擇完顏色尺寸 就使用ajax尋找對應的skuid
         function searchSkuid() {
             if ($(".selectedBorder2").text() != '' && $(".selectedBorder").length != 0)
             {
@@ -310,6 +271,7 @@
             }
         }
 
+        //按小圖換大圖
         function ChangeImage(t) {
 
             let s = $(t).children("img").attr("src");
@@ -335,6 +297,13 @@
                 }
 
             });
+        }
+
+        //如果用戶圖片找不到,就用預設圖片
+        function nofind() {
+            var img = event.srcElement;
+            img.src = "../Images/defaultIMG.jpg";
+            img.onerror = null;
         }
     </script>
 </body>
