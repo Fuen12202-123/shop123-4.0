@@ -100,6 +100,23 @@ namespace shop123.Controllers
         }
         //商品詳細頁面
 
+        public ActionResult Checksize(int skuid, string color)
+        {
+            IEnumerable<string> size = from sku in db.sku
+                                       where sku.spuId == skuid && sku.skuColor == color
+                                       select sku.skuSize;
+
+            return PartialView("Checksize", size);
+        }//aja從資料庫找對應的size button
+
+        public ActionResult checkSkuid(string color, string size)
+        {
+            var sk = from sku in db.sku
+                     where sku.skuColor == color && sku.skuSize == size
+                     select sku.id;
+            string result = sk.First().ToString();
+            return Content(result);
+        }
         public ActionResult MemberShop(string mbId)
         {
             //if (mbId.)

@@ -1,0 +1,127 @@
+﻿@model IEnumerable<shop123.ViewModel.AdminCatalogViewModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>分類清單</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+
+        body {
+            padding: 25px;
+        }
+
+        table {
+            overflow: scroll;
+            width: 50%;
+            table-layout:fixed;
+            margin: auto;
+        }
+
+        td {
+            overflow: hidden;
+            /*max-width: 100px;*/
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        .w5 {
+            width: 5rem;
+        }
+
+        .w7 {
+            width: 7rem;
+        }
+
+        .w8 {
+            width: 8rem;
+        }
+
+        .w15 {
+            width: 15rem;
+        }
+
+        .edede9 {
+            background-color: #edede9;
+        }
+
+        .d6ccc2 {
+            background-color: #d6ccc2;
+        }
+
+        .f5ebe0 {
+            background-color: #f5ebe0;
+        }
+
+        .e3d5ca {
+            background-color: #e3d5ca;
+        }
+
+        .d5bdaf {
+            background-color: #d5bdaf;
+        }
+
+        .text-decoration-none {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <p>
+            @Html.ActionLink("新增分類項目", "", new { @class = "btn btn-info" })
+    </p>
+    <div class="table-responsive-md">
+        <table class="table table-bordered table-hover table-sm">
+            <thead>
+                <tr class="f5ebe0">
+                    <th scope="col" class="text-nowrap w5" style="display:none;">
+                        分類大項編號
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        分類編號
+                    </th>
+                    <th scope="col" class="text-nowrap w5">
+                        分類大項名稱
+                    </th>
+
+                    <th scope="col" class="text-nowrap w5">
+                        分類細項名稱
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="display:none">
+                            @item.cataId
+                        </td>
+                        <td>
+                            @item.catbId
+                        </td>
+                        <td>
+                            @item.cataName
+                        </td>
+                        <td>
+                            @item.catbName
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

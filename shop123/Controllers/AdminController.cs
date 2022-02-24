@@ -234,5 +234,21 @@ namespace shop123.Controllers
             return check;
         }
 
+
+
+        //呈現會員資料
+        public ActionResult Catalog()
+        {
+            IEnumerable<AdminCatalogViewModel> catalog = from b in db.catalogB
+                                                         join a in db.catalogA on b.catalogAId equals a.id
+                                                         select new AdminCatalogViewModel
+                                                         {
+                                                             catbId = b.id,
+                                                             catbName = b.catalogBName,
+                                                             cataId = b.catalogAId,
+                                                             cataName = a.catalogAName
+                                                         };
+            return View(catalog);
+        }
     }
 }

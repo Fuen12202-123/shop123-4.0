@@ -1,0 +1,9 @@
+﻿@model IEnumerable<string>
+
+@{
+
+    foreach (var item in Model)
+    {
+        <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">@item.ToString()</a>
+    }
+}

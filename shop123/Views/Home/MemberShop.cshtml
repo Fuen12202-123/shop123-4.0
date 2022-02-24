@@ -3,8 +3,7 @@
     ViewBag.Title = "MemberShop";
 }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/
-      2/2.3.4/assets/owl.carousel.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/2/2.3.4/assets/owl.carousel.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
@@ -18,7 +17,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <img src="@Model.MB.memberImg" alt="賣家商標" width="80" /><h5>@Model.MB.memberAccount 的商場 </h5>
+        <img src="@Model.MB.memberImg" alt="賣家商標" width="80" onerror="nofind();"/><h5>@Model.MB.memberAccount 的商場 </h5>
     </div>
 </div>
 
@@ -29,9 +28,9 @@
         {
             <div class="card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3" style="border:0px">
                 <div class="card pb-3">
-                    <a class="text-dark text-decoration-none" href="@Url.Action(" Detail")?id=@item.id"> <img src="@item.spuImg1" class="card-img-top" alt="..."></a>
+                    <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"> <img src="@item.spuImg1" class="card-img-top" alt="..."></a>
                     <div class="pl-3">
-                        <a class="text-dark text-decoration-none" href="@Url.Action(" Detail")?id=@item.id"><p class="card-title">@item.spuName</p></a>
+                        <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"><p class="card-title">@item.spuName</p></a>
                     </div>
                     <div class="card-footer d-flex justify-content-between" style="height: 45px; background-color: white;border-top:0px">
                         <p class="card-text">$@item.spuPrice</p>
@@ -50,7 +49,12 @@
 
 <script>
 
-
+    //如果用戶圖片找不到,就用預設圖片
+    function nofind() {
+        var img = event.srcElement;
+        img.src = "../Images/defaultIMG.jpg";
+        img.onerror = null;
+    }
 
 </script>
 

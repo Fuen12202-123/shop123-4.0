@@ -12,50 +12,7 @@
     <div class="container_48" id="wrap">
         <div id="content" class="container_48">
             <div id="exhibit" class="container_48">
-                @*<div id="sidenav" class="grid_9 alpha">
-                        <ul class="sale">
-                            <li>
-                                <h3>上衣類</h3>
-                                <ul class="sale_category">
-                                    <li><a href="">聯名印花長T</a></li>
-                                    <li><a href="">聯名印花短T</a></li>
-                                    <li><a href="">厚棉系列</a></li>
-                                    <li><a href="">Fleece系列</a></li>
-                                    <li><a href="">長袖上衣</a></li>
-                                    <li><a href="">條紋系列</a></li>
-                                    <li><a href="">polo系列</a></li>
-                                    <li><a href="">立領/高領</a></li>
-                                    <li><a href="">針織衫/毛衣</a></li>
-                                    <li><a href="">厚磅系列</a></li>
-                                    <li><a href="">短袖上衣</a></li>
-                                    <li><a href="">快乾系列</a></li>
-                                    <li><a href="">輕涼系列</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <h3>襯衫類</h3>
-                                <ul class="sale_category">
-                                    <li><a href="">商務襯衫</a></li>
-                                    <li><a href="">法蘭絨襯衫</a></li>
-                                    <li><a href="">休閒襯衫</a></li>
-                                    <li><a href="">Fleece系列</a></li>
-                                    <li><a href="">牛津襯衫</a></li>
-                                    <li><a href="">格紋襯衫</a></li>
-                                    <li><a href="">棉麻襯衫</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <h3>下身類</h3>
-                                <ul class="sale_category">
-                                    <li><a href="">保暖褲</a></li>
-                                    <li><a href="">卡其/休閒長褲</a></li>
-                                    <li><a href="">牛仔褲</a></li>
-                                    <li><a href="">短/七分褲</a></li>
-                                    <li><a href="">九分/束口褲</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>*@
+                
                 <div class="grid_38 alpha omega">
                     <div class="product_info grid_39">
                         <div class="product_image">
@@ -90,7 +47,7 @@
                                     {
                                         if (!ImageFilter.Contains(item.skuColor))
                                         {
-                                            <a onclick="ChangeImage(this);return false;" return false;" href="">
+                                            <a onclick="ChangeImage(this); CheckSize(@item.spuId,'@item.skuColor'); return false;" href="">
                                                 <img src="@item.skuImg" alt="@item.skuColor" title="@item.skuColor" style=" padding: 3px;">
                                             </a>
                                             ImageFilter.Add(item.skuColor);
@@ -101,22 +58,11 @@
 
                             </div>
                             <div class="size">
-                                @*<span id="sizelist" class="picksize" cuurentsn>
-                <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">S</a>
-                <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">M</a>
-                <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">L</a>
-            </span>*@
-
-                                <select id="colorAndsize">
-                                    <option value="0">請選擇顏色和尺寸</option>
-                                    @{foreach (var item in Model.Sku)
-                                        {
-                                            <option value="@item.id">@item.skuColor - @item.skuSize</option>
-                                        }
-
-
-                                    }
-                                </select>
+                                <span id="sizelist" class="picksize" cuurentsn></span>
+                                <br />
+                                <div>
+                                    <input type="hidden" id="skuidbox" />
+                                </div>
                             </div>
                             
                             <div class="clear"></div>
@@ -163,7 +109,7 @@
                                 <h3>賣家資訊</h3>
                             </div>
                             <div class="seller-disc">
-                                <img src="@Model.Member.memberImg" alt="賣家商標" width="80">
+                                <img src="@Model.Member.memberImg" alt="賣家商標" width="80" onerror="nofind();">
                                 @*<a href="" style="vertical-align:bottom;">賣家帳號:@Model.Member.memberAccount</a>*@
                                 @Html.ActionLink(Model.Member.memberAccount, "MemberShop", "Home", new { mbId = Model.Member.memberAccount }, new { @style = "vertical-align:bottom;" })
                             </div>
@@ -226,12 +172,14 @@
         })
         //加入編號為skuid的商品進購物車
         function AddToCart() {
-            let skuid = $("#colorAndsize").val();
+            let skuid = $("#skuidbox").val();
             let Quantity = $("#buyCount").val();
             let prodName = $("#name").text();
-            let Colorsize = $("#colorAndsize option:selected").text();
+            let txtColor = $(".selectedBorder").attr("title");
+            let txtsize = $(".selectedBorder2").text();
+            //let Colorsize = $("#colorAndsize option:selected").text();
 
-            if (skuid == 0) {
+            if ($(".selectedBorder2").text() == '' || $(".selectedBorder").length == 0) {
                 swal("請先選擇顏色與尺寸");
                 return;
             }
@@ -243,7 +191,7 @@
                     quantity: Quantity
                 },
                 success: function () {
-                    swal(prodName + " " + Colorsize+" 已加入購物車");
+                    swal(prodName + "(" + txtColor + "-"+txtsize+")已加入購物車");
                 }
             })
                 //.done(function (msg) {
@@ -251,6 +199,7 @@
                 //});
         }
 
+        //商品數量加減
         var SKU = 0;
         $(".minus").click(function () {
             var t = $("#buyCount");
@@ -267,6 +216,7 @@
             t.val(Math.abs(parseInt(t.val())) + 1);
         });
 
+        //選擇顏色按鈕並加上class
         var cb_prop = $('.color a');
         cb_prop.click(function () {
             if ($(this).children("img").hasClass('selectedBorder')) {
@@ -280,29 +230,80 @@
                     $(this).children("img").addClass('selectedBorder');
                 }
             }
+            $("#icolor").text($(".selectedBorder").attr("title"));
         });
 
+        //選擇尺寸按鈕並加上class
         function PickSize(t) {
-            if (t.hasClass('selectedBorder')) {
-                t.removeClass('selectedBorder')
+            if (t.hasClass('selectedBorder2')) {
+                t.removeClass('selectedBorder2')
             }
             else {
-                if (t.siblings().hasClass('selectedBorder')) {
-                    t.siblings().removeClass('selectedBorder');
-                    t.addClass('selectedBorder');
+                if (t.siblings().hasClass('selectedBorder2')) {
+                    t.siblings().removeClass('selectedBorder2');
+                    t.addClass('selectedBorder2');
                 }
                 else {
-                    t.addClass('selectedBorder');
+                    t.addClass('selectedBorder2');
                 }
+            }
+            searchSkuid();
+        }
+
+        //選擇完顏色尺寸 就使用ajax尋找對應的skuid
+        function searchSkuid() {
+            if ($(".selectedBorder2").text() != '' && $(".selectedBorder").length != 0)
+            {
+                //console.log($(".selectedBorder").attr("title"));
+                //console.log($(".selectedBorder2").text());
+
+                $.ajax({
+                type: 'GET',
+                    url: '@Url.Action("checkSkuid")',
+                data: {
+                    color: $(".selectedBorder").attr("title"),
+                    size: $(".selectedBorder2").text()
+                },
+                    success: function (data) {
+                        $("#skuidbox").val(data);
+                }
+            });
             }
         }
 
+        //按小圖換大圖
         function ChangeImage(t) {
 
             let s = $(t).children("img").attr("src");
             s = s.replace("_48.jpg", "_500.jpg");
             $("#productImg").attr("src", s);
 
+        }
+
+        //從db找各顏色對應的size
+        function CheckSize(SKUid,Color)
+        {
+
+            $.ajax({
+                type: 'GET',
+            url: '@Url.Action("Checksize", "Home")',
+                data: {
+                    skuid: SKUid,
+                    color: Color
+                },
+                success: function (data) {
+                    $("#sizelist").html(data);
+
+                }
+
+            });
+        }
+
+        //如果用戶圖片找不到,就用預設圖片
+        function nofind() {
+            var img = event.srcElement;
+            img.src = "../Images/defaultIMG.jpg";
+            img.onerror = null;
         }
     </script>
 </body>
