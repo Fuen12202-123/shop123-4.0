@@ -3,8 +3,8 @@
 
 @foreach (var item in Model)
 {
-    <div class="col-12 col-sm-2 text-center">
-        <a href="@Html.Raw(@Url.Action("categoryPage", "Home", new {catalogAId=@item.id,catalogBId=0,page=1})) " class="text-dark text-decoration-none">@item.catalogAName</a>
+    <div class="col-12 col-sm-2 text-center ">
+        <a href="@Html.Raw(@Url.Action("categoryPage", "Home", new {catalogAId=@item.id,catalogBId=0,page=1})) " class="cA text-dark text-decoration-none">@item.catalogAName</a>
     </div>
 }
 

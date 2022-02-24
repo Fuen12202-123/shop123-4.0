@@ -36,7 +36,7 @@ namespace shop123.Controllers
             }
             else
             {
-                spu = db.spu.OrderByDescending(m => m.spuEditTime).ToList();
+                spu = db.spu.Where(m=>m.spuShow== "已上架").OrderByDescending(m => m.spuEditTime).ToList();
             }
             int currentPage = page < 1 ? 1 : page;            
             var result = spu.ToPagedList(currentPage, pageSize);

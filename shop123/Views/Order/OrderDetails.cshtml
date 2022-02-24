@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<shop123.ViewModel.OrderViewModel>
 @{
-    ViewBag.Title = "OrderDetails";
+    ViewBag.Title = "買家訂單";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -45,8 +45,8 @@
 
                     <div class=" d-flex justify-content-between mb-2 mt-5">
                         <div>
-                            <span>賣家:@item.sellerId </span>
-                            <a href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none" >查看賣場</a>
+                            <a id="gotoshop" href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none"> <span>@item.sellerId </span><i class="fa-solid fa-shop"></i></a>
+
                         </div>
                         <div>
                             

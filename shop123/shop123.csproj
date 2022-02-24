@@ -181,6 +181,7 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\seller.js" />
     <Content Include="Scripts\sellerUpload.js" />
+    <Content Include="Scripts\spucard.js" />
     <Content Include="Scripts\ToTop.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
