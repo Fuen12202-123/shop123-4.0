@@ -178,18 +178,16 @@ namespace shop123.Controllers
         //}
 
         [HttpPost]
-        //public ActionResult checkout(string receiverName,  string receiverPhone, string receiverAddress,List<string> sellerId )
-        public ActionResult checkout(string receiverName, string receiverPhone, string receiverAddress, string sellerId)
-        //public ActionResult checkout(string receiverName,  string receiverPhone, string receiverAddress)
+        public ActionResult checkout(string receiverName, string receiverPhone, string receiverAddress, string[] sellerIds)      
         {
-            
+           
             string memberId = User.Identity.Name;
-
+            string guid = "";
             //建立唯一的識別值並指定給guid變數，用來當做訂單編號
             //Order的OrderGuid欄位會關聯到OrderDetail的OrderGuid欄位
+            foreach (var sId in sellerIds) { 
+            guid = Guid.NewGuid().ToString();
             
-            string guid = Guid.NewGuid().ToString();
-
             orders order = new orders();
             order.orderguid = guid;
             order.memberId = memberId;
@@ -198,10 +196,10 @@ namespace shop123.Controllers
             order.receiverPhone = receiverPhone;
             order.orderCreateTime = DateTime.Now;
             order.orderState = "待出貨";
-            order.sellerId = sellerId;
+            order.sellerId = sId;
             db.orders.Add(order);
            
-            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true /*&& m.sellerId == sellerId*/).ToList();
+            var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true && m.sellerId == sId).ToList();
 
             //將購物車狀態產品的IsApproved設為"是"，表示確認訂購產品
             foreach (var item in ordersDetail)
@@ -209,7 +207,8 @@ namespace shop123.Controllers
                     item.orderguid = guid;
                     item.orderDetailIsApproved = "是";
             }
-                db.SaveChanges();
+            }
+            db.SaveChanges();
 
 
             return RedirectToAction("OrderDetails", "Order");

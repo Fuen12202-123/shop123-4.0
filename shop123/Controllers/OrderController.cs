@@ -72,7 +72,8 @@ namespace shop123.Controllers
                             orderDetailnum = o.orderDetailnum,
                             orderDetailspuname = o.orderDetailspuname,
                             orderDetailprice = o.orderDetailprice,
-                            spuImg1 = o.spuImg1
+                            spuImg1 = o.spuImg1,
+                            spuId = o.spuId
                         })
                     });
                 }
@@ -115,7 +116,8 @@ namespace shop123.Controllers
                             orderDetailnum = o.orderDetailnum,
                             orderDetailspuname = o.orderDetailspuname,
                             orderDetailprice = o.orderDetailprice,
-                            spuImg1 = o.spuImg1
+                            spuImg1 = o.spuImg1,
+                            spuId=o.spuId
                         })
                     });
                 }

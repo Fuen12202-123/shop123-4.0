@@ -11,10 +11,7 @@ namespace shop123.ViewModel
     {
         public string sellerId { get; set; }
 
-        public class sellerIdlist
-        {
-            public string sellerIds { get; set;}
-        }
+       
         public IEnumerable<ShoppingcartsViewModel> Detail { get; set; }
 
 

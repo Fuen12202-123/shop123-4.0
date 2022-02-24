@@ -5,7 +5,6 @@
         text-align: center;
         vertical-align: middle;
     }
-   
 </style>
 
 @*引用unobtrusive-ajax*@
@@ -15,18 +14,17 @@
     <thead><tr><th></th><th>商品</th><th></th><th>規格</th><th>單價</th><th>數量</th><th>總計</th><th>操作</th></tr> </thead>
 
     <tbody>
-        @{int index = 0;
-            List<string> seller = new List<string>();
+        @{List<string> seller = new List<string>();
             int TotalPrice = 0;
-
             foreach (var item in Model)
             {
+
                 if (!seller.Contains(item.sellerId))
                 {
                     <tr>
                         <td></td>
                         <td>
-                                    <a id="gotoshop" href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none"> <span>@item.sellerId </span><i class="fa-solid fa-shop"></i></a>
+                            <a id="gotoshop" href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none"> <span>@item.sellerId </span><i class="fa-solid fa-shop"></i></a>
                         </td>
                     </tr>
                     foreach (var inItem in item.Detail)
@@ -55,7 +53,7 @@
 
                             </td>
                             <td>
-                                @Html.Action("_skuselect", "ShoppingCart", new { spuid = @inItem.spuId ,odid=inItem.id})@inItem.orderDetailcolor@inItem.orderDetailsize
+                                @Html.Action("_skuselect", "ShoppingCart", new { spuid = @inItem.spuId, odid = inItem.id })@inItem.orderDetailcolor@inItem.orderDetailsize
                             </td>
                             <td>@($"{inItem.orderDetailprice:c0}")</td>
 
@@ -86,7 +84,7 @@
                         </tr>
 
 
-                        index += 1;
+                        
                     }
                     seller.Add(item.sellerId);
                 }
