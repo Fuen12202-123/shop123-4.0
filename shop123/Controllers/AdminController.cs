@@ -190,35 +190,7 @@ namespace shop123.Controllers
             db.SaveChanges();
             return RedirectToAction("Spu");
         }
-        //GET:新增分類項目
-        //TODO:分類項目資料表重新確認
-        //public ActionResult OrderDetails()
-        //{
-        //    return View();
-        //}
-        ////POST:呈現會員詳細資料
-        //[HttpPost]
-        //public ActionResult MemberDetails(member nMember)
-        //{
-        //    var member = db.member.Where(m => m.id == nMember.id);
-        //    db.member.Add(nMember);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Member");
-        //}
-        ////GET:呈現會員詳細資料
-        //public ActionResult MemberDetails()
-        //{
-        //    return View();
-        //}
-        ////POST:呈現會員詳細資料
-        //[HttpPost]
-        //public ActionResult MemberDetails(member nMember)
-        //{
-        //    var member = db.member.Where(m => m.id == nMember.id);
-        //    db.member.Add(nMember);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Member");
-        //}
+
 
         //檢查是否為圖片
         [NonAction]
@@ -236,7 +208,7 @@ namespace shop123.Controllers
 
 
 
-        //呈現會員資料
+        //呈現分類資料
         public ActionResult Catalog()
         {
             IEnumerable<AdminCatalogViewModel> catalog = from b in db.catalogB
@@ -249,6 +221,53 @@ namespace shop123.Controllers
                                                              cataName = a.catalogAName
                                                          };
             return View(catalog);
+        }
+        //GET:新增分類項目
+        //[HttpPost]
+        //public ActionResult CreateCatalog()
+        //{
+        //    IEnumerable<AdminCatalogViewModel> catalog = from b in db.catalogB
+        //                                                 join a in db.catalogA on b.catalogAId equals a.id
+        //                                                 select new AdminCatalogViewModel
+        //                                                 {
+        //                                                     catbId = b.id,
+        //                                                     catbName = b.catalogBName,
+        //                                                     cataId = b.catalogAId,
+        //                                                     cataName = a.catalogAName
+        //                                                 };
+
+        //}
+
+        //新增分類
+        //GET:新增分類項目
+        public ActionResult CatalogCreate()
+        {
+            return View();
+        }
+
+        //POST:新增分類項目
+        [HttpPost]
+        public ActionResult CatalogCreate(catalogB catalogB)
+        {
+            if (catalogB == null)
+            {
+                return View();
+            }
+            var catologA = db.catalogA.Where(a => a.id == catalogB.catalogAId).FirstOrDefault();
+            db.catalogA.Add(catologA);
+            db.catalogB.Add(catalogB);
+            db.SaveChanges();
+            return RedirectToAction("Catalog");
+        }
+
+        //會員刪除
+        [HttpPost]
+        public ActionResult CatalogDelete(int id)
+        {
+            var catalog = db.catalogB.Where(c => c.id == id).FirstOrDefault();
+            db.catalogB.Remove(catalog);
+            db.SaveChanges();
+            return RedirectToAction("Catalog");
         }
     }
 }

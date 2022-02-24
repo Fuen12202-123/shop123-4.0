@@ -21,5 +21,8 @@ namespace shop123.ViewModel
         public string catbName { get; set; }
         public int cataId { get; set; }
         public string cataName { get; set; }
+        public IEnumerable<catalogA>cataloga { get; set; }
+        public IEnumerable<catalogB>catalogb { get; set; }
+
     }
 }

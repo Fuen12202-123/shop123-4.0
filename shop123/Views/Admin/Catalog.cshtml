@@ -9,6 +9,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>分類清單</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         * {
             margin: 0;
@@ -22,7 +27,7 @@
         table {
             overflow: scroll;
             width: 50%;
-            table-layout:fixed;
+            table-layout: fixed;
             margin: auto;
         }
 
@@ -81,7 +86,7 @@
 </head>
 <body>
     <p>
-            @Html.ActionLink("新增分類項目", "", new { @class = "btn btn-info" })
+            @Html.ActionLink("新增分類項目", "CatalogCreate", "", new { @class = "btn btn-info" })
     </p>
     <div class="table-responsive-md">
         <table class="table table-bordered table-hover table-sm">
@@ -100,28 +105,67 @@
                     <th scope="col" class="text-nowrap w5">
                         分類細項名稱
                     </th>
+                    <th scope="col" class="text-nowrap w5">刪除資料</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td style="display:none">
-                            @item.cataId
-                        </td>
-                        <td>
-                            @item.catbId
-                        </td>
-                        <td>
-                            @item.cataName
-                        </td>
-                        <td>
-                            @item.catbName
-                        </td>
-                    </tr>
+                <tr>
+                    <td style="display:none">
+                        @item.cataId
+                    </td>
+                    <td>
+                        @item.catbId
+                    </td>
+                    <td>
+                        @item.cataName
+                    </td>
+                    <td>
+                        @item.catbName
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("CatalogDelete", "Admin", FormMethod.Post, new { @class = "deleteBtn" }))
+                        {
+                            @Html.Hidden("id", item.catbId)
+                            <input type="submit" value="刪除此分類項目" class="btn btn-outline-danger" />
+                        }
+                    </td>
+                </tr>
                 }
+                
             </tbody>
         </table>
     </div>
+    <script>
+        $(function () {
+
+            $(".deleteBtn").click(function (e) {
+                //whenever our button is clicked
+
+                e.preventDefault();
+                // stop the default behavior(navigation)
+                var _form = $(this).closest("form");
+                //get a reference to the container form
+                swal({
+                    title: "是否確定要刪除?",
+                    text: "一旦刪除，資料無法找回!",
+                    icon: "warning",
+                    buttons: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            _form.submit();
+                            swal("內容已被刪除!"
+                                , { icon: "success", }
+                            );
+                        } else {
+                            swal("檔案確認保留!");
+                        }
+                    });
+            });
+
+        })
+    </script>
 </body>
 </html>

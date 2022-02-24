@@ -329,6 +329,7 @@
     <Content Include="Views\Shared\_skuselect.cshtml" />
     <Content Include="Views\Admin\Catalog.cshtml" />
     <Content Include="Views\Home\Checksize.cshtml" />
+    <Content Include="Views\Admin\CatalogCreate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
