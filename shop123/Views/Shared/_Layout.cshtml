@@ -27,15 +27,11 @@
         <div class="row mt-4">
             <div class="col-12 col-sm-8">@Html.ActionLink(" ", "Index", "Home", null, new { style = "background: url('" + Url.Content("~/Images/logo.png") + "') no-repeat center right; display:block; height:122px; width:238px;" })</div>
             <div class="col-12 col-sm-4 d-flex justify-content-end align-items-end mb-5">
-
-                <!-- #region --搜尋欄-- -->
                 @using (Html.BeginForm("Allspu", "Home", FormMethod.Get))
                 {
                     @Html.TextBox("SearchString", "", new { id = "Search", required = "required", placeholder = "Search", @style = "outline:0;" })
                     <button style="border:0;background-color:transparent;outline:0" type="submit"><i class="fas fa-search"></i></button>
                 }
-                <!-- #endregion -->
-
             </div>
         </div>
 

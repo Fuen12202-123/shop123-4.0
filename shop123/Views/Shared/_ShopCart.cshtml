@@ -23,19 +23,12 @@
             {
                 if (!seller.Contains(item.sellerId))
                 {
-                    
                     <tr>
                         <td></td>
                         <td>
-                           
                                     <a id="gotoshop" href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none"> <span>@item.sellerId </span><i class="fa-solid fa-shop"></i></a>
                         </td>
                     </tr>
-
-
-
-
-
                     foreach (var inItem in item.Detail)
                     {
                         int itemSubtotal = 0;
@@ -62,14 +55,7 @@
 
                             </td>
                             <td>
-
-                                @*@inItem.orderDetailcolor@inItem.orderDetailsize*@
                                 @Html.Action("_skuselect", "ShoppingCart", new { spuid = @inItem.spuId ,odid=inItem.id})@inItem.orderDetailcolor@inItem.orderDetailsize
-
-
-                                @*<select id="skuselect" data-id="@inItem.id" class="showsku" style="width:100px" onclick="showsku(@inItem.spuId)">
-                                    <option value="0">@inItem.orderDetailcolor@inItem.orderDetailsize</option>
-                                </select>*@
                             </td>
                             <td>@($"{inItem.orderDetailprice:c0}")</td>
 
@@ -87,9 +73,7 @@
                                     @inItem.orderDetailnum
                                     <a onclick=" plus(@inItem.skuId)" class="btn"><i class="fa-solid fa-plus"></i></a>
                                 }
-
                             </td>
-
                             <td>@($"{ itemSubtotal:c0}")</td>
                             <td>
                                 @*要有引用unobtrusive-ajax*@

@@ -19,62 +19,12 @@ namespace shop123.Controllers
         public ActionResult OrderDetails()
         {
             
-            string memberId = User.Identity.Name;
-
-
-            var GroupBy = db.ordersDetail
-               .GroupBy(m => m.orderguid)
-               .Select(c => new
-               {
-                   orderguid = c.Key,
-                   count = c.Count()
-               });
-
-            var OD = db.orders.Join(GroupBy,
-                o => o.orderguid,
-                d => d.orderguid,
-                (o, d) => new
-                {
-                    orderguid = d.orderguid,
-                    memberId = o.memberId,
-                    CreateTime = o.orderCreateTime,
-                    sellerId = o.sellerId,
-                    State=o.orderState,
-
-                })
-                .OrderByDescending(od => od.CreateTime).Where(cs => cs.memberId == memberId);
-
-
-
-            List<OrderViewModel> vm = new List<OrderViewModel>();
-            foreach (var item in OD)
-            {
-                vm.Add(new OrderViewModel()
-                {
-                    orderguid = item.orderguid,
-                    orderCreateTime = item.CreateTime,
-                    memberId = item.memberId,
-                    sellerId = item.sellerId,
-                    orderState=item.State,
-
-                    Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
-                    {
-                        skuId = o.skuId,
-                        orderDetailcolor = o.orderDetailcolor,
-                        orderDetailsize = o.orderDetailsize,
-                        orderDetailnum = o.orderDetailnum,
-                        orderDetailspuname = o.orderDetailspuname,
-                        orderDetailprice = o.orderDetailprice,
-                        spuImg1 = o.spuImg1,
-                        spuId=o.spuId,
-                    })
-                });
-            }
-            return View(vm);
+            return View();
         }
         public ActionResult OrderDetailsPartial(string state)       
         {
-            
+            List<OrderViewModel> vm = new List<OrderViewModel>();
+
             string memberId = User.Identity.Name;
         
 
@@ -85,8 +35,9 @@ namespace shop123.Controllers
                    orderguid = c.Key,
                    count = c.Count()
                });
-
-            var OD=db.orders.Join(GroupBy,
+            if (state == "all")
+            {
+                var OD=db.orders.Join(GroupBy,
                 o=> o.orderguid,
                 d=>d.orderguid,
                 (o, d) => new
@@ -96,42 +47,112 @@ namespace shop123.Controllers
                    CreateTime = o.orderCreateTime,
                    count=d.count,
                    state=o.orderState,
-                   sellerId=o.sellerId
+                   sellerId=o.sellerId,
+                   id = o.id,
                 })
-                .OrderByDescending(od=>od.CreateTime).Where(cs=>cs.memberId == memberId && cs.state==state);
-
-            List<OrderViewModel> vm = new List<OrderViewModel>();
-            foreach (var item in OD)
-            {
-                vm.Add(new OrderViewModel()
+                .OrderByDescending(od=>od.CreateTime).Where(cs=>cs.memberId == memberId);
+                foreach (var item in OD)
                 {
-                    orderguid = item.orderguid,
-                    orderCreateTime = item.CreateTime,
-                    memberId = item.memberId,
-                    orderState=item.state,
-                    sellerId=item.sellerId,
-
-
-                    Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
+                    vm.Add(new OrderViewModel()
                     {
-                        id = o.id,
-                        skuId = o.skuId,
-                        orderDetailcolor = o.orderDetailcolor,
-                        orderDetailsize = o.orderDetailsize,
-                        orderDetailnum = o.orderDetailnum,
-                        orderDetailspuname = o.orderDetailspuname,
-                        orderDetailprice = o.orderDetailprice,
-                        spuImg1 = o.spuImg1
-                    })
-                });
+                        orderguid = item.orderguid,
+                        orderCreateTime = item.CreateTime,
+                        memberId = item.memberId,
+                        orderState = item.state,
+                        sellerId = item.sellerId,
+                        id = item.id,
+
+
+                        Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
+                        {
+                            id = o.id,
+                            skuId = o.skuId,
+                            orderDetailcolor = o.orderDetailcolor,
+                            orderDetailsize = o.orderDetailsize,
+                            orderDetailnum = o.orderDetailnum,
+                            orderDetailspuname = o.orderDetailspuname,
+                            orderDetailprice = o.orderDetailprice,
+                            spuImg1 = o.spuImg1
+                        })
+                    });
+                }
+            }
+            else
+            {
+
+                var OD = db.orders.Join(GroupBy,
+                o => o.orderguid,
+                d => d.orderguid,
+                (o, d) => new
+                {
+                    orderguid = d.orderguid,
+                    memberId = o.memberId,
+                    CreateTime = o.orderCreateTime,
+                    count = d.count,
+                    state = o.orderState,
+                    sellerId = o.sellerId,
+                    id = o.id,
+                })
+                .OrderByDescending(od => od.CreateTime).Where(cs => cs.memberId == memberId && cs.state == state);
+                foreach (var item in OD)
+                {
+                    vm.Add(new OrderViewModel()
+                    {
+                        orderguid = item.orderguid,
+                        orderCreateTime = item.CreateTime,
+                        memberId = item.memberId,
+                        orderState = item.state,
+                        sellerId = item.sellerId,
+                        id = item.id,
+
+
+                        Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
+                        {
+                            id = o.id,
+                            skuId = o.skuId,
+                            orderDetailcolor = o.orderDetailcolor,
+                            orderDetailsize = o.orderDetailsize,
+                            orderDetailnum = o.orderDetailnum,
+                            orderDetailspuname = o.orderDetailspuname,
+                            orderDetailprice = o.orderDetailprice,
+                            spuImg1 = o.spuImg1
+                        })
+                    });
+                }
             }
             return PartialView("OrderDetailsPartial", vm);
+        }
+        [HttpPost]
+        public ActionResult finish(int id)
+        {
+            var order =db.orders.Where(o=>o.id == id).FirstOrDefault();
+            order.orderState = "完成";
+            db.SaveChanges();
+
+            return RedirectToAction("OrderDetailsPartial");
+        }
+         [HttpPost]
+        public ActionResult cancel(int id)
+        {
+            var order =db.orders.Where(o=>o.id == id).FirstOrDefault();
+            order.orderState = "待取消";
+            db.SaveChanges();
+
+            return RedirectToAction("OrderDetailsPartial");
+        }
+         [HttpPost]
+        public ActionResult pay(int id)
+        {
+            var order =db.orders.Where(o=>o.id == id).FirstOrDefault();
+            order.orderState = "待出貨";
+            db.SaveChanges();
+
+            return RedirectToAction("OrderDetailsPartial");
         }
 
         //顧客寫評論
         public ActionResult ProdComment(int skuID, string mbName, int orderdetailID)
         {
-
             orderCommentViewModel oc = new orderCommentViewModel();
             oc.SKU = db.sku.FirstOrDefault(t => t.id == skuID);
             spu sp = db.spu.FirstOrDefault(p => p.id == oc.SKU.spuId);

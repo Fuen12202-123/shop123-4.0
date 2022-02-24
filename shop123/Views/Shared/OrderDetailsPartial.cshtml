@@ -54,34 +54,34 @@
         <div>
             @if (@item.orderState == "未付款")
             {
-                <a class="btn">付款</a>
-                <a class="btn">取消訂單</a>
-                <button class="btn">聯絡賣家</button>
-                <button class="btn">查看評價</button>
+                <a onclick="pay(@item.id)" class="btn">付款</a>
+                <a onclick="cancel(@item.id)" class="btn">取消訂單</a>
+                @*<button class="btn">聯絡賣家</button>
+                <button class="btn">查看評價</button>*@
             }
             else if (@item.orderState == "待出貨")
             {
-                <a class="btn">取消訂單</a>
-                <button class="btn">聯絡賣家</button>
-                <button class="btn">查看評價</button>
+                <a onclick="cancel(@item.id)" class="btn">取消訂單</a>
+                @*<button class="btn">聯絡賣家</button>
+                <button class="btn">查看評價</button>*@
             }
             else if (@item.orderState == "待收貨")
             {
-                <a onclick="finish()" class="btn">完成訂單</a>
-                <button class="btn">聯絡賣家</button>
-                <button class="btn">查看評價</button>
+                <a onclick="finish(@item.id)" class="btn">完成訂單</a>
+                @*<button class="btn">聯絡賣家</button>
+                <button class="btn">查看評價</button>*@
             }
             else if (@item.orderState == "完成")
             {
-                <a onclick="finish(@item.orderguid)" class="btn">再買一次</a>
-                <button class="btn">聯絡賣家</button>
-                <button class="btn">查看評價</button>
+                <a  class="btn">再買一次</a>
+                @*<button class="btn">聯絡賣家</button>
+                <button class="btn">查看評價</button>*@
             }
             else if (@item.orderState == "不成立")
             {
                 <a  class="btn">再買一次</a>
-                <button class="btn">聯絡賣家</button>
-                <button class="btn">查看評價</button>
+                @*<button class="btn">聯絡賣家</button>
+                <button class="btn">查看評價</button>*@
             }
         </div>
     </div>
@@ -94,15 +94,35 @@
 </div>
 
 <script>
-      function finish(orderguid) {
+   function finish(id) {
         $.ajax({
             type: 'POST',
             url: '@Url.Action("finish", "Order")',
-            data: { orderguid: orderguid },
+            data: { id: id },
             success: function (data) {
-                $('#Finish').html(data);
+                $('#Shipping').html(data);
+            }
+
+        })
+    }
+     function cancel(id) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("cancel", "Order")',
+            data: { id: id },
+            success: function () {
+                location.reload();
             }
         })
     }
-
+    function pay(id) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("pay", "Order")',
+            data: { id: id },
+            success: function () {
+                location.reload();
+            }
+        })
+    }
 </script>

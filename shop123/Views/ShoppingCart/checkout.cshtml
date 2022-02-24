@@ -1,20 +1,14 @@
 ﻿@model IEnumerable<shop123.ViewModel.ShoppingCartViewModel>
 @{
     ViewBag.Title = "結帳";
+    int TotalPrice = 0;
+    //string sellerId = "";
 }
 
-
-@{ int TotalPrice = 0;
-    //string sellerId = "";
-    }
 <div class="p-2">
     <form action="@Url.Action("checkout","ShoppingCart")" method="post">
 
-    @{@*using (Html.BeginForm("checkout", "ShoppingCart", FormMethod.Post))
-            {*@
-
-
-    List<string> seller = new List<string>();
+    @{List<string> seller = new List<string>();
     //List<string> sellerIds = new List<string>();
 
     //用來判斷店家是否重複
@@ -54,51 +48,32 @@
             }
             <div class="mb-5">
                 <div class="row">
-
                     <div class="col-7">
-
                         <div class="row ">
-
                             <div class="col-6">
                                 <span class="control-label ">收件人姓名</span>
                                 <div class="">
-                                    @*@Html.TextBox("receiverName", "")*@
                                     <input type="text" id="receiverName" name="receiverName" required="required" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <span class="control-label ">電話</span>
                                 <div class="">
-                                    @*@Html.TextBox("receiverPhone", "")*@
                                     <input type="text" id="receiverPhone" name="receiverPhone" required="required" class="form-control" />
                                 </div>
                             </div>
-
                             <div class="col">
                                 <span class="control-label ">收件人地址</span>
                                 <div class="">
-                                    @*@Html.TextBox("receiverAddress", "")*@
                                     <input type="text" id="receiverAddress" name="receiverAddress" required="required" class="form-control" />
                                 </div>
                             </div>
-
-                            @*<div class=" ">
-                                    <input type="hidden" id="totalprice" name="totalprice" class="" value="@TotalPrice" )" />
-                                </div>*@
-
                             <div class=" ">
-                                @*@Html.Hidden("sellerId", item.sellerId)*@
                                 <input type="hidden" id="sellerId" name="sellerId" class="" value="@item.sellerId" )" />
                             </div>
-
-
                         </div>
-
                     </div>
                     <div class="col-5">
-
-
-
                         @*<div class="col-6">
                             <span class="control-label ">留言</span>
                             <div class="">
@@ -113,10 +88,6 @@
                                 </select>
                             </div>
                         </div>
-                        
-
-
-
                     </div>
                 </div>
             </div>
@@ -132,8 +103,6 @@
         </div>
     </div>
     }
-
-    @*}*@
     </form>
 </div>
 <script>
