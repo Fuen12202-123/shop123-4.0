@@ -90,7 +90,7 @@
                                     {
                                         if (!ImageFilter.Contains(item.skuColor))
                                         {
-                                            <a onclick="ChangeImage(this);return false;" return false;" href="">
+                                            <a onclick="ChangeImage(this); CheckSize(@item.spuId,'@item.skuColor'); return false;" href="">
                                                 <img src="@item.skuImg" alt="@item.skuColor" title="@item.skuColor" style=" padding: 3px;">
                                             </a>
                                             ImageFilter.Add(item.skuColor);
@@ -101,22 +101,11 @@
 
                             </div>
                             <div class="size">
-                                @*<span id="sizelist" class="picksize" cuurentsn>
-                <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">S</a>
-                <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">M</a>
-                <a id="" href="" class="" style="width:40px;" onclick="PickSize($(this));return false;">L</a>
-            </span>*@
-
-                                <select id="colorAndsize">
-                                    <option value="0">請選擇顏色和尺寸</option>
-                                    @{foreach (var item in Model.Sku)
-                                        {
-                                            <option value="@item.id">@item.skuColor - @item.skuSize</option>
-                                        }
-
-
-                                    }
-                                </select>
+                                <span id="sizelist" class="picksize" cuurentsn></span>
+                                <br />
+                                <div>
+                                    <input type="hidden" id="skuidbox" />
+                                </div>
                             </div>
                             
                             <div class="clear"></div>
@@ -226,12 +215,14 @@
         })
         //加入編號為skuid的商品進購物車
         function AddToCart() {
-            let skuid = $("#colorAndsize").val();
+            let skuid = $("#skuidbox").val();
             let Quantity = $("#buyCount").val();
             let prodName = $("#name").text();
-            let Colorsize = $("#colorAndsize option:selected").text();
+            let txtColor = $(".selectedBorder").attr("title");
+            let txtsize = $(".selectedBorder2").text();
+            //let Colorsize = $("#colorAndsize option:selected").text();
 
-            if (skuid == 0) {
+            if ($(".selectedBorder2").text() == '' || $(".selectedBorder").length == 0) {
                 swal("請先選擇顏色與尺寸");
                 return;
             }
@@ -243,7 +234,7 @@
                     quantity: Quantity
                 },
                 success: function () {
-                    swal(prodName + " " + Colorsize+" 已加入購物車");
+                    swal(prodName + "(" + txtColor + "-"+txtsize+")已加入購物車");
                 }
             })
                 //.done(function (msg) {
@@ -280,20 +271,42 @@
                     $(this).children("img").addClass('selectedBorder');
                 }
             }
+            $("#icolor").text($(".selectedBorder").attr("title"));
         });
 
         function PickSize(t) {
-            if (t.hasClass('selectedBorder')) {
-                t.removeClass('selectedBorder')
+            if (t.hasClass('selectedBorder2')) {
+                t.removeClass('selectedBorder2')
             }
             else {
-                if (t.siblings().hasClass('selectedBorder')) {
-                    t.siblings().removeClass('selectedBorder');
-                    t.addClass('selectedBorder');
+                if (t.siblings().hasClass('selectedBorder2')) {
+                    t.siblings().removeClass('selectedBorder2');
+                    t.addClass('selectedBorder2');
                 }
                 else {
-                    t.addClass('selectedBorder');
+                    t.addClass('selectedBorder2');
                 }
+            }
+            searchSkuid();
+        }
+
+        function searchSkuid() {
+            if ($(".selectedBorder2").text() != '' && $(".selectedBorder").length != 0)
+            {
+                //console.log($(".selectedBorder").attr("title"));
+                //console.log($(".selectedBorder2").text());
+
+                $.ajax({
+                type: 'GET',
+                    url: '@Url.Action("checkSkuid")',
+                data: {
+                    color: $(".selectedBorder").attr("title"),
+                    size: $(".selectedBorder2").text()
+                },
+                    success: function (data) {
+                        $("#skuidbox").val(data);
+                }
+            });
             }
         }
 
@@ -303,6 +316,25 @@
             s = s.replace("_48.jpg", "_500.jpg");
             $("#productImg").attr("src", s);
 
+        }
+
+        //從db找各顏色對應的size
+        function CheckSize(SKUid,Color)
+        {
+
+            $.ajax({
+                type: 'GET',
+            url: '@Url.Action("Checksize", "Home")',
+                data: {
+                    skuid: SKUid,
+                    color: Color
+                },
+                success: function (data) {
+                    $("#sizelist").html(data);
+
+                }
+
+            });
         }
     </script>
 </body>
