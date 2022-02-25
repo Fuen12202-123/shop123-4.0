@@ -222,45 +222,53 @@ namespace shop123.Controllers
                                                          };
             return View(catalog);
         }
-        //GET:新增分類項目
-        //[HttpPost]
-        //public ActionResult CreateCatalog()
-        //{
-        //    IEnumerable<AdminCatalogViewModel> catalog = from b in db.catalogB
-        //                                                 join a in db.catalogA on b.catalogAId equals a.id
-        //                                                 select new AdminCatalogViewModel
-        //                                                 {
-        //                                                     catbId = b.id,
-        //                                                     catbName = b.catalogBName,
-        //                                                     cataId = b.catalogAId,
-        //                                                     cataName = a.catalogAName
-        //                                                 };
-
-        //}
-
         //新增分類
         //GET:新增分類項目
-        public ActionResult CatalogCreate()
+        public ActionResult CreateCatalog()
         {
-            return View();
+            
+
+                var ca=db.catalogA.GroupBy(i => i.id).Select(g => g.FirstOrDefault()).ToList();
+                int fcaid = ca.FirstOrDefault().id;
+                var cb = db.catalogB.Where(b => b.id == fcaid).ToList();
+                //this works fine
+                ViewBag.showCA = new SelectList(ca, "catalogAName", "catalogAName");
+                ViewBag.showCB = new SelectList(cb, "id", "catalogBName");
+
+                IEnumerable<AdminCatalogViewModel> catalog = from b in db.catalogB
+                                                         join a in db.catalogA on b.catalogAId equals a.id
+                                                         select new AdminCatalogViewModel
+                                                         {
+                                                             catbId = b.id,
+                                                             catbName = b.catalogBName,
+                                                             cataId = b.catalogAId,
+                                                             cataName = a.catalogAName
+                                                         };
+            return View(catalog);
+
         }
 
-        //POST:新增分類項目
-        [HttpPost]
-        public ActionResult CatalogCreate(catalogB catalogB)
+        //新增分類大項
+
+
+
+        //取得分類資訊
+        public JsonResult GetCatB(string showCA)
         {
-            if (catalogB == null)
-            {
-                return View();
-            }
-            var catologA = db.catalogA.Where(a => a.id == catalogB.catalogAId).FirstOrDefault();
-            db.catalogA.Add(catologA);
-            db.catalogB.Add(catalogB);
-            db.SaveChanges();
-            return RedirectToAction("Catalog");
+            var cat = db.catalogA.Join(db.catalogB,
+                a => a.id, b => b.catalogAId, (a, b) => new
+                {
+                    cataId = a.id,
+                    cataname = a.catalogAName,
+                    catbId = b.id,
+                    catbname = b.catalogBName
+                }).Where(a => a.cataname == showCA).FirstOrDefault().cataId;
+            return Json(new SelectList(db.catalogB.Where(b=> (b.catalogAId == cat)), "id", "catalogBName"));
         }
 
-        //會員刪除
+
+
+        //刪除分類B
         [HttpPost]
         public ActionResult CatalogDelete(int id)
         {

@@ -232,6 +232,7 @@
     <Compile Include="Models\ordersDetail.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PartialModels\catalogAPartial.cs" />
     <Compile Include="Models\PartialModels\catalogBPartial.cs" />
     <Compile Include="Models\PartialModels\memberPartial.cs" />
     <Compile Include="Models\PartialModels\orderPartial.cs" />
@@ -326,11 +327,11 @@
     <Content Include="Views\Member\test.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
-    <Content Include="Views\Admin\Member02.cshtml" />
     <Content Include="Views\Shared\_skuselect.cshtml" />
     <Content Include="Views\Admin\Catalog.cshtml" />
     <Content Include="Views\Home\Checksize.cshtml" />
     <Content Include="Views\Admin\CatalogCreate.cshtml" />
+    <Content Include="Views\Admin\CreateCatalog.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
