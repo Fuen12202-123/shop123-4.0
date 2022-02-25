@@ -12,7 +12,7 @@ namespace shop123.Controllers
     [Authorize(Roles = "一般會員")]
     public class ShoppingCartController : Controller
     {
-        shop123Entities db = new shop123Entities();
+        shop123Entities2 db = new shop123Entities2();
         // GET: ShoppingCart
         public ActionResult ShoppingCar()
         {

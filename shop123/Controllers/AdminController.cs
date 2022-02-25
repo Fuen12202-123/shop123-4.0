@@ -18,7 +18,7 @@ namespace shop123.Controllers
         // GET: Admin
 
         //建立資料庫連線
-        shop123Entities db = new shop123Entities();
+        shop123Entities2 db = new shop123Entities2();
         public ActionResult AdminIndex()
         {
             return View();
@@ -268,19 +268,19 @@ namespace shop123.Controllers
         }
         //POST:新增分類細項CatalogB
         [HttpPost]
-        public ActionResult CatalogBCreate(string showCAb)
+        public ActionResult CatalogBCreate(int showCAb)
         {
             Models.catalogB catb = new catalogB();
-            IEnumerable<AdminCatalogViewModel> cataid = db.catalogA.Join(db.catalogB,
-                a => a.id, b => b.catalogAId, (a, b) => new AdminCatalogViewModel
-                {
-                    catbId = b.id,
-                    catbName = b.catalogBName,
-                    cataId = b.catalogAId,
-                    cataName = a.catalogAName
-                }).Where(a => a.cataName == showCAb);
-            catb.catalogAId = cataid.FirstOrDefault().cataId;
             catb.catalogBName = Request.Form["catB"];
+            //var cat = db.catalogA.Join(db.catalogB,
+            //    a => a.id, b => b.catalogAId, (a, b) => new
+            //    {
+            //        cataId = a.id,
+            //        cataname = a.catalogAName,
+            //        catbId = b.id,
+            //        catbname = b.catalogBName
+            //    }).Where(a => a.cataname == showCAb).ToList();
+            catb.catalogAId = showCAb;
             db.catalogB.Add(catb);
             db.SaveChanges();
             return RedirectToAction("Catalog");
@@ -297,7 +297,7 @@ namespace shop123.Controllers
                     cataname = a.catalogAName,
                     catbId = b.id,
                     catbname = b.catalogBName
-                }).Where(a => a.cataname == showCA).FirstOrDefault().cataId;
+                }).Where(a => a.cataname == showCA).ToList().FirstOrDefault().cataId;
             return Json(new SelectList(db.catalogB.Where(b=> (b.catalogAId == cat)), "id", "catalogBName"));
         }
 
