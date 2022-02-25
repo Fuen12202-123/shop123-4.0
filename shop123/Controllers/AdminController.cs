@@ -268,17 +268,18 @@ namespace shop123.Controllers
         }
         //POST:新增分類細項CatalogB
         [HttpPost]
-        public ActionResult CatalogBCreate(string showCAb, catalogB catb)
+        public ActionResult CatalogBCreate(string showCAb)
         {
-            var cataid = db.catalogA.Join(db.catalogB,
-                a => a.id, b => b.catalogAId, (a, b) => new
+            Models.catalogB catb = new catalogB();
+            IEnumerable<AdminCatalogViewModel> cataid = db.catalogA.Join(db.catalogB,
+                a => a.id, b => b.catalogAId, (a, b) => new AdminCatalogViewModel
                 {
-                    cataId = a.id,
-                    cataname = a.catalogAName,
                     catbId = b.id,
-                    catbname = b.catalogBName
-                }).Where(a => a.cataname == showCAb).FirstOrDefault().cataId;
-            catb.catalogAId = cataid;
+                    catbName = b.catalogBName,
+                    cataId = b.catalogAId,
+                    cataName = a.catalogAName
+                }).Where(a => a.cataName == showCAb);
+            catb.catalogAId = cataid.FirstOrDefault().cataId;
             catb.catalogBName = Request.Form["catB"];
             db.catalogB.Add(catb);
             db.SaveChanges();
