@@ -166,6 +166,9 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Scripts\eyepassword.js" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\shop123web - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -315,7 +318,6 @@
     <Content Include="Views\Admin\MemberEdit.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCar.cshtml" />
     <Content Include="Views\Order\OrderDetails.cshtml" />
-    <Content Include="Views\Member\MemberCenter3.cshtml" />
     <Content Include="Views\Admin\Spu.cshtml" />
     <Content Include="Views\Admin\SpuCreate.cshtml" />
     <Content Include="Views\Admin\SpuEdit.cshtml" />

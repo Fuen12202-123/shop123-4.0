@@ -98,15 +98,16 @@
 
 <div class="d-flex justify-content-end mr-2">
     <h5>
-        總金額： <spna class="total">@($"{TotalPrice:c0}")</spna>  | <a href="@Url.Action("checkout")" class="btn checkout"><i class="fa-solid fa-circle-check" style="font-size:2rem;"></i></a>
+        總金額： <spna class="total">$@(TotalPrice)</spna>  | <a href="@Url.Action("checkout")" class="btn checkout"><i class="fa-solid fa-circle-check" style="font-size:2rem;"></i></a>
     </h5>
 </div>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $('.myActionLink').prepend('<i class="fa-solid fa-trash-can"></i>');
+
     $(function () {      
         var total = $('.total').text();
-        if (total === 'NT$0') {           
+        if (total === '$0') {           
             $('.checkout').css("pointer-events", "none")
         } else {
             $('.checkout').css("pointer-events ", "auto")
