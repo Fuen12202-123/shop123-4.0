@@ -17,7 +17,7 @@ namespace shop123.Controllers
         public ActionResult Seller()
         {
 
-            var seller = from p in (new Models.shop123Entities()).orders select p;
+            var seller = from p in (new Models.shop123Entities2()).orders select p;
             //var sku = from k in (new Models.shop123Entities()).sku select k;
             return View(seller);
         }
@@ -25,7 +25,7 @@ namespace shop123.Controllers
         public ActionResult sellerPage()
         {
             ViewModel.sellerPage sp = new ViewModel.sellerPage();
-            Models.shop123Entities shop = new Models.shop123Entities();
+            Models.shop123Entities2 shop = new Models.shop123Entities2();
             var products = shop.spu.Join(shop.sku,
                 x => x.id,
                 y => y.spuId,

@@ -10,7 +10,7 @@ namespace shop123.Models
     {
         public CDetailViewModel queryById(int id)
         {
-            shop123Entities db = new shop123Entities();
+            shop123Entities2 db = new shop123Entities2();
             CDetailViewModel CDetail = new CDetailViewModel();
 
             //Spu & Sku

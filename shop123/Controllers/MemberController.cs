@@ -13,10 +13,10 @@ namespace shop123.Controllers
     [Authorize(Roles = "一般會員")]
     public class MemberController : Controller
     {
-        shop123Entities db = new shop123Entities();
+        shop123Entities2 db = new shop123Entities2();
 
         // GET: Member
-       
+
         public ActionResult MemberCenter()
         {
             // 個人資料
@@ -59,7 +59,7 @@ namespace shop123.Controllers
         [HttpPost]
         public ActionResult MemberCenter(SpuModel sm) //使用者商品上傳
         {
-            shop123Entities sh = new shop123Entities();
+            shop123Entities2 sh = new shop123Entities2();
             string userAccount = User.Identity.Name;
             //var userId = (from m in sh.member where m.memberAccount == userAccount select m.id).First();
             if (sm.spuImg1 != null)
@@ -169,7 +169,7 @@ namespace shop123.Controllers
         [HttpPost]
         public JsonResult Addsku(sku sku)
         {
-            shop123Entities sh = new shop123Entities();
+            shop123Entities2 sh = new shop123Entities2();
             sh.sku.Add(sku);
             sh.SaveChanges();
             return Json(sku, JsonRequestBehavior.AllowGet);
@@ -177,14 +177,14 @@ namespace shop123.Controllers
 
         public JsonResult getSpuId(int id)
         {
-            shop123Entities sh = new shop123Entities();
+            shop123Entities2 sh = new shop123Entities2();
             spu spu = sh.spu.FirstOrDefault(p => p.id == id);
             return Json(spu, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult spuEdit(spu spu)
         {
-            shop123Entities sh = new shop123Entities();
+            shop123Entities2 sh = new shop123Entities2();
 
 
 
@@ -214,7 +214,7 @@ namespace shop123.Controllers
 
         public JsonResult itemDelete(int id)
         {
-            shop123Entities sh = new shop123Entities();
+            shop123Entities2 sh = new shop123Entities2();
 
 
             var sku = (from k in sh.sku where k.spuId == id select k).ToList();
@@ -230,7 +230,7 @@ namespace shop123.Controllers
         }
         public /*ActionResult*/ JsonResult SkuList()
         {
-            shop123Entities sh = new shop123Entities();
+            shop123Entities2 sh = new shop123Entities2();
             string usertest = User.Identity.Name;
 
 
@@ -255,7 +255,7 @@ namespace shop123.Controllers
 
         public JsonResult getByid(int id)
         {
-            shop123Entities sh = new shop123Entities();
+            shop123Entities2 sh = new shop123Entities2();
             sku sku = sh.sku.FirstOrDefault(m => m.id == id);
             return Json(sku, JsonRequestBehavior.AllowGet);
         }
@@ -263,7 +263,7 @@ namespace shop123.Controllers
 
         public ActionResult SkuEdit(sku sv)
         {
-            shop123Entities sh = new shop123Entities();
+            shop123Entities2 sh = new shop123Entities2();
             sku s = sh.sku.FirstOrDefault(t => t.id == sv.id);
             if (s != null)
             {

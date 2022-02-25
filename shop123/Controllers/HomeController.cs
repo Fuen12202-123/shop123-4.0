@@ -18,7 +18,7 @@ namespace shop123.Controllers
     
     public class HomeController : Controller
     {//首頁、分類頁、商品頁、使用者註冊登入、賣家首頁
-        shop123Entities db = new shop123Entities();
+        shop123Entities2 db = new shop123Entities2();
         //驗證寫法:寫在方法或動作上面
         //[Authorize(Roles = "管理員")]
         //[Authorize(Roles = "一般會員")]
@@ -158,8 +158,8 @@ namespace shop123.Controllers
         //New Version
         //Post:sign 
         public ActionResult sign(member member, string returnUrl)
-        {   
-            shop123Entities s = new shop123Entities();
+        {
+            shop123Entities2 s = new shop123Entities2();
             var m = s.member.Where(p => p.memberEmail == member.memberEmail && p.memberPassword == member.memberPassword.ToString()).FirstOrDefault();
             var memberAccount = m.memberAccount;
             var memberBanned=m.memberBanned;
@@ -212,7 +212,7 @@ namespace shop123.Controllers
         [HttpPost]
         public ActionResult Enroll(EnrollModel em)
         {
-            shop123Entities shop = new shop123Entities();
+            shop123Entities2 shop = new shop123Entities2();
 
 
             member p = new member()

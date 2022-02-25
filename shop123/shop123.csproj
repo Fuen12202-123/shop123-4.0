@@ -175,6 +175,13 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\shop123web - Web Deploy.pubxml" />
+    <EntityDeploy Include="Models\shop123.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>shop123.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\shop123.edmx.diagram">
+      <DependentUpon>shop123.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -286,13 +293,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <EntityDeploy Include="Models\shop123.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>shop123.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\shop123.edmx.diagram">
-      <DependentUpon>shop123.edmx</DependentUpon>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
