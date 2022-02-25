@@ -1,0 +1,82 @@
+﻿@model IEnumerable<shop123.ViewModel.AdminCatalogViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>新增分類</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body style="margin:0 auto;">
+    <div class="container">
+        <div class="form-horizontal">
+            <h4>新增大項</h4>
+            <div class="form-group form-row">
+                <h6>
+                    目前的分類為:
+                </h6>
+                <hr />
+                <div class="col-md-12">
+                    @Html.DropDownList("showCA", null, "-大項分類-", htmlAttributes: new { id = "pshowCA", @class = "form-control" })
+                </div>
+                <div class="col-md-12">
+                    @Html.DropDownList("showCB", null, "-細項分類-", htmlAttributes: new { id = "pshowCB", @class = "form-control" })
+                </div>
+            </div>
+
+            @*<div class="form-group form-row">
+                @Html.LabelFor(model => model.memberPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.memberPhone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.memberPhone, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+
+
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //Dropdownlist Selectedchange event
+            $("#pshowCA").change(function () {
+                console.log("pehla andar");
+                $("#pshowCB").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetCatB")',
+                    dataType: 'json',
+                    data: { showCA: $("#pshowCA").val() },
+                    success: function (items) {
+                        console.log("wich ayaeee");
+                        // states contains the JSON formatted list
+                        // of states passed from the controller
+                        $.each(items, function (i, item) {
+                            $("#pshowCB").append('<option value="'
+                                + item.Value + '">'
+                                + item.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve states.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
+</body>
+</html>
