@@ -211,6 +211,12 @@ namespace shop123.Controllers
         //呈現分類資料
         public ActionResult Catalog()
         {
+            var ca = db.catalogA.GroupBy(i => i.id).Select(g => g.FirstOrDefault()).ToList();
+            int fcaid = ca.FirstOrDefault().id;
+            var cb = db.catalogB.Where(b => b.id == fcaid).ToList();
+
+            ViewBag.showCA = new SelectList(ca, "catalogAName", "catalogAName");
+            ViewBag.showCB = new SelectList(cb, "id", "catalogBName");
             IEnumerable<AdminCatalogViewModel> catalog = from b in db.catalogB
                                                          join a in db.catalogA on b.catalogAId equals a.id
                                                          select new AdminCatalogViewModel
@@ -231,9 +237,11 @@ namespace shop123.Controllers
                 var ca=db.catalogA.GroupBy(i => i.id).Select(g => g.FirstOrDefault()).ToList();
                 int fcaid = ca.FirstOrDefault().id;
                 var cb = db.catalogB.Where(b => b.id == fcaid).ToList();
-                //this works fine
+
                 ViewBag.showCA = new SelectList(ca, "catalogAName", "catalogAName");
+                ViewBag.showCAb = new SelectList(ca, "id", "catalogAName");
                 ViewBag.showCB = new SelectList(cb, "id", "catalogBName");
+            
 
                 IEnumerable<AdminCatalogViewModel> catalog = from b in db.catalogB
                                                          join a in db.catalogA on b.catalogAId equals a.id
@@ -248,8 +256,34 @@ namespace shop123.Controllers
 
         }
 
-        //新增分類大項
-
+        //POST:新增分類大項CatalogA
+        [HttpPost]
+        public ActionResult CatalogACreate()
+        {
+            Models.catalogA cata = new catalogA();
+            cata.catalogAName =Request.Form["catA"];
+            db.catalogA.Add(cata);
+            db.SaveChanges();
+            return RedirectToAction("CreateCatalog");
+        }
+        //POST:新增分類細項CatalogB
+        [HttpPost]
+        public ActionResult CatalogBCreate(string showCAb, catalogB catb)
+        {
+            var cataid = db.catalogA.Join(db.catalogB,
+                a => a.id, b => b.catalogAId, (a, b) => new
+                {
+                    cataId = a.id,
+                    cataname = a.catalogAName,
+                    catbId = b.id,
+                    catbname = b.catalogBName
+                }).Where(a => a.cataname == showCAb).FirstOrDefault().cataId;
+            catb.catalogAId = cataid;
+            catb.catalogBName = Request.Form["catB"];
+            db.catalogB.Add(catb);
+            db.SaveChanges();
+            return RedirectToAction("Catalog");
+        }
 
 
         //取得分類資訊

@@ -86,8 +86,20 @@
 </head>
 <body>
     <p>
-            @Html.ActionLink("新增分類項目", "CreateCatalog", "", new { @class = "btn btn-info" })
+        @Html.ActionLink("新增分類項目", "CreateCatalog", "", new { @class = "btn btn-info" })
     </p>
+    <div class="form-group form-row">
+        <h6 class="col-md-12">
+            目前的分類為:
+        </h6>
+        <hr />
+        <div class="col-md-6">
+            @Html.DropDownList("showCA", null, "-大項分類-", htmlAttributes: new { id = "pshowCA", @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownList("showCB", null, "-細項分類-", htmlAttributes: new { id = "pshowCB", @class = "form-control" })
+        </div>
+    </div>
     <div class="table-responsive-md">
         <table class="table table-bordered table-hover table-sm">
             <thead>
@@ -111,33 +123,64 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td style="display:none">
-                        @item.cataId
-                    </td>
-                    <td>
-                        @item.catbId
-                    </td>
-                    <td>
-                        @item.cataName
-                    </td>
-                    <td>
-                        @item.catbName
-                    </td>
-                    <td>
-                        @using (Html.BeginForm("CatalogDelete", "Admin", FormMethod.Post, new { @class = "deleteBtn" }))
-                        {
-                            @Html.Hidden("id", item.catbId)
-                            <input type="submit" value="刪除此分類項目" class="btn btn-outline-danger" />
-                        }
-                    </td>
-                </tr>
+                    <tr>
+                        <td style="display:none">
+                            @item.cataId
+                        </td>
+                        <td>
+                            @item.catbId
+                        </td>
+                        <td id="CatAname">
+                            @item.cataName
+                        </td>
+                        <td>
+                            @item.catbName
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("CatalogDelete", "Admin", FormMethod.Post, new { @class = "deleteBtn" }))
+                            {
+                                @Html.Hidden("id", item.catbId)
+                                <input type="submit" value="刪除此分類項目" class="btn btn-outline-danger" />
+                            }
+                        </td>
+                    </tr>
                 }
-                
+
             </tbody>
         </table>
     </div>
     <script>
+        $(document).ready(function () {
+            //Dropdownlist Selectedchange event
+            $("#pshowCA").change(function () {
+                console.log("pehla andar");
+                $("#pshowCB").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetCatB")',
+                    dataType: 'json',
+                    data: { showCA: $("#pshowCA").val() },
+                    success: function (items) {
+                        console.log("wo heeeeee");
+                        // states contains the JSON formatted list
+                        // of states passed from the controller
+                        $.each(items, function (i, item) {
+                            $("#pshowCB").append('<option value="'
+                                + item.Value + '">'
+                                + item.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve states.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+
+
+
+
         $(function () {
 
             $(".deleteBtn").click(function (e) {
