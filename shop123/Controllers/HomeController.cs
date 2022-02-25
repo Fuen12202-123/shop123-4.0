@@ -15,6 +15,7 @@ using System.Windows.Forms;
 
 namespace shop123.Controllers
 {
+    
     public class HomeController : Controller
     {//首頁、分類頁、商品頁、使用者註冊登入、賣家首頁
         shop123Entities db = new shop123Entities();
@@ -42,6 +43,7 @@ namespace shop123.Controllers
             var result = spu.ToPagedList(currentPage, pageSize);
             return View(result);
         }
+        
         public ActionResult Index()
         {
             var carousel = db.carousel.ToList();

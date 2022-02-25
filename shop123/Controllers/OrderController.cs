@@ -18,15 +18,15 @@ namespace shop123.Controllers
 
         public ActionResult OrderDetails()
         {
-            
+
             return View();
         }
-        public ActionResult OrderDetailsPartial(string state)       
+        public ActionResult OrderDetailsPartial(string state)
         {
             List<OrderViewModel> vm = new List<OrderViewModel>();
 
             string memberId = User.Identity.Name;
-        
+
 
             var GroupBy = db.ordersDetail
                .GroupBy(m => m.orderguid)
@@ -37,20 +37,25 @@ namespace shop123.Controllers
                });
             if (state == "all")
             {
-                var OD=db.orders.Join(GroupBy,
-                o=> o.orderguid,
-                d=>d.orderguid,
+                var OD = db.orders.Join(GroupBy,
+                o => o.orderguid,
+                d => d.orderguid,
                 (o, d) => new
                 {
-                   orderguid=d.orderguid,
-                   memberId= o.memberId,
-                   CreateTime = o.orderCreateTime,
-                   count=d.count,
-                   state=o.orderState,
-                   sellerId=o.sellerId,
-                   id = o.id,
+                    orderguid = d.orderguid,
+                    memberId = o.memberId,
+                    CreateTime = o.orderCreateTime,
+                    count = d.count,
+                    state = o.orderState,
+                    sellerId = o.sellerId,
+                    id = o.id,
+                    receiverName = o.receiverName,
+                    receiverAddress = o.receiverAddress,
+                    receiverPhone = o.receiverPhone,
+                    ordermessage=o.ordermessage
+
                 })
-                .OrderByDescending(od=>od.CreateTime).Where(cs=>cs.memberId == memberId);
+                .OrderByDescending(od => od.CreateTime).Where(cs => cs.memberId == memberId);
                 foreach (var item in OD)
                 {
                     vm.Add(new OrderViewModel()
@@ -61,7 +66,10 @@ namespace shop123.Controllers
                         orderState = item.state,
                         sellerId = item.sellerId,
                         id = item.id,
-
+                        receiverName = item.receiverName,
+                        receiverAddress = item.receiverAddress,
+                        receiverPhone = item.receiverPhone,
+                        ordermessage = item.ordermessage,
 
                         Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                         {
@@ -93,6 +101,10 @@ namespace shop123.Controllers
                     state = o.orderState,
                     sellerId = o.sellerId,
                     id = o.id,
+                    receiverName = o.receiverName,
+                    receiverAddress = o.receiverAddress,
+                    receiverPhone = o.receiverPhone,
+                    ordermessage=o.ordermessage,
                 })
                 .OrderByDescending(od => od.CreateTime).Where(cs => cs.memberId == memberId && cs.state == state);
                 foreach (var item in OD)
@@ -105,7 +117,10 @@ namespace shop123.Controllers
                         orderState = item.state,
                         sellerId = item.sellerId,
                         id = item.id,
-
+                        receiverName = item.receiverName,
+                        receiverAddress = item.receiverAddress,
+                        receiverPhone = item.receiverPhone,
+                        ordermessage=item.ordermessage,
 
                         Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                         {
@@ -117,7 +132,7 @@ namespace shop123.Controllers
                             orderDetailspuname = o.orderDetailspuname,
                             orderDetailprice = o.orderDetailprice,
                             spuImg1 = o.spuImg1,
-                            spuId=o.spuId
+                            spuId = o.spuId
                         })
                     });
                 }
@@ -127,25 +142,25 @@ namespace shop123.Controllers
         [HttpPost]
         public ActionResult finish(int id)
         {
-            var order =db.orders.Where(o=>o.id == id).FirstOrDefault();
+            var order = db.orders.Where(o => o.id == id).FirstOrDefault();
             order.orderState = "完成";
             db.SaveChanges();
 
             return RedirectToAction("OrderDetailsPartial");
         }
-         [HttpPost]
+        [HttpPost]
         public ActionResult cancel(int id)
         {
-            var order =db.orders.Where(o=>o.id == id).FirstOrDefault();
+            var order = db.orders.Where(o => o.id == id).FirstOrDefault();
             order.orderState = "待取消";
             db.SaveChanges();
 
             return RedirectToAction("OrderDetailsPartial");
         }
-         [HttpPost]
+        [HttpPost]
         public ActionResult pay(int id)
         {
-            var order =db.orders.Where(o=>o.id == id).FirstOrDefault();
+            var order = db.orders.Where(o => o.id == id).FirstOrDefault();
             order.orderState = "待出貨";
             db.SaveChanges();
 
@@ -158,7 +173,7 @@ namespace shop123.Controllers
             orderCommentViewModel oc = new orderCommentViewModel();
             oc.SKU = db.sku.FirstOrDefault(t => t.id == skuID);
             spu sp = db.spu.FirstOrDefault(p => p.id == oc.SKU.spuId);
-            oc.orderdetailID = orderdetailID;     
+            oc.orderdetailID = orderdetailID;
             oc.mbID = mbName;
             oc.prodName = sp.spuName;
             return View(oc);
