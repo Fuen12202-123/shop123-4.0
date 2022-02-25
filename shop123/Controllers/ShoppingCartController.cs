@@ -178,13 +178,12 @@ namespace shop123.Controllers
         //}
 
         [HttpPost]
-        public ActionResult checkout(string receiverName, string receiverPhone, string receiverAddress, string[] sellerIds)
+        public ActionResult checkout(string[] receiverName, string[] receiverPhone, string[] receiverAddress, string[] sellerIds,string[] ordermessage)
         {
-
+            int index = 0;
             string memberId = User.Identity.Name;
             string guid = "";
-            //建立唯一的識別值並指定給guid變數，用來當做訂單編號
-            //Order的OrderGuid欄位會關聯到OrderDetail的OrderGuid欄位
+           
             foreach (var sId in sellerIds)
             {
                 guid = Guid.NewGuid().ToString();
@@ -192,9 +191,10 @@ namespace shop123.Controllers
                 orders order = new orders();
                 order.orderguid = guid;
                 order.memberId = memberId;
-                order.receiverName = receiverName;
-                order.receiverAddress = receiverAddress;
-                order.receiverPhone = receiverPhone;
+                order.receiverName = (string)receiverName.GetValue(index);
+                order.receiverAddress = (string)receiverAddress.GetValue(index);
+                order.receiverPhone = (string)receiverPhone.GetValue(index);
+                order.ordermessage = (string)ordermessage.GetValue(index);
                 order.orderCreateTime = DateTime.Now;
                 order.orderState = "待出貨";
                 order.sellerId = sId;
@@ -202,12 +202,13 @@ namespace shop123.Controllers
 
                 var ordersDetail = db.ordersDetail.Where(m => m.memberId == memberId && m.orderDetailIsApproved == "否" && m.@checked == true && m.sellerId == sId).ToList();
 
-                //將購物車狀態產品的IsApproved設為"是"，表示確認訂購產品
+               
                 foreach (var item in ordersDetail)
                 {
                     item.orderguid = guid;
                     item.orderDetailIsApproved = "是";
                 }
+                index++;
             }
             db.SaveChanges();
 
@@ -236,7 +237,7 @@ namespace shop123.Controllers
                   u => u.id,
                   (k, u) => new
                   {
-                      spuid = k.spuId,
+                      spuid = u.id,
                       skuid = k.id,
                       spuname = u.spuName,
                       spuimg = u.spuImg1,

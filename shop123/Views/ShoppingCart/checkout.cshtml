@@ -8,7 +8,7 @@
 <div class="p-2">
     <form action="@Url.Action("checkout","ShoppingCart")" method="post">
         
-        @{ int index = 0;}
+        
         @{List<string> seller = new List<string>();
 
             //List<string> sellerIds = new List<string>();
@@ -76,12 +76,12 @@
                                 </div>
                             </div>
                             <div class="col-5">
-                                @*<div class="col-6">
+                                <div class="col-6">
                                     <span class="control-label ">留言</span>
                                     <div class="">
                                         <input class="form-control" type="text" id="ordermessage" name="ordermessage" placeholder="指定時段/管理室代收 / 電話聯絡時間..."  style="width:350px">
                                     </div>
-                                </div>*@
+                                </div>
                                 <div class="col-6">
                                     <span class="control-label ">付款方式</span>
                                     <div class="">

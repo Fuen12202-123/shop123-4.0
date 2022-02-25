@@ -52,8 +52,9 @@
                 </div>
                 <div class="d-flex flex-row-reverse mb-4 ">訂單金額：@($"{TotalPrice:c0}")</div>
             </div>
-            <div class="d-flex justify-content-between">
-                <div><span>訂單編號 @item.orderguid</span></div>
+            <div class="d-flex mb-2">
+                <div><span class="pr-2">訂單編號: @item.orderguid</span></div>
+                <div><span class="px-2">留言: @item.ordermessage</span></div>
             </div>
 
             <div class="d-flex justify-content-end mb-5">

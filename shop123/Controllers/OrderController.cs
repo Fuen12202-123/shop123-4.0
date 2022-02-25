@@ -52,6 +52,7 @@ namespace shop123.Controllers
                     receiverName = o.receiverName,
                     receiverAddress = o.receiverAddress,
                     receiverPhone = o.receiverPhone,
+                    ordermessage=o.ordermessage
 
                 })
                 .OrderByDescending(od => od.CreateTime).Where(cs => cs.memberId == memberId);
@@ -68,6 +69,7 @@ namespace shop123.Controllers
                         receiverName = item.receiverName,
                         receiverAddress = item.receiverAddress,
                         receiverPhone = item.receiverPhone,
+                        ordermessage = item.ordermessage,
 
                         Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                         {
@@ -102,6 +104,7 @@ namespace shop123.Controllers
                     receiverName = o.receiverName,
                     receiverAddress = o.receiverAddress,
                     receiverPhone = o.receiverPhone,
+                    ordermessage=o.ordermessage,
                 })
                 .OrderByDescending(od => od.CreateTime).Where(cs => cs.memberId == memberId && cs.state == state);
                 foreach (var item in OD)
@@ -117,6 +120,7 @@ namespace shop123.Controllers
                         receiverName = item.receiverName,
                         receiverAddress = item.receiverAddress,
                         receiverPhone = item.receiverPhone,
+                        ordermessage=item.ordermessage,
 
                         Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                         {
