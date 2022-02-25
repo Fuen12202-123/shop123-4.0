@@ -134,10 +134,16 @@
     <Content Include="Content\Style.css" />
     <Content Include="Content\ToTop.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\01.jpg" />
+    <Content Include="Images\08.jpg" />
+    <Content Include="Images\c001.jpg" />
     <Content Include="Images\closeeye.png" />
+    <Content Include="Images\defaultIMG.jpg" />
+    <Content Include="Images\empty.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\minus_plus.gif" />
     <Content Include="Images\openeye.png" />
+    <Content Include="Images\shining.png" />
     <Content Include="Models\shop123.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>shop123.Context.cs</LastGenOutput>

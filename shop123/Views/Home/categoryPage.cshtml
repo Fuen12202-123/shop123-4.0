@@ -30,7 +30,17 @@
 
                 <div class="card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3" style="border:0px">
                     <div class="spucard card pb-3">
-                        <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"> <img src="@item.spuImg1" class="card-img-top" alt="..."></a>
+                        <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"> 
+                         @if (item.spuImg1.Length > 30)
+                            {
+                                <img src="@item.spuImg1" class="card-img-top" alt="...">
+                            }
+                            else
+                            {
+                              <img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">
+
+                            }                        
+                        </a>
                         <div class="pl-3">
                             <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"><p class="card-title">@item.spuName</p></a>
                         </div>
