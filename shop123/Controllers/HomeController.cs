@@ -158,13 +158,26 @@ namespace shop123.Controllers
         //New Version
         //Post:sign 
         public ActionResult sign(member member, string returnUrl)
-        {
+        { 
+            //test
+          
+
             shop123Entities2 s = new shop123Entities2();
             var m = s.member.Where(p => p.memberEmail == member.memberEmail && p.memberPassword == member.memberPassword.ToString()).FirstOrDefault();
-            var memberAccount = m.memberAccount;
-            var memberBanned=m.memberBanned;
+           
+            
+
+            //var memberAccount = m.memberAccount;  //m=null時擲回例外，改放進if判斷式裡面，並跳回登入頁面
+           
+            
+            //var memberBanned=m.memberBanned;
             if (m != null)
             {
+                var memberAccount = m.memberAccount;
+
+
+                var memberBanned = m.memberBanned;
+
                 if (memberBanned != true)
                 {
                     MemberInformation mi = new MemberInformation();
@@ -197,8 +210,14 @@ namespace shop123.Controllers
             {
                 //TempData["Error"] = "您輸入的帳號不存在或者密碼錯誤!";
                 ViewBag.error = "帳號或密碼不正確";
-                return RedirectToAction("Enroll");
+                return View();
+                //return RedirectToAction("Enroll");
             }
+
+
+            
+           
+
         }
 
 
