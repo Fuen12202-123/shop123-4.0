@@ -191,11 +191,12 @@
                             <div class="form-outline flex-fill mb-0">
 
                                 <label class="form-label" for="catalogAId">商品分類</label>
-                                <select class="form-control itemselect" name="catalogAId">
+                                <select class="form-control itemselect" name="catalogAId" @*id="selectB"*@ onchange="selectB(this)">
                                     <option name="catalogAId" value="1">WOMAN</option>
                                     <option name="catalogAId" value="2">MEN</option>
                                     <option name="catalogAId" value="3">KIDS</option>
                                     <option name="catalogAId" value="4">BABYS</option>
+                                    <option name="catalogAId" value="5">OTHERS</option>
                                 </select>
 
                             </div>
@@ -203,10 +204,9 @@
 
                         <div class="d-flex flex-row align-items-center mb-4">
                             <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
-                            <div class="form-outline flex-fill mb-0">
-
+                            <div class="form-outline flex-fill mb-0" id="womenClass">
                                 <label class="form-label" for="catalogBId">商品分類2</label>
-                                <select class="form-control itemselect" name="catalogBId">
+                                <select class="form-control itemselect" name="catalogBId" id="testC">
                                     <option name="catalogBId" value="1">長袖</option>
                                     <option name="catalogBId" value="2">短袖</option>
                                     <option name="catalogBId" value="3">背心/小可愛</option>
@@ -217,6 +217,7 @@
                                     <option name="catalogBId" value="8">短褲</option>
                                     <option name="catalogBId" value="9">裙子</option>
                                     <option name="catalogBId" value="10">內褲</option>
+                                    <option name="catalogBId" value="34">鞋子</option>
                                 </select>
 
                             </div>

@@ -5,13 +5,66 @@
 @{
     Layout = null;
 }
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link href="~/Scripts/dropzone/dropzone.min.css" rel="stylesheet" />
+<script src="~/Scripts/dropzone/dropzone.min.js"></script>
 <style>
-    img {
-        /* width: 100%;*/
+    /* 搜尋樣式*/
+
+
+
+    .searchbar {
+        margin-bottom: auto;
+        margin-top: auto;
+        height: 60px;
+        background-color: #353b48;
+        border-radius: 30px;
+        padding: 10px;
+        margin-left: auto;
     }
 
+    .search_input {
+        color: white;
+        border: 0;
+        outline: 0;
+        background: none;
+        width: 0;
+        caret-color: transparent;
+        line-height: 40px;
+        transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_input {
+        padding: 0 10px;
+        width: 450px;
+        caret-color: red;
+        transition: width 0.4s linear;
+    }
+
+    .searchbar:hover > .search_icon {
+        background: white;
+        color: #e74c3c;
+    }
+
+    .search_icon {
+        height: 40px;
+        width: 40px;
+        float: right;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: white;
+        /*text-decoration: none;*/
+    }
+
+
+
+    /*body樣式*/
     .test {
         background-color: #EDEDE9;
     }
@@ -24,11 +77,28 @@
     .textSize {
         text-align: center;
     }
+
+    .appendImg {
+        display: none;
+    }
+
+    .imgText {
+        color: cornflowerblue;
+    }
+
+        .imgText:hover {
+            cursor: pointer;
+            color: brown;
+        }
+
+    .modalColor {
+        background: #D6CCC2;
+    }
 </style>
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-<div class="p-10 bg-surface-secondary" id="spuItem">
+<!--<div class="p-10 bg-surface-secondary" id="spuItem">
     <div class="container">
         <div class="card">
             <div class="card-header ">
@@ -47,20 +117,17 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody id="tbody">
-                        @*呼叫 loadData()傳入*@
-                    </tbody>
+                    <tbody id="tbody">-->
+@*呼叫 loadData()傳入*@
+<!--</tbody>
                 </table>
             </div>
         </div>
     </div>
-</div>
-
-
-
+</div>-->
 @*呼叫 sku更新頁面*@
 
-<div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!--<div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -101,11 +168,10 @@
             </div>
         </div>
     </div>
-</div>
-
+</div>-->
 @*呼叫 spu更新頁面*@
 
-<div class="modal fade" id="spuPage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!--<div class="modal fade" id="spuPage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -163,47 +229,46 @@
                         </select>
                     </div>
                     <div>
-                        <label for="spuImg1">圖片1</label>
-                        @*<input type="text" name="spuImg1" id="spuImg1"/>*@
-                        @*<input type="file" id="img1" />*@
-                        <span id="testImg"></span>
-                        @*<img id="spuImg1"/>*@
-                    </div>
+                        <label for="spuImg1">圖片1</label>-->
+@*<input type="text" name="spuImg1" id="spuImg1"/>*@
+@*<input type="file" id="img1" />*@
+<!--<span id="testImg"></span>-->
+@*<img id="spuImg1"/>*@
+<!--</div>
 
-                    <div>
-                        <label for="spuImg2">圖片2</label>
-                        <input type="text" name="spuImg2" id="spuImg2" />
-                        <input type="file" id="img2" />
-                        <img id="demo2" />
-                    </div>
-                    <div>
-                        <label for="spuImg3">圖片3</label>
-                        <input type="text" name="spuImg3" id="spuImg3" />
-                        <input type="file" id="img3" />
-                        <img id="demo3" />
-                    </div>
-                    <div>
-                        <label for="spuImg4">圖片4</label>
-                        <input type="text" name="spuImg4" id="spuImg4" />
-                        <input type="file" id="img4" />
-                        <img id="demo4" />
-                    </div>
-                    <div>
-                        <label for="spuImg5">圖片5</label>
-                        <input type="text" name="spuImg5" id="spuImg5" />
-                        <input type="file" id="img5" />
-                        <img id="demo5" />
-                    </div>
-                    <div>
-                        <label for="spuShow">上架狀態</label>
-                        <input type="text" name="spuShow" id="spuShow" class="form-control" />
-                    </div>
-
-                    @*<div>
-                            <label for="spuCreatedTime">spuCreatedTime</label>
-                            <input type="text" name="spuCreatedTime" id="spuCreatedTime" class="form-control" />
-                        </div>*@
-                </form>
+<div>
+    <label for="spuImg2">圖片2</label>
+    <input type="text" name="spuImg2" id="spuImg2" />
+    <input type="file" id="img2" />
+    <img id="demo2" />
+</div>
+<div>
+    <label for="spuImg3">圖片3</label>
+    <input type="text" name="spuImg3" id="spuImg3" />
+    <input type="file" id="img3" />
+    <img id="demo3" />
+</div>
+<div>
+    <label for="spuImg4">圖片4</label>
+    <input type="text" name="spuImg4" id="spuImg4" />
+    <input type="file" id="img4" />
+    <img id="demo4" />
+</div>
+<div>
+    <label for="spuImg5">圖片5</label>
+    <input type="text" name="spuImg5" id="spuImg5" />
+    <input type="file" id="img5" />
+    <img id="demo5" />
+</div>
+<div>
+    <label for="spuShow">上架狀態</label>
+    <input type="text" name="spuShow" id="spuShow" class="form-control" />
+</div>-->
+@*<div>
+        <label for="spuCreatedTime">spuCreatedTime</label>
+        <input type="text" name="spuCreatedTime" id="spuCreatedTime" class="form-control" />
+    </div>*@
+<!--</form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="spuUpdate()" data-dismiss="modal">完成</button>
@@ -212,7 +277,285 @@
             </div>
         </div>
     </div>
+</div>-->
+
+
+<div class="container">
+    <div class="d-flex  ">
+        <div class="searchbar">
+            @*<input type="text" id="test00" />*@
+            <input class="search_input" id="test00" type="text" name="searchText" placeholder="Search...">
+            @*<input class="search_input" id="serchText" type="text" name="serchText" placeholder="Search...">*@
+            <a href="#" class="search_icon" id="bt" onclick="return Search();"><i class="fas fa-search"></i></a>
+        </div>
+    </div>
 </div>
+
+
+@*sku清單*@
+
+
+<div class="p-10 bg-surface-secondary" id="spuItem">
+    <div class="container">
+        <div class="card">
+            <div class="card-header ">
+                <h6 class="textSize">我的庫存</h6>
+            </div>
+            <div class="table-responsive test">
+                <table class="table table-hover table-nowrap">
+                    <thead style="background-color: #D5BDAF;">
+                        <tr>
+                            <th scope="col" class="col-3">圖片</th>
+                            <th scope="col" class="col-3">商品名稱</th>
+                            <th scope="col" class="col-1">顏色</th>
+                            <th scope="col" class="col-1">尺寸</th>
+                            <th scope="col" class="col-1">庫存數量</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @*呼叫 loadData()傳入sku*@
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*呼叫 sku更新頁面*@
+
+<div class="modal fade " id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">我的庫存</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="skuClear()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div>
+                    <div id="mydrop">
+                        <form action="upload" class="dropzone" name="dropzoneform" id="dropzoneform" style="background-color: #EDEDE9"></form>
+                    </div>
+                    @*<button type="submit" id="btn">upload</button>*@
+                </div>
+
+                <form id="updateItemForm" novalidate class="">
+                    <div>
+                        <label for="Id" style="display:none">skuid</label>
+                        <input type="text" name="id" id="id" class="form-control" style="display:none" />
+                    </div>
+                    <div>
+                        <label for="spuId" style="display:none">spuid</label>
+                        <input type="text" name="spuId" id="spuId" class="form-control" style="display:none" />
+
+                    </div>
+
+                    <div>
+                        <label for="skuColor">顏色</label>
+                        <input type="text" name="skuColor" id="skuColor" class="form-control" />
+                    </div>
+                    <div>
+
+                        <label for="skuSize">尺寸</label>
+                        <input type="text" name="skuSize" id="skuSize" class="form-control" />
+                    </div>
+                    <div id="tz">
+                        <label for="skuStock">庫存</label>
+                        <input type="text" name="skuStock" id="skuStock" class="form-control" />
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" id="updateSkuBtn" @*onclick="Update()"*@ data-dismiss="modal">完成</button>
+                <button type="button" class="btn btn-outline-success" id="addSkuBtn" @*onclick=" AddSku()"*@ data-dismiss="modal" style="display:none">完成</button>
+                <button type="button" class="btn btn-outline-dark dropClear" onclick="skuClear()" data-dismiss="modal">取消</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*呼叫 spu更新頁面*@
+
+<div class="modal fade" id="spuPage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">商品詳細頁面</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="spuClear()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="updateItemForm">
+                    <div>
+                        <label for="Id" style="display:none">spuid</label>
+                        <input type="text" name="id" id="id" class="form-control" style="display:none" />
+                    </div>
+                    <div>
+                        <label for="memberId" style="display:none">memberId</label>
+                        <input type="text" name="memberId" id="memberId" class="form-control" style="display:none" />
+                    </div>
+                    <div>
+                        <label for="spuName">名稱</label>
+                        <input type="text" name="spuName" id="spuName" class="form-control" />
+                    </div>
+
+                    <div>
+                        <label for="spuInfo">商品敘述</label>
+                        <input type="text" name="spuInfo" id="spuInfo" class="form-control" />
+                    </div>
+                    <div>
+                        <label for="spuPrice">價格</label>
+                        <input type="text" name="spuPrice" id="spuPrice" class="form-control" />
+                    </div>
+                    <div>
+                        <label for="catalogAId">catalogAId</label>
+                        <select class="form-control itemselect" name="catalogAId" id="catalogAId" onchange="selectB(this)">
+                            <option name="catalogAId" value="1" selected>WOMAN</option>
+                            <option name="catalogAId" value="2">MEN</option>
+                            <option name="catalogAId" value="3">KIDS</option>
+                            <option name="catalogAId" value="4">BABYS</option>
+                            <option name="catalogAId" value="5">OTHERS</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="catalogBId">catalogBId</label>
+                        <select class="form-control itemselect" name="catalogBId" id="testC">
+
+                            <option name="catalogBId" value="1">長袖</option>
+                            <option name="catalogBId" value="2">短袖</option>
+                            <option name="catalogBId" value="3">背心/小可愛</option>
+                            <option name="catalogBId" value="4">襯衫</option>
+                            <option name="catalogBId" value="5">洋裝</option>
+                            <option name="catalogBId" value="6">外套</option>
+                            <option name="catalogBId" value="7">長褲</option>
+                            <option name="catalogBId" value="8">短褲</option>
+                            <option name="catalogBId" value="9">裙子</option>
+                            <option name="catalogBId" value="10">內褲</option>
+                        </select>
+                    </div>
+
+                    @*<div id="menClass" style="display:none" >
+                            <label for="catalogBId">catalogBId</label>
+                            <select class="form-control itemselect" name="catalogBId" id="catalogBId">
+                                <option name="catalogBId" value="11">長袖</option>
+                                <option name="catalogBId" value="12">短袖</option>
+                                <option name="catalogBId" value="13">背心</option>
+                                <option name="catalogBId" value="14">襯衫</option>
+                                <option name="catalogBId" value="15">外套</option>
+                                <option name="catalogBId" value="16">長褲</option>
+                                <option name="catalogBId" value="17">短褲</option>
+                                <option name="catalogBId" value="18">內褲</option>
+                            </select>
+                        </div>
+
+                        <div id="kidsClass" style="display:none" >
+                            <label for="catalogBId">catalogBId</label>
+                            <select class="form-control itemselect" name="catalogBId" id="catalogBId">
+                                <option name="catalogBId" value="19">長袖</option>
+                                <option name="catalogBId" value="20">短袖</option>
+                                <option name="catalogBId" value="21">背心</option>
+                                <option name="catalogBId" value="22">襯衫</option>
+                                <option name="catalogBId" value="23">外套</option>
+                                <option name="catalogBId" value="24">長褲</option>
+                                <option name="catalogBId" value="25">短褲</option>
+                                <option name="catalogBId" value="26">內褲</option>
+                            </select>
+                        </div>
+
+                        <div id="babyClass" style="display:none" >
+                            <label for="catalogBId">catalogBId</label>
+                            <select class="form-control itemselect" name="catalogBId" id="catalogBId">
+                                <option name="catalogBId" value="27">長袖</option>
+                                <option name="catalogBId" value="28">短袖</option>
+                                <option name="catalogBId" value="29">外套</option>
+                                <option name="catalogBId" value="30">長褲</option>
+                                <option name="catalogBId" value="31">短褲</option>
+                            </select>
+                        </div>
+
+                        <div id="otherClass" style="display:none" >
+                            <label for="catalogBId">catalogBId</label>
+                            <select class="form-control itemselect" name="catalogBId" id="catalogBId">
+                                <option name="catalogBId" value="35">其他</option>
+                                <option name="catalogBId" value="36">其他</option>
+                                <option name="catalogBId" value="37">其他</option>
+                                <option name="catalogBId" value="38">其他</option>
+                                <option name="catalogBId" value="39">其他</option>
+                            </select>
+                        </div>*@
+
+                    <div>
+                        <label for="spuImg1">圖片1</label>
+                        <input type="file" id="ng1" name="ng1" style="display:none" />
+
+
+                        <span id="testImg1"></span>
+                        <label for="ng1" class="imgText">圖片修改</label>
+                    </div>
+
+
+
+                    <div>
+                        <label for="spuImg2">圖片2</label>
+
+                        <input type="file" id="ng2" name="ng2" style="display:none" />
+                        <span id="testImg2"></span>
+                        <label for="ng2" class="imgText">圖片修改</label>
+                    </div>
+                    <div>
+                        <label for="spuImg3">圖片3</label>
+                        <input type="file" id="ng3" name="ng3" style="display:none" />
+                        <span id="testImg3"></span>
+                        <label for="ng3" class="imgText">圖片修改</label>
+                    </div>
+                    <div>
+                        <label for="spuImg4">圖片4</label>
+                        <input type="file" id="ng4" name="ng4" style="display:none" />
+                        <span id="testImg4"></span>
+                        <label for="ng4" class="imgText">圖片修改</label>
+                    </div>
+                    <div>
+                        <label for="spuImg5">圖片5</label>
+                        <input type="file" id="ng5" name="ng5" style="display:none" />
+                        <span id="testImg5"></span>
+                        <label for="ng5" class="imgText">圖片修改</label>
+                    </div>
+
+
+
+                    <div>
+                        <label for="spuShow">上架狀態</label>
+                        <input type="text" name="spuShow" id="spuShow" class="form-control" />
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="submit" class="btn btn-outline-success" id="bbtn" @*onclick="spuUpdate()"*@ data-dismiss="modal">完成</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="spudelete()">刪除</button>
+                <button type="submit" class="btn btn-outline-dark" onclick="spuClear()" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
 @*@section scripts{*@
@@ -222,12 +565,594 @@
         loadData();
     });
 
+
+     function Search() {
+
+       var searchText = $('#test00').val();
+
+        /*alert(searchText);*/
+       var tbody = $("#tbody");
+        $.ajax({
+            url: "/Member/SkuSearch?searchText=" + searchText,  //文字參數接收
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+           /* data:searchText,*/
+            success: function (itemList) {
+
+                $(tbody).empty();
+                $(itemList).each(function (index, item) {
+                    var img = '@Url.Content("~/images/")'+item.skuImg;
+                    $(tbody).append(`<tr><td data-label="spuId" name="spuId" style="display:none">${item.spuId}</td> <td data-label="skuId" name="skuId" style="display:none">${item.skuId}</td>` +
+                        `<td data-label="skuImg" name="skuImg"><img src="`+img+`" alt="尚無圖片" width="250" height="180"></td> <td data-label="spuName" name="spuName">${item.spuName}</td> <td data-label="skuColor" name="skuColor" class="skuColor">${item.skuColor}</td>` +
+                        `<td data-label="skuSize" name="skuSize" class="skuSize">${item.skuSize}</td><td data-label="skuStock" name="skuStock" class="skuStock">${item.skuStock}</td><td><a href="#" onclick="return openAddPage(${item.skuId})" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa-plus-circle"></i></a></td><td><a href="#" onclick="return getById(${item.skuId})" data-toggle="modal" data-target="#centralModalSm"><i class="far fa-edit"></i></a></td><td><a href="#" onclick="getBySpuId(${item.spuId})" data-toggle="modal" data-target="#spuPage"><i class="fas fa-ellipsis-h"></i></a></td></tr>`)
+                });
+            },
+            error: function (err) { confirm("無相關資料"); }
+        });
+    }
+
+
+    //存取spuImg1~spuImg5的圖片，contentType和processData使用false避免ajax出錯
+    $('#bbtn').on('click', function () {
+
+        var formdata = new FormData;
+        formdata.append("ng1", document.getElementById('ng1').files[0]);
+        formdata.append("ng2", document.getElementById('ng2').files[0]);
+        formdata.append("ng3", document.getElementById('ng3').files[0]);
+        formdata.append("ng4", document.getElementById('ng4').files[0]);
+        formdata.append("ng5", document.getElementById('ng5').files[0]);
+        $.ajax({
+            url: "/Member/upload",
+            type: "POST",
+            data: formdata,
+            contentType: false,
+            processData: false,
+            success: function () {
+                alert("123");
+                spuUpdate();
+            }
+
+        })
+    })
+
+    /*spuImg1預覽+取得檔名 */
+    var t1;
+    $('#ng1').on('change', function (e) {
+        //取得檔名
+        t1 = e.target.files[0].name;
+        //預覽圖片
+        const file = this.files[0];
+        const url = URL.createObjectURL(file);
+        $('#img1').attr('src', url);
+    });
+    /*spuImg2預覽+取得檔名 */
+    var t2;
+    $('#ng2').on('change', function (e) {
+        //取得檔名
+        t2 = e.target.files[0].name;
+        //預覽圖片
+        const file2 = this.files[0];
+        const url2 = URL.createObjectURL(file2);
+        $('#img2').attr('src', url2);
+    });
+    /*spuImg3預覽+取得檔名 */
+    var t3;
+    $('#ng3').on('change', function (e) {
+        //取得檔名
+        t3 = e.target.files[0].name;
+        //預覽圖片
+        const file3 = this.files[0];
+        const url3 = URL.createObjectURL(file3);
+        $('#img3').attr('src', url3);
+    });
+    /*spuImg4預覽+取得檔名 */
+    var t4;
+    $('#ng4').on('change', function (e) {
+        //取得檔名
+        t4 = e.target.files[0].name;
+        //預覽圖片
+        const file4 = this.files[0];
+        const url4 = URL.createObjectURL(file4);
+        $('#img4').attr('src', url4);
+    });
+    /*spuImg5預覽+取得檔名 */
+    var t5;
+    $('#ng5').on('change', function (e) {
+        //取得檔名
+        t5 = e.target.files[0].name;
+        //預覽圖片
+        const file5 = this.files[0];
+        const url5 = URL.createObjectURL(file5);
+        $('#img5').attr('src', url5);
+    });
+
+   /* sku用Dropzone*/
+    var tm;
+    Dropzone.options.dropzoneform = {
+        addRemoveLinks: true,
+        acceptedFiles: "image/jpeg,image/png,image/gif",
+        autoProcessQueue: false,
+        success: function (result) {
+            this.removeAllFiles();
+        },
+        maxFiles: 1,
+        maxFilesize: 5,//MB
+        dictDefaultMessage: '請點擊或將圖片拖曳至此區塊',
+        init: function () {
+            var zone = this;
+            this.on('maxfilesexceeded', function (file) {
+                this.removeFile(file);
+
+            });
+
+            $('#updateSkuBtn').on('click', function () {
+                zone.processQueue();
+                tm = zone.files[0].name;
+                /*alert(tm);*/
+                $('#tz').append('<input class="uploadImag" id="skuImg" type="text" name="skuImg" value="' + tm + '"/>');
+                Update();
+            });
+
+            $('#addSkuBtn').on('click', function () {
+                zone.processQueue();
+                tm = zone.files[0].name;
+                /*alert(tm);*/
+                $('#tz').append('<input class="uploadImag" id="skuImg" type="text" name="skuImg" value="' + tm + '"/>');
+                AddSku();
+            });
+            $('#skuClear').on('click', function () {
+                Dropzone.forElement("#dropzoneform").removeAllFiles(true);
+            });
+            $('.dropClear').on('click', function () {
+                Dropzone.forElement("#dropzoneform").removeAllFiles(true);
+            });
+        }
+    }
+
+     function loadData() {
+        var tbody = $("#tbody");
+        $.ajax({
+            url: "/Member/SkuList",
+            type: "GET",
+
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (itemList) {
+
+                $(tbody).empty();
+                $(itemList).each(function (index, item) {
+                    var img = '@Url.Content("~/images/")'+item.skuImg;
+                    $(tbody).append(`<tr><td data-label="spuId" name="spuId" style="display:none">${item.spuId}</td> <td data-label="skuId" name="skuId" style="display:none">${item.skuId}</td>` +
+                        `<td data-label="skuImg" name="skuImg"><img src="`+img+`" alt="尚無圖片" width="250" height="180"></td> <td data-label="spuName" name="spuName">${item.spuName}</td> <td data-label="skuColor" name="skuColor" class="skuColor">${item.skuColor}</td>` +
+                        `<td data-label="skuSize" name="skuSize" class="skuSize">${item.skuSize}</td><td data-label="skuStock" name="skuStock" class="skuStock">${item.skuStock}</td><td><a href="#" onclick="return openAddPage(${item.skuId})" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa-plus-circle"></i></a></td><td><a href="#" onclick="return getById(${item.skuId})" data-toggle="modal" data-target="#centralModalSm"><i class="far fa-edit"></i></a></td><td><a href="#" onclick="getBySpuId(${item.spuId})" data-toggle="modal" data-target="#spuPage"><i class="fas fa-ellipsis-h"></i></a></td></tr>`)
+                });
+            },
+            error: function (err) { confirm("失敗"); }
+        });
+    };
+
+    /*取得sku紀錄，並打開sku更新頁面*/
+    function getById(id) {
+        $.ajax({
+            url: "/Member/getByid/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+                $('#id').val(result.id);
+                $('#spuId').val(result.spuId);
+                $('#skuImg').val(result.skuImg);
+                $('#skuColor').val(result.skuColor);
+                $('#skuSize').val(result.skuSize);
+                $('#skuStock').val(result.skuStock);
+
+            },
+            error: function (error) {
+                alert(error.responseText);
+            }
+        });
+        return false;
+    }
+
+    /*更新sku，呈現在當前頁面*/
+    function Update() {
+            var objItem = {
+            id: $('#id').val(),
+            spuId: $('#spuId').val(),
+            skuImg: $('#skuImg').val(),
+            skuColor: $('#skuColor').val(),
+            skuSize: $('#skuSize').val(),
+            skuStock: $('#skuStock').val()
+        };
+        $.ajax({
+            url: "/Member/SkuEdit",
+            data: JSON.stringify(objItem),
+            type: "POST",
+            dataType:"json",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                alert('存檔成功');
+                loadData();
+                skuClear();
+            },
+            error: function (error) {
+
+                alert(error.responseText);
+            }
+        })
+    }
+
+    /*新增sku，並打開sku更新頁面*/
+    function openAddPage(id) {
+       /* alert(id);*/
+        $.ajax({
+            url: "/Member/getByid/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+
+
+                $('#spuId').val(result.spuId);
+
+                $("#addSkuBtn").css('display', 'block'); //打開addSkuBtn新增按鈕
+                $("#updateSkuBtn").hide(); //隱藏updateSkuBtn更新按鈕
+            },
+            error: function (error) {
+                alert(error.responseText);
+            }
+        });
+        return false;
+
+
+    }
+    /*按下addSkuBtn新增按鈕後執行，並刷新當前頁面*/
+    function AddSku() {
+       /* alert(spuId);*/
+        var objSku = {
+            id: $('#id').val(),
+            spuId: $('#spuId').val(),
+            skuImg: $('#skuImg').val(),
+            skuColor: $('#skuColor').val(),
+            skuSize: $('#skuSize').val(),
+            skuStock: $('#skuStock').val()
+        };
+        $.ajax({
+            url: "/Member/Addsku",
+            data: JSON.stringify(objSku),
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function () {
+                alert("新增成功");
+                loadData();
+                skuClear();
+
+            },
+            error: function (error) {
+
+                alert(error.responseText);
+            }
+        })
+    }
+
+    /*取得spu紀錄 */
+    //瀏覽資料庫圖片用
+    var count = 0;
+    let img;
+    let img2;
+    let img3;
+    let img4;
+    let img5;
+    //var sku;
+    //let spuid;
+    function getBySpuId(id) {
+
+        $.ajax({
+            url: "/Member/getSpuId/" + id,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var index = result.catalogAId;
+                /* alert(index);*/
+
+
+                if (index == 1) {
+                    $('#testC').empty();
+                    $('#testC').append(`
+                        <option name="catalogBId" value="1" selected>長袖</option>
+                        <option name="catalogBId" value="2">短袖</option>
+                        <option name="catalogBId" value="3">背心/小可愛</option>
+                        <option name="catalogBId" value="4">襯衫</option>
+                        <option name="catalogBId" value="5">洋裝</option>
+                        <option name="catalogBId" value="6">外套</option>
+                        <option name="catalogBId" value="7">長褲</option>
+                        <option name="catalogBId" value="8">短褲</option>
+                        <option name="catalogBId" value="9">裙子</option>
+                        <option name="catalogBId" value="10">內褲</option>
+                        <option name="catalogBId" value="34">鞋子</option>
+
+                `)
+                }
+                if (index == 2) {
+                    $('#testC').empty();
+                    $('#testC').append(`
+                        <option name="catalogBId" value="11" selected>長袖</option>
+                        <option name="catalogBId" value="12">短袖</option>
+                        <option name="catalogBId" value="13">背心</option>
+                        <option name="catalogBId" value="14">襯衫</option>
+                        <option name="catalogBId" value="15">外套</option>
+                        <option name="catalogBId" value="16">長褲</option>
+                        <option name="catalogBId" value="17">短褲</option>
+                        <option name="catalogBId" value="18">內褲</option>
+
+                `)
+                }
+                if (index == 3) {
+                    $('#testC').empty();
+                    $('#testC').append(`
+                        <option name="catalogBId" value="19" selected>長袖</option>
+                        <option name="catalogBId" value="20">短袖</option>
+                        <option name="catalogBId" value="21">背心</option>
+                        <option name="catalogBId" value="22">襯衫</option>
+                        <option name="catalogBId" value="23">外套</option>
+                        <option name="catalogBId" value="24">長褲</option>
+                        <option name="catalogBId" value="25">短褲</option>
+                        <option name="catalogBId" value="26">內褲</option>
+
+                `)
+                }
+                if (index == 4) {
+                    $('#testC').empty();
+                    $('#testC').append(`
+                         <option name="catalogBId" value="27" selected>長袖</option>
+                        <option name="catalogBId" value="28">短袖</option>
+                        <option name="catalogBId" value="29">外套</option>
+                        <option name="catalogBId" value="30">長褲</option>
+                        <option name="catalogBId" value="31">短褲</option>
+
+                `)
+                }
+                if (index == 5) {
+                    $('#testC').empty();
+                    $('#testC').append(`
+                       <option name="catalogBId" value="35" selected>其他</option>
+                        <option name="catalogBId" value="36">其他</option>
+                        <option name="catalogBId" value="37">其他</option>
+                        <option name="catalogBId" value="38">其他</option>
+                        <option name="catalogBId" value="39">其他</option>
+
+                `)
+                }
+
+                $('#id').val(result.id);
+                $('#spuName').val(result.spuName);
+                $('#memberId').val(result.memberId);
+                $('#spuInfo').val(result.spuInfo);
+                $('#spuPrice').val(result.spuPrice);
+                $('#catalogAId').val(result.catalogAId);
+                $('#testC').val(result.catalogBId);
+
+                /*$('#catalogBId').val(result.catalogBId);*/
+                $('#spuImg1').val(result.spuImg1);
+                $('#spuImg2').val(result.spuImg2);
+                $('#spuImg3').val(result.spuImg3);
+                $('#spuImg4').val(result.spuImg4);
+                $('#spuImg5').val(result.spuImg5);
+                $('#spuShow').val(result.spuShow);
+                /* $('#spuCreatedTime').val(result.spuCreatedTime);*/
+                count++;
+
+               /* if (count >= 1) {*/
+                    /*img = "";*/
+                img = '@Url.Content("~/images/")' + result.spuImg1;
+                img2 = '@Url.Content("~/images/")' + result.spuImg2;
+                img3 = '@Url.Content("~/images/")' + result.spuImg3;
+                img4 = '@Url.Content("~/images/")' + result.spuImg4;
+                img5 = '@Url.Content("~/images/")' + result.spuImg5;
+                document.getElementById("testImg1").innerHTML = '<img id="img1" src="' + img + '" width="250" height="180"><input class="appendImg" id="textImg1" type="text" value="' + result.spuImg1 +'">';
+                document.getElementById("testImg2").innerHTML = '<img id="img2" src="' + img2 + '" width="250" height="180"><input class="appendImg" id="textImg2" type="text" value="' + result.spuImg2 + '">';
+                document.getElementById("testImg3").innerHTML = '<img id="img3" src="' + img3 + '" width="250" height="180"><input class="appendImg" id="textImg3" type="text" value="' + result.spuImg3 + '">';
+                document.getElementById("testImg4").innerHTML = '<img id="img4" src="' + img4 + '" width="250" height="180"><input class="appendImg" id="textImg4" type="text" value="' + result.spuImg4 + '">';
+                document.getElementById("testImg5").innerHTML = '<img id="img5" src="' + img5 + '" width="250" height="180"><input class="appendImg" id="textImg5" type="text" value="' + result.spuImg5 + '">';
+                /*}*/
+
+
+
+            },
+
+        })
+    }
+
+    //更新spu，if判斷圖片是否有更新
+    function spuUpdate() {
+        if (t1 == null) {
+            t1 = $('#textImg1').val();
+        };
+        if (t2 == null) {
+            t2 = $('#textImg2').val();
+        };
+        if (t3 == null) {
+            t3 = $('#textImg3').val();
+        };
+        if (t4 == null) {
+            t4 = $('#textImg4').val();
+        };
+        if (t5 == null) {
+            t5 = $('#textImg5').val();
+        };
+        var objSpu = {
+            id: $('#id').val(),
+            spuName: $('#spuName').val(),
+            memberId: $('#memberId').val(),
+            spuInfo: $('#spuInfo').val(),
+            spuPrice: $('#spuPrice').val(),
+            catalogAId: $('#catalogAId').val(),
+            catalogBId: $('#catalogBId').val(),
+            spuImg1: t1/*$('#spuImg1').val()*/,
+            spuImg2: t2/*$('#spuImg2').val()*/,
+            spuImg3: t3/*$('#spuImg3').val()*/,
+            spuImg4: t4/*$('#spuImg4').val()*/,
+            spuImg5: t5/*$('#spuImg5').val()*/,
+            spuShow: $('#spuShow').val(),
+
+        };
+
+
+        $.ajax({
+            url: "/Member/spuEdit",
+            data: JSON.stringify(objSpu),
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (result) {
+                alert('存檔成功');
+                loadData();
+                spuClear();
+            },
+            error: function (error) {
+
+                alert(error.responseText);
+            }
+        })
+
+    }
+
+    //刪除spu商品，會連sku一起刪除
+    function spudelete() {
+        var ans = confirm("是否確定刪除?");
+        if (ans) {
+            $.ajax({
+                url: "/Member/itemDelete/"+spuid,
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (result) {
+                    alert('刪除成功');
+                    loadData();
+
+                },
+                error: function (errorMsg) {
+                    alert(errorMsg.responseText);
+                }
+            })
+        }
+    }
+
+    //清空sku頁面欄位
+    function skuClear() {
+        $('#id').val("");
+        $('#spuId').val("");
+        $('#skuImg').val("");
+        $('#skuColor').val("");
+        $('#skuSize').val("");
+        $('#skuStock').val("");
+
+    }
+    //清空spu欄位
+    function spuClear() {
+        $('#id').val("");
+        $('#spuName').val("");
+        $('#memberId').val("");
+        $('#spuInfo').val("");
+        $('#spuPrice').val("");
+        $('#catalogAId').val("");
+        $('#catalogBId').val("");
+        $('#spuImg1').val("");
+        $('#spuImg2').val("");
+        $('#spuImg3').val("");
+        $('#spuImg4').val("");
+        $('#spuImg5').val("");
+        $('#spuShow').val("");
+    }
+
+    function selectB(item) {
+        var index = item.options[item.selectedIndex].value;
+        /* alert(index);*/
+
+
+        if (index == 1) {
+            $('#testC').empty();
+            $('#testC').append(`
+                        <option name="catalogBId" value="1">長袖</option>
+                        <option name="catalogBId" value="2">短袖</option>
+                        <option name="catalogBId" value="3">背心/小可愛</option>
+                        <option name="catalogBId" value="4">襯衫</option>
+                        <option name="catalogBId" value="5">洋裝</option>
+                        <option name="catalogBId" value="6">外套</option>
+                        <option name="catalogBId" value="7">長褲</option>
+                        <option name="catalogBId" value="8">短褲</option>
+                        <option name="catalogBId" value="9">裙子</option>
+                        <option name="catalogBId" value="10">內褲</option>
+                        <option name="catalogBId" value="34">鞋子</option>
+
+                `)
+        }
+        if (index == 2) {
+            $('#testC').empty();
+            $('#testC').append(`
+                        <option name="catalogBId" value="11">長袖</option>
+                        <option name="catalogBId" value="12">短袖</option>
+                        <option name="catalogBId" value="13">背心</option>
+                        <option name="catalogBId" value="14">襯衫</option>
+                        <option name="catalogBId" value="15">外套</option>
+                        <option name="catalogBId" value="16">長褲</option>
+                        <option name="catalogBId" value="17">短褲</option>
+                        <option name="catalogBId" value="18">內褲</option>
+
+                `)
+        }
+        if (index == 3) {
+            $('#testC').empty();
+            $('#testC').append(`
+                        <option name="catalogBId" value="19">長袖</option>
+                        <option name="catalogBId" value="20">短袖</option>
+                        <option name="catalogBId" value="21">背心</option>
+                        <option name="catalogBId" value="22">襯衫</option>
+                        <option name="catalogBId" value="23">外套</option>
+                        <option name="catalogBId" value="24">長褲</option>
+                        <option name="catalogBId" value="25">短褲</option>
+                        <option name="catalogBId" value="26">內褲</option>
+
+                `)
+        }
+        if (index == 4) {
+            $('#testC').empty();
+            $('#testC').append(`
+                         <option name="catalogBId" value="27">長袖</option>
+                        <option name="catalogBId" value="28">短袖</option>
+                        <option name="catalogBId" value="29">外套</option>
+                        <option name="catalogBId" value="30">長褲</option>
+                        <option name="catalogBId" value="31">短褲</option>
+
+                `)
+        }
+        if (index == 5) {
+            $('#testC').empty();
+            $('#testC').append(`
+                       <option name="catalogBId" value="35">其他</option>
+                        <option name="catalogBId" value="36">其他</option>
+                        <option name="catalogBId" value="37">其他</option>
+                        <option name="catalogBId" value="38">其他</option>
+                        <option name="catalogBId" value="39">其他</option>
+
+                `)
+        }
+        /* alert(index);*/
+        /* alert(item.options[item.selectedIndex].value);*/
+    }
+
+
+
     //$(function () {
     //    loadData();
 
     //});
 
-    function loadData() {
+    @*function loadData() {
         var tbody = $("#tbody");
         $.ajax({
             url: "/Member/SkuList",
@@ -450,5 +1375,5 @@
                 }
             })
         }
-    }
+    }*@
 </script>
