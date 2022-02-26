@@ -73,17 +73,25 @@
                             }
                             else
                             {
-                                <div class="addcart">
-                                    <span>
-                                        <label class="v-middle">數量</label>
-                                        &nbsp;&nbsp;
-                                        <a class="minus" href="javascript:void(0)"></a>
-                                        <input id="buyCount" type="text" maxlength="2" value="1" />
-                                        <a class="plus" href="javascript:void(0)"></a>
-                                    </span>
 
-                                    <a id="addShopcar" href="javascript:void(0)" onclick="AddToCart()" class="btn_addcart">加入購物車</a>
-                                </div>
+
+                        <div class="addcart">
+                            <span>
+                                <label class="v-middle">數量</label>
+                                &nbsp;&nbsp;
+                                <a class="minus" href="javascript:void(0)"></a>
+                                <input id="buyCount" type="text" maxlength="2" value="1" />
+                                <a class="plus" href="javascript:void(0)"></a>
+                            </span>
+                            @if (ViewBag.memberId == "")
+                            {
+                                <a  href="@Url.Action("AddCar","ShoppingCart")"  class="btn_addcart">加入購物車</a>
+                            }
+                            else
+                            {
+                                <a id="addShopcar" href="javascript:void(0)" onclick="AddToCart()" class="btn_addcart">加入購物車</a>
+                            }
+                        </div>
                             }
                            
                             <div class="clear"></div>
