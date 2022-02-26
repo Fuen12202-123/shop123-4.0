@@ -141,9 +141,6 @@
     <Content Include="Images\defaultIMG.jpg" />
     <Content Include="Images\empty.png" />
     <Content Include="Images\logo.png" />
-    <Content Include="Images\members\3a661b21-7c2a-4e78-8e9f-82acd5c90624.jpg" />
-    <Content Include="Images\members\46a958aa-ca1c-448a-9bb8-b06012f307f5.png" />
-    <Content Include="Images\members\a4c1a5bd-5db3-4bf5-9db3-1a898a183a9f.jpg" />
     <Content Include="Images\minus_plus.gif" />
     <Content Include="Images\openeye.png" />
     <Content Include="Images\shining.png" />

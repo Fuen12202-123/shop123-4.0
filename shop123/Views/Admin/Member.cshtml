@@ -89,9 +89,12 @@
     </style>
 </head>
 <body>
+    <p>
+        @Html.ActionLink("回管理者介面", "AdminIndex", "", new { @class = "btn btn-dark" })
+    </p>
     @*<p>
-        @Html.ActionLink("新增會員", "MemberCreate", "", new { @class = "btn btn-info" })
-    </p>*@
+            @Html.ActionLink("新增會員", "MemberCreate", "", new { @class = "btn btn-info" })
+        </p>*@
     <div class="table-responsive-md" id="memberList">
         <table class="table table-bordered table-hover table-sm">
             <thead>
@@ -146,17 +149,28 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.memberEmail)
                     </td>
-                    <td style="height:200px;">
+                    <td style="height:100px;">
                         @Html.DisplayFor(modelItem => item.memberImg)
                         @*<img src="@item.memberImg" class="card-img-top" alt="...">*@
-                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
-                            @*<img src="@item.memberImg"
-                                 class="card-img-top" alt=@item.memberName>*@
+                        <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
+                            @*<img src="@item.memberImg" class="card-img-top" alt=@item.memberName>*@
                             @*絕對路徑會抱錯*@
-                            <img src=@Url.Content($"~/Images/{item.memberImg}")
-                                 class="card-img-top" alt=@item.memberName>
+                            @*<img src=@Url.Content($"~/Images/{item.memberImg}")
+                                class="card-img-top" alt=@item.memberName>*@
+                            @if (item.memberImg != null)
+                            {
+                                if (item.memberImg.Length > 30)
+                                {
+                                    <img src="@item.memberImg" class="card-img-top" alt="...">
+                                }
+                                else
+                                {
+                                    <img src=@Url.Content($"~/Images/{item.memberImg}")
+                                         class="card-img-top" alt=@item.memberImg>}
+                            }
+                            else { }
                         </div>
-    
+
                     </td>
                     <td>
                         @*@Html.EditorFor(modelItem => item.memberBanned)*@
@@ -165,13 +179,13 @@
                             @Html.Hidden("id", item.id)
                             if (item.memberBanned == true)
                             {
-                            <input type="checkbox"  onchange="$(this.form).submit();" checked />
+                                <input type="checkbox" onchange="$(this.form).submit();" checked />
 
                             }
                             else
                             {
 
-                            <input type="checkbox" onchange="$(this.form).submit();" />
+                                <input type="checkbox" onchange="$(this.form).submit();" />
                             }
                         }
                     </td>
@@ -183,13 +197,13 @@
                     </td>
                     <td @*style="display:flex" class="justify-content-between"*@>
                         @*@Html.ActionLink("編輯會員","MemberEdit", new { id = item.id }, new { @class = "btn btn-outline-info" })*@
-                            @using (Html.BeginForm("MemberDelete", "Admin", FormMethod.Post, new { @class = "deleteBtn" }))
-                            {
-                                @Html.Hidden("id", item.id)
-                                <input type="submit" value="刪除會員" class="btn btn-outline-danger" />
-                            }
-                            @*@Html.ActionLink("刪除會員", "MemberDelete", new { id = item.id }, new { @class = "btn btn-outline-danger" })*@
-                        </td>
+                        @using (Html.BeginForm("MemberDelete", "Admin", FormMethod.Post, new { @class = "deleteBtn" }))
+                        {
+                            @Html.Hidden("id", item.id)
+                            <input type="submit" value="刪除會員" class="btn btn-outline-danger" />
+                        }
+                        @*@Html.ActionLink("刪除會員", "MemberDelete", new { id = item.id }, new { @class = "btn btn-outline-danger" })*@
+                    </td>
                 </tr>
             }
 

@@ -60,6 +60,7 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <ul class="d-flex list-unstyled justify-content-end">
             <li>@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</li>
@@ -81,8 +82,8 @@
 
 
     <script>
-        $(document).ready(function(){
-            $(".button").click(function(){
+        $(document).ready(function () {
+            $(".button").click(function () {
                 $(this).addClass("active");
             });
         });
