@@ -99,6 +99,7 @@
             </form>
         </div>
         <!-- 訂單頁籤 -->
+        <!--賣家-->
         <div id="tabs1">
             <ul class="nav nav-justified row justify-content-center">
                 <li><a href="#tabs-1" data-toggle="tab" class="tabTitle">待付款</a></li>
@@ -110,22 +111,214 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane" id="tabs-1">
-                    <p>待付款訂單</p>
+                    <!--待付款訂單-->
+                    <table class="table table-hover notpay-order">
+                        <tr>
+                            <td>訂單編號</td>
+                            <td>購買會員</td>
+                            <td>訂單成立時間</td>
+                            <td>訂單總金額</td>
+                            <td>付款狀態</td>
+                        </tr>
+                        @foreach (var item in Model.orderSeller)
+                        {
+                            if (item.orderState == "未付款")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderCreate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.totalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderState)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
                 </div>
                 <div class="tab-pane" id="tabs-2">
-                    <p>待出貨訂單</p>
+                    <!--待出貨訂單-->
+                    <table class="table table-hover notshipping-order">
+                        <tr>
+                            <td>訂單編號</td>
+                            <td>購買會員</td>
+                            <td>訂單成立時間</td>
+                            <td>訂單總金額</td>
+                            <td>付款狀態</td>
+                        </tr>
+                        @foreach (var item in Model.orderSeller)
+                        {
+                            if (item.orderState == "待出貨")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderCreate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.totalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderState)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
                 </div>
                 <div class="tab-pane" id="tabs-3">
-                    <p>待收貨訂單</p>
+                    <!--待收貨訂單-->
+                    <table class="table table-hover all-order">
+                        <tr>
+                            <td>訂單編號</td>
+                            <td>購買會員</td>
+                            <td>訂單成立時間</td>
+                            <td>訂單總金額</td>
+                            <td>付款狀態</td>
+                        </tr>
+                        @foreach (var item in Model.orderSeller)
+                        {
+                            if (item.orderState == "待收貨")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderCreate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.totalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderState)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
                 </div>
                 <div class="tab-pane" id="tabs-4">
-                    <p>已完成訂單</p>
+                    <!--完成訂單-->
+                    <table class="table table-hover all-order">
+                        <tr>
+                            <td>訂單編號</td>
+                            <td>購買會員</td>
+                            <td>訂單成立時間</td>
+                            <td>訂單總金額</td>
+                            <td>付款狀態</td>
+                        </tr>
+                        @foreach (var item in Model.orderSeller)
+                        {
+                            if (item.orderState == "完成")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderCreate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.totalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderState)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
                 </div>
                 <div class="tab-pane" id="tabs-5">
-                    <p>未成立訂單</p>
+                    <!--未成立訂單-->
+                    <table class="table table-hover not-setup">
+                        <tr>
+                            <td>訂單編號</td>
+                            <td>購買會員</td>
+                            <td>訂單成立時間</td>
+                            <td>訂單總金額</td>
+                            <td>付款狀態</td>
+                        </tr>
+                        @foreach (var item in Model.orderSeller)
+                        {
+                            if (item.orderState == "未成立")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderCreate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.totalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderState)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
                 </div>
                 <div class="tab-pane" id="tabs-6">
-                    <p>退貨/退款訂單</p>
+                    <!--退貨-->
+                    <table class="table table-hover return-order">
+                        <tr>
+                            <td>訂單編號</td>
+                            <td>購買會員</td>
+                            <td>訂單成立時間</td>
+                            <td>訂單總金額</td>
+                            <td>付款狀態</td>
+                        </tr>
+                        @foreach (var item in Model.orderSeller)
+                        {
+                            if (item.orderState == "退貨")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderCreate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.totalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.orderState)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
                 </div>
             </div>
         </div>

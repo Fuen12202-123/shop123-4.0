@@ -12,5 +12,15 @@ namespace shop123.ViewModel
         public string memberPassword { get; set; }
         public string memberEmail { get; set; }
         public string memberPhone { get; set; }
+        public IEnumerable<orderSeller> orderSeller { get; set; }
+    }
+
+    public class orderSeller
+    {
+        public int id { get; set; }
+        public string receiverName { get; set; }
+        public DateTime orderCreate { get; set; }
+        public string orderState { get; set; }
+        public int totalPrice { get; set; }
     }
 }
