@@ -156,6 +156,10 @@
     transition: all 3s ease-in-out 0s;
 }
 
+    .tabTitle:focus {
+        background-color: #F5EBE0;
+    }
+
 /* 買家賣家選擇 */
 .choose-features {
     display: flex;

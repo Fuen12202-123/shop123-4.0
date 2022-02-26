@@ -29,7 +29,15 @@ namespace shop123.Controllers
                 memberName = member.First().memberName,
                 memberPassword = member.First().memberPassword,
                 memberEmail = member.First().memberEmail,
-                memberPhone = member.First().memberPhone
+                memberPhone = member.First().memberPhone,
+                orderSeller = db.orders.Where(s => s.sellerId == memberId).ToList().Select(s => new orderSeller()
+                {
+                    id = s.id,
+                    receiverName = s.receiverName,
+                    orderCreate = (DateTime)s.orderCreateTime,
+                    orderState = s.orderState,
+                    totalPrice = (int)s.totalPrice,
+                })
             };
 
 
