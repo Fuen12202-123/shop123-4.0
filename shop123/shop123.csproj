@@ -133,6 +133,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Content\Style.css" />
     <Content Include="Content\ToTop.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\01.jpg" />
     <Content Include="Images\08.jpg" />

@@ -91,7 +91,7 @@ namespace shop123.Controllers
        
         public ActionResult Detail(int? id)
         {
-            string memberId = User.Identity.Name;
+            string memberId = User.Identity.Name;            
             ViewBag.memberId = memberId;
             CDetailViewModel detail = null;
             if (id.HasValue)
