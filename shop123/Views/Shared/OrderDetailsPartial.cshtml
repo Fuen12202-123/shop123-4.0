@@ -109,6 +109,7 @@
             data: { id: id },
             success: function (data) {
                 $('#All').html(data);
+                $('#Shipping').html(data);
             }
 
         })
@@ -120,6 +121,9 @@
             data: { id: id },
             success: function (data) {
                 $('#All').html(data);
+                $('#NotPay').html(data);
+                $('#NotShipping').html(data);
+                $('#Shipping').html(data);
             }
         })
     }
@@ -130,6 +134,8 @@
             data: { id: id },
             success: function (data) {
                 $('#All').html(data);
+                $('#NotPay').html(data);
+
             }
         })
     }
