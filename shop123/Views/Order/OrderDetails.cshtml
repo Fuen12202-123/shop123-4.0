@@ -82,35 +82,6 @@
     }
 
 
-    function finish(id) {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("finish", "Order")',
-            data: { id: id },
-            success: function () {
-                location.reload();               
-            }
-        })
-    }
-    function cancel(id) {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("cancel", "Order")',
-            data: { id: id },
-            success: function () {
-                location.reload();               
-            }
-        })
-    }
-    function pay(id) {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("pay", "Order")',
-            data: { id: id },
-            success: function () {
-                location.reload();               
-            }
-        })
-    }
+   
     
 </script>

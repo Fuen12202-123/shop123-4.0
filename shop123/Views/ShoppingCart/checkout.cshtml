@@ -6,7 +6,7 @@
 }
 
 <div class="p-2">
-    <form action="@Url.Action("checkout","ShoppingCart")" method="post">
+    <form action="@Url.Action("checkout","ShoppingCart")"  method="post">
         
         
         @{List<string> seller = new List<string>();
@@ -83,10 +83,11 @@
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <span class="control-label ">付款方式</span>
+                                    <span class="control-label " name="paytype">付款方式</span>
                                     <div class="">
-                                        <select class="form-control">
-                                            <option value="">貨到付款</option>
+                                        <select name="paytype" class="form-control" >
+                                            <option value="貨到付款">貨到付款</option>
+                                            <option value="銀行轉帳">銀行轉帳</option>
                                         </select>
                                     </div>
                                 </div>
@@ -107,6 +108,7 @@
             </div>
         }
     </form>
+
 </div>
 <script>
 

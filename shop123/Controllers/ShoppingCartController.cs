@@ -178,7 +178,7 @@ namespace shop123.Controllers
         //}
 
         [HttpPost]
-        public ActionResult checkout(string[] receiverName, string[] receiverPhone, string[] receiverAddress, string[] sellerIds,string[] ordermessage)
+        public ActionResult checkout(string[] receiverName, string[] receiverPhone, string[] receiverAddress, string[] sellerIds,string[] ordermessage,string[] paytype)
         {
             int index = 0;
             string memberId = User.Identity.Name;
@@ -196,7 +196,14 @@ namespace shop123.Controllers
                 order.receiverPhone = (string)receiverPhone.GetValue(index);
                 order.ordermessage = (string)ordermessage.GetValue(index);
                 order.orderCreateTime = DateTime.Now;
-                order.orderState = "待出貨";
+                if ((string)paytype.GetValue(index) == "銀行轉帳")
+                {
+                    order.orderState = "未付款";
+                }
+                else if ((string)paytype.GetValue(index) == "貨到付款")
+                {
+                    order.orderState = "待出貨";
+                }                
                 order.sellerId = sId;
                 db.orders.Add(order);
 

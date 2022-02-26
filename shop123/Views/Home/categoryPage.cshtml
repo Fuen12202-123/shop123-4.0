@@ -4,50 +4,56 @@
 @model IPagedList<shop123.Models.spu>
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 <style>
-    .pagination {       
-        justify-content:center;
+    .pagination {
+        justify-content: center;
     }
-
 </style>
 
 @{
     ViewBag.Title = "商品頁";
+    int catA = 0;
+    int catB = 0;
+
 }
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
 
 <div class="row d-flex">
     <div class=" col-4 col-sm-4 col-md-2 ">
         <ul>
             @Html.Action("_categoryB", "Home")
         </ul>
+      
     </div>
     <div class="row cos-8  col-sm-8 col-md-10 d-flex justify-content-start">
         @{
             foreach (var item in Model)
             {
-
+                 catA = item.catalogAId.Value;
+                 catB = item.catalogBId.Value;
                 <div class="card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3" style="border:0px">
                     <div class="spucard card pb-3">
-                        <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"> 
-                         @if (item.spuImg1.Length > 30)
-                            {
-                                <img src="@item.spuImg1" class="card-img-top" alt="...">
-                            }
-                            else
-                            {
-                              <img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">
+                        <div style="height:368px" class="d-flex justify-content-center align-items-center ">
+                            <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id">
+                                @if (item.spuImg1.Length > 30)
+                                {
+                                    <img src="@item.spuImg1" class="card-img-top " alt="...">
+                                }
+                                else
+                                {
+                                    <img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">
 
-                            }                        
-                        </a>
+                                }
+
+                            </a>
+                        </div>
                         <div class="pl-3">
-                            <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"><p class="card-title">@item.spuName</p></a>
+                            <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"><p class="card-title" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.spuName</p></a>
                         </div>
                         <div class="card-footer d-flex justify-content-between" style="height: 45px; background-color: white;border-top:0px">
                             <p class="card-text">$@item.spuPrice</p>
                         </div>
-                       
+
                     </div>
                 </div>
 

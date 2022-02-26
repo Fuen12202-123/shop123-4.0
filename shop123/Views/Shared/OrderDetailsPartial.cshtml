@@ -108,7 +108,7 @@
             url: '@Url.Action("finish", "Order")',
             data: { id: id },
             success: function (data) {
-                $('#Shipping').html(data);
+                $('#All').html(data);
             }
 
         })
@@ -118,8 +118,8 @@
             type: 'POST',
             url: '@Url.Action("cancel", "Order")',
             data: { id: id },
-            success: function () {
-                location.reload();
+            success: function (data) {
+                $('#All').html(data);
             }
         })
     }
@@ -128,8 +128,8 @@
             type: 'POST',
             url: '@Url.Action("pay", "Order")',
             data: { id: id },
-            success: function () {
-                location.reload();
+            success: function (data) {
+                $('#All').html(data);
             }
         })
     }

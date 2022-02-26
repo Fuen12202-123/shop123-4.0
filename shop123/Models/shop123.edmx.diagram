@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3ad4d50d8f7a451e81376d8dffca666f" Name="Diagram1">
-        <EntityTypeShape EntityType="shop123Model.carousel" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.catalogA" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.catalogB" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.comment" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.delivery" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.favorite" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.member" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.orders" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.ordersDetail" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.refund" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.sku" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="shop123Model.spu" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="shop123Model.carousel" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="shop123Model.catalogA" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="shop123Model.catalogB" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="shop123Model.comment" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="shop123Model.delivery" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="shop123Model.favorite" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="shop123Model.member" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="shop123Model.orders" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="shop123Model.ordersDetail" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="shop123Model.refund" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="shop123Model.sku" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="shop123Model.spu" Width="1.5" PointX="6.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -25,7 +25,7 @@ namespace shop123.Controllers
 
 
 
-        int pageSize = 12;
+        int pageSize = 20;
 
         public ActionResult Allspu(string searchstring,int page = 1)
         {//所有產品分頁的頁面
@@ -47,7 +47,7 @@ namespace shop123.Controllers
         public ActionResult Index()
         {
             var carousel = db.carousel.ToList();
-            var spu = db.spu.OrderByDescending(m => m.spuCreatedTime).Where(s=>s.spuShow == "已上架").ToList();
+            var spu = db.spu.OrderByDescending(m => m.spuEditTime).Where(s=>s.spuShow == "已上架").ToList();
 
             HomeViewModel vw = new HomeViewModel();
             vw.carousels = carousel;
@@ -73,20 +73,21 @@ namespace shop123.Controllers
 
         public ActionResult categoryPage(int catalogAId, int catalogBId, int page)
         {
-            List<spu> spu;
+            List<spu> spu=new List<spu>();
 
             int currentPage = page < 1 ? 1 : page;
-            if (catalogBId == 0)
-                spu = db.spu.Where(m => m.catalogAId == catalogAId && m.spuShow== "已上架").ToList();
-            else
-                spu = db.spu.Where(m => m.catalogAId == catalogAId && m.catalogBId == catalogBId && m.spuShow == "已上架").ToList();
+          
+                if (catalogBId == 0)          
+                    spu = db.spu.Where(m => m.catalogAId == catalogAId && m.spuShow == "已上架").OrderByDescending(m=>m.spuEditTime).ToList();
+                else
+                    spu = db.spu.Where(m => m.catalogAId == catalogAId && m.catalogBId == catalogBId && m.spuShow == "已上架").OrderByDescending(m => m.spuEditTime).ToList();           
             var result = spu.ToPagedList(currentPage, pageSize);
             ViewBag.catalogAId = catalogAId;
             ViewBag.catalogBId = catalogBId;
             return View(result);
 
-        }
-
+        } 
+      
        
         public ActionResult Detail(int? id)
         {

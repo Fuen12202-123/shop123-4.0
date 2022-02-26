@@ -52,26 +52,28 @@
         foreach (var item in Model.spu.Take(40))
         {
             <div class="card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3" style="border:0px">
-                <div  class="spucard card pb-3">
-                        <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id">
-                            @if (item.spuImg1.Length > 30)
-                            {
-                                <img src="@item.spuImg1" class="card-img-top" alt="...">
-                            }
-                            else
-                            {
-                                <img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">
+                    <div class="spucard card pb-3">
+                        <div style="height:368px" class="d-flex justify-content-center align-items-center ">
+                            <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id">
+                                @if (item.spuImg1.Length > 30)
+                                {
+                                    <img src="@item.spuImg1" class="card-img-top " alt="...">
+                                }
+                                else
+                                {
+                                    <img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">
 
-                            }
+                                }
 
-                        </a>
-                    <div class="pl-3">
-                        <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"><p class="card-title">@item.spuName</p></a>
+                            </a>
+                        </div>
+                        <div class="pl-3">
+                            <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"><p class="card-title" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.spuName</p></a>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between" style="height: 45px; background-color: white;border-top:0px">
+                            <p class="card-text">$@item.spuPrice</p>
+                        </div>
                     </div>
-                    <div class="card-footer d-flex justify-content-between" style="height: 45px; background-color: white;border-top:0px">
-                        <p class="card-text">$@item.spuPrice</p>
-                    </div>
-                </div>
             </div>
         }
     }

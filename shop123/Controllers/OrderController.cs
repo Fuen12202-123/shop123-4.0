@@ -12,6 +12,9 @@ namespace shop123.Controllers
     public class OrderController : Controller
     {
         shop123Entities2 db = new shop123Entities2();
+
+
+
         // GET: Order
 
 
@@ -21,11 +24,15 @@ namespace shop123.Controllers
 
             return View();
         }
+
+
+
         public ActionResult OrderDetailsPartial(string state)
         {
             List<OrderViewModel> vm = new List<OrderViewModel>();
 
             string memberId = User.Identity.Name;
+
 
 
             var GroupBy = db.ordersDetail
@@ -52,7 +59,7 @@ namespace shop123.Controllers
                     receiverName = o.receiverName,
                     receiverAddress = o.receiverAddress,
                     receiverPhone = o.receiverPhone,
-                    ordermessage=o.ordermessage
+                    ordermessage = o.ordermessage
 
                 })
                 .OrderByDescending(od => od.CreateTime).Where(cs => cs.memberId == memberId);
@@ -104,7 +111,7 @@ namespace shop123.Controllers
                     receiverName = o.receiverName,
                     receiverAddress = o.receiverAddress,
                     receiverPhone = o.receiverPhone,
-                    ordermessage=o.ordermessage,
+                    ordermessage = o.ordermessage,
                 })
                 .OrderByDescending(od => od.CreateTime).Where(cs => cs.memberId == memberId && cs.state == state);
                 foreach (var item in OD)
@@ -120,7 +127,7 @@ namespace shop123.Controllers
                         receiverName = item.receiverName,
                         receiverAddress = item.receiverAddress,
                         receiverPhone = item.receiverPhone,
-                        ordermessage=item.ordermessage,
+                        ordermessage = item.ordermessage,
 
                         Detail = db.ordersDetail.Where(o => o.orderguid == item.orderguid).Select(o => new OrderDetailViewModel()
                         {
