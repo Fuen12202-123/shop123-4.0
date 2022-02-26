@@ -88,7 +88,7 @@
             @Html.ActionLink("新增商品", "SpuCreate", "", new { @class = "btn btn-info" })
         </p>*@
 
-    <div class="table-responsive-md">
+    <div class="table-responsive-md" id="spuList">
         <table class="table table-bordered table-hover table-sm">
             <thead>
                 <tr class="f5ebe0">
@@ -110,25 +110,25 @@
                     <th scope="col" class="text-nowrap w5">
                         @Html.DisplayNameFor(model => model.catalogBId)
                     </th>
-                    <th scope="col" class="text-nowrap w5">
+                    <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.spuImg1)
                     </th>
-                    <th scope="col" class="text-nowrap w5">
+                    <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.spuImg2)
                     </th>
-                    <th scope="col" class="text-nowrap w5">
+                    <th scope="col" class="text-nowrap w57">
                         @Html.DisplayNameFor(model => model.spuImg3)
                     </th>
-                    <th scope="col" class="text-nowrap w5">
+                    <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.spuImg4)
                     </th>
-                    <th scope="col" class="text-nowrap w5">
+                    <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.spuImg5)
                     </th>
-                    <th scope="col" class="text-nowrap w5">
+                    <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.spuShow)
                     </th>
-                    <th scope="col" class="text-nowrap w7">
+                    <th scope="col" class="text-nowrap w5">
                         @Html.DisplayNameFor(model => model.spuCreatedTime)
                     </th>
                     <th scope="col" class="text-nowrap w7">
@@ -162,41 +162,102 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg1)
-                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
-                            <img src=@Url.Content($"~/Images/{item.spuImg1}")
-                                 class="card-img-top" alt=@item.spuImg1>
-                        </div>
+                        <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
+                            @if (item.spuImg1.Length > 30)
+                            {
+                                <img src="@item.spuImg1" class="card-img-top" alt="...">
+                            }
+                            else
+                            {
+                                @*<img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">*@
+                                <img src=@Url.Content($"~/Images/{item.spuImg1}")
+                                     class="card-img-top" alt=@item.spuImg1>
+                            }
+                            </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg2)
-                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
-                            <img src=@Url.Content($"~/Images/{item.spuImg2}")
-                                 class="card-img-top" alt=@item.spuImg2>
+                        <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
+                            @if (item.spuImg1.Length > 30)
+                            {
+                                <img src="@item.spuImg2" class="card-img-top" alt="...">
+                            }
+                            else
+                            {
+                                @*<img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">*@
+                                <img src=@Url.Content($"~/Images/{item.spuImg2}")
+                                     class="card-img-top" alt=@item.spuImg2>
+                            }
                         </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg3)
-                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
-                            <img src=@Url.Content($"~/Images/{item.spuImg3}")
-                                 class="card-img-top" alt=@item.spuImg3>
+                        <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
+                            @if (item.spuImg1.Length > 30)
+                            {
+                                <img src="@item.spuImg3" class="card-img-top" alt="...">
+                            }
+                            else
+                            {
+                                @*<img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">*@
+                                <img src=@Url.Content($"~/Images/{item.spuImg3}")
+                                     class="card-img-top" alt=@item.spuImg3>
+                            }
                         </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg4)
-                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
-                            <img src=@Url.Content($"~/Images/{item.spuImg4}")
-                                 class="card-img-top" alt=@item.spuImg4>
+                        <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
+                            @if (item.spuImg1.Length > 30)
+                            {
+                                <img src="@item.spuImg4" class="card-img-top" alt="...">
+                            }
+                            else
+                            {
+                                @*<img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">*@
+                                <img src=@Url.Content($"~/Images/{item.spuImg4}")
+                                     class="card-img-top" alt=@item.spuImg4>
+                            }
                         </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg5)
-                        <div style="width:200px;height:100%;object-fit:contain;" class="thumbnail">
-                            <img src=@Url.Content($"~/Images/{item.spuImg5}")
-                                 class="card-img-top" alt=@item.spuImg5>
+                        <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
+                            @if (item.spuImg1.Length > 30)
+                            {
+                                <img src="@item.spuImg5" class="card-img-top" alt="...">
+                            }
+                            else
+                            {
+                                @*<img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">*@
+                                <img src=@Url.Content($"~/Images/{item.spuImg5}")
+                                     class="card-img-top" alt=@item.spuImg5>
+                            }
                         </div>
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.spuShow)
+                        @Html.DropDownList("spushow", null, item.spuShow, htmlAttributes: new { id = "itemshow", @class = "form-control" })
+                        @*@Html.DisplayFor(modelItem => item.spuShow)*@
+                        @*@using (Ajax.BeginForm("UpdateSpuShow", "Admin", new AjaxOptions { UpdateTargetId = "#spuList" },new {@class="changeShow"}))
+        {
+            @Html.Hidden("id", item.id)
+        <select>
+            @if (item.spuShow == "已上架")
+            {
+                <option selected onchange="$(this.form).submit();" >已上架</option>
+                <option onchange="$(this.form).submit();" >未上架</option>
+            }
+            else
+            {
+                <option onchange="$(this.form).submit();" >已上架</option>
+                <option selected onchange="$(this.form).submit();" >未上架</option>
+            }
+            </select>
+            }*@
+            
+
+
+
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuCreatedTime)
@@ -228,8 +289,24 @@
     </div>
     <script>
 
-        $(function () {
+         $(document).ready(function () {
+            console.log("準備好了");
+            $("#itemshow").change(function () {
+                console.log("動了動了");
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("UpdateSpuShow","Admin")',
+                    dataType: 'json',
+                    data: { item: $("#itemshow").val() },
+                    success: function (data) {
+                        $('#spuList').html(data);
+                    }
+            })
+        })
 
+
+
+        $(function () {
             $(".deleteBtn").click(function (e) {
                 //whenever our button is clicked
 
@@ -254,8 +331,17 @@
                         }
                     });
             });
-
         })
+
+        //$(document).ready(function () {
+        //    var selectitem = document.querySelectorAll("option");
+        //    selectitem.forEach(item => {
+        //        item.addEventListener("click", i => {
+        //            return this.text;
+        //        })
+        //    })
+        //    })
+
 
 
 
@@ -282,10 +368,7 @@
 
     </script>
 
-    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>*@
-
+  
 
 </body>
 </html>

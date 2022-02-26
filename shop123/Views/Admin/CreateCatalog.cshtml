@@ -36,16 +36,7 @@
                 </div>
             </div>
 
-            @*<div class="form-group form-row">
-            新增大項分類(請確認沒有此分類項目)
-            <div class="col-md-6">
-                @using (Html.BeginForm("CatalogDelete", "Admin", FormMethod.Post, new { @class = "deleteBtn" }))
-                {
-                    @Html.Hidden("id", item.catbId)
-                    <input type="submit" value="刪除此分類項目" class="btn btn-outline-danger" />
-                }
-            </div>
-        </div>*@
+ 
         <form class="form-group form-row" action="/Admin/CatalogACreate" method="post">
 
             <div class="col-md-12">
