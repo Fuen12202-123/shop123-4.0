@@ -9,18 +9,21 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>商品清單</title>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         * {
             margin: 0;
             padding: 0px;
         }
-        body{
-            padding:25px;
+
+        body {
+            padding: 25px;
         }
+
         table {
             overflow: scroll;
             width: 100%;
@@ -47,9 +50,11 @@
         .w7 {
             width: 7rem;
         }
+
         .w10 {
             width: 10rem;
         }
+
         .w13 {
             width: 13rem;
         }
@@ -86,7 +91,10 @@
 <body>
     @*<p>
             @Html.ActionLink("新增商品", "SpuCreate", "", new { @class = "btn btn-info" })
-        </p>*@
+        </p>*@    
+        <p>
+            @Html.ActionLink("回管理者介面", "AdminIndex", "", new { @class = "btn btn-dark" })
+        </p>
 
     <div class="table-responsive-md" id="spuList">
         <table class="table table-bordered table-hover table-sm">
@@ -173,90 +181,127 @@
                                 <img src=@Url.Content($"~/Images/{item.spuImg1}")
                                      class="card-img-top" alt=@item.spuImg1>
                             }
-                            </div>
+                        </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg2)
                         <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
-                            @if (item.spuImg1.Length > 30)
+                            @if (item.spuImg2 != null)
                             {
-                                <img src="@item.spuImg2" class="card-img-top" alt="...">
+                                if (item.spuImg2.Length > 30)
+                                {
+                                    <img src="@item.spuImg2" class="card-img-top" alt="...">
+                                }
+                                else
+                                {
+                                    <img src=@Url.Content($"~/Images/{item.spuImg2}")
+                                         class="card-img-top" alt=@item.spuImg2>}
                             }
-                            else
-                            {
-                                @*<img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">*@
-                                <img src=@Url.Content($"~/Images/{item.spuImg2}")
-                                     class="card-img-top" alt=@item.spuImg2>
-                            }
+                            else { }
+
                         </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg3)
                         <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
-                            @if (item.spuImg1.Length > 30)
+                            @if (item.spuImg3 != null)
                             {
-                                <img src="@item.spuImg3" class="card-img-top" alt="...">
+                                if (item.spuImg3.Length > 30)
+                                {
+                                    <img src="@item.spuImg3" class="card-img-top" alt="...">
+                                }
+                                else
+                                {
+                                    <img src=@Url.Content($"~/Images/{item.spuImg3}")
+                                         class="card-img-top" alt=@item.spuImg3>}
                             }
-                            else
-                            {
-                                @*<img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">*@
-                                <img src=@Url.Content($"~/Images/{item.spuImg3}")
-                                     class="card-img-top" alt=@item.spuImg3>
-                            }
+                            else { }
                         </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg4)
                         <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
-                            @if (item.spuImg1.Length > 30)
+                            @if (item.spuImg4!= null)
                             {
-                                <img src="@item.spuImg4" class="card-img-top" alt="...">
+                                if (item.spuImg4.Length > 30)
+                                {
+                                    <img src="@item.spuImg4" class="card-img-top" alt="...">
+                                }
+                                else
+                                {
+                                    <img src=@Url.Content($"~/Images/{item.spuImg4}")
+                                         class="card-img-top" alt=@item.spuImg4>}
                             }
-                            else
-                            {
-                                @*<img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">*@
-                                <img src=@Url.Content($"~/Images/{item.spuImg4}")
-                                     class="card-img-top" alt=@item.spuImg4>
-                            }
+                            else { }
                         </div>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.spuImg5)
                         <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
-                            @if (item.spuImg1.Length > 30)
+                            @if (item.spuImg5 != null)
                             {
-                                <img src="@item.spuImg5" class="card-img-top" alt="...">
+                                if (item.spuImg5.Length > 30)
+                                {
+                                    <img src="@item.spuImg5" class="card-img-top" alt="...">
+                                }
+                                else
+                                {
+                                    <img src=@Url.Content($"~/Images/{item.spuImg5}")
+                                         class="card-img-top" alt=@item.spuImg5>}
                             }
-                            else
-                            {
-                                @*<img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">*@
-                                <img src=@Url.Content($"~/Images/{item.spuImg5}")
-                                     class="card-img-top" alt=@item.spuImg5>
-                            }
+                            else { }
                         </div>
                     </td>
                     <td>
-                        @Html.DropDownList("spushow", null, item.spuShow, htmlAttributes: new { id = "itemshow", @class = "form-control" })
-                        @*@Html.DisplayFor(modelItem => item.spuShow)*@
-                        @*@using (Ajax.BeginForm("UpdateSpuShow", "Admin", new AjaxOptions { UpdateTargetId = "#spuList" },new {@class="changeShow"}))
-        {
+                        @*<form>
             @Html.Hidden("id", item.id)
+            @Html.DropDownList("spushow", null, htmlAttributes: new { @class = "form-control" })
+        </form>*@
+                        @*@using (Ajax.BeginForm("UpdateSpuShow", "Admin", new AjaxOptions { UpdateTargetId = "#spuList" }))
+        {
+
+        @Html.Hidden("id", item.id)
         <select>
-            @if (item.spuShow == "已上架")
-            {
-                <option selected onchange="$(this.form).submit();" >已上架</option>
-                <option onchange="$(this.form).submit();" >未上架</option>
-            }
-            else
-            {
-                <option onchange="$(this.form).submit();" >已上架</option>
-                <option selected onchange="$(this.form).submit();" >未上架</option>
-            }
-            </select>
-            }*@
-            
+        @if (item.spuShow == "已上架")
+        {
+            <option value="已上架" onchange="$(this.form).submit();" selected>已上架</option>
+            <option value="未上架" onchange="$(this.form).submit();">未上架</option>
+        }
+        else
+        {
+            <option value="已上架" onchange="$(this.form).submit();">已上架</option>
+            <option value="未上架" onchange="$(this.form).submit();"  selected>未上架</option>
+        }
+        </select>
+        }*@
 
 
+
+
+                        @using (Ajax.BeginForm("UpdateSpuShow", "Admin", new AjaxOptions { UpdateTargetId = "#spuList" }))
+                        {
+                            @Html.Hidden("id", item.id)
+                            if (item.spuShow == "已上架")
+                            {
+                                <div>@item.spuShow</div>
+                                <input type="submit" value="下架商品" class="btn btn-danger" onchange="$(this.form).submit();" />
+                            }
+                            else
+                            {
+                                <div>@item.spuShow</div>
+                                <input type="submit" value="上架商品" class="btn btn-info" onchange="$(this.form).submit();" />
+                            }
+                        }
+
+
+                        @*<div class="col-md-3">
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.Hidden("id", item.id)
+                    @Html.DropDownList("spushow", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+        </div>*@
 
                     </td>
                     <td>
@@ -289,20 +334,38 @@
     </div>
     <script>
 
-         $(document).ready(function () {
-            console.log("準備好了");
-            $("#itemshow").change(function () {
-                console.log("動了動了");
+        @*$(document).ready(function () {
+            console.log("ready");
+            $(".spushow").change(function (id) {
+                console.log("i can seeit");
                 $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("UpdateSpuShow","Admin")',
-                    dataType: 'json',
-                    data: { item: $("#itemshow").val() },
+                    type: "POST",
+                    url: '@Url.Action("UpdateSpuShow", "Admin")',
+                    data: { id:this.id },
                     success: function (data) {
-                        $('#spuList').html(data);
-                    }
-            })
+                        $('#spushow').html(data)
+                        console.log("yeahhhhh");
+                    },
+                    error: function (ex) {
+                        alert("Failed to retrieve states : " + ex);
+                    },
+                }); // ajax end
+                return false;
+            }); // change end
+        });*@
+
+       @*function updateoption(id) {
+            console.log("i can work");
+            $.ajax({
+            type: 'POST',
+                url: '@Url.Action("UpdateSpuShow", "Admin")',
+                data: { item: id },
+            success: function (data) {
+                $('#spuList').html(data);
+            }
         })
+       }*@
+
 
 
 
@@ -344,31 +407,9 @@
 
 
 
-
-            //$(document).ready(function () {
-            //    $(".demo3").click(function () {
-            //        swal({
-            //            title: "是否確定要刪除?",
-            //            text: "一旦刪除，資料無法找回!",
-            //            icon: "warning",
-            //            buttons: true,
-            //            dangerMode: true,
-            //        })
-            //            .then((willDelete) => {
-            //                if (willDelete) {
-            //                    swal("內容已被刪除!"
-            //                       ,  { icon: "success",}
-            //                    );
-            //                } else {
-            //                    swal("檔案確認保留!");
-            //                }
-            //            });
-            //    });
-            //})
-
     </script>
 
-  
+
 
 </body>
 </html>

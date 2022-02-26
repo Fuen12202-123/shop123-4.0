@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -35,61 +36,61 @@ namespace shop123.Controllers
             return View();
         }
         //POST:會員新增+圖片功能
-        [HttpPost]
-        public ActionResult MemberCreate(member nMember,HttpPostedFileBase upPhotoMember)
-        {
-            var fileValid = true;
-            //檔案小於5mb
-            if (upPhotoMember.ContentLength <= 0 || upPhotoMember.ContentLength > 5242880) { fileValid = false; }
-            else if (!CheckIsImages(upPhotoMember.InputStream)) { fileValid = false; }
-            else if (fileValid == true)
-            {
-                string extension = Path.GetExtension(upPhotoMember.FileName);
-                string fileName = $"{Guid.NewGuid()}{extension}";
-                string savePath = Path.Combine(Server.MapPath("~/Images/members"), fileName);
-                upPhotoMember.SaveAs(savePath);
-                nMember.memberImg = savePath;
-            }
-            nMember.memberCreateTime = DateTime.Now;
-            db.member.Add(nMember);
-            db.SaveChanges();
-            return RedirectToAction("Member");
-        }
+        //[HttpPost]
+        //public ActionResult MemberCreate(member nMember,HttpPostedFileBase upPhotoMember)
+        //{
+        //    var fileValid = true;
+        //    //檔案小於5mb
+        //    if (upPhotoMember.ContentLength <= 0 || upPhotoMember.ContentLength > 5242880) { fileValid = false; }
+        //    else if (!CheckIsImages(upPhotoMember.InputStream)) { fileValid = false; }
+        //    else if (fileValid == true)
+        //    {
+        //        string extension = Path.GetExtension(upPhotoMember.FileName);
+        //        string fileName = $"{Guid.NewGuid()}{extension}";
+        //        string savePath = Path.Combine(Server.MapPath("~/Images/members"), fileName);
+        //        upPhotoMember.SaveAs(savePath);
+        //        nMember.memberImg = savePath;
+        //    }
+        //    nMember.memberCreateTime = DateTime.Now;
+        //    db.member.Add(nMember);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Member");
+        //}
         //GET:會員修改
-        public ActionResult MemberEdit(int id)
-        {
-            var member = db.member.Where(m => m.id == id).FirstOrDefault();
-            return View(member);
-        }
-        //POST:會員修改
-        [HttpPost]
-        public ActionResult MemberEdit(member nMember, HttpPostedFileBase upPhotoMember)
-        {
-            int id = nMember.id;
-            var member = db.member.Where(m => m.id == id).FirstOrDefault();
-            var fileValid = true;
-            //檔案小於5mb
-            if (upPhotoMember.ContentLength <= 0 || upPhotoMember.ContentLength > 5242880) { fileValid = false; }
-            else if (!CheckIsImages(upPhotoMember.InputStream)) { fileValid = false; }
-            else if (fileValid == true)
-            {
-                string extension = Path.GetExtension(upPhotoMember.FileName);
-                string fileName = $"{Guid.NewGuid()}{extension}";
-                string savePath = Path.Combine(Server.MapPath("~/Images/members"), fileName);
-                upPhotoMember.SaveAs(savePath);
-                member.memberImg = savePath;
-            }
-            member.memberAccount = nMember.memberAccount;
-            member.memberPassword = nMember.memberPassword;
-            member.memberName = nMember.memberName;
-            member.memberPhone = nMember.memberPhone;
-            member.memberEmail = nMember.memberEmail;
-            member.memberBanned = nMember.memberBanned;
-            member.memberAccess = nMember.memberAccess;
-            member.memberCreateTime = nMember.memberCreateTime;
-            db.SaveChanges();
-            return RedirectToAction("Member");
-        }
+        //public ActionResult MemberEdit(int id)
+        //{
+        //    var member = db.member.Where(m => m.id == id).FirstOrDefault();
+        //    return View(member);
+        //}
+        ////POST:會員修改
+        //[HttpPost]
+        //public ActionResult MemberEdit(member nMember, HttpPostedFileBase upPhotoMember)
+        //{
+        //    int id = nMember.id;
+        //    var member = db.member.Where(m => m.id == id).FirstOrDefault();
+        //    var fileValid = true;
+        //    //檔案小於5mb
+        //    if (upPhotoMember.ContentLength <= 0 || upPhotoMember.ContentLength > 5242880) { fileValid = false; }
+        //    else if (!CheckIsImages(upPhotoMember.InputStream)) { fileValid = false; }
+        //    else if (fileValid == true)
+        //    {
+        //        string extension = Path.GetExtension(upPhotoMember.FileName);
+        //        string fileName = $"{Guid.NewGuid()}{extension}";
+        //        string savePath = Path.Combine(Server.MapPath("~/Images/members"), fileName);
+        //        upPhotoMember.SaveAs(savePath);
+        //        member.memberImg = savePath;
+        //    }
+        //    member.memberAccount = nMember.memberAccount;
+        //    member.memberPassword = nMember.memberPassword;
+        //    member.memberName = nMember.memberName;
+        //    member.memberPhone = nMember.memberPhone;
+        //    member.memberEmail = nMember.memberEmail;
+        //    member.memberBanned = nMember.memberBanned;
+        //    member.memberAccess = nMember.memberAccess;
+        //    member.memberCreateTime = nMember.memberCreateTime;
+        //    db.SaveChanges();
+        //    return RedirectToAction("Member");
+        //}
 
 
 
@@ -138,16 +139,52 @@ namespace shop123.Controllers
         }
 
         //商品上下架即時更新
+        //get:上下架
         public ActionResult UpdateSpuShow(int id)
         {
             var spu = db.spu.Where(p => p.id == id).FirstOrDefault();
-            if (spu.spuShow=="已上架") spu.spuShow ="已上架";
-            else { spu.spuShow = "未上架"; }
+            if (spu.spuShow == "未上架") spu.spuShow = "已上架";
+            else { spu.spuShow = "已上架"; }
+            spu.spuEditTime = DateTime.Now;
             db.SaveChanges();
-            return RedirectToAction("Member");
+            return RedirectToAction("Spu");
         }
 
+        //post:上下架
+        //[HttpPost]
+        //public ActionResult UpdateSpuShow(spu pSpu)
+        //{
+        //    int id = pSpu.id;
+        //    var spu = db.spu.Where(p => p.id == id).FirstOrDefault();
+        //    spu.spuName = pSpu.spuName;
+        //    spu.memberId = pSpu.memberId;
+        //    spu.spuInfo = pSpu.spuInfo;
+        //    spu.spuPrice = pSpu.spuPrice;
+        //    spu.catalogAId = pSpu.catalogAId;
+        //    spu.catalogBId = pSpu.catalogBId;
+        //    spu.spuImg1 = pSpu.spuImg1;
+        //    spu.spuImg2 = pSpu.spuImg2;
+        //    spu.spuImg3 = pSpu.spuImg3;
+        //    spu.spuImg4 = pSpu.spuImg4;
+        //    spu.spuImg5 = pSpu.spuImg5;
+        //    if (pSpu.spuShow == "未上架") spu.spuShow = "已上架";
+        //    else { spu.spuShow = "未上架"; }
+        //    spu.spuShow = pSpu.spuShow;
+        //    spu.spuCreatedTime = pSpu.spuCreatedTime;
+        //    spu.spuEditTime = DateTime.Now;
+        //    db.SaveChanges();
+        //    return RedirectToAction("Spu");
+        //}
+        ////取得商品上下架資訊
+        //public JsonResult Getspushow(int id)
+        //{
+        //    var pspu = db.spu.Where(p => p.id == id).FirstOrDefault();
+        //    if (pspu.spuShow == "未上架") pspu.spuShow = "已上架";
+        //    else { pspu.spuShow = "未上架"; }
+        //    db.SaveChanges();
 
+        //    return Json(pspu, JsonRequestBehavior.AllowGet);
+        //}
 
 
         //GET:商品新增
@@ -155,72 +192,72 @@ namespace shop123.Controllers
         {
             return View();
         }
-        //POST:商品新增
-        [HttpPost]
-        public ActionResult SpuCreate(spu pSpu)
-        {
-            pSpu.spuCreatedTime = DateTime.Now;
-            pSpu.spuEditTime = DateTime.Now;
-            db.spu.Add(pSpu);
-            db.SaveChanges();
-            return RedirectToAction("Spu");
-        }
-        //GET:商品修改
-        public ActionResult SpuEdit(int id)
-        {
-            var pSpu = db.spu.Where(p => p.id == id).FirstOrDefault();
-            return View(pSpu);
-        }
-        //POST:商品修改
-        //TODO:更改確認
-        [HttpPost]
-        public ActionResult SpuEdit(spu pSpu)
-        {
-            int id = pSpu.id;
-            var spu = db.spu.Where(p => p.id == id).FirstOrDefault();
-            spu.spuName = pSpu.spuName;
-            spu.memberId = pSpu.memberId;
-            spu.spuInfo = pSpu.spuInfo;
-            spu.spuPrice = pSpu.spuPrice;
-            spu.catalogAId = pSpu.catalogAId;
-            spu.catalogBId = pSpu.catalogBId;
-            spu.spuImg1 = pSpu.spuImg1;
-            spu.spuImg2 = pSpu.spuImg2;
-            spu.spuImg3 = pSpu.spuImg3;
-            spu.spuImg4 = pSpu.spuImg4;
-            spu.spuImg5 = pSpu.spuImg5;
-            spu.spuShow = pSpu.spuShow;
-            spu.spuCreatedTime = pSpu.spuCreatedTime;
-            spu.spuEditTime=DateTime.Now;
-            db.SaveChanges();
-            return RedirectToAction("Spu");
-        }
-        //商品刪除
-        //TODO:刪除確認
+        ////POST:商品新增
+        //[HttpPost]
+        //public ActionResult SpuCreate(spu pSpu)
+        //{
+        //    pSpu.spuCreatedTime = DateTime.Now;
+        //    pSpu.spuEditTime = DateTime.Now;
+        //    db.spu.Add(pSpu);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Spu");
+        //}
+        ////GET:商品修改
+        //public ActionResult SpuEdit(int id)
+        //{
+        //    var pSpu = db.spu.Where(p => p.id == id).FirstOrDefault();
+        //    return View(pSpu);
+        //}
+        ////POST:商品修改
+        ////TODO:更改確認
+        //[HttpPost]
+        //public ActionResult SpuEdit(spu pSpu)
+        //{
+        //    int id = pSpu.id;
+        //    var spu = db.spu.Where(p => p.id == id).FirstOrDefault();
+        //    spu.spuName = pSpu.spuName;
+        //    spu.memberId = pSpu.memberId;
+        //    spu.spuInfo = pSpu.spuInfo;
+        //    spu.spuPrice = pSpu.spuPrice;
+        //    spu.catalogAId = pSpu.catalogAId;
+        //    spu.catalogBId = pSpu.catalogBId;
+        //    spu.spuImg1 = pSpu.spuImg1;
+        //    spu.spuImg2 = pSpu.spuImg2;
+        //    spu.spuImg3 = pSpu.spuImg3;
+        //    spu.spuImg4 = pSpu.spuImg4;
+        //    spu.spuImg5 = pSpu.spuImg5;
+        //    spu.spuShow = pSpu.spuShow;
+        //    spu.spuCreatedTime = pSpu.spuCreatedTime;
+        //    spu.spuEditTime=DateTime.Now;
+        //    db.SaveChanges();
+        //    return RedirectToAction("Spu");
+        //}
+        ////商品刪除
+        ////TODO:刪除確認
        
-        [HttpPost]
-        public ActionResult SpuDelete(int id)
-        {
-            var pSpu = db.spu.Where(p => p.id == id).FirstOrDefault();
-            db.spu.Remove(pSpu);
-            db.SaveChanges();
-            return RedirectToAction("Spu");
-        }
+        //[HttpPost]
+        //public ActionResult SpuDelete(int id)
+        //{
+        //    var pSpu = db.spu.Where(p => p.id == id).FirstOrDefault();
+        //    db.spu.Remove(pSpu);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Spu");
+        //}
 
 
-        //檢查是否為圖片
-        [NonAction]
-        public bool CheckIsImages(Stream imageStream)
-        {
-            bool check;
-            try
-            {
-                System.Drawing.Image.FromStream(imageStream);
-                check = true;
-            }
-            catch { check = false; }
-            return check;
-        }
+        ////檢查是否為圖片
+        //[NonAction]
+        //public bool CheckIsImages(Stream imageStream)
+        //{
+        //    bool check;
+        //    try
+        //    {
+        //        System.Drawing.Image.FromStream(imageStream);
+        //        check = true;
+        //    }
+        //    catch { check = false; }
+        //    return check;
+        //}
 
 
 
@@ -306,6 +343,8 @@ namespace shop123.Controllers
         //取得分類資訊
         public JsonResult GetCatB(string showCA)
         {
+            catalogB catb =new catalogB();
+
             var cat = db.catalogA.Join(db.catalogB,
                 a => a.id, b => b.catalogAId, (a, b) => new
                 {
@@ -313,8 +352,9 @@ namespace shop123.Controllers
                     cataname = a.catalogAName,
                     catbId = b.id,
                     catbname = b.catalogBName
-                }).Where(a => a.cataname == showCA).ToList().FirstOrDefault().cataId;
-            return Json(new SelectList(db.catalogB.Where(b=> (b.catalogAId == cat)), "id", "catalogBName"));
+                }).Where(a => a.cataname == showCA).ToList().FirstOrDefault();
+            var cataid = cat.cataId;
+            return Json(new SelectList(db.catalogB.Where(b=> (b.catalogAId == cataid)), "id", "catalogBName"));
         }
 
 

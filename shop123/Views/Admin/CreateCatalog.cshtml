@@ -19,7 +19,9 @@
         }
     </style>
 </head>
-<body style="margin:0 auto;">
+<body style="margin:0 auto;padding:30px;">
+
+    
     <div class="container">
         <div class="form-horizontal">
             <h4>新增大項</h4>
@@ -36,42 +38,50 @@
                 </div>
             </div>
 
- 
-        <form class="form-group form-row" action="/Admin/CatalogACreate" method="post">
 
-            <div class="col-md-12">
-                新增大分類(請先在上面表單確認沒有此分類項目)
-            </div>
-            <div class="col-md-6">
-                <input type="text" placeholder="請輸入大項名稱" required name="catA" class = "form-control" />
-            </div>
-            <div class="col-md-12">
-                <input type="submit" value="創建A分類" />
-            </div>
-        </form>
+            <form class="form-group form-row" action="/Admin/CatalogACreate" method="post">
 
-        <form class="form-group form-row" action="/Admin/CatalogBCreate" method="post">
+                <div class="col-md-12">
+                    新增大分類(請先在上面表單確認沒有此分類項目)
+                </div>
+                <div class="col-md-6">
+                    <input type="text" placeholder="請輸入大項名稱" required name="catA" class="form-control" />
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" value="創建A分類" />
+                </div>
+            </form>
 
-            <div class="col-md-12">
-                新增細項分類(請先在上面表單確認沒有此分類項目)
-            </div>
-            <div class="col-md-6">
-                @Html.DropDownList("showCAb", null, "-大項分類-", htmlAttributes: new { id = "catBa", @class = "form-control" })
-            </div>
-            <div class="col-md-6">
-                <input type="text" placeholder="請輸入細項名稱" required name="catB" class = "form-control"  />
-            </div>
-            <div class="col-md-6">
-                <input type="submit" value="創建B分類" />
-            </div>
-        </form>
+            <form class="form-group form-row" action="/Admin/CatalogBCreate" method="post">
+
+                <div class="col-md-12">
+                    新增細項分類(請先在上面表單確認沒有此分類項目)
+                </div>
+                <div class="col-md-6">
+                    @Html.DropDownList("showCAb", null, "-大項分類-", htmlAttributes: new { id = "catBa", @class = "form-control" })
+                </div>
+                <div class="col-md-6">
+                    <input type="text" placeholder="請輸入細項名稱" required name="catB" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <input type="submit" value="創建B分類" />
+                </div>
+            </form>
 
 
 
 
 
         </div>
-        </div>
+    </div>
+    <div style="margin:100px;" class="d-flex justify-content-around">
+        <p>
+            @Html.ActionLink("回管理者介面", "AdminIndex", "", new { @class = "btn btn-dark" })
+        </p>
+        <p>
+            @Html.ActionLink("回分類清單", "Catalog", "", new { @class = "btn btn-dark" })
+        </p>
+    </div>
     <script type="text/javascript">
 
         $(document).ready(function () {
