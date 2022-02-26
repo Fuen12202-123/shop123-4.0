@@ -20,7 +20,7 @@ public partial class spu
             [Required(ErrorMessage = "必填欄位")]
             [DisplayName("會員編號")]
             public int memberId { get; set; }
-            [Required(ErrorMessage = "必填欄位")]
+
             [DisplayName("商品描述")]
             public string spuInfo { get; set; }
             [Required(ErrorMessage = "必填欄位")]

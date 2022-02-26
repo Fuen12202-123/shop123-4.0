@@ -142,23 +142,9 @@ namespace shop123.Controllers
         //get:上下架
         public ActionResult UpdateSpuShow(int id)
         {
-            spu pSpu = new spu();
-            pSpu.id = id;
             var spu = db.spu.Where(p => p.id == id).FirstOrDefault();
             if (spu.spuShow == "未上架") spu.spuShow = "已上架";
             else { spu.spuShow = "已上架"; }
-            spu.memberId = pSpu.memberId;
-            pSpu.spuName = spu.spuName;
-            pSpu.catalogAId = spu.catalogAId;
-            pSpu.catalogBId = spu.catalogBId;
-            pSpu.spuPrice = spu.spuPrice;
-            pSpu.spuInfo = spu.spuInfo;
-            pSpu.spuImg1 = spu.spuImg1;
-            pSpu.spuImg2 = spu.spuImg2;
-            pSpu.spuImg3 = spu.spuImg3;
-            pSpu.spuImg4 = spu.spuImg4;
-            pSpu.spuImg5 = spu.spuImg5;
-            pSpu.spuCreatedTime = spu.spuCreatedTime;
             spu.spuEditTime = DateTime.Now;
             db.SaveChanges();
             return RedirectToAction("Spu");
