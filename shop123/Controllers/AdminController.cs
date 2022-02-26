@@ -131,9 +131,25 @@ namespace shop123.Controllers
         //TODO:排版要調整
         public ActionResult Spu()
         {
+            var showspu = db.spu.GroupBy(p => p.spuShow).Select(s => s.FirstOrDefault()).ToList();
+            ViewBag.spushow = new SelectList(showspu, "spuShow", "spuShow");
             var pSpu = db.spu.OrderByDescending(m => m.id);
             return View(pSpu);
         }
+
+        //商品上下架即時更新
+        public ActionResult UpdateSpuShow(int id)
+        {
+            var spu = db.spu.Where(p => p.id == id).FirstOrDefault();
+            if (spu.spuShow=="已上架") spu.spuShow ="已上架";
+            else { spu.spuShow = "未上架"; }
+            db.SaveChanges();
+            return RedirectToAction("Member");
+        }
+
+
+
+
         //GET:商品新增
         public ActionResult SpuCreate()
         {

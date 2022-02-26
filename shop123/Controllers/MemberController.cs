@@ -29,7 +29,15 @@ namespace shop123.Controllers
                 memberName = member.First().memberName,
                 memberPassword = member.First().memberPassword,
                 memberEmail = member.First().memberEmail,
-                memberPhone = member.First().memberPhone
+                memberPhone = member.First().memberPhone,
+                orderSeller = db.orders.Where(s => s.sellerId == memberId).ToList().Select(s => new orderSeller()
+                {
+                    id = s.id,
+                    receiverName = s.receiverName,
+                    orderCreate = (DateTime)s.orderCreateTime,
+                    orderState = s.orderState,
+                    totalPrice = (int)s.totalPrice,
+                })
             };
 
 
@@ -61,14 +69,15 @@ namespace shop123.Controllers
         {
             shop123Entities2 sh = new shop123Entities2();
             string userAccount = User.Identity.Name;
-            //var userId = (from m in sh.member where m.memberAccount == userAccount select m.id).First();
+            var userId = (from m in sh.member where m.memberEmail == userAccount select m.memberAccount).First();
+
             if (sm.spuImg1 != null)
             {
                 spu spu = new spu()
                 {
                     spuName = sm.spuName,
                     //memberId = sm.memberId,
-                    memberId= userAccount,
+                    memberId = userId,   //memberId改為memberAccount
                     spuInfo = sm.spuInfo,
                     spuPrice = sm.spuPrice,
                     catalogAId = sm.catalogAId,
@@ -83,45 +92,20 @@ namespace shop123.Controllers
                 };
                 spu.spuCreatedTime = DateTime.Now;
                 spu.spuEditTime = DateTime.Now;
-                sku sku = new sku();
 
                 sh.spu.Add(spu);
-                //sh.SaveChanges();
-                //sku.spuId = spu.id;
-                //sku.skuImg = spu.spuImg1;
-                //sh.sku.Add(sku);
-                //sh.SaveChanges();
-                //if (spu.spuImg2 != null)
-                //{
-                //    sku.skuImg = spu.spuImg2;
-                //    sh.sku.Add(sku);
-                //    sh.SaveChanges();
-                //}
-                //if (spu.spuImg3 != null)
-                //{
-                //    sku.skuImg = spu.spuImg3;
-                //    sh.sku.Add(sku);
-                //    sh.SaveChanges();
-                //}
-                //if (spu.spuImg4 != null)
-                //{
-                //    sku.skuImg = spu.spuImg4;
-                //    sh.sku.Add(sku);
-                //    sh.SaveChanges();
-                //}
-                //if (spu.spuImg5 != null)
-                //{
-                //    sku.skuImg = spu.spuImg5;
-                //    sh.sku.Add(sku);
-                //    sh.SaveChanges();
-                //}
+                sh.SaveChanges();
+                sku sku = new sku(); //新增spu商品會同時連動sku增加欄位，存檔後跳轉skuList修改sku
+                sku.spuId = spu.id;
+                sh.sku.Add(sku);
+                sh.SaveChanges();
 
                 return RedirectToAction("test");
             }
-            //else
-            //{
-            return View();
-            //}
+            else
+            {
+                return View();
+            }
 
 
 
@@ -161,7 +145,7 @@ namespace shop123.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-
+        //新增sku
         public ActionResult Addsku()
         {
             return View();
@@ -174,14 +158,14 @@ namespace shop123.Controllers
             sh.SaveChanges();
             return Json(sku, JsonRequestBehavior.AllowGet);
         }
-
+        //取得spu資料庫紀錄
         public JsonResult getSpuId(int id)
         {
             shop123Entities2 sh = new shop123Entities2();
             spu spu = sh.spu.FirstOrDefault(p => p.id == id);
             return Json(spu, JsonRequestBehavior.AllowGet);
         }
-
+        //更新spu，圖片修改另外呼叫upload存入資料夾，這邊的img只存入sql
         public JsonResult spuEdit(spu spu)
         {
             shop123Entities2 sh = new shop123Entities2();
@@ -211,7 +195,7 @@ namespace shop123.Controllers
             return Json(p, JsonRequestBehavior.AllowGet);
         }
 
-
+        //刪除spu，會連動sku
         public JsonResult itemDelete(int id)
         {
             shop123Entities2 sh = new shop123Entities2();
@@ -228,7 +212,8 @@ namespace shop123.Controllers
             }
             return Json(spu, JsonRequestBehavior.AllowGet);
         }
-        public /*ActionResult*/ JsonResult SkuList()
+        //sku清單
+        public  JsonResult SkuList()
         {
             shop123Entities2 sh = new shop123Entities2();
             string usertest = User.Identity.Name;
@@ -253,6 +238,37 @@ namespace shop123.Controllers
             //return View(test);
         }
 
+        //sku搜尋
+
+        public JsonResult SkuSearch(string searchText)
+        {
+
+
+
+            shop123Entities2 sh = new shop123Entities2();
+            string usertest = User.Identity.Name;
+            IEnumerable<SkuViewModel> test = from m in sh.member
+                                             join s in sh.spu on m.memberAccount equals s.memberId
+                                             where m.memberAccount == usertest
+                                             join k in sh.sku on s.id equals k.spuId
+                                             where s.spuName.Contains(searchText)
+                                             select new SkuViewModel
+                                             {
+                                                 spuName = s.spuName,
+                                                 skuId = k.id,
+                                                 skuColor = k.skuColor,
+                                                 skuImg = k.skuImg,
+                                                 skuSize = k.skuSize,
+                                                 skuStock = k.skuStock,
+                                                 spuId = (int)k.spuId,
+
+                                             };
+
+
+            return Json(test, JsonRequestBehavior.AllowGet);
+
+        }
+        //取得sku紀錄
         public JsonResult getByid(int id)
         {
             shop123Entities2 sh = new shop123Entities2();
@@ -279,6 +295,7 @@ namespace shop123.Controllers
             return Json(s, JsonRequestBehavior.AllowGet);
         }
 
+        //spu、sku的CRUD介面
         public ActionResult test()
         {
             return View();
