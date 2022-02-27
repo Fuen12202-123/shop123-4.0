@@ -71,19 +71,38 @@ namespace shop123.Controllers
             return PartialView("_categoryB", catalog);
         }
 
-        public ActionResult categoryPage(int catalogAId, int catalogBId, int page)
+        public ActionResult categoryPage(int catalogAId, int catalogBId, int page,string sort)
         {
-            List<spu> spu = null;
+            List<spu> spu = new List<spu>();
 
             int currentPage = page < 1 ? 1 : page;
-
-            if (catalogBId == 0)
-                spu = (new spuFactory()).queryBycatA(catalogAId);
-            else
-                spu = (new spuFactory()).queryBycatAB(catalogAId, catalogBId);
+            if(sort == "no")
+            {
+                if (catalogBId == 0)
+                    spu = (new spuFactory()).queryBycatA(catalogAId);
+                else if (catalogBId != 0)
+                    spu = (new spuFactory()).queryBycatAB(catalogAId, catalogBId);
+            }
+            else if(sort== "asc")
+            {
+                if (catalogBId == 0)
+                    spu = (new spuFactory()).queryBycatAasc(catalogAId);
+                else if (catalogBId != 0)
+                    spu = (new spuFactory()).queryBycatABasc(catalogAId, catalogBId);
+            }
+            else if (sort == "desc")
+            {
+                if (catalogBId == 0)
+                    spu = (new spuFactory()).queryBycatAdesc(catalogAId);
+                else if (catalogBId != 0)
+                    spu = (new spuFactory()).queryBycatABdesc(catalogAId, catalogBId);
+            }
+        
             var result = spu.ToPagedList(currentPage, pageSize);
             ViewBag.catalogAId = catalogAId;
             ViewBag.catalogBId = catalogBId;
+            ViewBag.page = page;
+            ViewBag.sort = sort;    
             return View(result);
 
         }
@@ -112,7 +131,7 @@ namespace shop123.Controllers
             return PartialView("Checksize", size);
         }//aja從資料庫找對應的size button
 
-        public ActionResult checkSkuid(string color, string size,int spuID)
+        public ActionResult checkSkuid(string color, string size, int spuID)
         {
             var sk = from sku in db.sku
                      where sku.skuColor == color && sku.skuSize == size && sku.spuId == spuID
