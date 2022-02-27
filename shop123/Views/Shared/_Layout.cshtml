@@ -15,6 +15,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title 衣貳衫</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+        @*<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+        <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+            integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
           integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -65,39 +73,8 @@
 
 
             <footer class="mb-3">
-                <!--<div onload="init()" >
-                <form enctype="text/plain" accept-charset="utf-8" style="margin:0 auto;">
-                    <div class="form-row">
-                        <div class="form-group">-->
-                <!-- 寄件者姓名    -->
-                <!--<input class="form-control col-md-4" id="nameText" type="text" name="Name" valuesize="60" placeholder="姓名(name)" required>-->  <!-- required 必填欄位 ，placeholder 預設內容-->
-                <!--</div>
-                <div class="form-group">-->
-                <!-- 寄件者email -->
-                <!--<input class="form-control col-md-4" id="emailText" type="email" name="Email" valuesize="60" placeholder="Email" required>
-                </div>
-                <div class="form-group">-->
-                <!-- 寄件者電話 -->
-                <!--<input class="form-control col-md-4" id="telText" type="tel" name="Phone" valuesize="60" aria-invalid="false" placeholder="電話(phone)" required>
-                </div>
-                <div class="form-group">-->
-                <!-- 郵件主旨 -->
-                <!--<input class="form-control col-md-4" id="subText" type="text" name="Subject" valuesize="60" aria-invalid="false" placeholder="主旨(subject)" required>
-                </div>
-                <div class="form-group">-->
-                <!-- 郵件內容 -->
-                <!--<textarea class="form-control col-md-12" id="bodyText" name="your-message" cols="120" rows="10" aria-required="true" aria-invalid="true" placeholder="你的訊息(Your Message)" required style="resize: none;"></textarea>
-                </div>
-                <div class="form-group">-->
-                <!-- 傳送按鈕 -->
-                <!--<input type="button" value="送出" onclick="submitHandler();">
-                                <a id="mailTo"></a>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>-->
-                <div id="#CreateContact">
+                
+                <div id="dialog">
                     <form id="memberForm" novalidate>
                         <div class="form-row">
                             <div class="form-group">
@@ -130,7 +107,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end text">
-                    <button type="button" class="btn btn-info" onclick="openCreateContact()">新增會員資料</button>
+                    <button id="opener" onclick="openCreateContact()">新增會員資料</button>
                     <span style="font-size: 12px; cursor: pointer; ">網站使用條款 | 隱私權政策 | 免責聲明 </span>
                     <span style="font-size: 12px"> | &copy; @DateTime.Now.Year - 衣貳衫</span>
 
@@ -148,17 +125,23 @@
     <script src="~/Scripts/ToTop.js"></script>
     <script src="~/Scripts/spucard.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#CreateContact').dialog({
+        $(function () {
+            $("#dialog").dialog({
                 autoOpen: false,
-                title: "聯絡管理員",
-                show: "blind",
-                hide: "explode"
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+
+            $("#opener").click(function () {
+                $("#dialog").dialog("open");
             });
         });
-        function openCreateContact() {
-            $('#CreateContact').dialog({ autoOpen: true });
-        };
         //宣告預設表單內容為空 （你想要的話也可以加東西）
         var initSubject = '', initBody = '';
 
@@ -186,4 +169,4 @@
         }
     </script>
 </body>
-            </html>
+</html>
