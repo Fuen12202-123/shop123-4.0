@@ -144,7 +144,7 @@ namespace shop123.Controllers
         {
             var spu = db.spu.Where(p => p.id == id).FirstOrDefault();
             if (spu.spuShow == "未上架") spu.spuShow = "已上架";
-            else { spu.spuShow = "已上架"; }
+            else { spu.spuShow = "未上架"; }
             spu.spuEditTime = DateTime.Now;
             db.SaveChanges();
             return RedirectToAction("Spu");
