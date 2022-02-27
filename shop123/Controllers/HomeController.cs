@@ -73,7 +73,7 @@ namespace shop123.Controllers
 
         public ActionResult categoryPage(int catalogAId, int catalogBId, int page,string sort)
         {
-            List<spu> spu = null;
+            List<spu> spu = new List<spu>();
 
             int currentPage = page < 1 ? 1 : page;
             if(sort == "no")
@@ -101,6 +101,8 @@ namespace shop123.Controllers
             var result = spu.ToPagedList(currentPage, pageSize);
             ViewBag.catalogAId = catalogAId;
             ViewBag.catalogBId = catalogBId;
+            ViewBag.page = page;
+            ViewBag.sort = sort;    
             return View(result);
 
         }
