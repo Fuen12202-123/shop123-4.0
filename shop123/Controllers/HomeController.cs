@@ -65,45 +65,54 @@ namespace shop123.Controllers
         }
 
 
-        public ActionResult _categoryB(int catalogAId)
+        public ActionResult _categoryB(int? catalogAId)
         {
-            var catalog = (new catalogBFactory()).queryBycatA(catalogAId);
-            return PartialView("_categoryB", catalog);
+            if (catalogAId.HasValue)
+            {
+                var catalog = (new catalogBFactory()).queryBycatA((int)catalogAId);
+                return PartialView("_categoryB", catalog);
+            }
+            return RedirectToAction("Index");
+
         }
 
-        public ActionResult categoryPage(int catalogAId, int catalogBId, int page,string sort)
+        public ActionResult categoryPage(int? catalogAId, int? catalogBId, int? page, string sort)
         {
-            List<spu> spu = new List<spu>();
 
-            int currentPage = page < 1 ? 1 : page;
-            if(sort == "no")
+
+            if (catalogAId.HasValue && catalogBId.HasValue && page.HasValue && !String.IsNullOrEmpty(sort))
             {
-                if (catalogBId == 0)
-                    spu = (new spuFactory()).queryBycatA(catalogAId);
-                else if (catalogBId != 0)
-                    spu = (new spuFactory()).queryBycatAB(catalogAId, catalogBId);
+                List<spu> spu = new List<spu>();
+                int currentPage = (int)page < 1 ? 1 : (int)page;
+                if (sort == "no")
+                {
+                    if (catalogBId == 0)
+                        spu = (new spuFactory()).queryBycatA((int)catalogAId);
+                    else if (catalogBId != 0)
+                        spu = (new spuFactory()).queryBycatAB((int)catalogAId, (int)catalogBId);
+                }
+                else if (sort == "asc")
+                {
+                    if (catalogBId == 0)
+                        spu = (new spuFactory()).queryBycatAasc((int)catalogAId);
+                    else if (catalogBId != 0)
+                        spu = (new spuFactory()).queryBycatABasc((int)catalogAId, (int)catalogBId);
+                }
+                else if (sort == "desc")
+                {
+                    if (catalogBId == 0)
+                        spu = (new spuFactory()).queryBycatAdesc((int)catalogAId);
+                    else if (catalogBId != 0)
+                        spu = (new spuFactory()).queryBycatABdesc((int)catalogAId, (int)catalogBId);
+                }
+                var result = spu.ToPagedList(currentPage, pageSize);
+                ViewBag.catalogAId = catalogAId;
+                ViewBag.catalogBId = catalogBId;
+                ViewBag.page = page;
+                ViewBag.sort = sort;
+                return View(result);
             }
-            else if(sort== "asc")
-            {
-                if (catalogBId == 0)
-                    spu = (new spuFactory()).queryBycatAasc(catalogAId);
-                else if (catalogBId != 0)
-                    spu = (new spuFactory()).queryBycatABasc(catalogAId, catalogBId);
-            }
-            else if (sort == "desc")
-            {
-                if (catalogBId == 0)
-                    spu = (new spuFactory()).queryBycatAdesc(catalogAId);
-                else if (catalogBId != 0)
-                    spu = (new spuFactory()).queryBycatABdesc(catalogAId, catalogBId);
-            }
-        
-            var result = spu.ToPagedList(currentPage, pageSize);
-            ViewBag.catalogAId = catalogAId;
-            ViewBag.catalogBId = catalogBId;
-            ViewBag.page = page;
-            ViewBag.sort = sort;    
-            return View(result);
+            return RedirectToAction("Index");
 
         }
 

@@ -29,8 +29,10 @@
 <body id="body-content">
     <div class="container">
         <div class="row mt-4">
-            <div class="col-12 col-sm-8">@Html.ActionLink(" ", "Index", "Home", null, new { style = "background: url('" + Url.Content("~/Images/logo.png") + "') no-repeat center right; display:block; height:122px; width:238px;" })</div>
-            <div class="col-12 col-sm-4 d-flex justify-content-end align-items-end mb-5">
+            <div class="col-12 col-sm-12 col-md-6  d-flex justify-content-center justify-content-md-start" >
+            <a  href="@Url.Action("Index","Home")"><img src="~/Images/logo.png"  /></a>               
+            </div>
+            <div class="col-12 col-sm-12 col-md-6  d-flex justify-content-md-end justify-content-center align-items-end mb-5 mt-3 ">
                 @using (Html.BeginForm("Allspu", "Home", FormMethod.Get))
                 {
                     @Html.TextBox("SearchString", "", new { id = "Search", required = "required", placeholder = "Search", @style = "outline:0;" })
@@ -40,7 +42,7 @@
         </div>
 
         <div>
-            <ul class="row list-unstyled justify-content-end mb-5 ">
+            <ul class="row list-unstyled  mb-5 justify-content-md-end justify-content-center">
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li><a class="text-dark px-4 text-decoration-none" ; href="@Url.Action("MemberCenter", "Member")">@(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name : "Guest")</a></li>
