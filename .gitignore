@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+shop123/bin/shop123.dll
+shop123/bin/shop123.pdb

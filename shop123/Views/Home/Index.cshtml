@@ -33,7 +33,7 @@
 <div class="owl-carousel owl-theme owl-nav">
     @{foreach (var item in Model.carousels)
         {
-            <div class="item"> <a href="@Html.Raw(@Url.Action("categoryPage", "Home", new { catalogAId = @item.catalogAId, catalogBId = @item.catalogBId, page = 1 }))"><img style="width:100%" src="@item.carouselImg"></a></div>
+            <div class="item"> <a href="@Html.Raw(@Url.Action("categoryPage", "Home", new { catalogAId = @item.catalogAId, catalogBId = @item.catalogBId, page = 1 ,sort="no"}))"><img style="width:100%" src="@item.carouselImg"></a></div>
         }
     }
 </div>
