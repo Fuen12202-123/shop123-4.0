@@ -91,8 +91,8 @@
                 <div class="Ddrag-area">
                     <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
                     <header>拖曳或點擊</header>
-                    <button class="dragbtn">上傳</button>
-                    <input type="file" class="dropinput" hidden>
+                    <button class="dragbtn">選擇檔案</button>
+                    <input type="file" class="dropinput" name="memberImg" value="@ViewData.Model.memberImg" hidden>
                     <!--隱藏input-->
                 </div>
                 <input type="submit" id="confirmSave" name="memberSubmit" value="儲存修改">
@@ -129,7 +129,7 @@
                                         @Html.DisplayFor(modelItem => item.id)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                        @Html.DisplayFor(modelItem => item.receiverPhone)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
@@ -164,7 +164,7 @@
                                         @Html.DisplayFor(modelItem => item.id)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                        @Html.DisplayFor(modelItem => item.receiverPhone)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
@@ -199,7 +199,7 @@
                                         @Html.DisplayFor(modelItem => item.id)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                        @Html.DisplayFor(modelItem => item.receiverPhone)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
@@ -234,7 +234,7 @@
                                         @Html.DisplayFor(modelItem => item.id)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                        @Html.DisplayFor(modelItem => item.receiverPhone)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
@@ -269,7 +269,7 @@
                                         @Html.DisplayFor(modelItem => item.id)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                        @Html.DisplayFor(modelItem => item.receiverPhone)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
@@ -304,7 +304,7 @@
                                         @Html.DisplayFor(modelItem => item.id)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.receiverName)
+                                        @Html.DisplayFor(modelItem => item.receiverPhone)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)

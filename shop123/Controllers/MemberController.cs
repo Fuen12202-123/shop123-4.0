@@ -34,6 +34,7 @@ namespace shop123.Controllers
                 {
                     id = s.id,
                     receiverName = s.receiverName,
+                    receiverPhone = s.receiverPhone,
                     orderCreate = (DateTime)s.orderCreateTime,
                     orderState = s.orderState,
                     totalPrice = (int)s.totalPrice,
