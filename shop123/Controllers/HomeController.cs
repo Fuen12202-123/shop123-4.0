@@ -1,4 +1,4 @@
-﻿              
+﻿
 
 using Newtonsoft.Json;
 using PagedList;
@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace shop123.Controllers
 {
-    
+
     public class HomeController : Controller
     {//首頁、分類頁、商品頁、使用者註冊登入、賣家首頁
         shop123Entities2 db = new shop123Entities2();
@@ -27,27 +27,29 @@ namespace shop123.Controllers
 
         int pageSize = 20;
 
-        public ActionResult Allspu(string searchstring,int page = 1)
+        public ActionResult Allspu(string searchstring, int page = 1)
         {//所有產品分頁的頁面
-            var spu = db.spu.ToList();
+            List<spu> spu = null;
+
+            spu = (new spuFactory()).queryAll();
 
             if (!String.IsNullOrEmpty(searchstring))
             {
-                spu = spu.Where(s =>s.spuName.Contains(searchstring) && s.spuShow== "已上架").ToList();
+                spu = (new spuFactory()).queryByKeyword(searchstring);
             }
             else
             {
-                spu = db.spu.Where(m=>m.spuShow== "已上架").OrderByDescending(m => m.spuEditTime).ToList();
+                spu = (new spuFactory()).queryShowDesc();
             }
-            int currentPage = page < 1 ? 1 : page;            
+            int currentPage = page < 1 ? 1 : page;
             var result = spu.ToPagedList(currentPage, pageSize);
             return View(result);
         }
-        
+
         public ActionResult Index()
         {
-            var carousel = db.carousel.ToList();
-            var spu = db.spu.OrderByDescending(m => m.spuEditTime).Where(s=>s.spuShow == "已上架").ToList();
+            var carousel = (new carouselFactory()).queryAll();
+            var spu = (new spuFactory()).queryShowDesc();
 
             HomeViewModel vw = new HomeViewModel();
             vw.carousels = carousel;
@@ -58,40 +60,38 @@ namespace shop123.Controllers
 
         public ActionResult _categoryA()
         {
-            List<catalogA> catalog;
-            catalog = db.catalogA.ToList();
+            var catalog = (new catalogAFactory()).queryAll();
             return PartialView("_categoryA", catalog);
         }
 
 
         public ActionResult _categoryB(int catalogAId)
         {
-            List<catalogB> catalog;
-            catalog = db.catalogB.Where(m => m.catalogAId == catalogAId).ToList();
+            var catalog = (new catalogBFactory()).queryBycatA(catalogAId);
             return PartialView("_categoryB", catalog);
         }
 
         public ActionResult categoryPage(int catalogAId, int catalogBId, int page)
         {
-            List<spu> spu=new List<spu>();
+            List<spu> spu = null;
 
             int currentPage = page < 1 ? 1 : page;
-          
-                if (catalogBId == 0)          
-                    spu = db.spu.Where(m => m.catalogAId == catalogAId && m.spuShow == "已上架").OrderByDescending(m=>m.spuEditTime).ToList();
-                else
-                    spu = db.spu.Where(m => m.catalogAId == catalogAId && m.catalogBId == catalogBId && m.spuShow == "已上架").OrderByDescending(m => m.spuEditTime).ToList();           
+
+            if (catalogBId == 0)
+                spu = (new spuFactory()).queryBycatA(catalogAId);
+            else
+                spu = (new spuFactory()).queryBycatAB(catalogAId, catalogBId);
             var result = spu.ToPagedList(currentPage, pageSize);
             ViewBag.catalogAId = catalogAId;
             ViewBag.catalogBId = catalogBId;
             return View(result);
 
-        } 
-      
-       
+        }
+
+
         public ActionResult Detail(int? id)
         {
-            string memberId = User.Identity.Name;            
+            string memberId = User.Identity.Name;
             ViewBag.memberId = memberId;
             CDetailViewModel detail = null;
             if (id.HasValue)
@@ -124,10 +124,10 @@ namespace shop123.Controllers
         {
             //if (mbId.)
             //{
-                MemberShopViewModel MemberShop = new MemberShopViewModel();
-                MemberShop.MB = db.member.FirstOrDefault(m => m.memberAccount == mbId);
-                MemberShop.MBspu = db.spu.Where(s => s.memberId == mbId).ToList();
-                return View(MemberShop);
+            MemberShopViewModel MemberShop = new MemberShopViewModel();
+            MemberShop.MB = db.member.FirstOrDefault(m => m.memberAccount == mbId);
+            MemberShop.MBspu = db.spu.Where(s => s.memberId == mbId).ToList();
+            return View(MemberShop);
             //}
             //return RedirectToAction("Index");
         }
@@ -159,18 +159,18 @@ namespace shop123.Controllers
         //New Version
         //Post:sign 
         public ActionResult sign(member member, string returnUrl)
-        { 
+        {
             //test
-          
+
 
             shop123Entities2 s = new shop123Entities2();
             var m = s.member.Where(p => p.memberEmail == member.memberEmail && p.memberPassword == member.memberPassword.ToString()).FirstOrDefault();
-           
-            
+
+
 
             //var memberAccount = m.memberAccount;  //m=null時擲回例外，改放進if判斷式裡面，並跳回登入頁面
-           
-            
+
+
             //var memberBanned=m.memberBanned;
             if (m != null)
             {
@@ -205,7 +205,7 @@ namespace shop123.Controllers
                     TempData["message"] = "此帳號已被禁用，請洽管理員";
                     return View();
                 }
-                
+
             }
             else
             {
@@ -216,8 +216,8 @@ namespace shop123.Controllers
             }
 
 
-            
-           
+
+
 
         }
 
@@ -253,7 +253,7 @@ namespace shop123.Controllers
 
             try
             {
-                
+
                 ViewBag.suc = "註冊成功，請重新登入";
                 return RedirectToAction("sign");
             }
@@ -288,7 +288,7 @@ namespace shop123.Controllers
                 DateTime.Now.AddMinutes(20),//票證有效期間
                 false,//是否將 Cookie 設定成 Session Cookie
                 UserData);//會員資料
-                //加密驗證票
+                          //加密驗證票
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);
             // 建立Cookie
             HttpCookie authenticationcookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);

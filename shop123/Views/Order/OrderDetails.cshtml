@@ -35,7 +35,7 @@
         <br />
         <br />
         <div role="tabpanel" class="tab-pane active" id="All">
-            @Html.Action("OrderDetailsPartial", "Order", new {state="all"})
+            @Html.Action("OrderDetailsPartial", "Order", new { state = "all" })
         </div>
         <div role="tabpanel" class="tab-pane fade" id="NotPay">
         </div>
@@ -50,8 +50,67 @@
 
     </div>
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
+      function finish(id) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("finish", "Order")',
+            data: { id: id },
+            success: function () {
+                showorders("all");
+                showorders("待收貨");
+            }
+
+        })
+    }
+    function cancel(id) {
+        swal({
+            title: "您確定要取消?",
+            icon: "warning",
+            buttons: {
+                A: {
+                    text: "確定",
+                    value: "A"
+                },
+                B: {
+                    text: "取消",
+                    value: "B"
+                },
+            }
+        }).then((value) => {
+            if (value === "A") {
+                $.ajax({
+            type: 'POST',
+            url: '@Url.Action("cancel", "Order")',
+            data: { id: id },
+            success: function () {
+                showorders("待出貨");
+                showorders("待收貨");
+                showorders("未付款");
+                showorders("all");
+            }
+        })
+            }
+            else {
+                return;
+            }
+        });
+
+    }
+    function pay(id) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("pay", "Order")',
+            data: { id: id },
+            success: function () {
+                showorders("未付款");
+                showorders("all");
+
+            }
+        })
+    }
     function showorders(state) {
         $.ajax({
                                     type: 'GET',
@@ -74,6 +133,9 @@
                                                 case '不成立':
                             $('#Cancel').html(data);
                                                     break;
+                                                case 'all':
+                            $('#All').html(data);
+                                                    break;
                                                 default:
                                                     break;
                                             }
@@ -82,6 +144,6 @@
     }
 
 
-   
-    
+
+
 </script>

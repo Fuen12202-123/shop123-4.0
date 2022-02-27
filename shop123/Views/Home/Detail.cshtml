@@ -85,7 +85,7 @@
                             </span>
                             @if (ViewBag.memberId == "")
                             {
-                                <a  href="@Url.Action("AddCar","ShoppingCart")"  class="btn_addcart">加入購物車</a>
+                                <a  onclick="login()" href="#"  class="btn_addcart">加入購物車</a>
                             }
                             else
                             {
@@ -206,6 +206,10 @@
                 //.done(function (msg) {
                 //    $('li#Cart').html(msg);
                 //});
+        }
+
+        function login() {
+            swal("請先登入");
         }
 
         //商品數量加減

@@ -218,13 +218,16 @@
     <Compile Include="Models\carousel.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\carouselFactory.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\catalogA.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\catalogAFactory.cs" />
     <Compile Include="Models\catalogB.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\catalogBFactory.cs" />
     <Compile Include="Models\CDetailFactory.cs" />
     <Compile Include="Models\comment.cs">
       <DependentUpon>shop123.tt</DependentUpon>
@@ -246,6 +249,8 @@
     <Compile Include="Models\ordersDetail.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ordersDetailFactory.cs" />
+    <Compile Include="Models\ordersFactory.cs" />
     <Compile Include="Models\PartialModels\catalogAPartial.cs" />
     <Compile Include="Models\PartialModels\catalogBPartial.cs" />
     <Compile Include="Models\PartialModels\memberPartial.cs" />
@@ -272,9 +277,11 @@
     <Compile Include="Models\sku.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\skuFactory.cs" />
     <Compile Include="Models\spu.cs">
       <DependentUpon>shop123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spuFactory.cs" />
     <Compile Include="Models\SpuModel.cs" />
     <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

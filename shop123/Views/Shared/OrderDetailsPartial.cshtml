@@ -61,35 +61,40 @@
                 <div>
                     @if (@item.orderState == "未付款")
                     {
-                        <a onclick="pay(@item.id)" href="#" class="btn btn-outline-secondary">付款</a>
-                        <a onclick="cancel(@item.id)" href="#" class="btn btn-outline-secondary">取消訂單</a>
+                        <a onclick="pay(@item.id)" class="btn btn-outline-secondary">付款</a>
+                        <a onclick="cancel(@item.id)" class="btn btn-outline-secondary">取消訂單</a>
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-                            <a class="btn btn-outline-secondary">查看評價</a>*@
+            <a class="btn btn-outline-secondary">查看評價</a>*@
                     }
                     else if (@item.orderState == "待出貨")
                     {
-                        <a onclick="cancel(@item.id)" href="#" class="btn btn-outline-secondary">取消訂單</a>
+                        <a onclick="cancel(@item.id)" class="btn btn-outline-secondary">取消訂單</a>
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-                            <a class="btn btn-outline-secondary">查看評價</a>*@
+            <a class="btn btn-outline-secondary">查看評價</a>*@
                     }
                     else if (@item.orderState == "待收貨")
                     {
-                        <a onclick="finish(@item.id)" href="#" class="btn btn-outline-secondary">完成訂單</a>
+                        <a onclick="finish(@item.id)" class="btn btn-outline-secondary">完成訂單</a>
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-                            <a class="btn btn-outline-secondary">查看評價</a>*@
+            <a class="btn btn-outline-secondary">查看評價</a>*@
                     }
                     else if (@item.orderState == "完成")
                     {
                         <a href="@Url.Action("Buyagain", "ShoppingCart", new {id=@item.id})" class="btn btn-outline-secondary">再買一次</a>
 
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-                            <a class="btn btn-outline-secondary">查看評價</a>*@
+            <a class="btn btn-outline-secondary">查看評價</a>*@
                     }
                     else if (@item.orderState == "不成立")
                     {
                         <a href="@Url.Action("Buyagain", "ShoppingCart", new {id=@item.id})" class="btn btn-outline-secondary">再買一次</a>
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-                            <a class="btn btn-outline-secondary">查看評價</a>*@
+            <a class="btn btn-outline-secondary">查看評價</a>*@
+                    }
+                    else if (item.orderState == "待取消")
+                    {
+                        <a style="pointer-events:none" class="btn btn-outline-secondary">等待取消</a>
+
                     }
                 </div>
             </div>
@@ -102,41 +107,5 @@
 </div>
 
 <script>
-   function finish(id) {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("finish", "Order")',
-            data: { id: id },
-            success: function (data) {
-                $('#All').html(data);
-                $('#Shipping').html(data);
-            }
 
-        })
-    }
-     function cancel(id) {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("cancel", "Order")',
-            data: { id: id },
-            success: function (data) {
-                $('#All').html(data);
-                $('#NotPay').html(data);
-                $('#NotShipping').html(data);
-                $('#Shipping').html(data);
-            }
-        })
-    }
-    function pay(id) {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("pay", "Order")',
-            data: { id: id },
-            success: function (data) {
-                $('#All').html(data);
-                $('#NotPay').html(data);
-
-            }
-        })
-    }
 </script>
