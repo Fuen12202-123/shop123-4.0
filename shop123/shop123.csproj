@@ -137,6 +137,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\01.jpg" />
     <Content Include="Images\08.jpg" />
+    <Content Include="Images\btn001.png" />
     <Content Include="Images\c001.jpg" />
     <Content Include="Images\closeeye.png" />
     <Content Include="Images\defaultIMG.jpg" />
