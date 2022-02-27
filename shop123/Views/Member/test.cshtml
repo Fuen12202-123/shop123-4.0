@@ -434,7 +434,6 @@
                     <div>
                         <label for="catalogBId">catalogBId</label>
                         <select class="form-control itemselect" name="catalogBId" id="testC">
-
                             <option name="catalogBId" value="1">長袖</option>
                             <option name="catalogBId" value="2">短袖</option>
                             <option name="catalogBId" value="3">背心/小可愛</option>
@@ -445,6 +444,7 @@
                             <option name="catalogBId" value="8">短褲</option>
                             <option name="catalogBId" value="9">裙子</option>
                             <option name="catalogBId" value="10">內褲</option>
+                            <option name="catalogBId" value="34">鞋子</option>
                         </select>
                     </div>
 
@@ -858,7 +858,7 @@
             success: function (result) {
                 var index = result.catalogAId;
                 /* alert(index);*/
-
+                $('#testC').empty();
 
                 if (index == 1) {
                     $('#testC').empty();
@@ -1094,7 +1094,7 @@
         if (index == 2) {
             $('#testC').empty();
             $('#testC').append(`
-                        <option name="catalogBId" value="11">長袖</option>
+                        <option name="catalogBId" value="11" selected>長袖</option>
                         <option name="catalogBId" value="12">短袖</option>
                         <option name="catalogBId" value="13">背心</option>
                         <option name="catalogBId" value="14">襯衫</option>
