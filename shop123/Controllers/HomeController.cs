@@ -112,10 +112,10 @@ namespace shop123.Controllers
             return PartialView("Checksize", size);
         }//aja從資料庫找對應的size button
 
-        public ActionResult checkSkuid(string color, string size)
+        public ActionResult checkSkuid(string color, string size,int spuID)
         {
             var sk = from sku in db.sku
-                     where sku.skuColor == color && sku.skuSize == size
+                     where sku.skuColor == color && sku.skuSize == size && sku.spuId == spuID
                      select sku.id;
             string result = sk.First().ToString();
             return Content(result);

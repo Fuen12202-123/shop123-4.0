@@ -271,7 +271,8 @@
                     url: '@Url.Action("checkSkuid")',
                 data: {
                     color: $(".selectedBorder").attr("title"),
-                    size: $(".selectedBorder2").text()
+                    size: $(".selectedBorder2").text(),
+                    spuID:@Model.Spu.id
                 },
                     success: function (data) {
                         $("#skuidbox").val(data);
