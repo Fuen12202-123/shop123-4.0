@@ -24,12 +24,12 @@
 <input type="hidden" id="page" value="@ViewBag.page" />
 <div class="row d-flex">
     <div class=" col-12 col-sm-4 col-md-2 ">
-        <ul class="list-group mb-3">
+        
             @Html.Action("_categoryB", "Home")
-        </ul>
+       
         @if (ViewBag.sort == "no")
         {
-            <select id="sort" class="browser-default custom-select">
+            <select id="sort" class="browser-default custom-select border-0">
                 <option style="display:none">價格:</option>
                 <option value="asc">價格:低到高</option>
                 <option value="desc">價格:高到低</option>
@@ -37,7 +37,7 @@
         }
         else if (ViewBag.sort == "asc")
         {
-            <select id="sort" class="browser-default custom-select">
+            <select id="sort" class="browser-default custom-select border-0">
                 <option style="display:none">價格:低到高</option>
                 <option value="asc">價格:低到高</option>
                 <option value="desc">價格:高到低</option>
@@ -45,7 +45,7 @@
         }
         else
         {
-            <select id="sort" class="browser-default custom-select">
+            <select id="sort" class="browser-default custom-select border-0">
                 <option style="display:none">價格:高到低</option>
                 <option value="asc">價格:低到高</option>
                 <option value="desc">價格:高到低</option>
@@ -59,7 +59,7 @@
             {
                 <div class="col-12 col-md-4 col-lg-3 mb-3 ">
 
-                    <div class="card spucard" style="width:190px;margin:auto;">
+                    <div class="card spucard" style="width: 190px; margin: auto; border: 0 ">
 
                         <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id">
                             @if (item.spuImg1.Length > 30)

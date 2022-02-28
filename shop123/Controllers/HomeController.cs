@@ -138,7 +138,7 @@ namespace shop123.Controllers
                                        select sku.skuSize;
 
             return PartialView("Checksize", size);
-        }//aja從資料庫找對應的size button
+        }//aja從資料庫找對應該顏色的size 
 
         public ActionResult checkSkuid(string color, string size, int spuID)
         {
@@ -147,19 +147,18 @@ namespace shop123.Controllers
                      select sku.id;
             string result = sk.First().ToString();
             return Content(result);
-        }
+        }//選完顏色和尺寸,查詢對應的skuid
+
         public ActionResult MemberShop(string mbId)
         {
-            //if (mbId.)
-            //{
+            
             MemberShopViewModel MemberShop = new MemberShopViewModel();
             MemberShop.MB = db.member.FirstOrDefault(m => m.memberAccount == mbId);
             MemberShop.MBspu = db.spu.Where(s => s.memberId == mbId).ToList();
             return View(MemberShop);
-            //}
-            //return RedirectToAction("Index");
+            
         }
-        //賣家商場
+        //查詢賣家的商場
 
         public ActionResult sign()
         {

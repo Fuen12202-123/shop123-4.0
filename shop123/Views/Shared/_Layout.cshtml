@@ -181,6 +181,7 @@
     <script type="text/javascript">
         $(function () {
             $("#dialog").dialog({
+                modal: true,
                 autoOpen: false,
                 height: 730,
                 title:"聯絡管理員",
@@ -199,9 +200,11 @@
             });
         });
         $(function () {
-                    $("#dialog2").dialog({
+            $("#dialog2").dialog({
+                        modal: true,
                         autoOpen: false,
                         title: "網站使用條款 | 隱私權政策 | 免責聲明",
+                        height: 730,
                         width: 400,
                         show: {
                         effect: "drop",

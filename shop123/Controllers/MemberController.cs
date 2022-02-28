@@ -70,7 +70,7 @@ namespace shop123.Controllers
         {
             shop123Entities2 sh = new shop123Entities2();
             string userAccount = User.Identity.Name;
-            var userId = (from m in sh.member where m.memberEmail == userAccount select m.memberAccount).First();
+            var userId = (from m in sh.member where m.memberAccount == userAccount select m.memberAccount).First();
 
             if (sm.spuImg1 != null)
             {
@@ -225,6 +225,7 @@ namespace shop123.Controllers
                                              join s in sh.spu on m.memberAccount equals s.memberId
                                              where m.memberAccount == usertest
                                              join k in sh.sku on s.id equals k.spuId
+                                             orderby s.spuEditTime descending, k.skuStock
                                              select new SkuViewModel
                                              {
                                                  spuName = s.spuName,
