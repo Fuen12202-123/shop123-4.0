@@ -17,9 +17,7 @@
                 <div class="grid_38 alpha omega">
                     <div class="product_info grid_39">
                         <div class="product_image">
-                            @*<img id="productImg" style="max-width: 300px; cursor: pointer;"
-                                onload="$.product.ChangeImgPadding();" src="@Model.Spu.spuImg1" alt="@Model.Spu.spuName"
-                                title="@Model.Spu.spuName">*@
+                            @*大圖片區*@
                             <img id="productImg" style="max-width: 300px; cursor: pointer;"
                                  src="@Model.Spu.spuImg1" alt="@Model.Spu.spuName"
                                  title="@Model.Spu.spuName">
@@ -28,6 +26,7 @@
                         <div class="clearfloat">
                             <div class="product_title">
                                 <div id="product_name_area">
+                                    @*右邊資訊欄位*@
                                     <span class="title1">
                                         <span id="name">@Model.Spu.spuName</span>
                                         <span id="icolor" color="02"></span>
@@ -42,8 +41,9 @@
                             </div>
                             <div class="color">
                                 <div class="clear"></div>
+                                @*選擇顏色的小圖示*@
                                 @{List<string> ImageFilter = new List<string>();
-                                    //用來判斷skuImage是否重複
+                                    //用List來判斷skuImage是否重複
                                     foreach (var item in Model.Sku)
                                     {
                                         if (!ImageFilter.Contains(item.skuColor))
@@ -59,9 +59,11 @@
 
                             </div>
                             <div class="size">
+                                @*放置查詢到的尺寸有哪些*@
                                 <span id="sizelist" class="picksize" cuurentsn></span>
                                 <br />
                                 <div>
+                                    @*查詢該顏色和尺寸所對應的skuid*@
                                     <input type="hidden" id="skuidbox" />
                                 </div>
                             </div>
@@ -77,12 +79,14 @@
 
                         <div class="addcart">
                             <span>
+                                @*商品數量加減的按鈕*@
                                 <label class="v-middle">數量</label>
                                 &nbsp;&nbsp;
                                 <a class="minus" href="javascript:void(0)"></a>
                                 <input id="buyCount" type="text" maxlength="2" value="1" />
                                 <a class="plus" href="javascript:void(0)"></a>
                             </span>
+                            @*購物車按鈕*@
                             @if (ViewBag.memberId == "")
                             {
                                 <a  onclick="login()" href="#"  class="btn_addcart">加入購物車</a>
@@ -101,7 +105,7 @@
                     <!-- product page -->
                     <div class="page-product-content">
                         <div class="page-product-content-left">
-
+                            @*商品資訊欄*@
                             <div class="page-product-content-block">
                                 <div class="block-title">
                                     商品詳情
@@ -113,19 +117,20 @@
                                 </div>
                             </div>
                         </div>
+                        @*賣家資訊欄*@
                         <div class="seller-info" style="height:150px;">
                             <div class="seller-title-text" style="background-color: #D5BDAF;">
                                 <h3>賣家資訊</h3>
                             </div>
                             <div class="seller-disc">
-                                <img src="@Model.Member.memberImg" alt="賣家商標" width="80" onerror="nofind();">
-                                @*<a href="" style="vertical-align:bottom;">賣家帳號:@Model.Member.memberAccount</a>*@
+                                <img src="@Model.Member.memberImg" alt="賣家商標" width="80" onerror="nofind();">                             
                                 @Html.ActionLink(Model.Member.memberAccount, "MemberShop", "Home", new { mbId = Model.Member.memberAccount }, new { @style = "vertical-align:bottom;" })
                             </div>
                         </div>
                     </div>
                     <!-- end of product page -->
-                    <!-- comments & seller info-->
+                    
+                    @*商品評論區*@
                     <div id="comment-list">
                         <div class="comment-title">
                             商品評論
