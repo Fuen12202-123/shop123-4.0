@@ -3,6 +3,6 @@
 @{
     foreach (var item in Model)
     {
-        <li class="list-group-item "><a class="text-dark text-decoration-none" href="@Html.Raw(@Url.Action("categoryPage", "Home", new {catalogAId=@item.catalogAId,catalogBId=@item.id,page=1,sort="no"}))">@item.catalogBName</a></li>
+        <li class="list-group-item "><a class="text-dark text-decoration-none" style="display:block;" href="@Html.Raw(@Url.Action("categoryPage", "Home", new {catalogAId=@item.catalogAId,catalogBId=@item.id,page=1,sort="no"}))">@item.catalogBName</a></li>
     }
 }
