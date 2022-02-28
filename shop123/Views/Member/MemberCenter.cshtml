@@ -116,9 +116,9 @@
                     <table class="table table-hover notpay-order">
                         <tr>
                             <td>訂單編號</td>
-                            <td>購買會員</td>
+                            <td>會員聯絡方式</td>
                             <td>訂單成立時間</td>
-                            <td>訂單總金額</td>
+                            <td>訂單購買會員</td>
                             <td>付款狀態</td>
                         </tr>
                         @foreach (var item in Model.orderSeller)
@@ -135,9 +135,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.totalPrice)
-                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.memberId)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderState)
                                     </td>
@@ -151,9 +151,9 @@
                     <table class="table table-hover notshipping-order">
                         <tr>
                             <td>訂單編號</td>
-                            <td>購買會員</td>
+                            <td>會員聯絡方式</td>
                             <td>訂單成立時間</td>
-                            <td>訂單總金額</td>
+                            <td>訂單購買會員</td>
                             <td>付款狀態</td>
                         </tr>
                         @foreach (var item in Model.orderSeller)
@@ -170,9 +170,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.totalPrice)
-                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.memberId)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderState)
                                     </td>
@@ -186,9 +186,9 @@
                     <table class="table table-hover all-order">
                         <tr>
                             <td>訂單編號</td>
-                            <td>購買會員</td>
+                            <td>會員聯絡方式</td>
                             <td>訂單成立時間</td>
-                            <td>訂單總金額</td>
+                            <td>訂單購買會員</td>
                             <td>付款狀態</td>
                         </tr>
                         @foreach (var item in Model.orderSeller)
@@ -205,9 +205,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.totalPrice)
-                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.memberId)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderState)
                                     </td>
@@ -221,9 +221,9 @@
                     <table class="table table-hover all-order">
                         <tr>
                             <td>訂單編號</td>
-                            <td>購買會員</td>
+                            <td>會員聯絡方式</td>
                             <td>訂單成立時間</td>
-                            <td>訂單總金額</td>
+                            <td>訂單購買會員</td>
                             <td>付款狀態</td>
                         </tr>
                         @foreach (var item in Model.orderSeller)
@@ -240,9 +240,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.totalPrice)
-                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.memberId)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderState)
                                     </td>
@@ -256,9 +256,9 @@
                     <table class="table table-hover not-setup">
                         <tr>
                             <td>訂單編號</td>
-                            <td>購買會員</td>
+                            <td>會員聯絡方式</td>
                             <td>訂單成立時間</td>
-                            <td>訂單總金額</td>
+                            <td>訂單購買會員</td>
                             <td>付款狀態</td>
                         </tr>
                         @foreach (var item in Model.orderSeller)
@@ -275,9 +275,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.totalPrice)
-                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.memberId)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderState)
                                     </td>
@@ -291,9 +291,9 @@
                     <table class="table table-hover return-order">
                         <tr>
                             <td>訂單編號</td>
-                            <td>購買會員</td>
+                            <td>會員聯絡方式</td>
                             <td>訂單成立時間</td>
-                            <td>訂單總金額</td>
+                            <td>訂單購買會員</td>
                             <td>付款狀態</td>
                         </tr>
                         @foreach (var item in Model.orderSeller)
@@ -310,9 +310,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderCreate)
                                     </td>
-                                    @*<td>
-                                        @Html.DisplayFor(modelItem => item.totalPrice)
-                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.memberId)
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderState)
                                     </td>
@@ -325,7 +325,7 @@
         </div>
 
         <!--買家-->
-        <div id="tabs2">
+        @*<div id="tabs2">
             <ul class="nav nav-justified row justify-content-center">
                 <li><a href="#tabs-7" data-toggle="tab" class="tabTitle">待付款</a></li>
                 <li><a href="#tabs-8" data-toggle="tab" class="tabTitle">待出貨</a></li>
@@ -353,9 +353,9 @@
                     <p>(買家)退貨/退款訂單</p>
                 </div>
             </div>
-        </div>
+        </div>*@
 
-        <div class="favItems">test</div>
+        <div class="favItems">歡迎來到會員中心</div>
 
         <!--上架區域-->
         <div class="upload col-7">

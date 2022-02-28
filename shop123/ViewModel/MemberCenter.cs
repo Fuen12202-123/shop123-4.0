@@ -23,6 +23,7 @@ namespace shop123.ViewModel
         public string receiverPhone { get; set; }
         public DateTime orderCreate { get; set; }
         public string orderState { get; set; }
+        public string memberId { get; set; }
         public int totalPrice { get; set; }
     }
 }
