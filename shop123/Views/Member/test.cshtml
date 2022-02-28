@@ -618,9 +618,9 @@
     let img4;
     let img5;
     //var sku;
-    //let spuid;
+    let spuid;
     function getBySpuId(id) {
-
+        spuid = id;
         $.ajax({
             url: "/Member/getSpuId/" + id,
             type: "GET",

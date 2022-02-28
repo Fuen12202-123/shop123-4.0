@@ -25,7 +25,7 @@ Dropzone.options.dropzoneform = {
                     for (let i = 0; i < count; i++) {
                         y++;
                         var img = zone.files[i].name;
-                        $('.testzone').append('<input class="uploadImag" type="text" name="spuImg' + y + '"' + 'value="' + img + '"/>');
+                        $('.testzone').append('<input style="display:none" class="uploadImag" type="text" name="spuImg' + y + '"' + 'value="' + img + '"/>');
                     }
                 }
                 else {
