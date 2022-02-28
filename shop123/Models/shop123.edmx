@@ -125,11 +125,11 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="spuId" Type="int" Nullable="false" />
-          <Property Name="skuColor" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="skuSize" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="spuId" Type="int" />
+          <Property Name="skuColor" Type="nvarchar" MaxLength="255" />
+          <Property Name="skuSize" Type="nvarchar" MaxLength="255" />
           <Property Name="skuImg" Type="nvarchar" MaxLength="255" />
-          <Property Name="skuStock" Type="int" Nullable="false" />
+          <Property Name="skuStock" Type="int" />
         </EntityType>
         <EntityType Name="spu">
           <Key>
@@ -303,11 +303,11 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="spuId" Type="Int32" Nullable="false" />
-          <Property Name="skuColor" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="skuSize" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="spuId" Type="Int32" />
+          <Property Name="skuColor" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="skuSize" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="skuImg" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="skuStock" Type="Int32" Nullable="false" />
+          <Property Name="skuStock" Type="Int32" />
         </EntityType>
         <EntityType Name="spu">
           <Key>

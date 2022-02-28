@@ -14,6 +14,8 @@ $(document).ready(function () {
         $("#tabs2").hide(1000);
         $(".favItems").hide(1000);
         $(".upload").hide(1000);
+        $('.showSku').hide(1000);
+
     })
 })
 $(document).ready(function () {
@@ -23,6 +25,7 @@ $(document).ready(function () {
         $(".selfFiles").hide(1000);
         $(".favItems").hide(1000);
         $(".upload").hide(1000);
+        $('.showSku').hide(1000);
     })
 })
 $(document).ready(function () {
@@ -32,6 +35,7 @@ $(document).ready(function () {
         $("#tabs1").hide(1000);
         $("#tabs2").hide(1000);
         $(".upload").hide(1000);
+        $('.showSku').hide(1000);
     })
 })
 $(document).ready(function () {
@@ -41,6 +45,7 @@ $(document).ready(function () {
         $("#tabs1").hide(1000);
         $("#tabs2").show(1000);
         $(".upload").hide(1000);
+        $('.showSku').hide(1000);
     })
 })
 $(document).ready(function () {
@@ -50,6 +55,18 @@ $(document).ready(function () {
         $(".favItems").hide(1000);
         $("#tabs1").hide(1000);
         $("#tabs2").hide(1000);
+        $('.showSku').hide(1000);
+    })
+})
+
+$(document).ready(function () {
+    $(".myProduct").click(function () {
+        $(".upload").hide(1000);
+        $(".selfFiles").hide(1000);
+        $(".favItems").hide(1000);
+        $("#tabs1").hide(1000);
+        $("#tabs2").hide(1000);
+        $('.showSku').show(1000);
     })
 })
 
@@ -63,6 +80,7 @@ $(document).ready(function () {
         $(".addProduct").hide(1000);
         $("#tabs1").hide(1000);
         $("#tabs2").hide(1000);
+        $('.myProduct').hide(1000);
     })
 })
 
@@ -75,5 +93,6 @@ $(document).ready(function () {
         $("#tabs1").hide(1000);
         $("#tabs2").hide(1000);
         $(".buyer-editOrder").hide(1000);
+        $('.myProduct').show(1000);
     })
 })

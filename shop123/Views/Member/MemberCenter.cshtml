@@ -53,6 +53,7 @@
                 </li>
                 <li class="editFavItems"><a href="javascript:;"><i class="fas fa-heart"></i>收藏商品</a></li>
                 <li class="addProduct"><a href="javascript:;"><i class="fas fa-plus"></i>新增商品</a></li>
+                <li class="myProduct"><a href="javascript:;"><i class="fas fa-tshirt"></i>我的商品</a></li>
             </ul>
         </nav>
     </div>
@@ -460,8 +461,238 @@
 
 
 
+        @*</div>*@
+        @*</div>*@
+        <!-- Footer -->
+        <!--test-->
+        <div class="showSku">
+            <div class="container">
+                <div class="d-flex  ">
+                    <div class="searchbar">
+                        @*<input type="text" id="test00" />*@
+                        <input class="search_input" id="test00" type="text" name="searchText" placeholder="Search...">
+                        @*<input class="search_input" id="serchText" type="text" name="serchText" placeholder="Search...">*@
+                        <a href="#" class="search_icon" id="bt" onclick="return Search();"><i class="fas fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            @*sku清單*@
+
+
+            <div class="p-10 bg-surface-secondary" id="spuItem">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header ">
+                            <h6 class="textSize">我的庫存</h6>
+                        </div>
+                        <div class="table-responsive test">
+                            <table class="table table-hover table-nowrap">
+                                <thead style="background-color: #D5BDAF;">
+                                    <tr>
+                                        <th scope="col" class="col-3">圖片</th>
+                                        <th scope="col" class="col-3">商品名稱</th>
+                                        <th scope="col" class="col-1">顏色</th>
+                                        <th scope="col" class="col-1">尺寸</th>
+                                        <th scope="col" class="col-1">庫存數量</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                    @*呼叫 loadData()傳入sku*@
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            @*呼叫 sku更新頁面*@
+
+            <div class="modal fade " id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h4 class="modal-title w-100" id="myModalLabel">我的庫存</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="skuClear()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <div>
+                                <div id="mydrop">
+                                    <form action="upload" class="dropzone" name="dropzoneform" id="dropzoneform" style="background-color: #EDEDE9"></form>
+                                </div>
+                                @*<button type="submit" id="btn">upload</button>*@
+                            </div>
+
+                            <form id="updateItemForm" novalidate class="">
+                                <div>
+                                    <label for="Id" style="display:none">skuid</label>
+                                    <input type="text" name="id" id="id" class="form-control" style="display:none" />
+                                </div>
+                                <div>
+                                    <label for="spuId" style="display:none">spuid</label>
+                                    <input type="text" name="spuId" id="spuId" class="form-control" style="display:none" />
+
+                                </div>
+
+                                <div>
+                                    <label for="skuColor">顏色</label>
+                                    <input type="text" name="skuColor" id="skuColor" class="form-control" />
+                                </div>
+                                <div>
+
+                                    <label for="skuSize">尺寸</label>
+                                    <input type="text" name="skuSize" id="skuSize" class="form-control" />
+                                </div>
+                                <div id="tz">
+                                    <label for="skuStock">庫存</label>
+                                    <input type="text" name="skuStock" id="skuStock" class="form-control" />
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-success" id="updateSkuBtn" @*onclick="Update()"*@ data-dismiss="modal">完成</button>
+                            <button type="button" class="btn btn-outline-success" id="addSkuBtn" @*onclick=" AddSku()"*@ data-dismiss="modal" style="display:none">完成</button>
+                            <button type="button" class="btn btn-outline-dark dropClear" onclick="skuClear()" data-dismiss="modal">取消</button>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*呼叫 spu更新頁面*@
+
+            <div class="modal fade" id="spuPage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title w-100" id="myModalLabel">商品詳細頁面</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="spuClear()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="updateItemForm">
+                                <div>
+                                    <label for="Id" style="display:none">spuid</label>
+                                    <input type="text" name="id" id="id" class="form-control" style="display:none" />
+                                </div>
+                                <div>
+                                    <label for="memberId" style="display:none">memberId</label>
+                                    <input type="text" name="memberId" id="memberId" class="form-control" style="display:none" />
+                                </div>
+                                <div>
+                                    <label for="spuName">名稱</label>
+                                    <input type="text" name="spuName" id="spuName" class="form-control" />
+                                </div>
+
+                                <div>
+                                    <label for="spuInfo">商品敘述</label>
+                                    <input type="text" name="spuInfo" id="spuInfo" class="form-control" />
+                                </div>
+                                <div>
+                                    <label for="spuPrice">價格</label>
+                                    <input type="text" name="spuPrice" id="spuPrice" class="form-control" />
+                                </div>
+                                <div>
+                                    <label for="catalogAId">catalogAId</label>
+                                    <select class="form-control itemselect" name="catalogAId" id="catalogAId" onchange="selectB(this)">
+                                        <option name="catalogAId" value="1" selected>WOMAN</option>
+                                        <option name="catalogAId" value="2">MEN</option>
+                                        <option name="catalogAId" value="3">KIDS</option>
+                                        <option name="catalogAId" value="4">BABYS</option>
+                                        <option name="catalogAId" value="5">OTHERS</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="catalogBId">catalogBId</label>
+                                    <select class="form-control itemselect" name="catalogBId" id="testC">
+                                        <option name="catalogBId" value="1">長袖</option>
+                                        <option name="catalogBId" value="2">短袖</option>
+                                        <option name="catalogBId" value="3">背心/小可愛</option>
+                                        <option name="catalogBId" value="4">襯衫</option>
+                                        <option name="catalogBId" value="5">洋裝</option>
+                                        <option name="catalogBId" value="6">外套</option>
+                                        <option name="catalogBId" value="7">長褲</option>
+                                        <option name="catalogBId" value="8">短褲</option>
+                                        <option name="catalogBId" value="9">裙子</option>
+                                        <option name="catalogBId" value="10">內褲</option>
+                                        <option name="catalogBId" value="34">鞋子</option>
+                                    </select>
+                                </div>
+
+
+                                <div>
+                                    <label for="spuImg1">圖片1</label>
+                                    <input type="file" id="ng1" name="ng1" style="display:none" />
+
+
+                                    <span id="testImg1"></span>
+                                    <label for="ng1" class="imgText">圖片修改</label>
+                                </div>
+
+
+
+                                <div>
+                                    <label for="spuImg2">圖片2</label>
+
+                                    <input type="file" id="ng2" name="ng2" style="display:none" />
+                                    <span id="testImg2"></span>
+                                    <label for="ng2" class="imgText">圖片修改</label>
+                                </div>
+                                <div>
+                                    <label for="spuImg3">圖片3</label>
+                                    <input type="file" id="ng3" name="ng3" style="display:none" />
+                                    <span id="testImg3"></span>
+                                    <label for="ng3" class="imgText">圖片修改</label>
+                                </div>
+                                <div>
+                                    <label for="spuImg4">圖片4</label>
+                                    <input type="file" id="ng4" name="ng4" style="display:none" />
+                                    <span id="testImg4"></span>
+                                    <label for="ng4" class="imgText">圖片修改</label>
+                                </div>
+                                <div>
+                                    <label for="spuImg5">圖片5</label>
+                                    <input type="file" id="ng5" name="ng5" style="display:none" />
+                                    <span id="testImg5"></span>
+                                    <label for="ng5" class="imgText">圖片修改</label>
+                                </div>
+
+
+
+                                <div>
+                                    <label for="spuShow">上架狀態</label>
+                                    <input type="text" name="spuShow" id="spuShow" class="form-control" />
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="submit" class="btn btn-outline-success" id="bbtn" @*onclick="spuUpdate()"*@ data-dismiss="modal">完成</button>
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="spudelete()">刪除</button>
+                            <button type="submit" class="btn btn-outline-dark" onclick="spuClear()" data-dismiss="modal">取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
-<!-- Footer -->
-<!--test-->
 

@@ -65,26 +65,54 @@ namespace shop123.Controllers
         }
 
 
-        public ActionResult _categoryB(int catalogAId)
+        public ActionResult _categoryB(int? catalogAId)
         {
-            var catalog = (new catalogBFactory()).queryBycatA(catalogAId);
-            return PartialView("_categoryB", catalog);
+            if (catalogAId.HasValue)
+            {
+                var catalog = (new catalogBFactory()).queryBycatA((int)catalogAId);
+                return PartialView("_categoryB", catalog);
+            }
+            return RedirectToAction("Index");
+
         }
 
-        public ActionResult categoryPage(int catalogAId, int catalogBId, int page)
+        public ActionResult categoryPage(int? catalogAId, int? catalogBId, int? page, string sort)
         {
-            List<spu> spu = null;
 
-            int currentPage = page < 1 ? 1 : page;
 
-            if (catalogBId == 0)
-                spu = (new spuFactory()).queryBycatA(catalogAId);
-            else
-                spu = (new spuFactory()).queryBycatAB(catalogAId, catalogBId);
-            var result = spu.ToPagedList(currentPage, pageSize);
-            ViewBag.catalogAId = catalogAId;
-            ViewBag.catalogBId = catalogBId;
-            return View(result);
+            if (catalogAId.HasValue && catalogBId.HasValue && page.HasValue && !String.IsNullOrEmpty(sort))
+            {
+                List<spu> spu = new List<spu>();
+                int currentPage = (int)page < 1 ? 1 : (int)page;
+                if (sort == "no")
+                {
+                    if (catalogBId == 0)
+                        spu = (new spuFactory()).queryBycatA((int)catalogAId);
+                    else if (catalogBId != 0)
+                        spu = (new spuFactory()).queryBycatAB((int)catalogAId, (int)catalogBId);
+                }
+                else if (sort == "asc")
+                {
+                    if (catalogBId == 0)
+                        spu = (new spuFactory()).queryBycatAasc((int)catalogAId);
+                    else if (catalogBId != 0)
+                        spu = (new spuFactory()).queryBycatABasc((int)catalogAId, (int)catalogBId);
+                }
+                else if (sort == "desc")
+                {
+                    if (catalogBId == 0)
+                        spu = (new spuFactory()).queryBycatAdesc((int)catalogAId);
+                    else if (catalogBId != 0)
+                        spu = (new spuFactory()).queryBycatABdesc((int)catalogAId, (int)catalogBId);
+                }
+                var result = spu.ToPagedList(currentPage, pageSize);
+                ViewBag.catalogAId = catalogAId;
+                ViewBag.catalogBId = catalogBId;
+                ViewBag.page = page;
+                ViewBag.sort = sort;
+                return View(result);
+            }
+            return RedirectToAction("Index");
 
         }
 
@@ -110,28 +138,27 @@ namespace shop123.Controllers
                                        select sku.skuSize;
 
             return PartialView("Checksize", size);
-        }//aja從資料庫找對應的size button
+        }//aja從資料庫找對應該顏色的size 
 
-        public ActionResult checkSkuid(string color, string size,int spuID)
+        public ActionResult checkSkuid(string color, string size, int spuID)
         {
             var sk = from sku in db.sku
                      where sku.skuColor == color && sku.skuSize == size && sku.spuId == spuID
                      select sku.id;
             string result = sk.First().ToString();
             return Content(result);
-        }
+        }//選完顏色和尺寸,查詢對應的skuid
+
         public ActionResult MemberShop(string mbId)
         {
-            //if (mbId.)
-            //{
+            
             MemberShopViewModel MemberShop = new MemberShopViewModel();
             MemberShop.MB = db.member.FirstOrDefault(m => m.memberAccount == mbId);
             MemberShop.MBspu = db.spu.Where(s => s.memberId == mbId).ToList();
             return View(MemberShop);
-            //}
-            //return RedirectToAction("Index");
+            
         }
-        //賣家商場
+        //查詢賣家的商場
 
         public ActionResult sign()
         {
@@ -241,7 +268,7 @@ namespace shop123.Controllers
                 memberPassword = em.memberPassword,
                 memberName = em.memberName,
                 memberEmail = em.memberEmail,
-                memberAccess = em.memberAccess.ToString(),
+                memberAccess = "一般會員",
                 memberPhone = em.memberPhone.ToString()
             };
 

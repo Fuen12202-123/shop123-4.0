@@ -21,7 +21,8 @@
         }
 
         body {
-            padding: 25px;
+            margin: 30px;
+            padding:30px
         }
 
         table {
@@ -84,8 +85,35 @@
         }
 
 /*按鈕css*/
+ /*       input {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
 
+        .skin {
+            pointer-events: none;
+            border-radius: inherit;
+        }
 
+        .one.skin {
+            background-color: wheat;
+        }
+
+        .two.skin {
+            background-color: blue;
+            --mask: radial-gradient(circle at 45px 45px, rgba(0,0,0,0) 40px, rgba(0,0,0,1) 40px);
+            mask-image: var(--mask);
+            -webkit-mask-image: var(--mask);
+        }
+
+        input:checked ~ .two.skin {
+            --mask: radial-gradient(circle at 305px 45px, rgba(0,0,0,1) 40px, rgba(0,0,0,0) 40px);
+            mask-image: var(--mask);
+            -webkit-mask-image: var(--mask);
+        }
+*/
     </style>
 </head>
 <body>
@@ -114,7 +142,7 @@
                     <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.memberEmail)
                     </th>
-                    <th scope="col" class="text-nowrap w8">
+                    <th scope="col" class="text-nowrap w7">
                         @Html.DisplayNameFor(model => model.memberImg)
                     </th>
                     <th scope="col" class="text-nowrap w5">
@@ -137,7 +165,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.memberAccount)
                     </td>
-                    <td>
+                    <td style="display">
                         @Html.DisplayFor(modelItem => item.memberPassword)
                     </td>
                     <td>
@@ -149,10 +177,10 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.memberEmail)
                     </td>
-                    <td style="height:100px;">
+                    <td >
                         @Html.DisplayFor(modelItem => item.memberImg)
                         @*<img src="@item.memberImg" class="card-img-top" alt="...">*@
-                        <div style="width:100px;height:100%;object-fit:contain;" class="thumbnail">
+                        <div style="width:160px;height:100%;object-fit:contain;" class="thumbnail text-center">
                             @*<img src="@item.memberImg" class="card-img-top" alt=@item.memberName>*@
                             @*絕對路徑會抱錯*@
                             @*<img src=@Url.Content($"~/Images/{item.memberImg}")
@@ -179,13 +207,13 @@
                             @Html.Hidden("id", item.id)
                             if (item.memberBanned == true)
                             {
-                                <input type="checkbox" onchange="$(this.form).submit();" checked />
+                                <input type="checkbox" class="skin one" onchange="$(this.form).submit();" checked />
 
                             }
                             else
                             {
 
-                                <input type="checkbox" onchange="$(this.form).submit();" />
+                                <input type="checkbox" class="skin two" onchange="$(this.form).submit();" />
                             }
                         }
                     </td>

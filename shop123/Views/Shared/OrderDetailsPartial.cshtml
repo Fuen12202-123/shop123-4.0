@@ -7,7 +7,7 @@
         int detailCount = item.Detail.Count();
         int TotalPrice = 0;
 
-        <div class=" d-flex justify-content-between mb-2 mt-5">
+        <div class="d-flex justify-content-between mb-2 mt-5">
             <div>
                 <a id="gotoshop" href="@Url.Action("MemberShop", "Home")?mbId=@item.sellerId" class="text-dark  text-decoration-none"> <span>@item.sellerId </span><i class="fa-solid fa-shop"></i></a>
             </div>
@@ -43,20 +43,17 @@
 
         }
         <div>
-            <div class="d-flex justify-content-between">
+            <div class="row">
 
-                <div>
-                    <span class="pr-2">收件人:@item.receiverName </span>
-                    <span class="px-2">電話:@item.receiverPhone</span>
-                    <span class="px-2">地址:@item.receiverAddress </span>
-                </div>
-                <div class="d-flex flex-row-reverse mb-4 ">訂單金額：@($"{TotalPrice:c0}")</div>
+                <span class="col-12 col-md">收件人:@item.receiverName </span>
+                <span class="col-12 col-md">電話:@item.receiverPhone</span>
+                <span class="col-12 col-md">地址:@item.receiverAddress </span>
+                <span class="col-12 d-flex justify-content-md-end">訂單金額：@($"{TotalPrice:c0}")</span>
             </div>
-            <div class="d-flex mb-2">
-                <div><span class="pr-2">訂單編號: @item.orderguid</span></div>
-                <div><span class="px-2">留言: @item.ordermessage</span></div>
+            <div class="row">
+                <span class="col-12 ">訂單編號: @item.orderguid</span>
+                <span class="col-12 ">留言: @item.ordermessage</span>
             </div>
-
             <div class="d-flex justify-content-end mb-5">
                 <div>
                     @if (@item.orderState == "未付款")
@@ -64,32 +61,32 @@
                         <a onclick="pay(@item.id)" class="btn btn-outline-secondary">付款</a>
                         <a onclick="cancel(@item.id)" class="btn btn-outline-secondary">取消訂單</a>
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-            <a class="btn btn-outline-secondary">查看評價</a>*@
+                            <a class="btn btn-outline-secondary">查看評價</a>*@
                     }
                     else if (@item.orderState == "待出貨")
                     {
                         <a onclick="cancel(@item.id)" class="btn btn-outline-secondary">取消訂單</a>
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-            <a class="btn btn-outline-secondary">查看評價</a>*@
+                            <a class="btn btn-outline-secondary">查看評價</a>*@
                     }
                     else if (@item.orderState == "待收貨")
                     {
                         <a onclick="finish(@item.id)" class="btn btn-outline-secondary">完成訂單</a>
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-            <a class="btn btn-outline-secondary">查看評價</a>*@
+                            <a class="btn btn-outline-secondary">查看評價</a>*@
                     }
                     else if (@item.orderState == "完成")
                     {
                         <a href="@Url.Action("Buyagain", "ShoppingCart", new {id=@item.id})" class="btn btn-outline-secondary">再買一次</a>
 
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-            <a class="btn btn-outline-secondary">查看評價</a>*@
+                            <a class="btn btn-outline-secondary">查看評價</a>*@
                     }
                     else if (@item.orderState == "不成立")
                     {
                         <a href="@Url.Action("Buyagain", "ShoppingCart", new {id=@item.id})" class="btn btn-outline-secondary">再買一次</a>
                         @*<a class="btn btn-outline-secondary">聯絡賣家</a>
-            <a class="btn btn-outline-secondary">查看評價</a>*@
+                            <a class="btn btn-outline-secondary">查看評價</a>*@
                     }
                     else if (item.orderState == "待取消")
                     {

@@ -19,7 +19,7 @@
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-
+                @*評論寫入資料庫時的所需欄位,先隱藏起來*@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <input type="hidden" name="txtSkuId" value="@Model.SKU.id" />
                 <input type="hidden" name="txtorderDetailId" value="@Model.orderdetailID" />
@@ -30,6 +30,7 @@
                 <br>
                 <h5>評分</h5>
                 <div style="height:60px;">
+                    @*星星評分*@
                     <div id="stars" class="">
                         <img src="~/Images/empty.png" alt="">
                         <img src="~/Images/empty.png" alt="">
@@ -127,6 +128,7 @@
         }
     }
 
+    //檢查有沒有評分
     function check() {
         if (starNum == -1) {
             swal("請先選擇進行評分");

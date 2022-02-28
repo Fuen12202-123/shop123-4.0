@@ -137,6 +137,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\01.jpg" />
     <Content Include="Images\08.jpg" />
+    <Content Include="Images\btn001.png" />
     <Content Include="Images\c001.jpg" />
     <Content Include="Images\closeeye.png" />
     <Content Include="Images\defaultIMG.jpg" />
@@ -195,6 +196,7 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\seller.js" />
     <Content Include="Scripts\sellerUpload.js" />
+    <Content Include="Scripts\showSku.js" />
     <Content Include="Scripts\spucard.js" />
     <Content Include="Scripts\ToTop.js" />
     <Content Include="Scripts\umd\popper-utils.js" />

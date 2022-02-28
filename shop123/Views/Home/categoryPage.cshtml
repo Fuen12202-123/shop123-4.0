@@ -7,56 +7,76 @@
     .pagination {
         justify-content: center;
     }
+    .card-img-top {
+        width: 188px;
+        height:188px;
+        object-fit:scale-down ;
+    }
 </style>
 
 @{
     ViewBag.Title = "商品頁";
-    int catA = 0;
-    int catB = 0;
-
 }
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
+<input type="hidden" id="catA" value="@ViewBag.catalogAId" />
+<input type="hidden" id="catB" value="@ViewBag.catalogBId" />
+<input type="hidden" id="page" value="@ViewBag.page" />
 <div class="row d-flex">
-    <div class=" col-4 col-sm-4 col-md-2 ">
-        <ul>
+    <div class=" col-12 col-sm-4 col-md-2 ">
+        
             @Html.Action("_categoryB", "Home")
-        </ul>
-      
+       
+        @if (ViewBag.sort == "no")
+        {
+            <select id="sort" class="browser-default custom-select border-0">
+                <option style="display:none">價格:</option>
+                <option value="asc">價格:低到高</option>
+                <option value="desc">價格:高到低</option>
+            </select>
+        }
+        else if (ViewBag.sort == "asc")
+        {
+            <select id="sort" class="browser-default custom-select border-0">
+                <option style="display:none">價格:低到高</option>
+                <option value="asc">價格:低到高</option>
+                <option value="desc">價格:高到低</option>
+            </select>
+        }
+        else
+        {
+            <select id="sort" class="browser-default custom-select border-0">
+                <option style="display:none">價格:高到低</option>
+                <option value="asc">價格:低到高</option>
+                <option value="desc">價格:高到低</option>
+            </select>
+        }
+
     </div>
-    <div class="row cos-8  col-sm-8 col-md-10 d-flex justify-content-start">
+    <div class="row cos-8  col-sm-8 col-md-10 d-flex justify-content-start" >
         @{
             foreach (var item in Model)
             {
-                 catA = item.catalogAId.Value;
-                 catB = item.catalogBId.Value;
-                <div class="card col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3" style="border:0px">
-                    <div class="spucard card pb-3">
-                        <div style="height:368px" class="d-flex justify-content-center align-items-center ">
-                            <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id">
-                                @if (item.spuImg1.Length > 30)
-                                {
-                                    <img src="@item.spuImg1" class="card-img-top " alt="...">
-                                }
-                                else
-                                {
-                                    <img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">
+                <div class="col-12 col-md-4 col-lg-3 mb-3 ">
 
-                                }
+                    <div class="card spucard" style="width: 190px; margin: auto; border: 0 ">
 
-                            </a>
+                        <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id">
+                            @if (item.spuImg1.Length > 30)
+                            {
+                                <img src="@item.spuImg1" class="card-img-top " alt="...">
+                            }
+                            else
+                            {
+                                <img src="~/Images/@item.spuImg1" class="card-img-top" alt="...">
+                            }
+                        </a>
+                        <div class="pl-1">
+                            <a class="text-dark text-decoration-none " href="@Url.Action("Detail")?id=@item.id"><p class="card-title" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.spuName</p></a>
                         </div>
-                        <div class="pl-3">
-                            <a class="text-dark text-decoration-none" href="@Url.Action("Detail")?id=@item.id"><p class="card-title" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item.spuName</p></a>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between" style="height: 45px; background-color: white;border-top:0px">
-                            <p class="card-text">$@item.spuPrice</p>
-                        </div>
-
+                        <p class="card-text pb-1 pl-1">$@item.spuPrice</p>
                     </div>
                 </div>
-
             }
         }
 
@@ -64,5 +84,33 @@
 
 </div>
 <div>
-    @Html.PagedListPager(Model, page => Url.Action("categoryPage", new { page, catalogAId = ViewBag.catalogAId, catalogBId = ViewBag.catalogBId }))
+    @Html.PagedListPager(Model, page => Url.Action("categoryPage", new { page, catalogAId = ViewBag.catalogAId, catalogBId = ViewBag.catalogBId, sort = ViewBag.sort }))
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+    $("#sort").change(function () {
+        var sort = $("#sort").val();
+        var catA = $("#catA").val();
+        var catB = $("#catB").val();
+        var page = $("#page").val();
+        var url_redirect = '@Url.Action("categoryPage", "Home")';
+        console.log(sort);
+        console.log(catA);
+        console.log(catB);
+        $.ajax({
+            type: "Post",
+            url: '@Url.Action("categoryPage", "Home")',
+            data: {
+                catalogAId: catA,
+                catalogBId: catB,
+                page: page,
+                sort: sort
+                },
+            success: function (data) {
+                $("body").html(data);
+            }
+
+
+        })
+    });
+</script>

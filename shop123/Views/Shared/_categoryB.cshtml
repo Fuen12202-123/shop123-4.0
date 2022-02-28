@@ -1,8 +1,26 @@
 ﻿@model IEnumerable<shop123.Models.catalogB>
 
-@{
-    foreach (var item in Model)
-    {
-        <li class="list-unstyled mb-2"><a class="text-dark text-decoration-none" href="@Html.Raw(@Url.Action("categoryPage", "Home", new {catalogAId=@item.catalogAId,catalogBId=@item.id,page=1}))">@item.catalogBName</a></li>
-    }
-}
+
+
+<ul class="list-group mb-3">
+    @foreach (var item in Model)
+        {
+            <li class="list-group-item border-0 py-1"><a class="text-dark text-decoration-none catB" style="display:block;" href="@Html.Raw(@Url.Action("categoryPage", "Home", new {catalogAId=@item.catalogAId,catalogBId=@item.id,page=1,sort="no"}))">@item.catalogBName</a></li>
+        }
+    
+</ul>
+<script>
+    $(document).ready(function () {
+   
+
+        $(".catB").hover(
+            function () {
+                $(this).addClass('shadow');
+            }, function () {
+                $(this).removeClass('shadow');
+            }
+        );
+
+
+    });
+</script>
