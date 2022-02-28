@@ -225,6 +225,7 @@ namespace shop123.Controllers
                                              join s in sh.spu on m.memberAccount equals s.memberId
                                              where m.memberAccount == usertest
                                              join k in sh.sku on s.id equals k.spuId
+                                             orderby s.spuEditTime descending, k.skuStock
                                              select new SkuViewModel
                                              {
                                                  spuName = s.spuName,
