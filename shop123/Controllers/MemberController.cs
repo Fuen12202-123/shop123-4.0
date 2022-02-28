@@ -37,7 +37,8 @@ namespace shop123.Controllers
                     receiverPhone = s.receiverPhone,
                     orderCreate = (DateTime)s.orderCreateTime,
                     orderState = s.orderState,
-                    totalPrice = (int)s.totalPrice,
+                    memberId = s.memberId,
+                    
                 })
             };
 
