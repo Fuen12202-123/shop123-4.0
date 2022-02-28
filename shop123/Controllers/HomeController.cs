@@ -240,7 +240,7 @@ namespace shop123.Controllers
                 memberPassword = em.memberPassword,
                 memberName = em.memberName,
                 memberEmail = em.memberEmail,
-                memberAccess = em.memberAccess.ToString(),
+                memberAccess = "一般會員",
                 memberPhone = em.memberPhone.ToString()
             };
 
