@@ -4,7 +4,7 @@
 }
 @{
 
-    Layout = null;
+//Layout = null;
 }
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 @*<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>*@
@@ -71,9 +71,9 @@
         background-color: #EDEDE9;
     }
 
-    text {
+    /*text {
         size: 8px;
-    }
+    }*/
 
 
     .textSize {
@@ -308,9 +308,19 @@
 
 
 
-                    <div>
-                        <label for="spuShow">上架狀態</label>
-                        <input type="text" name="spuShow" id="spuShow" class="form-control" />
+                    <div class="container">
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
+                            <div class="form-outline flex-fill mb-0" id="womenClass">
+                                <label class="form-label" for="spuShow">上架狀態</label>
+                                <select class="form-control itemselect" name="spuShow" id="spuShow">
+                                    <option name="catalogBId" value="已上架">已上架</option>
+                                    <option name="catalogBId" value="未上架">未上架</option>
+
+                                </select>
+
+                            </div>
+                        </div>
                     </div>
 
                 </form>
@@ -353,7 +363,19 @@
 
                 $(tbody).empty();
                 $(itemList).each(function (index, item) {
-                    var img = '@Url.Content("~/images/")'+item.skuImg;
+
+                   var img = null;
+                    if (item.skuImg != null) {
+                    console.log(item.skuImg)
+
+                        if (item.skuImg.length > 30) {
+                        img = item.skuImg;
+                    }
+                    else {
+                        img='@Url.Content("~/images/")'+item.skuImg;
+                        }
+                    }
+                @*var img = '@Url.Content("~/images/")'+item.skuImg;*@
                     $(tbody).append(`<tr><td data-label="spuId" name="spuId" style="display:none">${item.spuId}</td> <td data-label="skuId" name="skuId" style="display:none">${item.skuId}</td>` +
                         `<td data-label="skuImg" name="skuImg"><img src="`+img+`" alt="尚無圖片" width="250" height="180"></td> <td data-label="spuName" name="spuName">${item.spuName}</td> <td data-label="skuColor" name="skuColor" class="skuColor">${item.skuColor}</td>` +
                         `<td data-label="skuSize" name="skuSize" class="skuSize">${item.skuSize}</td><td data-label="skuStock" name="skuStock" class="skuStock">${item.skuStock}</td><td><a href="#" onclick="return openAddPage(${item.skuId})" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa-plus-circle"></i></a></td><td><a href="#" onclick="return getById(${item.skuId})" data-toggle="modal" data-target="#centralModalSm"><i class="far fa-edit"></i></a></td><td><a href="#" onclick="getBySpuId(${item.spuId})" data-toggle="modal" data-target="#spuPage"><i class="fas fa-ellipsis-h"></i></a></td></tr>`)
@@ -493,7 +515,18 @@
 
                 $(tbody).empty();
                 $(itemList).each(function (index, item) {
-                    var img = '@Url.Content("~/images/")'+item.skuImg;
+                    var img = null;
+                    if (item.skuImg != null) {
+                    console.log(item.skuImg)
+
+                        if (item.skuImg.length > 30) {
+                        img = item.skuImg;
+                    }
+                    else {
+                        img='@Url.Content("~/images/")'+item.skuImg;
+                        }
+                    }
+                @*var img = '@Url.Content("~/images/")'+item.skuImg;*@
                     $(tbody).append(`<tr><td data-label="spuId" name="spuId" style="display:none">${item.spuId}</td> <td data-label="skuId" name="skuId" style="display:none">${item.skuId}</td>` +
                         `<td data-label="skuImg" name="skuImg"><img src="`+img+`" alt="尚無圖片" width="250" height="180"></td> <td data-label="spuName" name="spuName">${item.spuName}</td> <td data-label="skuColor" name="skuColor" class="skuColor">${item.skuColor}</td>` +
                         `<td data-label="skuSize" name="skuSize" class="skuSize">${item.skuSize}</td><td data-label="skuStock" name="skuStock" class="skuStock">${item.skuStock}</td><td><a href="#" onclick="return openAddPage(${item.skuId})" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa-plus-circle"></i></a></td><td><a href="#" onclick="return getById(${item.skuId})" data-toggle="modal" data-target="#centralModalSm"><i class="far fa-edit"></i></a></td><td><a href="#" onclick="getBySpuId(${item.spuId})" data-toggle="modal" data-target="#spuPage"><i class="fas fa-ellipsis-h"></i></a></td></tr>`)
