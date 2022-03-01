@@ -478,10 +478,13 @@
                     <div class="container">
                         <div class="d-flex flex-row align-items-center mb-4">
                             <!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> -->
-                            <div class="form-outline flex-fill mb-0">
+                            <div class="form-outline flex-fill mb-0" id="womenClass">
                                 <label class="form-label" for="spuShow">上架狀態</label>
-                                <input type="text" name="spuShow" id="spuShow" class="form-control"
-                                       placeholder="可填入上架 / 未上架 / 補貨中...等管理資訊" />
+                                <select class="form-control itemselect" name="spuShow" id="spuShow">
+                                    <option name="catalogBId" value="已上架">已上架</option>
+                                    <option name="catalogBId" value="未上架">未上架</option>
+
+                                </select>
 
                             </div>
                         </div>
