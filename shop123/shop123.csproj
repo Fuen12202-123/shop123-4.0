@@ -140,6 +140,7 @@
     <Content Include="Images\btn001.png" />
     <Content Include="Images\c001.jpg" />
     <Content Include="Images\closeeye.png" />
+    <Content Include="Images\default.png" />
     <Content Include="Images\defaultIMG.jpg" />
     <Content Include="Images\empty.png" />
     <Content Include="Images\logo.png" />

@@ -130,7 +130,7 @@
                     <th scope="col" class="text-nowrap w5">
                         @Html.DisplayNameFor(model => model.memberAccount)
                     </th>
-                    <th scope="col" class="text-nowrap w5">
+                    <th scope="col" class="text-nowrap w5" style="display:none;">
                         @Html.DisplayNameFor(model => model.memberPassword)
                     </th>
                     <th scope="col" class="text-nowrap w5">
@@ -165,7 +165,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.memberAccount)
                     </td>
-                    <td style="display">
+                    <td style="display:none;">
                         @Html.DisplayFor(modelItem => item.memberPassword)
                     </td>
                     <td>
@@ -196,7 +196,9 @@
                                     <img src=@Url.Content($"~/Images/{item.memberImg}")
                                          class="card-img-top" alt=@item.memberImg>}
                             }
-                            else { }
+                            else { 
+                                <img src=@Url.Content($"~/Images/default.png") class="card-img-top" alt=@item.memberImg>
+                            }
                         </div>
 
                     </td>
