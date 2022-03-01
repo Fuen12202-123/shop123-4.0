@@ -52,6 +52,7 @@ namespace shop123.Models
                 db.ordersDetail.Remove(orderDetail);
             }
             db.SaveChanges();
+
         }
 
         public void skuchecked(int skuid, string memberId)

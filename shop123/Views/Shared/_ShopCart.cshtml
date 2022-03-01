@@ -115,7 +115,10 @@
     $(function () {
         var total = $('.total').text();
         if (total === '$0') {
-            $('.checkout').css("pointer-events", "none")
+            $('.checkout').click(function () {
+                swal("請先勾選商品");
+                return false;
+            }); 
         } else {
             $('.checkout').css("pointer-events ", "auto")
         }
