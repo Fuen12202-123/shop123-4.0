@@ -1,23 +1,20 @@
-﻿const DdropArea1 = document.querySelector(".Ddrag-area");
-const dragbtn = document.querySelector(".dragbtn");
-const button = document.querySelector(".button");
-const Dinput = document.querySelector(".dropinput");
+﻿const DdropArea1 = document.querySelector(".Ddrag-area"),
+dragbtn = DdropArea1.querySelector(".dragbtn"),
+button = DdropArea1.querySelector("button"),
+Dinput = DdropArea1.querySelector("input");
 
 let file;
+
+
 
 button.onclick = () => {
     Dinput.click();
     return false;
 }
 
-dragbtn.onclick = () => {
-    Dinput.click();
-    return false;
-}
-
 Dinput.addEventListener("change", function () {
     file = this.files[0];
-    showFile();
+    showFile(this);
     DdropArea1.classList.add("active");
 })
 
@@ -43,23 +40,23 @@ DdropArea1.addEventListener("drop", (event) => {  // drop: 拖曳放置時觸發
     showFile();
 });
 
-function showFile() {
-    let fileType = file.type;              // 上傳檔案的格式
-    //console.log(fileType);
-    let validExtensions = ["image/jpeg", "image/jpg", "image/png"];  // 限制格式
-    if (validExtensions.includes(fileType)) {    // include 會判斷傳入的檔案格式是否與上面陣列有相同，給予true或false
-        //console.log("This is an Image file");
+function showFile(input) {
+    //let fileType = file.type;              // 上傳檔案的格式
+    ///*console.log(fileType);*/
+    //let validExtensions = ["image/jpeg", "image/jpg", "image/png"];  // 限制格式
+    //if (validExtensions.includes(fileType)) {    // include 會判斷傳入的檔案格式是否與上面陣列有相同，給予true或false
+    //    /*console.log("This is an Image file");*/
         let fileReader = new FileReader();
         fileReader.onload = () => {
             let fileURL = fileReader.result;
-            //console.log(fileURL);
+            /*console.log(fileURL);*/
             let imgTag = `<img src="${fileURL}" alt="">`;
             DdropArea1.innerHTML = imgTag;
         }
-        fileReader.readAsDataURL(file);
-    } else {
-        alert("This is not an Image file!!!");
-        DdropArea1.classList.remove("active");
+    fileReader.readAsDataURL(input.file);
+    //} else {
+    //    alert("This is not an Image file!!!");
+    //    DdropArea1.classList.remove("active");
         
-    }
+    //}
 }

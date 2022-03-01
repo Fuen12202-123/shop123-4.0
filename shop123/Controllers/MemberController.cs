@@ -2,6 +2,7 @@
 using shop123.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -49,8 +50,39 @@ namespace shop123.Controllers
         }
 
         [HttpPost]
+        [ActionName("Edit")]
+        public ActionResult MemberCenter(orderSeller x)
+        {
+            orders o = db.orders.FirstOrDefault(s => s.id == x.id);
+            if(o != null)
+            {
+                if(x.orderState == "待取消")
+                {
+                    x.orderState = "未成立";
+                    o.orderState = x.orderState;
+                    db.SaveChanges();
+                }
+                else if(x.orderState == "未付款")
+                {
+                    x.orderState = "待出貨";
+                    o.orderState = x.orderState;
+                    db.SaveChanges();
+                }
+                else if(x.orderState == "待出貨")
+                {
+                    x.orderState = "完成";
+                    o.orderState = x.orderState;
+                    db.SaveChanges();
+                }
+                
+            }
+            return RedirectToAction("MemberCenter");
+        }
+
+
+        [HttpPost]
         [ActionName("memberinfo")]
-        public ActionResult MemberCenter(MemberCenter x)  // 修改個人資料
+        public ActionResult MemberCenter(MemberCenter x, HttpPostedFileBase memberImgupload)  // 修改個人資料
         {    
             member m = db.member.FirstOrDefault(t => t.id == x.id);
             if(m != null)
@@ -59,12 +91,36 @@ namespace shop123.Controllers
                 m.memberPassword = x.memberPassword;
                 m.memberEmail = x.memberEmail;
                 m.memberPhone = x.memberPhone;
-                
+
+                string fileName = "";
+
+                if (memberImgupload != null)
+                {
+                    if (memberImgupload.ContentLength > 0)
+                    {
+                        fileName = Path.GetFileName(memberImgupload.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Images"), fileName);
+                        memberImgupload.SaveAs(path);
+                        x.memberImg = fileName;
+                        m.memberImg = x.memberImg;
+                    }
+                }
+
                 db.SaveChanges();
             }
             return RedirectToAction("MemberCenter");
         }
 
+        //[HttpPost]
+        //public ActionResult Upload(HttpPostedFileBase memberImg)
+        //{
+
+        //}
+
+        //private bool CheckIsImages(Stream inputStream)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         [HttpPost]
         public ActionResult MemberCenter(SpuModel sm) //使用者商品上傳

@@ -13,6 +13,7 @@ namespace shop123.ViewModel
         public string memberEmail { get; set; }
         public string memberPhone { get; set; }
         public string memberImg { get; set; }
+        public HttpPostedFileBase memberImgupload { get; set; }
         public IEnumerable<orderSeller> orderSeller { get; set; }
     }
 

@@ -34,7 +34,7 @@
                         <li><a href="#tabs-3" data-toggle="tab">待收貨</a></li>
                         <li><a href="#tabs-4" data-toggle="tab">訂單完成</a></li>
                         <li><a href="#tabs-5" data-toggle="tab">不成立訂單</a></li>
-                        <li><a href="#tabs-6" data-toggle="tab">退貨/退款</a></li>
+                        <li><a href="#tabs-6" data-toggle="tab">待取消</a></li>
                     </ul>
                 </li>
                 <!--買家訂單-->
@@ -62,7 +62,7 @@
     <!-- 中間內容 -->
     <div class="containerMain">
         <div class="personInfo col-5">
-            <form class="selfFiles" action="/Member/memberinfo" method="post">
+            <form class="selfFiles" action="/Member/memberinfo" enctype="multipart/form-data" method="post">
                 <h3>個人檔案</h3>
                 <input type="hidden" name="id" value="@ViewData.Model.id" />
                 <div class="memberName form-group">
@@ -85,19 +85,32 @@
                 </div>
                 <!-- 使用者圖像上傳 -->
                 <!-- 上傳圖片顯示 -->
-                @*<div class="memberImg form-group">
+                <div class="memberImg form-group">
                     <label>使用者照片:</label>
+                    <input type="file" name="memberImgupload" value="選擇檔案">
                 </div>
-                <button class="button">上傳</button>
+                @*<button class="button">上傳</button>*@
+                <!--<div class="Ddrag-area">
+                    <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <header>拖曳上傳</header>
+                    <button>選擇檔案</button>
+                    <input type="file" name="memberImgupload" value="選擇檔案">-->
+                    @*隱藏input*@
+                <!--</div>-->
+                
+
+                <input type="submit" id="confirmSave" name="memberSubmit" value="儲存修改">
+            </form>
+            <!--<form action="/Member/upload" method="post">
                 <div class="Ddrag-area">
                     <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
                     <header>拖曳或點擊</header>
                     <button class="dragbtn">選擇檔案</button>
-                    <input type="file" class="dropinput" name="memberImg" value="@ViewData.Model.memberImg" hidden>*@
+                    <input type="file" class="dropinput" id="InputFile" name="memberImg" hidden>-->
                     <!--隱藏input-->
-                @*</div>*@
-                <input type="submit" id="confirmSave" name="memberSubmit" value="儲存修改">
-            </form>
+                <!--</div>
+                <input type="submit" id="confirmSave" name="memberSubmit2" value="儲存修改">
+            </form>-->
         </div>
         <!-- 訂單頁籤 -->
         <!--賣家-->
@@ -105,10 +118,10 @@
             <ul class="nav nav-justified row justify-content-center">
                 <li><a href="#tabs-1" data-toggle="tab" class="tabTitle">待付款</a></li>
                 <li><a href="#tabs-2" data-toggle="tab" class="tabTitle">待出貨</a></li>
-                <li><a href="#tabs-3" data-toggle="tab" class="tabTitle">代收貨</a></li>
+                <li><a href="#tabs-3" data-toggle="tab" class="tabTitle">待收貨</a></li>
                 <li><a href="#tabs-4" data-toggle="tab" class="tabTitle">訂單完成</a></li>
                 <li><a href="#tabs-5" data-toggle="tab" class="tabTitle">不成立訂單</a></li>
-                <li><a href="#tabs-6" data-toggle="tab" class="tabTitle">退貨/退款</a></li>
+                <li><a href="#tabs-6" data-toggle="tab" class="tabTitle">待取消</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane" id="tabs-1">
@@ -120,28 +133,36 @@
                             <td>訂單成立時間</td>
                             <td>訂單購買會員</td>
                             <td>付款狀態</td>
+                            <td>操作</td>
                         </tr>
                         @foreach (var item in Model.orderSeller)
                         {
                             if (item.orderState == "未付款")
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.receiverPhone)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.orderCreate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.memberId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.orderState)
-                                    </td>
-                                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.receiverPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.orderCreate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.memberId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.orderState)
+                        </td>
+                        <td>
+                            <form action="/Member/Edit" method="post">
+                                <input type="hidden" name="id" value="@item.id" />
+                                <input type="hidden" name="orderState" value="@item.orderState" />
+                                <input type="submit" class="btn btn-outline-secondary" value="確定付款" onclick = "return confirm('確定要操作嗎?')"/>
+                            </form>
+                        </td>
+                    </tr>
                             }
                         }
                     </table>
@@ -155,28 +176,36 @@
                             <td>訂單成立時間</td>
                             <td>訂單購買會員</td>
                             <td>付款狀態</td>
+                            <td>操作</td>
                         </tr>
                         @foreach (var item in Model.orderSeller)
                         {
                             if (item.orderState == "待出貨")
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.receiverPhone)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.orderCreate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.memberId)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.orderState)
-                                    </td>
-                                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.receiverPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.orderCreate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.memberId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.orderState)
+                        </td>
+                        <td>
+                            <form action="/Member/Edit" method="post">
+                                <input type="hidden" name="id" value="@item.id" />
+                                <input type="hidden" name="orderState" value="@item.orderState" />
+                                <input type="submit" class="btn btn-outline-secondary" value="確定到貨" onclick = "return confirm('確定要操作嗎?')"/>
+                            </form>
+                        </td>
+                    </tr>
                             }
                         }
                     </table>
@@ -287,7 +316,7 @@
                     </table>
                 </div>
                 <div class="tab-pane" id="tabs-6">
-                    <!--退貨-->
+                    <!--待取消-->
                     <table class="table table-hover return-order">
                         <tr>
                             <td>訂單編號</td>
@@ -295,10 +324,11 @@
                             <td>訂單成立時間</td>
                             <td>訂單購買會員</td>
                             <td>付款狀態</td>
+                            <td>操作</td>
                         </tr>
                         @foreach (var item in Model.orderSeller)
                         {
-                            if (item.orderState == "退貨")
+                            if (item.orderState == "待取消")
                             {
                                 <tr>
                                     <td>
@@ -315,6 +345,13 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.orderState)
+                                    </td>
+                                    <td>
+                                        <form action="/Member/Edit" method="post">
+                                            <input type="hidden" name="id" value="@item.id" />
+                                            <input type="hidden" name="orderState" value="@item.orderState" />
+                                            <input type="submit" class="btn btn-outline-secondary" value="確定取消" onclick = "return confirm('確定要操作嗎?')"/>
+                                        </form>
                                     </td>
                                 </tr>
                             }
@@ -695,4 +732,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function dragHandler(e) {
+        e.preventDefault(); //防止瀏覽器執行預設動作
+    }
+
+    function drop_image(e) {
+        e.preventDefault(); //防止瀏覽器執行預設動作
+
+        var files = e.dataTransfer.files; //擷取拖曳的檔案
+    }
+</script>
 
