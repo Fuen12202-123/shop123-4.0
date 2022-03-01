@@ -36,7 +36,7 @@
                         int inItemSub = inItem.orderDetailprice.Value * inItem.orderDetailnum.Value;
                         TotalPrice += inItemSub;
                         <div class="d-flex bd-highlight mb-3 border-bottom">
-                            <div class="p-2 bd-highlight"><a href="@Url.Action("Detail", "Home")?id=@inItem.spuId" )"><img src="@Url.Content($"{inItem.spuImg1}")" style="width:100px;height:100px"></a></div>
+                            <div class="p-2 bd-highlight"><a href="@Url.Action("Detail", "Home")?id=@inItem.spuId" )"><img src="@Url.Content($"{inItem.spuImg1}")" style="width: 100px; height: 100px; object-fit: scale-down;"></a></div>
                             <div class="p-2 bd-highlight">
                                 @inItem.orderDetailspuname
                                 <br />

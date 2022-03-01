@@ -49,7 +49,7 @@
                                     <div class=" col-1"><input  onclick="skuchecked(@inItem.skuId)" type="checkbox" name="checkboxs" id="sku" /></div>
                                 }
 
-                                <div class="col-2"><a href="@Url.Action("Detail", "Home")?id=@inItem.spuId" )"><img src="@Url.Content($"{inItem.spuImg1}")" style="width:100px;height:100px" class="img-responsive"></a></div>
+                                <div class="col-2"><a href="@Url.Action("Detail", "Home")?id=@inItem.spuId" )"><img src="@Url.Content($"{inItem.spuImg1}")" style="width: 100px; height: 100px;object-fit: scale-down;" class="img-responsive"></a></div>
                             </div>
                             <div class="row col-7 col-md-9 col-lg-10 align-items-center justify-content-around">
 
