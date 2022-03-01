@@ -31,19 +31,19 @@
             color: #ffffff;
             font-weight: bold;
         }
+
         .ui-widget button {
             background: url(/Images/btn001.png) no-repeat;
             border-radius: 50%;
             border: none;
         }
-
     </style>
 </head>
 <body id="body-content">
     <div class="container">
         <div class="row mt-4">
-            <div class="col-12 col-sm-12 col-md-6  d-flex justify-content-center justify-content-md-start" >
-            <a  href="@Url.Action("Index","Home")"><img src="~/Images/logo.png"  /></a>               
+            <div class="col-12 col-sm-12 col-md-6  d-flex justify-content-center justify-content-md-start">
+                <a href="@Url.Action("Index","Home")"><img src="~/Images/logo.png" /></a>
             </div>
             <div class="col-12 col-sm-12 col-md-6  d-flex justify-content-md-end justify-content-center align-items-end mb-5 mt-3 ">
                 @using (Html.BeginForm("Allspu", "Home", FormMethod.Get))
@@ -84,7 +84,6 @@
 
 
             <footer class="mb-3">
-
                 <div id="dialog">
                     <form id="memberForm" novalidate style="font-size:16px;">
                         <div class="form-row" style=" border: 1px solid transparent; padding: 0.3em;">
@@ -116,6 +115,7 @@
                         </div>
                     </form>
                 </div>
+
 
                 <div id="dialog2" title="網站使用條款 | 隱私權政策 | 免責聲明">
                     <p style="font-weight:400;">
@@ -157,6 +157,7 @@
                     <button type="button" id="opener" style="font-size: 12px;cursor: pointer;" class="btn">聯絡衣貳衫</button>
                     <div>
                         <button type="button" id="opener2" style="font-size: 12px;cursor: pointer;" class="btn">網站使用條款 | 隱私權政策 | 免責聲明 </button>
+                        <span style="font-size: 12px">此網站沒有商業用途，圖片來源皆來自CACO官網。</span>
                         <span style="font-size: 12px"> | &copy; @DateTime.Now.Year - 衣貳衫</span>
                     </div>
 
@@ -184,7 +185,7 @@
                 modal: true,
                 autoOpen: false,
                 height: 730,
-                title:"聯絡管理員",
+                title: "聯絡管理員",
                 show: {
                     effect: "puff",
                     duration: 1000
@@ -201,14 +202,14 @@
         });
         $(function () {
             $("#dialog2").dialog({
-                        modal: true,
-                        autoOpen: false,
-                        title: "網站使用條款 | 隱私權政策 | 免責聲明",
-                        height: 730,
-                        width: 400,
-                        show: {
-                        effect: "drop",
-                        duration: 1000
+                modal: true,
+                autoOpen: false,
+                title: "網站使用條款 | 隱私權政策 | 免責聲明",
+                height: 730,
+                width: 400,
+                show: {
+                    effect: "drop",
+                    duration: 1000
                 },
                 hide: {
                     effect: "blind",
