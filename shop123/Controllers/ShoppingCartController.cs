@@ -80,10 +80,23 @@ namespace shop123.Controllers
         }
 
         public ActionResult DeleteCar(int Id)
-        {
-            (new ordersDetailFactory()).DeleteCar(Id);
+        {           
+            // 依Id找出要刪除購物車狀態的產品
+            var orderDetail = db.ordersDetail.Where
+                (m => m.id == Id).FirstOrDefault();
+            //刪除購物車狀態的產品
+            if (orderDetail != null)
+            {
+                db.ordersDetail.Remove(orderDetail);
+            }
+            db.SaveChanges();
             return RedirectToAction("ShoppingCarPartial");
         }
+        // public ActionResult DeleteCar(int Id)
+        //{
+        //    (new ordersDetailFactory()).DeleteCar(Id);
+        //    return RedirectToAction("ShoppingCarPartial");
+        //}
 
         public ActionResult skuchecked(int skuid)
         {

@@ -25,7 +25,7 @@ namespace shop123.Controllers
 
 
 
-        int pageSize = 20;
+        int pageSize = 40;
 
         public ActionResult Allspu(string searchstring, int page = 1)
         {//所有產品分頁的頁面
