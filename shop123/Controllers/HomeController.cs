@@ -257,7 +257,7 @@ namespace shop123.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Enroll(EnrollModel em)
+        public ActionResult Enroll(member em)
         {
             shop123Entities2 shop = new shop123Entities2();
 
@@ -275,12 +275,12 @@ namespace shop123.Controllers
 
             p.memberCreateTime = DateTime.Now;
             shop.member.Add(p);
-            shop.SaveChanges();
+         
 
 
             try
             {
-
+                 shop.SaveChanges();
                 ViewBag.suc = "註冊成功，請重新登入";
                 return RedirectToAction("sign");
             }

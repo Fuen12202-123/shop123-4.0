@@ -14,25 +14,23 @@ public partial class spu
         {
             [Key]
             public int id { get; set; }
-            [Required(ErrorMessage = "必填欄位")]
+           
             [DisplayName("商品名稱")]
             public string spuName { get; set; }
-            [Required(ErrorMessage = "必填欄位")]
+       
             [DisplayName("會員編號")]
             public int memberId { get; set; }
 
             [DisplayName("商品描述")]
             public string spuInfo { get; set; }
-            [Required(ErrorMessage = "必填欄位")]
+
             [DisplayName("商品單價")]
             public int spuPrice { get; set; }
-            [Required(ErrorMessage = "必填欄位")]
+      
             [DisplayName("分類大項")]
             public int catalogAId { get; set; }
-            [Required(ErrorMessage = "必填欄位")]
             [DisplayName("分類細項")]
             public int catalogBId { get; set; }
-            [Required(ErrorMessage = "必填欄位")]
             [DisplayName("圖片1")]
             public string spuImg1 { get; set; }
             [DisplayName("圖片2")]
@@ -43,7 +41,6 @@ public partial class spu
             public string spuImg4 { get; set; }
             [DisplayName("圖片5")]
             public string spuImg5 { get; set; }
-            [Required(ErrorMessage = "必填欄位")]
             [DisplayName("是否上架")]
             public string spuShow { get; set; }
             [DisplayName("創建時間")]
