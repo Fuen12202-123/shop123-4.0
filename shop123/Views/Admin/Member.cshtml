@@ -5,6 +5,7 @@
 }
 
 <!DOCTYPE html>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
 <html>
 <head>
@@ -15,105 +16,105 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        * {
-            margin: 0;
-            padding: 0px;
-        }
+                * {
+                    margin: 0;
+                    padding: 0px;
+                }
 
-        body {
-            margin: 30px;
-            padding:30px
-        }
+                body {
+                    margin: 30px;
+                    padding: 30px
+                }
 
-        table {
-            overflow: scroll;
-            width: 100%;
-            table-layout: fixed;
-            min-width: 1440px;
-        }
+                table {
+                    overflow: scroll;
+                    width: 100%;
+                    table-layout: fixed;
+                    min-width: 1440px;
+                }
 
-        td {
-            overflow: hidden;
-            /*max-width: 100px;*/
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            text-align: center;
-        }
+                td {
+                    overflow: hidden;
+                    /*max-width: 100px;*/
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    text-align: center;
+                }
 
-        th {
-            text-align: center;
-        }
+                th {
+                    text-align: center;
+                }
 
-        .w5 {
-            width: 5rem;
-        }
+                .w5 {
+                    width: 5rem;
+                }
 
-        .w7 {
-            width: 7rem;
-        }
+                .w7 {
+                    width: 7rem;
+                }
 
-        .w8 {
-            width: 8rem;
-        }
+                .w8 {
+                    width: 8rem;
+                }
 
-        .w15 {
-            width: 15rem;
-        }
+                .w15 {
+                    width: 15rem;
+                }
 
-        .edede9 {
-            background-color: #edede9;
-        }
+                .edede9 {
+                    background-color: #edede9;
+                }
 
-        .d6ccc2 {
-            background-color: #d6ccc2;
-        }
+                .d6ccc2 {
+                    background-color: #d6ccc2;
+                }
 
-        .f5ebe0 {
-            background-color: #f5ebe0;
-        }
+                .f5ebe0 {
+                    background-color: #f5ebe0;
+                }
 
-        .e3d5ca {
-            background-color: #e3d5ca;
-        }
+                .e3d5ca {
+                    background-color: #e3d5ca;
+                }
 
-        .d5bdaf {
-            background-color: #d5bdaf;
-        }
+                .d5bdaf {
+                    background-color: #d5bdaf;
+                }
 
-        .text-decoration-none {
-            text-decoration: none;
-        }
+                .text-decoration-none {
+                    text-decoration: none;
+                }
 
-/*按鈕css*/
- /*       input {
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
+                /*按鈕css*/
+                /*       input {
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                    cursor: pointer;
+                }
 
-        .skin {
-            pointer-events: none;
-            border-radius: inherit;
-        }
+                .skin {
+                    pointer-events: none;
+                    border-radius: inherit;
+                }
 
-        .one.skin {
-            background-color: wheat;
-        }
+                .one.skin {
+                    background-color: wheat;
+                }
 
-        .two.skin {
-            background-color: blue;
-            --mask: radial-gradient(circle at 45px 45px, rgba(0,0,0,0) 40px, rgba(0,0,0,1) 40px);
-            mask-image: var(--mask);
-            -webkit-mask-image: var(--mask);
-        }
+                .two.skin {
+                    background-color: blue;
+                    --mask: radial-gradient(circle at 45px 45px, rgba(0,0,0,0) 40px, rgba(0,0,0,1) 40px);
+                    mask-image: var(--mask);
+                    -webkit-mask-image: var(--mask);
+                }
 
-        input:checked ~ .two.skin {
-            --mask: radial-gradient(circle at 305px 45px, rgba(0,0,0,1) 40px, rgba(0,0,0,0) 40px);
-            mask-image: var(--mask);
-            -webkit-mask-image: var(--mask);
-        }
-*/
+                input:checked ~ .two.skin {
+                    --mask: radial-gradient(circle at 305px 45px, rgba(0,0,0,1) 40px, rgba(0,0,0,0) 40px);
+                    mask-image: var(--mask);
+                    -webkit-mask-image: var(--mask);
+                }
+        */
     </style>
 </head>
 <body>
@@ -177,7 +178,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.memberEmail)
                     </td>
-                    <td >
+                    <td>
                         @Html.DisplayFor(modelItem => item.memberImg)
                         @*<img src="@item.memberImg" class="card-img-top" alt="...">*@
                         <div style="width:160px;height:100%;object-fit:contain;" class="thumbnail text-center">
@@ -196,7 +197,8 @@
                                     <img src=@Url.Content($"~/Images/{item.memberImg}")
                                          class="card-img-top" alt=@item.memberImg>}
                             }
-                            else { 
+                            else
+                            {
                                 <img src=@Url.Content($"~/Images/default.png") class="card-img-top" alt=@item.memberImg>
                             }
                         </div>

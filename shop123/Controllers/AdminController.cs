@@ -234,15 +234,15 @@ namespace shop123.Controllers
         //}
         ////商品刪除
         ////TODO:刪除確認
-       
-        //[HttpPost]
-        //public ActionResult SpuDelete(int id)
-        //{
-        //    var pSpu = db.spu.Where(p => p.id == id).FirstOrDefault();
-        //    db.spu.Remove(pSpu);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Spu");
-        //}
+
+        [HttpPost]
+        public ActionResult SpuDelete(int id)
+        {
+            var pSpu = db.spu.Where(p => p.id == id).FirstOrDefault();
+            db.spu.Remove(pSpu);
+            db.SaveChanges();
+            return RedirectToAction("Spu");
+        }
 
 
         ////檢查是否為圖片
