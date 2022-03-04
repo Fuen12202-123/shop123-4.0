@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
 
 namespace shop123.Controllers
 {
@@ -259,6 +260,23 @@ namespace shop123.Controllers
         [HttpPost]
         public ActionResult Enroll(member em)
         {
+            var apiKey = "6LerTLMeAAAAADson7VRKnyraDjhDWh4MqUdZKG3";
+            var url = "https://www.google.com/recaptcha/api/siteverify";
+            var wc = new System.Net.WebClient();
+            wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+            var data = "secret=" + apiKey + "&response=" + Request.Form["g-recaptcha-response"];
+            var json = wc.UploadString(url, data);
+            // JSON 反序化取 .success 屬性 true/false 判斷
+            var success = JsonConvert.DeserializeObject<JObject>(json).Value<bool>("success");
+            if (!success)
+            {
+                ViewBag.error = "驗證碼有誤";
+                return View();
+            }
+            // TODO: 檢查帳號密碼
+            ViewBag.caution = "確認過眼神，你不是機器人，但程式還沒完成";
+
+
             shop123Entities2 shop = new shop123Entities2();
 
 
